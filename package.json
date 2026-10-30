@@ -1,0 +1,45 @@
+{
+  "name": "solo-rpg",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.34.9",
+  "engines": {
+    "node": ">=24.17.0 <25"
+  },
+  "scripts": {
+    "setup:env": "node scripts/setup-env.mjs",
+    "dev": "pnpm --filter @solo-rpg/shared-contracts build && dotenv -e .env -- concurrently -k -n web,api,ai \"pnpm --filter @solo-rpg/web dev\" \"pnpm --filter @solo-rpg/api dev\" \"pnpm --filter @solo-rpg/ai-service dev\"",
+    "build": "pnpm -r build",
+    "lint": "eslint scripts eslint.config.mjs && pnpm -r lint",
+    "typecheck": "pnpm --filter @solo-rpg/shared-contracts build && pnpm -r typecheck",
+    "test": "pnpm --filter @solo-rpg/shared-contracts build && pnpm -r test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "python:sync": "node scripts/uv.mjs sync --locked",
+    "db:generate": "pnpm --filter @solo-rpg/api db:generate",
+    "db:migrate": "pnpm --filter @solo-rpg/api db:migrate",
+    "docker:up": "docker compose up --build -d --wait",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "docker:local": "docker compose -f docker-compose.yml -f docker-compose.local.yml up --build -d --wait",
+    "db:up": "docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --wait postgres",
+    "smoke": "node scripts/smoke.mjs",
+    "contracts:export": "node scripts/export-contracts.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "eslint": "9.39.5",
+    "typescript-eslint": "^8.46.0",
+    "typescript": "^5.9.3",
+    "prettier": "^3.6.2",
+    "concurrently": "^9.2.1",
+    "dotenv-cli": "^10.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild@<0.25.0": "0.25.12",
+      "@nestjs/platform-express>multer": "2.5.0",
+      "@nestjs/swagger>js-yaml": "5.4.1"
+    }
+  }
+}

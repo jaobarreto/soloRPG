@@ -1,0 +1,12 @@
+pnpm-lock.yaml
+uv.lock
+.tools/
+.next/
+dist/
+node_modules/
+coverage/
+*.py
+*.toml
+apps/api/drizzle/meta/
+docs/base-projeto.md
+**/next-env.d.ts

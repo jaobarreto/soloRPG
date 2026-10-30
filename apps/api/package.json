@@ -1,0 +1,45 @@
+{
+  "name": "@solo-rpg/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsc -p tsconfig.build.json && concurrently -k -n tsc,nest \"tsc -p tsconfig.build.json --watch --preserveWatchOutput\" \"node --watch dist/main.js\"",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/main.js",
+    "lint": "eslint src test drizzle.config.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "@nestjs/common": "11.2.8",
+    "@nestjs/core": "11.2.8",
+    "@nestjs/platform-express": "11.2.8",
+    "@nestjs/config": "4.0.4",
+    "@nestjs/swagger": "11.4.7",
+    "@solo-rpg/shared-contracts": "workspace:*",
+    "drizzle-orm": "0.45.4",
+    "pg": "8.23.1",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2",
+    "class-validator": "0.15.1",
+    "class-transformer": "0.5.1",
+    "zod": "4.6.7",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "11.2.8",
+    "@solo-rpg/typescript-config": "workspace:*",
+    "@types/node": "^24.10.0",
+    "@types/pg": "8.23.1",
+    "@types/jest": "30.0.0",
+    "@types/supertest": "7.2.1",
+    "drizzle-kit": "0.31.11",
+    "jest": "30.5.2",
+    "ts-jest": "29.4.15",
+    "supertest": "7.3.1",
+    "typescript": "5.9.3"
+  }
+}

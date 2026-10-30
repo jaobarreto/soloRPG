@@ -1,0 +1,9 @@
+# Override opcional para desenvolvimento no host e diagnóstico local.
+# Publica apenas em loopback; não abre PostgreSQL/FastAPI na rede doméstica.
+services:
+  postgres:
+    ports:
+      - '127.0.0.1:${POSTGRES_PORT:-5432}:5432'
+  ai-service:
+    ports:
+      - '127.0.0.1:${AI_SERVICE_PORT:-8000}:8000'

@@ -1,0 +1,10 @@
+{
+  "name": "@solo-rpg/typescript-config",
+  "private": true,
+  "version": "0.1.0",
+  "files": [
+    "base.json",
+    "nest.json",
+    "next.json"
+  ]
+}

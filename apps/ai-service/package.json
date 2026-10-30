@@ -1,0 +1,12 @@
+{
+  "name": "@solo-rpg/ai-service",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node ../../scripts/ai-dev.mjs",
+    "build": "node ../../scripts/uv.mjs run python -m compileall -q app",
+    "lint": "node ../../scripts/uv.mjs run ruff check . && node ../../scripts/uv.mjs run ruff format --check .",
+    "typecheck": "node ../../scripts/uv.mjs run mypy app",
+    "test": "node ../../scripts/uv.mjs run pytest"
+  }
+}

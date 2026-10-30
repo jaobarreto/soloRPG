@@ -1,0 +1,111 @@
+name: solorpg
+services:
+  postgres:
+    image: pgvector/pgvector:0.8.2-pg17-bookworm@sha256:feb68f4f15446397d8cac7f4fe48fe4586de83160d1fc48b46283312d1a33966
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-solorpg}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Execute pnpm setup:env}
+      POSTGRES_DB: ${POSTGRES_DB:-solorpg}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  ai-service:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/ai.Dockerfile
+    environment:
+      AI_SERVICE_PORT: 8000
+      LLM_PROVIDER: ${LLM_PROVIDER:-gemini}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    volumes:
+      - ./apps/ai-service/app:/app/app:ro
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'python',
+          '-c',
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  api:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/node.Dockerfile
+    command:
+      [
+        'sh',
+        '-c',
+        'pnpm --filter @solo-rpg/api db:migrate && pnpm --filter @solo-rpg/api dev',
+      ]
+    environment:
+      NODE_ENV: development
+      API_HOST: 0.0.0.0
+      API_PORT: 3001
+      DATABASE_URL: postgresql://${POSTGRES_USER:-solorpg}:${POSTGRES_PASSWORD:?Execute pnpm setup:env}@postgres:5432/${POSTGRES_DB:-solorpg}
+      AI_SERVICE_URL: http://ai-service:8000
+      HEALTH_TIMEOUT_MS: ${HEALTH_TIMEOUT_MS:-3000}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+    ports:
+      - '127.0.0.1:${API_PORT:-3001}:3001'
+    volumes:
+      - ./apps/api/src:/workspace/apps/api/src:ro
+      - ./apps/api/drizzle:/workspace/apps/api/drizzle:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ai-service:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "Promise.all(['/health','/health/database','/health/ai-service'].map(p=>fetch('http://127.0.0.1:3001/api/v1'+p,{signal:AbortSignal.timeout(3500)}).then(r=>{if(!r.ok)throw Error()}))).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      start_period: 30s
+      retries: 20
+  web:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/node.Dockerfile
+    command: ['pnpm', '--filter', '@solo-rpg/web', 'dev']
+    environment:
+      NODE_ENV: development
+      WEB_PORT: 3000
+      API_INTERNAL_URL: http://api:3001
+      NEXT_PUBLIC_API_URL: /api/v1
+      NEXT_TELEMETRY_DISABLED: 1
+    ports:
+      - '${WEB_PORT:-3000}:3000'
+    volumes:
+      - ./apps/web/src:/workspace/apps/web/src:ro
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000',{signal:AbortSignal.timeout(10000)}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 15s
+      timeout: 12s
+      start_period: 45s
+      retries: 15
+volumes:
+  postgres_data:
