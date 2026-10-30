@@ -6,6 +6,10 @@ const template = readFileSync(
   'utf8',
 );
 const content = template
+  .replace(
+    'AI_INTERNAL_TOKEN=',
+    'AI_INTERNAL_TOKEN=' + randomBytes(32).toString('hex'),
+  )
   .replace('POSTGRES_PASSWORD=', 'POSTGRES_PASSWORD=' + password)
   .replace(
     'DATABASE_URL=',

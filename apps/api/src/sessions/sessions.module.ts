@@ -8,6 +8,6 @@ import { SessionsService } from './sessions.service';
   imports: [DatabaseModule, CampaignsModule],
   controllers: [SessionsController],
   providers: [SessionsRepository, SessionsService],
-  exports: [SessionsRepository],
+  exports: [SessionsRepository, SessionsService],
 })
 export class SessionsModule {}

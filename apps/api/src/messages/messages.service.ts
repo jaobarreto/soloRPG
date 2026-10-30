@@ -11,6 +11,8 @@ import { SessionsRepository } from '../sessions/sessions.repository';
 import { MessagesRepository } from './messages.repository';
 import { CreateMessageDto, MessagesQueryDto } from './dto/message-input.dto';
 import { MessagePageDto, MessageResponseDto } from './dto/message-response.dto';
+import { and, eq, sql } from 'drizzle-orm';
+import { narrativeActions } from '../database/narrative-schema';
 
 @Injectable()
 export class MessagesService {
@@ -39,6 +41,19 @@ export class MessagesService {
       if (session.status !== 'IN_PROGRESS')
         throw new ConflictException(
           'Only sessions in progress accept messages',
+        );
+      const [pending] = await tx
+        .select()
+        .from(narrativeActions)
+        .where(
+          and(
+            eq(narrativeActions.campaignId, campaignId),
+            sql`${narrativeActions.status} NOT IN ('COMPLETED','REJECTED')`,
+          ),
+        );
+      if (pending)
+        throw new ConflictException(
+          'Resolve the pending narrative action first',
         );
       const sequenceNumber =
         (await this.repository.lastSequence(sessionId, tx)) + 1;

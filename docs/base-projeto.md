@@ -13,7 +13,7 @@ A campanha é dividida em um **número planejado de sessões**, cada uma com cha
 ### Princípios inegociáveis
 
 1. **A jogadora controla a protagonista.** A IA não inventa falas, escolhas, pensamentos ou ações voluntárias dela. Efeitos involuntários são permitidos apenas se previstos pelo sistema ou pela ficção validada.
-2. **O backend mantém a verdade.** O LLM propõe; o Game Engine valida e persiste fatos, atributos, itens, dados, relacionamentos, progressão e encerramentos.
+2. **O backend mantém a verdade.** IA propõe → Game Engine valida e resolve → estado/eventos são confirmados no banco → IA narra o resultado confirmado. Texto gerado não concede itens, causa dano, revela conhecimento, altera relacionamentos ou conclui objetivos por si só.
 3. **Não há informação secreta no cliente.** Segredos de campanha, planos privados, resultados de dados do Mestre e conhecimento exclusivo de NPCs ficam no servidor.
 4. **Uma sessão é um capítulo, não um reset.** O chat é separado, mas campanha, mundo, personagem e relacionamentos continuam.
 5. **Tempo orienta; não obriga.** A duração-alvo não autoriza forçar escolhas, inventar vitórias ou concluir um objetivo sem evidência.
@@ -107,13 +107,16 @@ Multiplayer, pagamentos, assinatura, moderação comunitária, treinamento/fine-
 1. Next.js envia `actionId` (UUID/idempotency key), `sessionId`, `mode` e texto ao NestJS.
 2. NestJS autentica/autoriza localmente, verifica status da sessão, salva mensagem da jogadora e cria ação `PENDING`.
 3. NestJS carrega estado oficial, personagens presentes, objetivos, regras e memórias relevantes; passa **visões autorizadas** ao FastAPI.
-4. FastAPI identifica intenção, sugere necessidade de teste e/ou efeitos e gera narrativa estruturada. Texto recebido do jogador/documentos é **dado não confiável**, nunca instrução de sistema.
-5. Se precisar de dado público: backend cria `roll_request`, marca ação `AWAITING_ROLL` e aguarda a jogadora. Se dado secreto: backend executa sem revelar resultado.
-6. NestJS executa mecânicas, valida precondições e efeitos propostos e persiste eventos/estado em transação; ação passa a `COMMITTED`.
-7. Narrativa validada é gravada como mensagem do Mestre antes de ser marcada como entregue; SSE transmite texto/estado final. Em falha de SSE, cliente recarrega histórico sem duplicar efeitos.
+4. FastAPI identifica intenção e retorna **propostas de ação**, referências e justificativas, sem antecipar resultados na narração entregue à jogadora. Texto recebido da jogadora, de documentos ou do LLM é **dado não confiável**, nunca autorização de escrita.
+5. NestJS valida referências, permissões, precondições e mecânicas aplicáveis. Se precisar de dado público: backend cria `roll_request`, marca ação `AWAITING_ROLL` e aguarda a jogadora. Se dado secreto: backend executa sem revelar resultado. Decisões pendentes, como Stunts, também suspendem a confirmação dos efeitos dependentes.
+6. NestJS relê o estado sob os locks, executa mecânicas e persiste estado, eventos e recibo em transação; somente o commit torna esses efeitos oficiais. Proposta sem regra ou política executável fica rejeitada ou pendente de adjudicação, sem efeito automático. Ação passa a `COMMITTED` quando todas as suas consequências estiverem resolvidas.
+7. **Depois do commit**, FastAPI recebe a projeção autorizada do resultado e gera a narração. NestJS valida suas referências e a revisão de estado, grava a mensagem do Mestre e só então a entrega por SSE. A narração não contém comandos de alteração de estado. Em falha de geração ou entrega, retomar a partir do resultado persistido, sem repetir efeitos ou rolagens.
 8. Rotinas de finalização/resumo são independentes e idempotentes; erros não apagam a sessão ou o chat.
 
 **Limite de responsabilidade:** FastAPI não faz `UPDATE` direto em entidades centrais. Sempre solicita alterações via contrato; NestJS aceita/rejeita. O Python pode ser stateless no MVP: a memória persistente vive no PostgreSQL.
+
+A fronteira de oficialização e os critérios de aceite do Mestre estão definidos na
+[ADR 0005](adr/0005-oficializacao-de-acoes-da-ia.md). Esse fluxo é requisito da integração de IA; sua descrição não significa que o Mestre já esteja implementado.
 
 ### Estrutura de monorepo
 
@@ -298,24 +301,30 @@ Não iniciar com sete agentes independentes. Começar com **um fluxo** contendo 
 2. `context`: montar contexto relevante sem segredos indevidos.
 3. `rules`: verificar se há mecânica/rolagem.
 4. `director`: acompanhar objetivo, tempo e ponto narrativo.
-5. `narrator`: gerar resposta temática sem controlar protagonista.
-6. `effects`: propor eventos/relacionamentos/conclusões em estrutura validada.
-7. `validator`: validar estrutura, permissões, consistência e referências.
+5. `effects`: propor ações/eventos/relacionamentos/conclusões, sem aplicar resultados.
+6. `validator` no NestJS: validar estrutura, permissões, consistência, evidências e referências; executar o Game Engine e confirmar efeitos no banco.
+7. `narrator`: receber somente o resultado confirmado e autorizado; gerar resposta temática sem controlar protagonista nem propor novas alterações nessa etapa.
 
-**Saída ilustrativa:**
+**Proposta ilustrativa da primeira etapa (não é um comando administrativo nem um contrato já implementado):**
 
 ```json
 {
-  "narrative": "Theron desvia o olhar antes de responder...",
-  "requiresRoll": false,
-  "proposedEvents": [
-    {"type": "NPC_INTERACTION", "npcId": "npc_theron", "summary": "Conversa tensa"}
-  ],
-  "sessionSuggestion": {"readyToEnd": false, "reason": null}
+  "proposedActions": [
+    {
+      "type": "ATTACK",
+      "actorId": "npc_theron",
+      "targetId": "pc_naelis",
+      "reason": "Theron tenta atingir Naelis com a espada equipada."
+    }
+  ]
 }
 ```
 
-Os eventos propostos **não são aplicados automaticamente sem validação**. Para minimizar custo, combinar etapas numa chamada estruturada quando seguro; chamadas adicionais apenas em testes, falhas de formato ou necessidade narrativa. Fazer uso de regras estruturadas e recuperação seletiva de contexto para evitar enviar o histórico integral ao LLM.
+O backend decide se o ataque é permitido, resolve os dados e calcula o dano usando o estado oficial. A proposta não fornece dano, resultado dos dados ou novo valor de Vida. Se houver decisão pendente de Stunts, não se pode narrar ainda um ferimento confirmado.
+
+Após a confirmação, uma segunda etapa recebe os eventos aceitos e os resultados autorizados para redigir o texto. O schema dessa resposta aceita apenas narração e referências ao resultado; não aceita `proposedActions` ou patches de estado. Novos acontecimentos com consequência exigem nova proposta e validação. Narração livre não é fonte de fatos para memória, conhecimento de NPCs, inventário ou objetivos.
+
+Para minimizar custo, combinar os papéis anteriores à resolução em uma chamada estruturada e usar contexto seletivo. Não fundir proposta e narração final quando houver consequência a resolver; a economia de chamadas não altera a ordem de oficialização. Uma fala OOC sem efeito pode usar um caminho apenas de resposta, sem escrita no mundo.
 
 ### Política de contexto
 
@@ -402,6 +411,11 @@ GET    /health
 - OOC não altera estado narrativo.
 - Progresso muda apenas com marcos validados.
 - LLM indisponível preserva ações/mensagens já persistidas e permite retomar.
+- Proposta de ataque não altera Vida antes da resolução e do commit; ataque inválido ou com Stunts pendentes não confirma ferimento.
+- Campos como dano, faces dos dados, patch de Vida ou comando administrativo em saída de IA são rejeitados; JSON válido não substitui validação de domínio.
+- Inventário, relacionamento, conhecimento de NPC e objetivo exigem políticas e evidências verificadas; domínio ainda sem validador não recebe efeitos automáticos.
+- Falha na narração após commit permite regenerar somente o texto, sem repetir rolagem, dano, concessão de item ou conclusão de objetivo.
+- Resposta atrasada da IA não confirma proposta contra estado obsoleto nem publica narrativa de resultado em sessão diferente.
 
 ### Testes narrativos (avaliação com cenários)
 

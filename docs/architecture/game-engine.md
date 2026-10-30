@@ -19,6 +19,21 @@ combate básico, cinco Stunts e Curar. [Mecânicas e fontes](../rules/blue-rose-
 - `web/.../game`: ficha, dados, inventário, combate, arcanos, mundo, NPCs e relacionamentos.
   O chat da Fase 2 continua na sua própria rota e recebe mensagens de dados públicos.
 
+## Fronteira com o Mestre
+
+A integração narrativa restrita está descrita em
+[orquestração da IA](ai-orchestration.md) e segue a
+[ADR 0005](../adr/0005-oficializacao-de-acoes-da-ia.md): propor ações, validar e
+resolver no motor, confirmar efeitos/eventos no banco e só então narrar o resultado.
+Nunca usar a prosa para atualizar Vida, inventário, relacionamento, conhecimento ou
+objetivos. Saída estruturada exige validação de domínio e evidências no backend.
+
+`executeInternal` é uma capacidade administrativa do servidor e da CLI, não um
+dispatcher para propostas do LLM. O adaptador narrativo usa uma allowlist com
+ações permitidas e validadores específicos; comandos de correção manual não concedem
+à IA autoridade para definir recursos ou efeitos. Mecânicas e domínios ainda sem
+política executável exigem rejeição ou adjudicação explícita.
+
 O cadastro público transcreve uma ficha existente em uma campanha `DRAFT`, com uma
 protagonista por campanha. Não certifica criação legal, benefícios ou progressão.
 Depois de iniciar a campanha, PATCH público só altera nome, descrição e objetivos.

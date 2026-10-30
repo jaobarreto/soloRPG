@@ -4,9 +4,14 @@ Base local para uma aplicação de RPG solo. O requisito principal está em
 [docs/base-projeto.md](docs/base-projeto.md). Esta entrega inclui campanhas, sessões
 com cronômetro pausável e chat persistente, além do Game Engine Blue Rose AGE da
 Fase 3: personagens, dados, testes, combate básico e estado do mundo. O recorte
-mecânico e suas pendências estão documentados abaixo; o Mestre por IA continua pendente.
+mecânico e suas pendências estão documentados abaixo. A Fase 4 acrescenta um Mestre
+com propostas restritas, checkpoints persistentes e narração após commit.
 A [arquitetura do domínio](docs/architecture/campaigns-and-sessions.md) descreve
 contratos, concorrência e preservação do histórico.
+A [ADR 0005](docs/adr/0005-oficializacao-de-acoes-da-ia.md) define a integração
+do Mestre: IA propõe, motor valida e confirma efeitos no banco, IA narra o
+resultado confirmado. O recorte implementado e seus limites estão em
+[orquestração da IA](docs/architecture/ai-orchestration.md).
 
 ## Stack e estrutura
 
@@ -134,7 +139,7 @@ pnpm dev
 `pnpm dev` inicia os três aplicativos com hot reload; Ctrl+C encerra os três.
 O banco continua no Docker. Para desenvolver só a Fase 2, use `pnpm dev:game` no
 lugar de `pnpm dev`; Python não é necessário. `AI_SERVICE_URL` continua configurada
-para preservar o diagnóstico opcional da Fase 1, sem chamadas nos fluxos de jogo.
+para preservar o diagnóstico da Fase 1. O novo chat salva ações pendentes quando o Python está ausente.
 Os comandos individuais são:
 
 ```bash
@@ -166,7 +171,7 @@ em variáveis `NEXT_PUBLIC_*`.
 | `HEALTH_TIMEOUT_MS`                                                  | Timeout de dependências no NestJS; padrão 3000 ms.                                                         |
 | `MESSAGE_MAX_LENGTH`                                                 | Limite da API por mensagem; padrão 10.000 caracteres (1–100.000). A UI permite até 10.000.                 |
 | `GEMINI_API_KEY`, `GROQ_API_KEY`                                     | Opcionais, apenas no serviço Python; podem ficar vazias.                                                   |
-| `LLM_PROVIDER`                                                       | `gemini`, `groq` ou `ollama`; só configuração, sem chamadas nem fallback.                                  |
+| `LLM_PROVIDER`                                                       | `gemini` ou `groq`; chamadas gratuitas habilitadas por configuração explícita.                             |
 | `LOG_LEVEL`                                                          | Log do serviço Python; padrão `INFO`.                                                                      |
 
 Se editar a senha manualmente, use caracteres seguros para URI ou faça percent-encoding
@@ -308,9 +313,8 @@ mensagens anteriores. Para recuperar todo o chat, use `after=nextCursor` enquant
 O relógio conta intervalos entre start/resume e pause/complete, sem limite rígido.
 **Fechar o navegador não pausa automaticamente:** use o botão Pausar sessão.
 Repetir uma transição já aplicada retorna 409 sem reaplicar seus efeitos; a UI
-recarrega o estado em conflito. Mensagens não têm retry automático ou chave de
-idempotência nesta fase. A tela final mostra título/tempo reais e os links para o
-histórico e a próxima sessão, sem resumo fictício nem porcentagem narrativa.
+recarrega o estado em conflito. O endpoint legado de mensagens mantém seu contrato. O novo fluxo `actions` possui
+idempotência por UUID, retomada e resumo factual no encerramento narrativo.
 
 ## Rede doméstica
 
@@ -355,8 +359,8 @@ Referências técnicas: [Next.js](https://nextjs.org/docs/app/getting-started/in
 [uv em Docker](https://docs.astral.sh/uv/guides/integration/docker/).
 
 Game Engine, personagens, estado do mundo e eventos estão descritos na Fase 3 abaixo,
-preservando as fronteiras do domínio e o histórico integral. IA, Director, resumos e
-detecção de inatividade serão implementados posteriormente.
+preservando as fronteiras do domínio e o histórico integral. A integração de IA,
+Director e resumos é descrita na Fase 4; detecção de inatividade continua pendente.
 
 ## Fase 3 — Game Engine Blue Rose AGE
 
@@ -389,11 +393,65 @@ demais poderes, ações, Stunts e arcanos continuam pendentes.
 A CLI administrativa não abre portas. NPCs, relações, mundo, recursos, perfis e
 pedidos secretos são administrados localmente. O browser não aceita dados oficiais,
 dano, TN, modificadores ou comandos administrativos. A API pública permanece sem
-autenticação, para uma jogadora numa instalação doméstica. Não há integração de
-Mestre de IA ou dependência paga.
+autenticação, para uma jogadora numa instalação doméstica. A comunicação interna
+com o Mestre é autenticada; não há dependência paga.
 
 - [Arquitetura, entidades e API](docs/architecture/game-engine.md)
 - [Comandos e execução](docs/architecture/blue-rose-engine.md)
 - [Fontes e cobertura mecânica](docs/rules/blue-rose-implementation.md)
 - [Mecânicas pendentes](docs/rules/blue-rose-pending-rules.md)
 - [ADR 0004](docs/adr/0004-blue-rose-engine-e-fronteira-local.md)
+
+## Fase 4 — Mestre com oficialização transacional
+
+O chat usa `actionId`, salva a mensagem antes da IA e permite recuperar falhas,
+rolar testes públicos pendentes e consultar o resultado persistido. Gemini e Groq
+possuem adaptadores; o grafo Python separa proposta de narração. Nenhum texto livre
+modifica Vida, inventário, relações, conhecimento ou objetivos.
+
+Para executar no host:
+
+```sh
+pnpm python:sync
+pnpm --filter @solo-rpg/shared-contracts build
+pnpm db:up
+pnpm db:migrate
+pnpm dev
+```
+
+Antes das chamadas externas, configure no `.env` uma chave de conta gratuita sem
+billing, `LLM_PROVIDER`, `GEMINI_MODEL` ou `GROQ_MODEL`, e `AI_FREE_TIER_CONFIRMED=true`.
+Adicione também `AI_INTERNAL_TOKEN`, um segredo aleatório compartilhado entre a API
+e o Python; instalações novas recebem esse segredo pelo `pnpm setup:env`. Não há
+fallback pago. Detalhes e fontes: [provedores](docs/ai/providers.md).
+
+O recorte seguro exige preparação local da cena. Copie
+[o exemplo](docs/examples/narrative-plan.json), substitua campaignId, targetSessionId
+e o ID da protagonista em presentCharacterIds pelos IDs reais e execute antes de
+iniciar a sessão:
+
+```sh
+pnpm --filter @solo-rpg/api engine:command /caminho/absoluto/cena.json
+```
+
+Na sessão, selecione **Fazer**, escolha **Escalar a muralha**, escreva sua tentativa
+e envie. A IA pode propor apenas a opção escolhida; o motor valida, solicita os
+dados e confirma o resultado antes de narrar. Os rótulos `intent` são públicos;
+não devem conter segredos. Há adjudicação explícita para dispensar Stunts de NPCs.
+
+O Director calcula objetivos por evidências e sugere o fim sem encerrar por tempo.
+O novo endpoint `finalize` gera resumo factual, preserva todo o chat e libera a
+próxima sessão atomicamente. O SSE disponível reproduz estado persistido; a UI
+consulta o estado sem transmitir tokens ainda não validados.
+
+**Limites atuais:** prosa divergente usa fallback determinístico; diálogo livre e
+improvisação com efeitos arbitrários ainda não têm validação semântica. OOC explica
+o teste básico, sem respostas livres a qualquer pergunta. Não há marcos globais,
+resumo literário, embeddings ou autenticação da jogadora. A ausência de chaves neste
+ambiente impede afirmar qualidade/consumo de APIs reais. Esses pontos não estão
+marcados como entrega integral de todos os critérios da Fase 4.
+
+- [Orquestração e endpoints](docs/architecture/ai-orchestration.md)
+- [Memória](docs/architecture/memory-engine.md) e [Director](docs/architecture/campaign-director.md)
+- [Contexto](docs/ai/context-management.md) e [prompts](docs/ai/prompts.md)
+- [Avaliações](docs/ai/evaluations.md) e [testes](docs/testing/narrative-tests.md)

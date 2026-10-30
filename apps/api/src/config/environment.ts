@@ -8,6 +8,7 @@ const schema = z.object({
   API_HOST: z.string().default('127.0.0.1'),
   DATABASE_URL: z.url({ protocol: /^postgres(ql)?$/ }),
   AI_SERVICE_URL: httpUrl,
+  AI_INTERNAL_TOKEN: z.string().default(''),
   MESSAGE_MAX_LENGTH: z.coerce.number().int().min(1).max(100000).default(10000),
   HEALTH_TIMEOUT_MS: z.coerce.number().int().min(100).max(30000).default(3000),
   CORS_ORIGINS: z

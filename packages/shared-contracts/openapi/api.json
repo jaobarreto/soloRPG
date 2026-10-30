@@ -3724,12 +3724,310 @@
         "responses": { "200": { "description": "" } },
         "tags": ["Blue Rose AGE / Player"]
       }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/actions": {
+      "post": {
+        "operationId": "NarrativeController_create",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["actionId", "interactionMode", "content"],
+                "properties": {
+                  "actionId": { "type": "string", "format": "uuid" },
+                  "optionId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Prepared action explicitly selected by the player"
+                  },
+                  "interactionMode": {
+                    "type": "string",
+                    "enum": ["SPEAK", "ACT", "THINK", "OUT_OF_CHARACTER"]
+                  },
+                  "content": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 10000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "summary": "Persist a player message and process an idempotent narrative action",
+        "tags": ["narrative"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/actions/{actionId}": {
+      "get": {
+        "operationId": "NarrativeController_get",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "actionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["narrative"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/actions/{actionId}/retry": {
+      "post": {
+        "operationId": "NarrativeController_retry",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "actionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["narrative"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/actions/{actionId}/roll": {
+      "post": {
+        "operationId": "NarrativeController_roll",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "actionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["narrative"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/actions/{actionId}/decline-npc-stunts": {
+      "post": {
+        "operationId": "NarrativeController_stunts",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "actionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["narrative"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/actions/{actionId}/cancel": {
+      "post": {
+        "operationId": "NarrativeController_cancel",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "actionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["narrative"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/narrative-state": {
+      "get": {
+        "operationId": "NarrativeController_state",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["narrative"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/summary": {
+      "get": {
+        "operationId": "NarrativeController_summary",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["narrative"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/ai-usage": {
+      "get": {
+        "operationId": "NarrativeController_usage",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["narrative"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/finalize": {
+      "post": {
+        "operationId": "NarrativeController_finalize",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["narrative"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/actions/{actionId}/stream": {
+      "get": {
+        "operationId": "NarrativeController_stream",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "actionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "summary": "Replay the persisted action status; never executes a workflow or streams uncommitted tokens",
+        "tags": ["narrative"]
+      }
     }
   },
   "info": {
     "title": "SoloRPG API",
-    "description": "Campaigns, sessions, persistent chat and Blue Rose AGE game engine",
-    "version": "0.3.0",
+    "description": "Campaigns, sessions, persistent chat, Blue Rose AGE and validated narrative actions",
+    "version": "0.4.0",
     "contact": {}
   },
   "tags": [],

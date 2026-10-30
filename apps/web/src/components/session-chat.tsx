@@ -7,6 +7,7 @@ import type {
   CampaignSession,
   MessagePage,
   SessionMessage,
+  PublicNarrativeAction,
 } from '@solo-rpg/shared-contracts';
 import {
   apiRequest,
@@ -17,6 +18,7 @@ import {
   sessionLabels,
 } from '@/lib/campaign-api';
 import { ErrorNotice, StatusBadge } from './campaign-ui';
+import { AiUsage } from './ai-usage';
 
 function ActiveTime({ session }: { session: CampaignSession }) {
   const [extra, setExtra] = useState(0);
@@ -49,10 +51,84 @@ export function SessionChat({
   }>({ hasMore: false, nextCursor: null });
   const [content, setContent] = useState('');
   const [mode, setMode] = useState<keyof typeof modeLabels>('SPEAK');
+  const [optionId, setOptionId] = useState('');
+  const [options, setOptions] = useState<
+    { id: string; intent: string; mode: string }[]
+  >([]);
   const [endingType, setEndingType] = useState('PLAYER_REQUESTED');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [endedNow, setEndedNow] = useState(false);
+  const [action, setAction] = useState<PublicNarrativeAction | null>(null);
+  const [progress, setProgress] = useState<{
+    progress: number;
+    suggestSessionEnding: boolean;
+  }>({ progress: 0, suggestSessionEnding: false });
+  const [unsent, setUnsent] = useState<{
+    actionId: string;
+    optionId?: string;
+    interactionMode: string;
+    content: string;
+  } | null>(null);
+  const storageKey = `solo-rpg:pending:${sessionId}`;
+  const pending =
+    !!unsent ||
+    (!!action && !['COMPLETED', 'REJECTED'].includes(action.status));
+
+  const syncNarrative = useCallback(async () => {
+    const state = await apiRequest<{
+      action: PublicNarrativeAction | null;
+      availableOptions: { id: string; intent: string; mode: string }[];
+      progress: number;
+      suggestSessionEnding: boolean;
+    }>(`${path}/narrative-state`);
+    setAction(state.action);
+    setOptions(state.availableOptions);
+    setProgress(state);
+  }, [path]);
+  const syncHistory = useCallback(async () => {
+    let cursor = 0;
+    for (;;) {
+      const history = await apiRequest<MessagePage>(
+        `${path}/messages?after=${cursor}`,
+      );
+      setMessages((previous) => mergeMessages(previous, history.data));
+      setPage(history);
+      if (!history.hasMore || history.nextCursor === null) break;
+      cursor = history.nextCursor;
+    }
+  }, [path]);
+  useEffect(() => {
+    let active = true;
+    Promise.resolve()
+      .then(async () => {
+        if (!active) return;
+        const stored = sessionStorage.getItem(storageKey);
+        if (stored) {
+          try {
+            setUnsent(JSON.parse(stored));
+          } catch {
+            sessionStorage.removeItem(storageKey);
+          }
+        }
+        await syncNarrative();
+      })
+      .catch((e) => {
+        if (active) setError(errorMessage(e));
+      });
+    return () => {
+      active = false;
+    };
+  }, [storageKey, syncNarrative]);
+  useEffect(() => {
+    if (!pending || busy) return;
+    const timer = setInterval(() => {
+      Promise.all([syncNarrative(), syncHistory()]).catch((e) =>
+        setError(errorMessage(e)),
+      );
+    }, 2500);
+    return () => clearInterval(timer);
+  }, [pending, busy, syncNarrative, syncHistory]);
 
   const refreshSession = useCallback(async () => {
     const [current, detail] = await Promise.all([
@@ -110,7 +186,7 @@ export function SessionChat({
     setError('');
     try {
       const updated = await apiRequest<CampaignSession>(
-        `/campaigns/${campaignId}/sessions/${targetId}/${action}`,
+        `/campaigns/${campaignId}/sessions/${targetId}/${action === 'complete' ? 'finalize' : action}`,
         {
           method: 'POST',
           body: JSON.stringify(action === 'complete' ? { endingType } : {}),
@@ -130,36 +206,63 @@ export function SessionChat({
       setBusy(false);
     }
   }
-  async function send(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!content.trim() || session?.status !== 'IN_PROGRESS') return;
+  async function submitTurn(payload: {
+    actionId: string;
+    optionId?: string;
+    interactionMode: string;
+    content: string;
+  }) {
     setBusy(true);
     setError('');
     try {
-      const message = await apiRequest<SessionMessage>(`${path}/messages`, {
-        method: 'POST',
-        body: JSON.stringify({ interactionMode: mode, content }),
-      });
+      const result = await apiRequest<PublicNarrativeAction>(
+        `${path}/actions`,
+        { method: 'POST', body: JSON.stringify(payload) },
+      );
+      setAction(result);
+      setUnsent(null);
       setContent('');
-      // If older pages are not loaded, keep the cursor gap visible and append this
-      // committed message only once that gap has been fetched.
-      if (!page.hasMore)
-        setMessages((previous) => mergeMessages(previous, [message]));
-      else {
-        let cursor = page.nextCursor!;
-        for (;;) {
-          const next = await apiRequest<MessagePage>(
-            `${path}/messages?after=${cursor}`,
-          );
-          setMessages((previous) => mergeMessages(previous, next.data));
-          setPage(next);
-          if (!next.hasMore) break;
-          cursor = next.nextCursor!;
-        }
-      }
+      setOptionId('');
+      sessionStorage.removeItem(storageKey);
+      if (result.error) setError(result.error);
+      await Promise.all([syncHistory(), syncNarrative()]);
     } catch (error) {
       setError(errorMessage(error));
-      await refreshSession().catch(() => {});
+    } finally {
+      setBusy(false);
+    }
+  }
+  async function send(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!content.trim() || session?.status !== 'IN_PROGRESS' || pending) return;
+    const payload = {
+      actionId: crypto.randomUUID(),
+      interactionMode: mode,
+      ...(optionId && options.some((o) => o.id === optionId && o.mode === mode)
+        ? { optionId }
+        : {}),
+      content,
+    };
+    sessionStorage.setItem(storageKey, JSON.stringify(payload));
+    setUnsent(payload);
+    await submitTurn(payload);
+  }
+  async function continueAction(
+    operation: 'retry' | 'roll' | 'decline-npc-stunts' | 'cancel',
+  ) {
+    if (!action) return;
+    setBusy(true);
+    setError('');
+    try {
+      const result = await apiRequest<PublicNarrativeAction>(
+        `${path}/actions/${action.id}/${operation}`,
+        { method: 'POST', body: '{}' },
+      );
+      setAction(result);
+      if (result.error) setError(result.error);
+      await Promise.all([syncHistory(), syncNarrative()]);
+    } catch (error) {
+      setError(errorMessage(error));
     } finally {
       setBusy(false);
     }
@@ -223,8 +326,9 @@ export function SessionChat({
             </div>
           </header>
           <p className="mb-5 text-sm text-stone-500">
-            A IA será integrada em uma etapa posterior. Este chat registra suas
-            mensagens.
+            O Mestre responde após a validação do motor. Suas mensagens e os
+            resultados confirmados ficam salvos, inclusive quando a IA está
+            indisponível.
           </p>
           {session.status === 'AVAILABLE' && (
             <section className="panel mb-6">
@@ -368,6 +472,82 @@ export function SessionChat({
               )}
             </section>
           )}
+          {process.env.NODE_ENV === 'development' && (
+            <AiUsage
+              path={path}
+              revision={`${action?.id}:${action?.status}:${action?.error}`}
+            />
+          )}
+          {session.summary && (
+            <p className="panel mt-5 whitespace-pre-wrap">{session.summary}</p>
+          )}
+          {progress.suggestSessionEnding &&
+            session.status === 'IN_PROGRESS' && (
+              <p className="panel mt-5">
+                Os objetivos possuem evidências confirmadas. Este pode ser um
+                bom ponto de encerramento; a decisão é sua.
+              </p>
+            )}
+          {pending && (
+            <section className="panel mt-5" aria-label="Turno do Mestre">
+              <p role="status">
+                {busy
+                  ? 'O Mestre está respondendo…'
+                  : action?.status === 'AWAITING_ROLL'
+                    ? `Teste de ${action.pendingRoll?.ability ?? 'habilidade'} aguardando sua rolagem.`
+                    : action?.status === 'AWAITING_STUNTS'
+                      ? 'O ataque aguarda decisão de façanhas. O dano ainda não foi confirmado.'
+                      : 'Turno pendente. Sua mensagem permanece salva para recuperação.'}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-3">
+                {unsent && (
+                  <button
+                    className="secondary-button"
+                    disabled={busy}
+                    onClick={() => submitTurn(unsent)}
+                  >
+                    Recuperar envio
+                  </button>
+                )}
+                {!unsent && action?.retryable && (
+                  <button
+                    className="secondary-button"
+                    disabled={busy || session.status !== 'IN_PROGRESS'}
+                    onClick={() => continueAction('retry')}
+                  >
+                    Tentar resposta novamente
+                  </button>
+                )}
+                {action?.status === 'AWAITING_ROLL' && (
+                  <button
+                    className="primary-button"
+                    disabled={busy || session.status !== 'IN_PROGRESS'}
+                    onClick={() => continueAction('roll')}
+                  >
+                    Rolar 3d6
+                  </button>
+                )}
+                {action?.status === 'AWAITING_STUNTS' && (
+                  <button
+                    className="secondary-button"
+                    disabled={busy || session.status !== 'IN_PROGRESS'}
+                    onClick={() => continueAction('decline-npc-stunts')}
+                  >
+                    Adjudicação local: dispensar façanhas do NPC
+                  </button>
+                )}
+                {!unsent && action?.status === 'PENDING' && (
+                  <button
+                    className="secondary-button"
+                    disabled={busy}
+                    onClick={() => continueAction('cancel')}
+                  >
+                    Cancelar tentativa sem efeitos
+                  </button>
+                )}
+              </div>
+            </section>
+          )}
           {!endedNow && (
             <form className="panel mt-5 space-y-4" onSubmit={send}>
               <div className="flex flex-wrap gap-3">
@@ -375,7 +555,9 @@ export function SessionChat({
                   Modo de interação
                   <select
                     value={mode}
-                    disabled={busy || session.status !== 'IN_PROGRESS'}
+                    disabled={
+                      busy || pending || session.status !== 'IN_PROGRESS'
+                    }
                     onChange={(event) =>
                       setMode(event.target.value as keyof typeof modeLabels)
                     }
@@ -388,13 +570,37 @@ export function SessionChat({
                   </select>
                 </label>
               </div>
+              {(mode === 'ACT' || mode === 'SPEAK') &&
+                options.some((o) => o.mode === mode) && (
+                  <label className="field-label">
+                    Tentativa autorizada nesta cena
+                    <select
+                      value={optionId}
+                      disabled={
+                        busy || pending || session.status !== 'IN_PROGRESS'
+                      }
+                      onChange={(e) => setOptionId(e.target.value)}
+                    >
+                      <option value="">
+                        Mensagem livre — sem autorizar consequências
+                      </option>
+                      {options
+                        .filter((o) => o.mode === mode)
+                        .map((o) => (
+                          <option key={o.id} value={o.id}>
+                            {o.intent}
+                          </option>
+                        ))}
+                    </select>
+                  </label>
+                )}
               <label className="field-label">
                 Mensagem
                 <textarea
                   rows={4}
                   maxLength={10000}
                   value={content}
-                  disabled={busy || session.status !== 'IN_PROGRESS'}
+                  disabled={busy || pending || session.status !== 'IN_PROGRESS'}
                   onChange={(event) => setContent(event.target.value)}
                   placeholder={
                     session.status === 'COMPLETED'
@@ -412,11 +618,14 @@ export function SessionChat({
                 <button
                   className="primary-button"
                   disabled={
-                    busy || session.status !== 'IN_PROGRESS' || !content.trim()
+                    busy ||
+                    pending ||
+                    session.status !== 'IN_PROGRESS' ||
+                    !content.trim()
                   }
                   type="submit"
                 >
-                  {busy ? 'Salvando…' : 'Enviar mensagem'}
+                  {busy ? 'Mestre respondendo…' : 'Enviar mensagem'}
                 </button>
               </div>
             </form>
@@ -453,7 +662,7 @@ export function SessionChat({
               </label>
               <button
                 className="secondary-button"
-                disabled={busy}
+                disabled={busy || pending}
                 onClick={() => transition('complete')}
               >
                 Encerrar sessão

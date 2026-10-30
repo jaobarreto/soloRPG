@@ -85,3 +85,4 @@ export interface MessagePage {
   hasMore: boolean;
 }
 export * from './game';
+export * from './narrative';

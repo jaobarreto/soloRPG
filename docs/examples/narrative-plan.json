@@ -1,0 +1,40 @@
+{
+  "campaignId": "11111111-1111-4111-8111-111111111111",
+  "commandId": "22222222-2222-4222-8222-222222222222",
+  "command": {
+    "type": "SCENE_CONFIGURE",
+    "targetSessionId": "33333333-3333-4333-8333-333333333333",
+    "plan": {
+      "style": "Fantasia romântica, português brasileiro, ritmo moderado.",
+      "opening": "A trilha termina diante de uma muralha antiga. Uma passagem é visível no alto.",
+      "presentCharacterIds": ["44444444-4444-4444-8444-444444444444"],
+      "options": [
+        {
+          "id": "55555555-5555-4555-8555-555555555555",
+          "intent": "Escalar a muralha",
+          "mode": "ACT",
+          "keywords": ["escalar", "escalo"],
+          "requiresOptionIds": [],
+          "check": {
+            "ability": "STRENGTH",
+            "focusId": null,
+            "targetNumber": 11,
+            "secret": false
+          },
+          "successText": "A tentativa de escalada foi bem-sucedida. Do alto, a passagem já visível pode ser examinada. Qual será seu próximo passo?",
+          "failureText": "A escalada não teve sucesso. A muralha permanece um obstáculo. Como deseja prosseguir?",
+          "effects": [],
+          "witnesses": []
+        }
+      ],
+      "objectives": [
+        {
+          "id": "66666666-6666-4666-8666-666666666666",
+          "description": "Alcançar a passagem no alto da muralha",
+          "requiredOptionIds": ["55555555-5555-4555-8555-555555555555"],
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

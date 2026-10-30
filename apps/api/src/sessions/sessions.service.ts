@@ -8,6 +8,9 @@ import { CampaignsRepository } from '../campaigns/campaigns.repository';
 import { DatabaseService } from '../database/database.service';
 import { and, eq } from 'drizzle-orm';
 import { combatEncounters } from '../database/game-schema';
+import { gameEvents } from '../database/game-schema';
+import { narrativeActions, sessionPlans } from '../database/narrative-schema';
+import { inArray, sql } from 'drizzle-orm';
 import type { SessionRecord } from '../database/schema';
 import { SessionResponseDto } from './dto/session-response.dto';
 import { SessionsRepository } from './sessions.repository';
@@ -38,6 +41,7 @@ export class SessionsService {
     id: string,
     action: SessionAction,
     endingType?: NonNullable<SessionRecord['endingType']>,
+    narrative = false,
   ): Promise<SessionResponseDto> {
     const session = await this.database.db.transaction(async (tx) => {
       // Always lock campaign before session. This serializes cross-session lifecycle changes.
@@ -46,7 +50,64 @@ export class SessionsService {
       const current = await this.repository.lock(campaignId, id, tx);
       if (!current)
         throw new NotFoundException('Session not found in campaign');
+      if (
+        narrative &&
+        action === 'complete' &&
+        current.status === 'COMPLETED'
+      ) {
+        if (current.endingType !== endingType)
+          throw new ConflictException('Session ended with another reason');
+        return current;
+      }
       if (action === 'complete') {
+        if (!narrative) {
+          const [prepared] = await tx
+            .select()
+            .from(sessionPlans)
+            .where(eq(sessionPlans.sessionId, id));
+          if (prepared)
+            throw new ConflictException(
+              'Use narrative finalization for prepared sessions',
+            );
+        }
+        const [pending] = await tx
+          .select()
+          .from(narrativeActions)
+          .where(
+            and(
+              eq(narrativeActions.campaignId, campaignId),
+              sql`${narrativeActions.status} NOT IN ('COMPLETED','REJECTED')`,
+            ),
+          );
+        if (pending)
+          throw new ConflictException(
+            'Resolve the pending narrative action before ending',
+          );
+        if (narrative && current.status !== 'COMPLETED') {
+          const [plan] = await tx
+            .select()
+            .from(sessionPlans)
+            .where(eq(sessionPlans.sessionId, id));
+          const completed = await tx
+            .select({ optionId: narrativeActions.optionId })
+            .from(narrativeActions)
+            .where(
+              and(
+                eq(narrativeActions.sessionId, id),
+                eq(narrativeActions.status, 'COMPLETED'),
+                eq(narrativeActions.success, true),
+              ),
+            );
+          const evidence = completed.map((r) => r.optionId);
+          if (
+            endingType === 'OBJECTIVE_COMPLETED' &&
+            (!plan?.plan.objectives.length ||
+              !plan.plan.objectives.every((o) =>
+                o.requiredOptionIds.every((key) => evidence.includes(key)),
+              ))
+          )
+            throw new ConflictException('Objective lacks confirmed evidence');
+        }
         const [combat] = await tx
           .select()
           .from(combatEncounters)
@@ -63,6 +124,35 @@ export class SessionsService {
       }
       const now = new Date(); // Sample after locks; never count waiting time twice.
       const patch = transitionSession(current, action, now, endingType);
+      if (
+        narrative &&
+        action === 'complete' &&
+        current.status !== 'COMPLETED'
+      ) {
+        const events = await tx
+          .select({ description: gameEvents.description })
+          .from(gameEvents)
+          .where(
+            and(
+              eq(gameEvents.sessionId, id),
+              inArray(gameEvents.visibility, ['PUBLIC', 'PLAYER_ONLY']),
+              inArray(gameEvents.type, [
+                'CONSEQUENCE_RECORDED',
+                'RELATIONSHIP_CHANGED',
+                'ITEM_TRANSFERRED',
+                'DAMAGE_APPLIED',
+                'ATTACK_MISSED',
+                'LOCATION_UPDATED',
+              ]),
+            ),
+          )
+          .orderBy(gameEvents.sequence);
+        // Generate from source events, never from proposed or generated prose. A DB
+        // failure rolls back completion, leaving the full session recoverable.
+        patch.summary = events.length
+          ? [...new Set(events.map((e) => e.description))].join('\n')
+          : 'Sessão encerrada sem novos acontecimentos confirmados.';
+      }
       if (action === 'start') {
         if (campaign.status === 'COMPLETED')
           throw new ConflictException('Campaign is completed');
@@ -115,5 +205,12 @@ export class SessionsService {
     });
     this.logger.log({ event: `session.${action}`, campaignId, sessionId: id });
     return SessionResponseDto.from(session);
+  }
+  completeNarrative(
+    campaignId: string,
+    sessionId: string,
+    endingType: NonNullable<SessionRecord['endingType']>,
+  ) {
+    return this.transition(campaignId, sessionId, 'complete', endingType, true);
   }
 }

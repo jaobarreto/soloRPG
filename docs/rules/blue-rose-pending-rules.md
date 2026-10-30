@@ -32,4 +32,6 @@ regra inferida por texto.
 A próxima fase de IA deve apenas propor comandos validados NestJS. Manter Python/
 FastAPI sem acesso direto de escrita ao banco do jogo; não expor a CLI por HTTP.
 Introduzir identidade/autenticação antes de ampliar acesso a pessoas ou serviços.
-LangGraph, provedores LLM, RAG, embeddings e narração automática não foram incluídos.
+O recorte da Fase 3 não inclui IA. A integração restrita posterior está descrita em
+[orquestração do Mestre](../architecture/ai-orchestration.md); ela não amplia o
+catálogo mecânico acima. RAG semântico e embeddings continuam pendentes.

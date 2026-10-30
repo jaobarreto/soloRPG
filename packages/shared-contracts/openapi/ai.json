@@ -23,10 +23,97 @@
           }
         }
       }
+    },
+    "/internal/turn": {
+      "post": {
+        "tags": ["internal"],
+        "summary": "Turn",
+        "operationId": "turn_internal_turn_post",
+        "parameters": [
+          {
+            "name": "x-ai-token",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "X-Ai-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TurnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TurnResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "Attack": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "const": "ATTACK",
+            "title": "Kind"
+          },
+          "actorId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Actorid"
+          },
+          "targetId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Targetid"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["kind", "actorId", "targetId"],
+        "title": "Attack"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
       "HealthResponse": {
         "properties": {
           "status": {
@@ -44,6 +131,261 @@
         },
         "type": "object",
         "title": "HealthResponse"
+      },
+      "Narration": {
+        "properties": {
+          "narrative": {
+            "type": "string",
+            "maxLength": 12000,
+            "minLength": 1,
+            "title": "Narrative"
+          },
+          "eventIds": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Eventids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["narrative", "eventIds"],
+        "title": "Narration"
+      },
+      "Observe": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "const": "OBSERVE",
+            "title": "Kind"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["kind"],
+        "title": "Observe"
+      },
+      "Proposal": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/Observe"
+          },
+          {
+            "$ref": "#/components/schemas/Scene"
+          },
+          {
+            "$ref": "#/components/schemas/Attack"
+          }
+        ],
+        "title": "Proposal"
+      },
+      "Scene": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "const": "SCENE",
+            "title": "Kind"
+          },
+          "optionId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Optionid"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["kind", "optionId"],
+        "title": "Scene"
+      },
+      "TurnRequest": {
+        "properties": {
+          "actionId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Actionid"
+          },
+          "campaignId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Campaignid"
+          },
+          "sessionId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Sessionid"
+          },
+          "stage": {
+            "type": "string",
+            "enum": ["PROPOSE", "NARRATE"],
+            "title": "Stage"
+          },
+          "interactionMode": {
+            "type": "string",
+            "enum": ["SPEAK", "ACT", "THINK", "OUT_OF_CHARACTER"],
+            "title": "Interactionmode"
+          },
+          "playerMessage": {
+            "type": "string",
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Playermessage"
+          },
+          "context": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Context"
+          },
+          "confirmed": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Narration"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "actionId",
+          "campaignId",
+          "sessionId",
+          "stage",
+          "interactionMode",
+          "playerMessage",
+          "context",
+          "confirmed"
+        ],
+        "title": "TurnRequest"
+      },
+      "TurnResponse": {
+        "properties": {
+          "proposal": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Proposal"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "narration": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Narration"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "usage": {
+            "items": {
+              "$ref": "#/components/schemas/Usage"
+            },
+            "type": "array",
+            "title": "Usage"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "TurnResponse"
+      },
+      "Usage": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "enum": ["gemini", "groq"],
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "inputTokens": {
+            "type": "integer",
+            "title": "Inputtokens",
+            "default": 0
+          },
+          "outputTokens": {
+            "type": "integer",
+            "title": "Outputtokens",
+            "default": 0
+          },
+          "durationMs": {
+            "type": "integer",
+            "title": "Durationms",
+            "default": 0
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["provider", "model"],
+        "title": "Usage"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
       }
     }
   }

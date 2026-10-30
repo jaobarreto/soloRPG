@@ -7,7 +7,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { and, eq, max } from 'drizzle-orm';
+import { and, eq, max, sql } from 'drizzle-orm';
 import {
   abilities,
   combatActionSchema,
@@ -25,6 +25,7 @@ import {
   type DatabaseTransaction,
 } from '../database/database.service';
 import * as s from '../database/game-schema';
+import { narrativeActions, sessionPlans } from '../database/narrative-schema';
 import { CampaignsRepository } from '../campaigns/campaigns.repository';
 import { SessionsRepository } from '../sessions/sessions.repository';
 import { MessagesRepository } from '../messages/messages.repository';
@@ -194,130 +195,177 @@ export class GameEngineService {
     envelope: CommandEnvelope,
     audience: 'PLAYER' | 'INTERNAL',
   ): Promise<{ id: string }> {
+    return this.database.db.transaction((tx) =>
+      this.executeInTransaction(envelope, audience, tx),
+    );
+  }
+  // Trusted server adapter only. The caller commits its action receipt in this same transaction.
+  async executeNarrativeCommand(
+    envelope: CommandEnvelope,
+    tx: DatabaseTransaction,
+    actionId: string,
+  ) {
+    if (
+      ![
+        'CHECK_PREPARE',
+        'CHECK_RESOLVE',
+        'COMBAT_ACTION',
+        'COMBAT_RESOLVE',
+        'INVENTORY_ACTION',
+        'RELATIONSHIP_SET',
+        'WORLD_UPSERT',
+        'EVENT_RECORD',
+      ].includes(envelope.command.type)
+    )
+      throw new ForbiddenException(
+        'Command unavailable to the narrative adapter',
+      );
+    return this.executeInTransaction(envelope, 'INTERNAL', tx, actionId);
+  }
+  private async executeInTransaction(
+    envelope: CommandEnvelope,
+    audience: 'PLAYER' | 'INTERNAL',
+    tx: DatabaseTransaction,
+    narrativeActionId?: string,
+  ): Promise<{ id: string }> {
     const { campaignId, sessionId, commandId, command } = envelope;
     const digest = createHash('sha256')
       .update(JSON.stringify({ audience, ...envelope }))
       .digest('hex');
-    return this.database.db.transaction(async (tx) => {
-      const campaign = await this.campaigns.lock(campaignId, tx);
-      if (!campaign) throw new NotFoundException('Campaign not found');
-      const [receipt] = await tx
+    const campaign = await this.campaigns.lock(campaignId, tx);
+    if (!campaign) throw new NotFoundException('Campaign not found');
+    const [receipt] = await tx
+      .select()
+      .from(s.gameCommands)
+      .where(
+        and(
+          eq(s.gameCommands.campaignId, campaignId),
+          eq(s.gameCommands.commandId, commandId),
+        ),
+      );
+    if (receipt) {
+      if (receipt.digest !== digest)
+        throw new ConflictException(
+          'Command key already used with different input',
+        );
+      return { id: String(receipt.result.id) };
+    }
+    const [turn] = await tx
+      .select()
+      .from(narrativeActions)
+      .where(
+        and(
+          eq(narrativeActions.campaignId, campaignId),
+          sql`${narrativeActions.status} NOT IN ('COMPLETED','REJECTED')`,
+        ),
+      );
+    if (
+      narrativeActionId &&
+      (!turn || turn.id !== narrativeActionId || turn.sessionId !== sessionId)
+    )
+      throw new ConflictException('Narrative action is not active');
+    if (turn && turn.id !== narrativeActionId)
+      throw new ConflictException('Resolve the pending narrative action first');
+    if (campaign.status === 'COMPLETED')
+      throw new ConflictException('Campaign is completed');
+    if (sessionId) {
+      const session = await this.sessions.lock(campaignId, sessionId, tx);
+      if (!session)
+        throw new NotFoundException('Session not found in campaign');
+      if (session.status !== 'IN_PROGRESS')
+        throw new ConflictException('Session must be in progress');
+    } else if (campaign.status !== 'DRAFT')
+      throw new ConflictException(
+        'Active campaign commands require an in-progress session',
+      );
+    if (
+      ['ROLL', 'CHECK_PREPARE', 'CHECK_RESOLVE', 'INVENTORY_ACTION'].includes(
+        command.type,
+      ) &&
+      !sessionId
+    )
+      throw new ConflictException('Session required');
+    if (
+      audience === 'PLAYER' &&
+      command.type === 'CHARACTER_CREATE' &&
+      campaign.status !== 'DRAFT'
+    )
+      throw new ConflictException(
+        'Character transcription is only available before play',
+      );
+    const emit = async (audit: Audit) => {
+      let visibility = audit.visibility ?? 'PUBLIC';
+      const participants = [...new Set(audit.participants ?? [])];
+      for (const id of participants)
+        if (!(await this.repository.character(campaignId, id, tx)).known)
+          visibility = 'GM_ONLY';
+      const [last] =
+        visibility === 'GM_ONLY'
+          ? []
+          : await tx
+              .select({ value: max(s.gameEvents.publicSequence) })
+              .from(s.gameEvents)
+              .where(eq(s.gameEvents.campaignId, campaignId));
+      const publicSequence =
+        visibility === 'GM_ONLY' ? null : (last?.value ?? 0) + 1;
+      const [event] = await tx
+        .insert(s.gameEvents)
+        .values({
+          campaignId,
+          sessionId,
+          commandId,
+          type: audit.type,
+          description: audit.description,
+          changes: audit.changes,
+          visibility,
+          publicSequence,
+        })
+        .returning();
+      if (!event) throw new Error('Missing event');
+      if (participants.length)
+        await tx.insert(s.eventParticipants).values(
+          participants.map((characterId) => ({
+            campaignId,
+            eventId: event.id,
+            characterId,
+          })),
+        );
+      return event;
+    };
+    const activeCombat = await this.combat.active(campaignId, tx);
+    if (activeCombat) {
+      const [pending] = await tx
         .select()
-        .from(s.gameCommands)
+        .from(s.combatAttacks)
         .where(
           and(
-            eq(s.gameCommands.campaignId, campaignId),
-            eq(s.gameCommands.commandId, commandId),
+            eq(s.combatAttacks.encounterId, activeCombat.id),
+            eq(s.combatAttacks.resolved, false),
           ),
         );
-      if (receipt) {
-        if (receipt.digest !== digest)
-          throw new ConflictException(
-            'Command key already used with different input',
-          );
-        return { id: String(receipt.result.id) };
-      }
-      if (campaign.status === 'COMPLETED')
-        throw new ConflictException('Campaign is completed');
-      if (sessionId) {
-        const session = await this.sessions.lock(campaignId, sessionId, tx);
-        if (!session)
-          throw new NotFoundException('Session not found in campaign');
-        if (session.status !== 'IN_PROGRESS')
-          throw new ConflictException('Session must be in progress');
-      } else if (campaign.status !== 'DRAFT')
-        throw new ConflictException(
-          'Active campaign commands require an in-progress session',
-        );
       if (
-        ['ROLL', 'CHECK_PREPARE', 'CHECK_RESOLVE', 'INVENTORY_ACTION'].includes(
+        pending &&
+        !['COMBAT_ACTION', 'COMBAT_RESOLVE', 'COMBAT_END'].includes(
           command.type,
-        ) &&
-        !sessionId
-      )
-        throw new ConflictException('Session required');
-      if (
-        audience === 'PLAYER' &&
-        command.type === 'CHARACTER_CREATE' &&
-        campaign.status !== 'DRAFT'
+        )
       )
         throw new ConflictException(
-          'Character transcription is only available before play',
+          audience === 'PLAYER' && activeCombat.visibility === 'GM_ONLY'
+            ? 'Action unavailable in current scene'
+            : 'Resolve pending Stunts before other commands',
         );
-      const emit = async (audit: Audit) => {
-        let visibility = audit.visibility ?? 'PUBLIC';
-        const participants = [...new Set(audit.participants ?? [])];
-        for (const id of participants)
-          if (!(await this.repository.character(campaignId, id, tx)).known)
-            visibility = 'GM_ONLY';
-        const [last] =
-          visibility === 'GM_ONLY'
-            ? []
-            : await tx
-                .select({ value: max(s.gameEvents.publicSequence) })
-                .from(s.gameEvents)
-                .where(eq(s.gameEvents.campaignId, campaignId));
-        const publicSequence =
-          visibility === 'GM_ONLY' ? null : (last?.value ?? 0) + 1;
-        const [event] = await tx
-          .insert(s.gameEvents)
-          .values({
-            campaignId,
-            sessionId,
-            commandId,
-            type: audit.type,
-            description: audit.description,
-            changes: audit.changes,
-            visibility,
-            publicSequence,
-          })
-          .returning();
-        if (!event) throw new Error('Missing event');
-        if (participants.length)
-          await tx.insert(s.eventParticipants).values(
-            participants.map((characterId) => ({
-              campaignId,
-              eventId: event.id,
-              characterId,
-            })),
-          );
-        return event;
-      };
-      const activeCombat = await this.combat.active(campaignId, tx);
-      if (activeCombat) {
-        const [pending] = await tx
-          .select()
-          .from(s.combatAttacks)
-          .where(
-            and(
-              eq(s.combatAttacks.encounterId, activeCombat.id),
-              eq(s.combatAttacks.resolved, false),
-            ),
-          );
-        if (
-          pending &&
-          !['COMBAT_ACTION', 'COMBAT_RESOLVE', 'COMBAT_END'].includes(
-            command.type,
-          )
-        )
-          throw new ConflictException(
-            audience === 'PLAYER' && activeCombat.visibility === 'GM_ONLY'
-              ? 'Action unavailable in current scene'
-              : 'Resolve pending Stunts before other commands',
-          );
-        if (command.type === 'INVENTORY_ACTION')
-          throw new ConflictException(
-            audience === 'PLAYER' && activeCombat.visibility === 'GM_ONLY'
-              ? 'Action unavailable in current scene'
-              : 'Inventory equipment is locked during encounters',
-          );
-      }
-      const result = await this.apply(command, envelope, audience, tx, emit);
-      await tx
-        .insert(s.gameCommands)
-        .values({ campaignId, commandId, digest, result });
-      return result;
-    });
+      if (command.type === 'INVENTORY_ACTION')
+        throw new ConflictException(
+          audience === 'PLAYER' && activeCombat.visibility === 'GM_ONLY'
+            ? 'Action unavailable in current scene'
+            : 'Inventory equipment is locked during encounters',
+        );
+    }
+    const result = await this.apply(command, envelope, audience, tx, emit);
+    await tx
+      .insert(s.gameCommands)
+      .values({ campaignId, commandId, digest, result });
+    return result;
   }
   private async apply(
     c: EngineCommand,
@@ -347,6 +395,64 @@ export class GameEngineService {
         ),
     };
     switch (c.type) {
+      case 'SCENE_CONFIGURE': {
+        const session = await this.sessions.find(
+          campaignId,
+          c.targetSessionId,
+          tx,
+        );
+        if (!session || !['LOCKED', 'AVAILABLE'].includes(session.status))
+          throw new ConflictException(
+            'Prepare scenes before starting the session',
+          );
+        for (const id of c.plan.presentCharacterIds) {
+          const npc = await character(id);
+          if (!npc.known)
+            throw new ConflictException('Scene participants must be public');
+        }
+        const ids = c.plan.options.map((o) => o.id);
+        if (
+          new Set(ids).size !== ids.length ||
+          new Set(c.plan.objectives.map((o) => o.id)).size !==
+            c.plan.objectives.length
+        )
+          throw new BadRequestException('Duplicate plan IDs');
+        for (const option of c.plan.options) {
+          if (
+            option.requiresOptionIds.some(
+              (id) => !ids.includes(id) || id === option.id,
+            ) ||
+            option.witnesses.some(
+              (id) => !c.plan.presentCharacterIds.includes(id),
+            )
+          )
+            throw new BadRequestException('Invalid scene prerequisites');
+        }
+        if (
+          c.plan.objectives.some((o) =>
+            o.requiredOptionIds.some((id) => !ids.includes(id)),
+          )
+        )
+          throw new BadRequestException('Unknown objective criterion');
+        await tx
+          .insert(sessionPlans)
+          .values({ campaignId, sessionId: session.id, plan: c.plan })
+          .onConflictDoUpdate({
+            target: sessionPlans.sessionId,
+            set: { plan: c.plan },
+          });
+        return {
+          id: (
+            await emit({
+              type: 'SCENE_PREPARED',
+              description: 'Preparação narrativa local',
+              changes: { sessionId: session.id },
+              visibility: 'GM_ONLY',
+            })
+          ).id,
+        };
+      }
+
       case 'OPPOSED_PREPARE':
       case 'ADVANCED_CREATE':
       case 'ADVANCED_PREPARE':

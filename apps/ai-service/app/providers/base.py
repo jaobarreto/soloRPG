@@ -1,4 +1,3 @@
-from collections.abc import AsyncIterator
 from typing import Protocol, TypeVar
 
 from pydantic import BaseModel
@@ -7,9 +6,7 @@ StructuredOutput = TypeVar("StructuredOutput", bound=BaseModel)
 
 
 class LLMProvider(Protocol):
-    """Future adapters must honor free-tier limits; no paid fallback is configured."""
-
-    async def generate_text(self, prompt: str, *, max_output_tokens: int) -> str: ...
+    """Structured-only capability; no tools, code execution or database access."""
 
     async def generate_structured(
         self,
@@ -18,7 +15,3 @@ class LLMProvider(Protocol):
         *,
         max_output_tokens: int,
     ) -> StructuredOutput: ...
-
-    def stream_text(
-        self, prompt: str, *, max_output_tokens: int
-    ) -> AsyncIterator[str]: ...

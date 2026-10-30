@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   DiceVisibility,
+  scenePlanSchema,
   weaponRuleIds,
   combatActionSchema,
   combatResolveSchema,
@@ -16,6 +17,11 @@ const text = z.string().trim().max(10000);
 const reason = text.min(1);
 const characterId = id;
 export const internalCommandSchema = z.discriminatedUnion('type', [
+  z.strictObject({
+    type: z.literal('SCENE_CONFIGURE'),
+    targetSessionId: id,
+    plan: scenePlanSchema,
+  }),
   z.strictObject({
     type: z.literal('OPPOSED_PREPARE'),
     characterId,

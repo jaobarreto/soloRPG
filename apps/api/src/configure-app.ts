@@ -24,9 +24,9 @@ export function createApiDocument(app: INestApplication) {
   const config = new DocumentBuilder()
     .setTitle('SoloRPG API')
     .setDescription(
-      'Campaigns, sessions, persistent chat and Blue Rose AGE game engine',
+      'Campaigns, sessions, persistent chat, Blue Rose AGE and validated narrative actions',
     )
-    .setVersion('0.3.0')
+    .setVersion('0.4.0')
     .build();
   return SwaggerModule.createDocument(app, config);
 }

@@ -8,9 +8,15 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=("../../.env", ".env"), extra="ignore")
     ai_service_port: int = Field(default=8000, ge=1, le=65535)
-    llm_provider: Literal["gemini", "groq", "ollama"] = "gemini"
+    llm_provider: Literal["gemini", "groq"] = "gemini"
     gemini_api_key: SecretStr | None = None
     groq_api_key: SecretStr | None = None
+    gemini_model: str = "gemini-2.5-flash-lite"
+    groq_model: str = "openai/gpt-oss-20b"
+    enable_provider_fallback: bool = False
+    ai_free_tier_confirmed: bool = False
+    ai_internal_token: SecretStr | None = None
+    llm_timeout_seconds: float = Field(default=20, ge=1, le=30)
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
 
 

@@ -12,6 +12,7 @@ module.exports = {
     '!src/main.ts',
     '!src/database/schema.ts',
     '!src/database/game-schema.ts',
+    '!src/database/narrative-schema.ts',
     '!src/game-engine/admin.ts',
   ],
 };

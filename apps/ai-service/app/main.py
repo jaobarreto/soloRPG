@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.api.routes.health import router
+from app.api.routes.narrative import router as narrative_router
 from app.core.config import get_settings
 from app.core.logging import configure_logging
 
@@ -20,6 +21,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 def create_app() -> FastAPI:
     application = FastAPI(title="SoloRPG AI", version="0.1.0", lifespan=lifespan)
     application.include_router(router)
+    application.include_router(narrative_router)
     return application
 
 
