@@ -35,6 +35,9 @@ export default function Home() {
           Acompanhe abaixo a disponibilidade dos serviços.
         </p>
       </section>
+      <Link href="/campaigns" className="primary-button mb-8 w-fit">
+        Abrir campanhas →
+      </Link>
       <HealthDashboard />
       <footer className="mt-auto flex flex-wrap justify-between gap-3 border-t border-stone-300 pt-6 text-xs text-stone-500">
         <span>SoloRPG · Fundação do projeto</span>

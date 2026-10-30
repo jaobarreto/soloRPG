@@ -8,6 +8,13 @@
       "when": 1793378071308,
       "tag": "0000_enable_vector",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793379661322,
+      "tag": "0001_campaigns_sessions_messages",
+      "breakpoints": true
     }
   ]
 }

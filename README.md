@@ -1,9 +1,10 @@
 # SoloRPG
 
 Base local para uma aplicação de RPG solo. O requisito principal está em
-[docs/base-projeto.md](docs/base-projeto.md). Esta entrega implementa somente a
-fundação: três serviços, PostgreSQL, migração, health checks e ferramentas de qualidade.
-Campanhas, sessões, chat, autenticação, Game Engine e chamadas de LLM ficam para etapas futuras.
+[docs/base-projeto.md](docs/base-projeto.md). Esta entrega inclui a Fase 2: campanhas, sessões com cronômetro pausável e chat
+persistente por sessão. Game Engine, personagens e IA ficam para as próximas fases.
+A [arquitetura do domínio](docs/architecture/campaigns-and-sessions.md) descreve
+contratos, concorrência e preservação do histórico.
 
 ## Stack e estrutura
 
@@ -13,10 +14,10 @@ Campanhas, sessões, chat, autenticação, Game Engine e chamadas de LLM ficam p
 - `apps/ai-service`: Python **3.12.16**, uv **0.13.6**, FastAPI, Pydantic v2,
   Pydantic Settings, LangGraph, Uvicorn, httpx, Ruff, mypy e pytest.
 - PostgreSQL **17.10** com pgvector **0.8.2**, volume Docker persistente.
-- `packages/shared-contracts`: contrato Zod/TypeScript dos health checks.
+- `packages/shared-contracts`: health checks, enums e tipos públicos de campanhas, sessões e mensagens, além do OpenAPI versionado.
 - `packages/typescript-config`: configurações strict compartilhadas.
 - `infrastructure/docker`: Dockerfiles de desenvolvimento.
-- `docs/adr`: decisões arquiteturais; `rule-packs`: orientação para a etapa futura.
+- `docs/adr`: decisões arquiteturais; `docs/architecture`: domínio implementado; `rule-packs`: orientação para a etapa futura.
 
 ESLint 9.39.5 foi mantido por compatibilidade dos plugins do Next.js com ESLint 9.
 
@@ -75,9 +76,18 @@ compatível, sem sobrescrever um arquivo existente. O comando `docker:local` usa
 `docker-compose.local.yml` para também permitir diagnóstico Python e acesso ao banco
 **somente em loopback**. As migrações são aplicadas automaticamente pelo container da API.
 
+Para executar somente a Fase 2 (web, API e PostgreSQL), sem iniciar Python:
+
+```bash
+pnpm docker:game
+# Equivalente:
+docker compose up --build -d --wait web
+```
+
 Acesse:
 
-- Frontend: <http://localhost:3000>.
+- Campanhas: <http://localhost:3000/campaigns>.
+- Ambiente local: <http://localhost:3000>.
 - NestJS: <http://localhost:3001/api/v1/health>.
 - FastAPI: <http://localhost:8000/health>.
 - Swagger: <http://localhost:3001/api/v1/docs>.
@@ -120,7 +130,10 @@ pnpm dev
 ```
 
 `pnpm dev` inicia os três aplicativos com hot reload; Ctrl+C encerra os três.
-O banco continua no Docker. Os comandos individuais são:
+O banco continua no Docker. Para desenvolver só a Fase 2, use `pnpm dev:game` no
+lugar de `pnpm dev`; Python não é necessário. `AI_SERVICE_URL` continua configurada
+para preservar o diagnóstico opcional da Fase 1, sem chamadas nos fluxos de jogo.
+Os comandos individuais são:
 
 ```bash
 pnpm --filter @solo-rpg/shared-contracts build
@@ -146,9 +159,10 @@ em variáveis `NEXT_PUBLIC_*`.
 | `AI_SERVICE_PORT`, `WEB_PORT`                                        | Portas no host: 8000 e 3000. Portas internas Docker permanecem 8000 e 3000.                                |
 | `AI_SERVICE_URL`                                                     | NestJS → Python: `http://127.0.0.1:8000` no host, `http://ai-service:8000` no Compose.                     |
 | `API_INTERNAL_URL`                                                   | Next.js → NestJS: `http://127.0.0.1:3001` no host, `http://api:3001` no Compose.                           |
-| `NEXT_PUBLIC_API_URL`                                                | Base pública `/api/v1`; o proxy do Next encaminha os health checks ao NestJS.                              |
+| `NEXT_PUBLIC_API_URL`                                                | Base pública `/api/v1`; o proxy do Next encaminha `/api/v1/*` ao NestJS.                                   |
 | `CORS_ORIGINS`                                                       | Lista de origens HTTP(S), separadas por vírgula; não aceita `*`.                                           |
 | `HEALTH_TIMEOUT_MS`                                                  | Timeout de dependências no NestJS; padrão 3000 ms.                                                         |
+| `MESSAGE_MAX_LENGTH`                                                 | Limite da API por mensagem; padrão 10.000 caracteres (1–100.000). A UI permite até 10.000.                 |
 | `GEMINI_API_KEY`, `GROQ_API_KEY`                                     | Opcionais, apenas no serviço Python; podem ficar vazias.                                                   |
 | `LLM_PROVIDER`                                                       | `gemini`, `groq` ou `ollama`; só configuração, sem chamadas nem fallback.                                  |
 | `LOG_LEVEL`                                                          | Log do serviço Python; padrão `INFO`.                                                                      |
@@ -168,7 +182,7 @@ inicializado: altere a credencial no PostgreSQL e mantenha os valores sincroniza
 
 `GET /health` no FastAPI retorna `{"status":"ok","service":"solo-rpg-ai"}` sem
 consultar provedores externos. Liveness da API não atesta prontidão das dependências;
-use os endpoints específicos. O health check Docker da API consulta os três.
+use os endpoints específicos. O health check Docker da API consulta liveness e banco; Python é um diagnóstico opcional.
 A página consulta os endpoints reais a cada 15 segundos e permite atualizar manualmente.
 
 ```bash
@@ -182,8 +196,11 @@ Com a API e o Python locais em execução, atualize-os com `pnpm contracts:expor
 
 ## Migrações e persistência
 
-A primeira migração, `apps/api/drizzle/0000_enable_vector.sql`, contém apenas
-`CREATE EXTENSION IF NOT EXISTS vector`. Não existem tabelas de domínio nesta etapa.
+A migração `apps/api/drizzle/0000_enable_vector.sql` habilita `vector`.
+`0001_campaigns_sessions_messages.sql` cria `campaigns`, `campaign_sessions` e
+`session_messages`, enums, índices, checks e FKs, sem remover dados existentes.
+Campanha e sessões são criadas na mesma transação; transições e envios concorrentes
+usam locks no PostgreSQL. Não use `drizzle-kit push` no lugar das migrations.
 
 ```bash
 pnpm db:migrate                      # PostgreSQL exposto no modo local
@@ -208,15 +225,89 @@ pnpm typecheck
 pnpm test
 pnpm build
 pnpm format:check
-pnpm --filter @solo-rpg/api test:coverage
+pnpm test:integration              # PostgreSQL real e isolado, inclui unidades
+pnpm --filter @solo-rpg/api test:coverage  # Mesma suíte com cobertura (>=80%)
 node scripts/uv.mjs run pytest --cov=app --cov-report=term-missing
 ```
 
-Os testes cobrem inicialização HTTP do NestJS, Swagger, configuração obrigatória,
-health checks, respostas 503, integração Python com mocks, FastAPI sem chaves e o
-tratamento de falhas no frontend. Testes HTTP precisam de permissão para sockets locais.
+`pnpm test` cobre unidades e HTTP com dependências simuladas, incluindo a máquina de
+estados, cronômetro e limites de mensagem. `pnpm test:integration` cria um container
+PostgreSQL exclusivo, aplica migrations duas vezes e testa os endpoints com banco real:
+planejamento, rollback, validação, transições, isolamento, paginação integral e
+concorrência (20 mensagens simultâneas, start/complete duplicados e mensagem vs complete).
+O cenário 5 + 3 mensagens verifica as oito originais depois de iniciar a sessão 2 e
+reiniciar API e PostgreSQL. Container e volume de teste são removidos ao terminar;
+o banco de desenvolvimento não é usado. Docker e sockets locais precisam estar disponíveis.
+O log `request.failed` no cenário de falha injetada é esperado e verifica rollback.
+
 `pnpm build` compila Next.js/NestJS/contratos e verifica sintaxe Python, sem exigir banco
-ou chaves de LLM. Os testes de unidade não acessam serviços pagos ou banco externo.
+ou chaves de LLM. Não há serviços pagos nos testes. A cobertura global da API exige
+80% de statements, branches, funções e linhas, combinando unidades e integração.
+
+## Campanhas, sessões e chat
+
+Os novos módulos em `apps/api/src/{campaigns,sessions,messages}` têm controllers,
+DTOs, services e repositories. O schema está em `apps/api/src/database/schema.ts`.
+A interface usa as rotas `/campaigns`, `/campaigns/new`, `/campaigns/[campaignId]` e
+`/campaigns/[campaignId]/sessions/[sessionId]`.
+
+Todos os endpoints abaixo têm prefixo `/api/v1` e estão documentados no Swagger:
+
+| Método | Rota                                                                   | Resultado                              |
+| ------ | ---------------------------------------------------------------------- | -------------------------------------- |
+| POST   | `/campaigns`                                                           | Cria campanha e todas as sessões (201) |
+| GET    | `/campaigns`                                                           | Lista campanhas                        |
+| GET    | `/campaigns/:campaignId`                                               | Campanha e sessões ordenadas           |
+| PATCH  | `/campaigns/:campaignId`                                               | Edita somente título/descrição         |
+| GET    | `/campaigns/:campaignId/sessions`                                      | Lista sessões                          |
+| GET    | `/campaigns/:campaignId/sessions/:sessionId`                           | Detalhes e tempo ativo                 |
+| POST   | `/campaigns/:campaignId/sessions/:sessionId/start`                     | Inicia sessão disponível               |
+| POST   | `/campaigns/:campaignId/sessions/:sessionId/pause`                     | Pausa e acumula tempo                  |
+| POST   | `/campaigns/:campaignId/sessions/:sessionId/resume`                    | Retoma sem contar a pausa              |
+| POST   | `/campaigns/:campaignId/sessions/:sessionId/complete`                  | Encerra e libera a próxima             |
+| POST   | `/campaigns/:campaignId/sessions/:sessionId/messages`                  | Salva mensagem PLAYER (201)            |
+| GET    | `/campaigns/:campaignId/sessions/:sessionId/messages?after=0&limit=50` | Histórico paginado por sequência       |
+
+Consultas, PATCH e transições retornam 200. Payload/UUID/cursor inválido retorna 400,
+recurso ausente ou sessão de outra campanha retorna 404, conflito de estado retorna 409.
+Propriedades desconhecidas são rejeitadas, incluindo `role` no envio de mensagens.
+
+```bash
+curl -X POST http://localhost:3001/api/v1/campaigns \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"Os Ecos da Montanha","description":"Fantasia e mistério","plannedSessions":8,"defaultSessionDurationMinutes":120}'
+
+# Substitua os UUIDs pelos retornados na criação:
+curl -X POST http://localhost:3001/api/v1/campaigns/CAMPAIGN_UUID/sessions/SESSION_UUID/start
+curl -X POST http://localhost:3001/api/v1/campaigns/CAMPAIGN_UUID/sessions/SESSION_UUID/messages \
+  -H 'Content-Type: application/json' \
+  -d '{"interactionMode":"SPEAK","content":"Theron, preciso conversar com você."}'
+curl -X POST http://localhost:3001/api/v1/campaigns/CAMPAIGN_UUID/sessions/SESSION_UUID/pause
+curl -X POST http://localhost:3001/api/v1/campaigns/CAMPAIGN_UUID/sessions/SESSION_UUID/resume
+curl -X POST http://localhost:3001/api/v1/campaigns/CAMPAIGN_UUID/sessions/SESSION_UUID/complete \
+  -H 'Content-Type: application/json' -d '{"endingType":"PLAYER_REQUESTED"}'
+curl 'http://localhost:3001/api/v1/campaigns/CAMPAIGN_UUID/sessions/SESSION_UUID/messages?after=0&limit=50'
+```
+
+Novas campanhas começam `DRAFT`, com 8 sessões e duração de 120 minutos por padrão.
+A sessão 1 fica `AVAILABLE`; as demais, `LOCKED`. O primeiro start ativa a campanha.
+Só uma sessão pode estar em andamento ou pausada por campanha. Ao concluir, a próxima
+planejada é liberada; a jogadora a inicia explicitamente. A última conclusão encerra
+a campanha. Quantidade planejada e duração não podem ser alteradas depois da criação.
+
+Modos de mensagem: `SPEAK`, `ACT`, `THINK`, `OUT_OF_CHARACTER`. Só `IN_PROGRESS`
+aceita mensagens. Sessões pausadas e concluídas preservam todas as mensagens; as
+concluídas são somente leitura. Não há endpoints de edição/exclusão de mensagens.
+O histórico de cada sessão é independente: começar a próxima não copia nem altera
+mensagens anteriores. Para recuperar todo o chat, use `after=nextCursor` enquanto
+`hasMore=true`. A UI oferece “Carregar próximas mensagens”.
+
+O relógio conta intervalos entre start/resume e pause/complete, sem limite rígido.
+**Fechar o navegador não pausa automaticamente:** use o botão Pausar sessão.
+Repetir uma transição já aplicada retorna 409 sem reaplicar seus efeitos; a UI
+recarrega o estado em conflito. Mensagens não têm retry automático ou chave de
+idempotência nesta fase. A tela final mostra título/tempo reais e os links para o
+histórico e a próxima sessão, sem resumo fictício nem porcentagem narrativa.
 
 ## Rede doméstica
 
@@ -227,8 +318,9 @@ próprio `localhost` para acessar o backend. Banco e Python continuam fora da LA
 
 Para acesso direto ao NestJS no navegador em outra origem, configure explicitamente
 `CORS_ORIGINS` e o bind/porta; esse acesso não é necessário para a página inicial.
-Esta etapa só publica diagnósticos sem dados de campanha. O controle de acesso local
-previsto no documento-base deve ser implementado antes de expor dados e mutações.
+A Fase 2 não implementa autenticação, conforme o escopo da tarefa. Use a instalação
+na rede doméstica confiável; o controle de acesso local do documento-base continua
+pendente antes de disponibilizar a aplicação para terceiros.
 
 ## Operação e problemas comuns
 
@@ -259,4 +351,6 @@ Referências técnicas: [Next.js](https://nextjs.org/docs/app/getting-started/in
 [NestJS](https://docs.nestjs.com/first-steps), [migrações Drizzle](https://orm.drizzle.team/docs/migrations),
 [uv em Docker](https://docs.astral.sh/uv/guides/integration/docker/).
 
-Próxima etapa: domínio de campanhas e sessões persistentes no NestJS, conforme o documento-base.
+Próxima fase: Game Engine, personagens, estado do mundo e eventos, preservando as
+fronteiras do domínio atual e o histórico integral. IA, Director, resumos e detecção de
+inatividade serão implementados posteriormente.

@@ -24,7 +24,10 @@
     "docker:local": "docker compose -f docker-compose.yml -f docker-compose.local.yml up --build -d --wait",
     "db:up": "docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --wait postgres",
     "smoke": "node scripts/smoke.mjs",
-    "contracts:export": "node scripts/export-contracts.mjs"
+    "contracts:export": "node scripts/export-contracts.mjs",
+    "test:integration": "pnpm --filter @solo-rpg/shared-contracts build && node scripts/test-integration.mjs",
+    "docker:game": "docker compose up --build -d --wait web",
+    "dev:game": "pnpm --filter @solo-rpg/shared-contracts build && dotenv -e .env -- concurrently -k -n web,api \"pnpm --filter @solo-rpg/web dev\" \"pnpm --filter @solo-rpg/api dev\""
   },
   "devDependencies": {
     "@eslint/js": "9.39.5",

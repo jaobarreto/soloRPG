@@ -1,0 +1,517 @@
+{
+  "id": "15ef81d7-53fb-4d04-be98-f56b7b48b0b0",
+  "prevId": "94be8cd4-de98-44fa-98b3-d179a26f8406",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.campaign_sessions": {
+      "name": "campaign_sessions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_number": {
+          "name": "session_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "session_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'LOCKED'"
+        },
+        "estimated_duration_minutes": {
+          "name": "estimated_duration_minutes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 120
+        },
+        "active_duration_seconds": {
+          "name": "active_duration_seconds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resumed_at": {
+          "name": "resumed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "paused_at": {
+          "name": "paused_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ending_type": {
+          "name": "ending_type",
+          "type": "ending_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "summary": {
+          "name": "summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "sessions_one_running_per_campaign": {
+          "name": "sessions_one_running_per_campaign",
+          "columns": [
+            {
+              "expression": "campaign_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"campaign_sessions\".\"status\" IN ('IN_PROGRESS', 'PAUSED')",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "campaign_sessions_campaign_id_campaigns_id_fk": {
+          "name": "campaign_sessions_campaign_id_campaigns_id_fk",
+          "tableFrom": "campaign_sessions",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "sessions_campaign_number_unique": {
+          "name": "sessions_campaign_number_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "campaign_id",
+            "session_number"
+          ]
+        },
+        "sessions_id_campaign_unique": {
+          "name": "sessions_id_campaign_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "campaign_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "session_number_positive": {
+          "name": "session_number_positive",
+          "value": "\"campaign_sessions\".\"session_number\" > 0"
+        },
+        "session_duration_positive": {
+          "name": "session_duration_positive",
+          "value": "\"campaign_sessions\".\"estimated_duration_minutes\" > 0"
+        },
+        "session_active_nonnegative": {
+          "name": "session_active_nonnegative",
+          "value": "\"campaign_sessions\".\"active_duration_seconds\" >= 0"
+        },
+        "session_title_nonempty": {
+          "name": "session_title_nonempty",
+          "value": "length(btrim(\"campaign_sessions\".\"title\")) > 0"
+        },
+        "session_running_clock": {
+          "name": "session_running_clock",
+          "value": "(\"campaign_sessions\".\"status\" = 'IN_PROGRESS') = (\"campaign_sessions\".\"resumed_at\" IS NOT NULL)"
+        },
+        "session_completed_fields": {
+          "name": "session_completed_fields",
+          "value": "(\"campaign_sessions\".\"status\" = 'COMPLETED') = (\"campaign_sessions\".\"completed_at\" IS NOT NULL AND \"campaign_sessions\".\"ending_type\" IS NOT NULL)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.campaigns": {
+      "name": "campaigns",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "planned_sessions": {
+          "name": "planned_sessions",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 8
+        },
+        "default_session_duration_minutes": {
+          "name": "default_session_duration_minutes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 120
+        },
+        "current_session_number": {
+          "name": "current_session_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "campaign_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'DRAFT'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "campaigns_created_idx": {
+          "name": "campaigns_created_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "campaign_title_nonempty": {
+          "name": "campaign_title_nonempty",
+          "value": "length(btrim(\"campaigns\".\"title\")) > 0"
+        },
+        "campaign_planned_positive": {
+          "name": "campaign_planned_positive",
+          "value": "\"campaigns\".\"planned_sessions\" > 0"
+        },
+        "campaign_duration_positive": {
+          "name": "campaign_duration_positive",
+          "value": "\"campaigns\".\"default_session_duration_minutes\" > 0"
+        },
+        "campaign_current_in_range": {
+          "name": "campaign_current_in_range",
+          "value": "\"campaigns\".\"current_session_number\" BETWEEN 1 AND \"campaigns\".\"planned_sessions\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.session_messages": {
+      "name": "session_messages",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "message_role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "interaction_mode": {
+          "name": "interaction_mode",
+          "type": "interaction_mode",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sequence_number": {
+          "name": "sequence_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "messages_campaign_created_idx": {
+          "name": "messages_campaign_created_idx",
+          "columns": [
+            {
+              "expression": "campaign_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "session_messages_campaign_id_campaigns_id_fk": {
+          "name": "session_messages_campaign_id_campaigns_id_fk",
+          "tableFrom": "session_messages",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "messages_session_campaign_fk": {
+          "name": "messages_session_campaign_fk",
+          "tableFrom": "session_messages",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "messages_session_sequence_unique": {
+          "name": "messages_session_sequence_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "session_id",
+            "sequence_number"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "message_content_nonempty": {
+          "name": "message_content_nonempty",
+          "value": "length(btrim(\"session_messages\".\"content\")) > 0"
+        },
+        "message_sequence_positive": {
+          "name": "message_sequence_positive",
+          "value": "\"session_messages\".\"sequence_number\" > 0"
+        }
+      },
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.campaign_status": {
+      "name": "campaign_status",
+      "schema": "public",
+      "values": [
+        "DRAFT",
+        "ACTIVE",
+        "COMPLETED"
+      ]
+    },
+    "public.ending_type": {
+      "name": "ending_type",
+      "schema": "public",
+      "values": [
+        "OBJECTIVE_COMPLETED",
+        "NARRATIVE_PAUSE",
+        "PLAYER_REQUESTED"
+      ]
+    },
+    "public.interaction_mode": {
+      "name": "interaction_mode",
+      "schema": "public",
+      "values": [
+        "SPEAK",
+        "ACT",
+        "THINK",
+        "OUT_OF_CHARACTER"
+      ]
+    },
+    "public.message_role": {
+      "name": "message_role",
+      "schema": "public",
+      "values": [
+        "PLAYER",
+        "GAME_MASTER",
+        "SYSTEM"
+      ]
+    },
+    "public.session_status": {
+      "name": "session_status",
+      "schema": "public",
+      "values": [
+        "LOCKED",
+        "AVAILABLE",
+        "IN_PROGRESS",
+        "PAUSED",
+        "COMPLETED"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

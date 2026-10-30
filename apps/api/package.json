@@ -9,7 +9,7 @@
     "lint": "eslint src test drizzle.config.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "jest --runInBand",
-    "test:coverage": "jest --runInBand --coverage",
+    "test:coverage": "pnpm --filter @solo-rpg/shared-contracts build && node ../../scripts/test-integration.mjs --coverage",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate"
   },

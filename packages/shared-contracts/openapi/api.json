@@ -63,12 +63,541 @@
         },
         "tags": ["Health"]
       }
+    },
+    "/api/v1/campaigns": {
+      "post": {
+        "operationId": "CampaignsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCampaignDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignDetailDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload or UUID"
+          },
+          "404": {
+            "description": "Campaign not found"
+          }
+        },
+        "tags": ["Campaigns"]
+      },
+      "get": {
+        "operationId": "CampaignsController_list",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CampaignResponseDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload or UUID"
+          },
+          "404": {
+            "description": "Campaign not found"
+          }
+        },
+        "tags": ["Campaigns"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}": {
+      "get": {
+        "operationId": "CampaignsController_detail",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignDetailDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload or UUID"
+          },
+          "404": {
+            "description": "Campaign not found"
+          }
+        },
+        "tags": ["Campaigns"]
+      },
+      "patch": {
+        "operationId": "CampaignsController_update",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCampaignDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload or UUID"
+          },
+          "404": {
+            "description": "Campaign not found"
+          }
+        },
+        "tags": ["Campaigns"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions": {
+      "get": {
+        "operationId": "SessionsController_list",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SessionResponseDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload or UUID"
+          },
+          "404": {
+            "description": "Session or campaign not found"
+          },
+          "409": {
+            "description": "Invalid or repeated state transition (no changes applied)"
+          }
+        },
+        "tags": ["Sessions"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}": {
+      "get": {
+        "operationId": "SessionsController_detail",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload or UUID"
+          },
+          "404": {
+            "description": "Session or campaign not found"
+          },
+          "409": {
+            "description": "Invalid or repeated state transition (no changes applied)"
+          }
+        },
+        "tags": ["Sessions"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/start": {
+      "post": {
+        "operationId": "SessionsController_start",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload or UUID"
+          },
+          "404": {
+            "description": "Session or campaign not found"
+          },
+          "409": {
+            "description": "Invalid or repeated state transition (no changes applied)"
+          }
+        },
+        "tags": ["Sessions"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/pause": {
+      "post": {
+        "operationId": "SessionsController_pause",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload or UUID"
+          },
+          "404": {
+            "description": "Session or campaign not found"
+          },
+          "409": {
+            "description": "Invalid or repeated state transition (no changes applied)"
+          }
+        },
+        "tags": ["Sessions"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/resume": {
+      "post": {
+        "operationId": "SessionsController_resume",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload or UUID"
+          },
+          "404": {
+            "description": "Session or campaign not found"
+          },
+          "409": {
+            "description": "Invalid or repeated state transition (no changes applied)"
+          }
+        },
+        "tags": ["Sessions"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/complete": {
+      "post": {
+        "operationId": "SessionsController_complete",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteSessionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload or UUID"
+          },
+          "404": {
+            "description": "Session or campaign not found"
+          },
+          "409": {
+            "description": "Invalid or repeated state transition (no changes applied)"
+          }
+        },
+        "tags": ["Sessions"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/messages": {
+      "post": {
+        "operationId": "MessagesController_create",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMessageDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload, UUID or cursor"
+          },
+          "404": {
+            "description": "Session not found in campaign"
+          },
+          "409": {
+            "description": "Session is not in progress"
+          }
+        },
+        "tags": ["Messages"]
+      },
+      "get": {
+        "operationId": "MessagesController_list",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "required": false,
+            "in": "query",
+            "description": "Exclusive sequence cursor within this session.",
+            "schema": {
+              "minimum": 0,
+              "default": 0,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessagePageDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid payload, UUID or cursor"
+          },
+          "404": {
+            "description": "Session not found in campaign"
+          }
+        },
+        "tags": ["Messages"]
+      }
     }
   },
   "info": {
     "title": "SoloRPG API",
-    "description": "Bootstrap health endpoints",
-    "version": "0.1.0",
+    "description": "Campaigns, sessions and persistent chat",
+    "version": "0.2.0",
     "contact": {}
   },
   "tags": [],
@@ -88,6 +617,358 @@
           }
         },
         "required": ["status", "service"]
+      },
+      "CreateCampaignDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 10000
+          },
+          "plannedSessions": {
+            "type": "number",
+            "default": 8,
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "defaultSessionDurationMinutes": {
+            "type": "number",
+            "default": 120,
+            "minimum": 1,
+            "maximum": 10080
+          }
+        },
+        "required": ["title"]
+      },
+      "SessionResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "campaignId": {
+            "type": "string"
+          },
+          "sessionNumber": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "LOCKED",
+              "AVAILABLE",
+              "IN_PROGRESS",
+              "PAUSED",
+              "COMPLETED"
+            ]
+          },
+          "estimatedDurationMinutes": {
+            "type": "number"
+          },
+          "activeDurationSeconds": {
+            "type": "number"
+          },
+          "timeMeasuredAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startedAt": {
+            "type": "string",
+            "nullable": true,
+            "format": "date-time"
+          },
+          "resumedAt": {
+            "type": "string",
+            "nullable": true,
+            "format": "date-time"
+          },
+          "pausedAt": {
+            "type": "string",
+            "nullable": true,
+            "format": "date-time"
+          },
+          "completedAt": {
+            "type": "string",
+            "nullable": true,
+            "format": "date-time"
+          },
+          "endingType": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "OBJECTIVE_COMPLETED",
+              "NARRATIVE_PAUSE",
+              "PLAYER_REQUESTED"
+            ]
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "campaignId",
+          "sessionNumber",
+          "title",
+          "description",
+          "status",
+          "estimatedDurationMinutes",
+          "activeDurationSeconds",
+          "timeMeasuredAt",
+          "startedAt",
+          "resumedAt",
+          "pausedAt",
+          "completedAt",
+          "endingType",
+          "summary",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CampaignDetailDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "plannedSessions": {
+            "type": "number"
+          },
+          "defaultSessionDurationMinutes": {
+            "type": "number"
+          },
+          "currentSessionNumber": {
+            "type": "number",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "enum": ["DRAFT", "ACTIVE", "COMPLETED"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completedAt": {
+            "type": "string",
+            "nullable": true,
+            "format": "date-time"
+          },
+          "sessions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SessionResponseDto"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "plannedSessions",
+          "defaultSessionDurationMinutes",
+          "currentSessionNumber",
+          "status",
+          "createdAt",
+          "updatedAt",
+          "completedAt",
+          "sessions"
+        ]
+      },
+      "CampaignResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "plannedSessions": {
+            "type": "number"
+          },
+          "defaultSessionDurationMinutes": {
+            "type": "number"
+          },
+          "currentSessionNumber": {
+            "type": "number",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "enum": ["DRAFT", "ACTIVE", "COMPLETED"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completedAt": {
+            "type": "string",
+            "nullable": true,
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "plannedSessions",
+          "defaultSessionDurationMinutes",
+          "currentSessionNumber",
+          "status",
+          "createdAt",
+          "updatedAt",
+          "completedAt"
+        ]
+      },
+      "UpdateCampaignDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 10000
+          }
+        }
+      },
+      "CompleteSessionDto": {
+        "type": "object",
+        "properties": {
+          "endingType": {
+            "type": "string",
+            "enum": [
+              "OBJECTIVE_COMPLETED",
+              "NARRATIVE_PAUSE",
+              "PLAYER_REQUESTED"
+            ]
+          }
+        },
+        "required": ["endingType"]
+      },
+      "CreateMessageDto": {
+        "type": "object",
+        "properties": {
+          "interactionMode": {
+            "type": "string",
+            "enum": ["SPEAK", "ACT", "THINK", "OUT_OF_CHARACTER"]
+          },
+          "content": {
+            "type": "string",
+            "description": "Nonblank text, limited by MESSAGE_MAX_LENGTH (default 10000)."
+          }
+        },
+        "required": ["interactionMode", "content"]
+      },
+      "MessageResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "campaignId": {
+            "type": "string"
+          },
+          "sessionId": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["PLAYER", "GAME_MASTER", "SYSTEM"]
+          },
+          "interactionMode": {
+            "type": "string",
+            "nullable": true,
+            "enum": ["SPEAK", "ACT", "THINK", "OUT_OF_CHARACTER"]
+          },
+          "content": {
+            "type": "string"
+          },
+          "sequenceNumber": {
+            "type": "number"
+          },
+          "metadata": {
+            "type": "object",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "campaignId",
+          "sessionId",
+          "role",
+          "interactionMode",
+          "content",
+          "sequenceNumber",
+          "metadata",
+          "createdAt"
+        ]
+      },
+      "MessagePageDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MessageResponseDto"
+            }
+          },
+          "nextCursor": {
+            "type": "number",
+            "nullable": true
+          },
+          "hasMore": {
+            "type": "boolean"
+          }
+        },
+        "required": ["data", "nextCursor", "hasMore"]
       }
     }
   }
