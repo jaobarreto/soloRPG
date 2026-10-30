@@ -19,3 +19,4 @@ storage/
 .coverage
 htmlcov/
 **/next-env.d.ts
+docs/references

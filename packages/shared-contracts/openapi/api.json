@@ -10,9 +10,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthDto"
-                }
+                "schema": { "$ref": "#/components/schemas/HealthDto" }
               }
             }
           }
@@ -29,15 +27,11 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthDto"
-                }
+                "schema": { "$ref": "#/components/schemas/HealthDto" }
               }
             }
           },
-          "503": {
-            "description": "Database unavailable"
-          }
+          "503": { "description": "Database unavailable" }
         },
         "tags": ["Health"]
       }
@@ -51,15 +45,11 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthDto"
-                }
+                "schema": { "$ref": "#/components/schemas/HealthDto" }
               }
             }
           },
-          "503": {
-            "description": "AI service unavailable"
-          }
+          "503": { "description": "AI service unavailable" }
         },
         "tags": ["Health"]
       }
@@ -72,9 +62,7 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCampaignDto"
-              }
+              "schema": { "$ref": "#/components/schemas/CreateCampaignDto" }
             }
           }
         },
@@ -83,18 +71,12 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignDetailDto"
-                }
+                "schema": { "$ref": "#/components/schemas/CampaignDetailDto" }
               }
             }
           },
-          "400": {
-            "description": "Invalid payload or UUID"
-          },
-          "404": {
-            "description": "Campaign not found"
-          }
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Campaign not found" }
         },
         "tags": ["Campaigns"]
       },
@@ -115,12 +97,8 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid payload or UUID"
-          },
-          "404": {
-            "description": "Campaign not found"
-          }
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Campaign not found" }
         },
         "tags": ["Campaigns"]
       }
@@ -133,9 +111,7 @@
             "name": "campaignId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -143,18 +119,12 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignDetailDto"
-                }
+                "schema": { "$ref": "#/components/schemas/CampaignDetailDto" }
               }
             }
           },
-          "400": {
-            "description": "Invalid payload or UUID"
-          },
-          "404": {
-            "description": "Campaign not found"
-          }
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Campaign not found" }
         },
         "tags": ["Campaigns"]
       },
@@ -165,18 +135,14 @@
             "name": "campaignId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCampaignDto"
-              }
+              "schema": { "$ref": "#/components/schemas/UpdateCampaignDto" }
             }
           }
         },
@@ -185,18 +151,12 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CampaignResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/CampaignResponseDto" }
               }
             }
           },
-          "400": {
-            "description": "Invalid payload or UUID"
-          },
-          "404": {
-            "description": "Campaign not found"
-          }
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Campaign not found" }
         },
         "tags": ["Campaigns"]
       }
@@ -209,9 +169,7 @@
             "name": "campaignId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -221,19 +179,13 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SessionResponseDto"
-                  }
+                  "items": { "$ref": "#/components/schemas/SessionResponseDto" }
                 }
               }
             }
           },
-          "400": {
-            "description": "Invalid payload or UUID"
-          },
-          "404": {
-            "description": "Session or campaign not found"
-          },
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Session or campaign not found" },
           "409": {
             "description": "Invalid or repeated state transition (no changes applied)"
           }
@@ -249,17 +201,13 @@
             "name": "campaignId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "sessionId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -267,18 +215,12 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/SessionResponseDto" }
               }
             }
           },
-          "400": {
-            "description": "Invalid payload or UUID"
-          },
-          "404": {
-            "description": "Session or campaign not found"
-          },
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Session or campaign not found" },
           "409": {
             "description": "Invalid or repeated state transition (no changes applied)"
           }
@@ -294,17 +236,13 @@
             "name": "campaignId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "sessionId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -312,18 +250,12 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/SessionResponseDto" }
               }
             }
           },
-          "400": {
-            "description": "Invalid payload or UUID"
-          },
-          "404": {
-            "description": "Session or campaign not found"
-          },
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Session or campaign not found" },
           "409": {
             "description": "Invalid or repeated state transition (no changes applied)"
           }
@@ -339,17 +271,13 @@
             "name": "campaignId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "sessionId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -357,18 +285,12 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/SessionResponseDto" }
               }
             }
           },
-          "400": {
-            "description": "Invalid payload or UUID"
-          },
-          "404": {
-            "description": "Session or campaign not found"
-          },
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Session or campaign not found" },
           "409": {
             "description": "Invalid or repeated state transition (no changes applied)"
           }
@@ -384,17 +306,13 @@
             "name": "campaignId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "sessionId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "responses": {
@@ -402,18 +320,12 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/SessionResponseDto" }
               }
             }
           },
-          "400": {
-            "description": "Invalid payload or UUID"
-          },
-          "404": {
-            "description": "Session or campaign not found"
-          },
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Session or campaign not found" },
           "409": {
             "description": "Invalid or repeated state transition (no changes applied)"
           }
@@ -429,26 +341,20 @@
             "name": "campaignId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "sessionId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CompleteSessionDto"
-              }
+              "schema": { "$ref": "#/components/schemas/CompleteSessionDto" }
             }
           }
         },
@@ -457,18 +363,12 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SessionResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/SessionResponseDto" }
               }
             }
           },
-          "400": {
-            "description": "Invalid payload or UUID"
-          },
-          "404": {
-            "description": "Session or campaign not found"
-          },
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Session or campaign not found" },
           "409": {
             "description": "Invalid or repeated state transition (no changes applied)"
           }
@@ -484,26 +384,20 @@
             "name": "campaignId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "sessionId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateMessageDto"
-              }
+              "schema": { "$ref": "#/components/schemas/CreateMessageDto" }
             }
           }
         },
@@ -512,21 +406,13 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MessageResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/MessageResponseDto" }
               }
             }
           },
-          "400": {
-            "description": "Invalid payload, UUID or cursor"
-          },
-          "404": {
-            "description": "Session not found in campaign"
-          },
-          "409": {
-            "description": "Session is not in progress"
-          }
+          "400": { "description": "Invalid payload, UUID or cursor" },
+          "404": { "description": "Session not found in campaign" },
+          "409": { "description": "Session is not in progress" }
         },
         "tags": ["Messages"]
       },
@@ -537,28 +423,20 @@
             "name": "campaignId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "sessionId",
             "required": true,
             "in": "path",
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "after",
             "required": false,
             "in": "query",
             "description": "Exclusive sequence cursor within this session.",
-            "schema": {
-              "minimum": 0,
-              "default": 0,
-              "type": "number"
-            }
+            "schema": { "minimum": 0, "default": 0, "type": "number" }
           },
           {
             "name": "limit",
@@ -577,27 +455,3281 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MessagePageDto"
-                }
+                "schema": { "$ref": "#/components/schemas/MessagePageDto" }
               }
             }
           },
-          "400": {
-            "description": "Invalid payload, UUID or cursor"
-          },
-          "404": {
-            "description": "Session not found in campaign"
-          }
+          "400": { "description": "Invalid payload, UUID or cursor" },
+          "404": { "description": "Session not found in campaign" }
         },
         "tags": ["Messages"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/characters": {
+      "post": {
+        "operationId": "GameEngineController_create",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commandId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "description": {
+                    "default": "",
+                    "type": "string",
+                    "maxLength": 10000
+                  },
+                  "people": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "characterClass": {
+                    "type": "string",
+                    "enum": ["ADEPT", "EXPERT", "WARRIOR"]
+                  },
+                  "background": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "level": { "type": "integer", "minimum": 1, "maximum": 20 },
+                  "abilities": {
+                    "type": "object",
+                    "properties": {
+                      "ACCURACY": {
+                        "type": "integer",
+                        "minimum": -10,
+                        "maximum": 30
+                      },
+                      "COMMUNICATION": {
+                        "type": "integer",
+                        "minimum": -10,
+                        "maximum": 30
+                      },
+                      "CONSTITUTION": {
+                        "type": "integer",
+                        "minimum": -10,
+                        "maximum": 30
+                      },
+                      "DEXTERITY": {
+                        "type": "integer",
+                        "minimum": -10,
+                        "maximum": 30
+                      },
+                      "FIGHTING": {
+                        "type": "integer",
+                        "minimum": -10,
+                        "maximum": 30
+                      },
+                      "INTELLIGENCE": {
+                        "type": "integer",
+                        "minimum": -10,
+                        "maximum": 30
+                      },
+                      "PERCEPTION": {
+                        "type": "integer",
+                        "minimum": -10,
+                        "maximum": 30
+                      },
+                      "STRENGTH": {
+                        "type": "integer",
+                        "minimum": -10,
+                        "maximum": 30
+                      },
+                      "WILLPOWER": {
+                        "type": "integer",
+                        "minimum": -10,
+                        "maximum": 30
+                      }
+                    },
+                    "required": [
+                      "ACCURACY",
+                      "COMMUNICATION",
+                      "CONSTITUTION",
+                      "DEXTERITY",
+                      "FIGHTING",
+                      "INTELLIGENCE",
+                      "PERCEPTION",
+                      "STRENGTH",
+                      "WILLPOWER"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "maxHealth": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000
+                  },
+                  "calling": {
+                    "default": "",
+                    "type": "string",
+                    "maxLength": 10000
+                  },
+                  "destiny": {
+                    "default": "",
+                    "type": "string",
+                    "maxLength": 10000
+                  },
+                  "fate": {
+                    "default": "",
+                    "type": "string",
+                    "maxLength": 10000
+                  },
+                  "languages": {
+                    "default": [],
+                    "maxItems": 30,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200
+                    }
+                  },
+                  "goals": {
+                    "default": [],
+                    "maxItems": 30,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200
+                    }
+                  },
+                  "features": {
+                    "default": [],
+                    "maxItems": 100,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ruleId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200
+                        },
+                        "degree": {
+                          "type": "string",
+                          "enum": ["NOVICE", "JOURNEYMAN", "MASTER"]
+                        },
+                        "improved": { "default": false, "type": "boolean" }
+                      },
+                      "required": ["ruleId"],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "commandId",
+                  "name",
+                  "people",
+                  "characterClass",
+                  "background",
+                  "level",
+                  "abilities",
+                  "maxHealth"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fatigueLevel": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 4
+                    },
+                    "lifeState": {
+                      "type": "string",
+                      "enum": ["ALIVE", "DYING", "DEAD", "UNCONSCIOUS"]
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "campaignId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "kind": {
+                      "type": "string",
+                      "enum": ["PROTAGONIST", "NPC", "COMPANION", "ADVERSARY"]
+                    },
+                    "people": { "type": "string" },
+                    "characterClass": {
+                      "nullable": true,
+                      "type": "string",
+                      "enum": ["ADEPT", "EXPERT", "WARRIOR"]
+                    },
+                    "background": { "type": "string" },
+                    "level": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "calling": { "type": "string" },
+                    "destiny": { "type": "string" },
+                    "fate": { "type": "string" },
+                    "personality": { "type": "string" },
+                    "motivations": { "type": "string" },
+                    "state": { "type": "string" },
+                    "abilities": {
+                      "type": "object",
+                      "properties": {
+                        "ACCURACY": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "COMMUNICATION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "CONSTITUTION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "DEXTERITY": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "FIGHTING": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "INTELLIGENCE": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "PERCEPTION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "STRENGTH": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "WILLPOWER": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        }
+                      },
+                      "required": [
+                        "ACCURACY",
+                        "COMMUNICATION",
+                        "CONSTITUTION",
+                        "DEXTERITY",
+                        "FIGHTING",
+                        "INTELLIGENCE",
+                        "PERCEPTION",
+                        "STRENGTH",
+                        "WILLPOWER"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "resources": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": { "type": "string" },
+                          "current": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "maximum": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": ["name", "current", "maximum"],
+                        "additionalProperties": false
+                      }
+                    },
+                    "features": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ruleId": { "type": "string" },
+                          "name": { "type": "string" },
+                          "kind": { "type": "string" },
+                          "degree": { "nullable": true, "type": "string" },
+                          "improved": { "type": "boolean" },
+                          "status": { "type": "string" }
+                        },
+                        "required": [
+                          "ruleId",
+                          "name",
+                          "kind",
+                          "degree",
+                          "improved",
+                          "status"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "languages": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "goals": { "type": "array", "items": { "type": "string" } },
+                    "conditions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "name": { "type": "string" },
+                          "description": { "type": "string" }
+                        },
+                        "required": ["id", "name", "description"],
+                        "additionalProperties": false
+                      }
+                    },
+                    "inventory": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "itemId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "name": { "type": "string" },
+                          "description": { "type": "string" },
+                          "quantity": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 9007199254740991
+                          },
+                          "equipped": { "type": "boolean" },
+                          "consumable": { "type": "boolean" }
+                        },
+                        "required": [
+                          "itemId",
+                          "name",
+                          "description",
+                          "quantity",
+                          "equipped",
+                          "consumable"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "fatigueLevel",
+                    "lifeState",
+                    "id",
+                    "campaignId",
+                    "name",
+                    "description",
+                    "kind",
+                    "people",
+                    "characterClass",
+                    "background",
+                    "level",
+                    "calling",
+                    "destiny",
+                    "fate",
+                    "personality",
+                    "motivations",
+                    "state",
+                    "abilities",
+                    "resources",
+                    "features",
+                    "languages",
+                    "goals",
+                    "conditions",
+                    "inventory"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      },
+      "get": {
+        "operationId": "GameEngineController_list",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fatigueLevel": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4
+                      },
+                      "lifeState": {
+                        "type": "string",
+                        "enum": ["ALIVE", "DYING", "DEAD", "UNCONSCIOUS"]
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "campaignId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "name": { "type": "string" },
+                      "description": { "type": "string" },
+                      "kind": {
+                        "type": "string",
+                        "enum": ["PROTAGONIST", "NPC", "COMPANION", "ADVERSARY"]
+                      },
+                      "people": { "type": "string" },
+                      "characterClass": {
+                        "nullable": true,
+                        "type": "string",
+                        "enum": ["ADEPT", "EXPERT", "WARRIOR"]
+                      },
+                      "background": { "type": "string" },
+                      "level": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "calling": { "type": "string" },
+                      "destiny": { "type": "string" },
+                      "fate": { "type": "string" },
+                      "personality": { "type": "string" },
+                      "motivations": { "type": "string" },
+                      "state": { "type": "string" },
+                      "abilities": {
+                        "type": "object",
+                        "properties": {
+                          "ACCURACY": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "COMMUNICATION": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "CONSTITUTION": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "DEXTERITY": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "FIGHTING": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "INTELLIGENCE": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "PERCEPTION": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "STRENGTH": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "WILLPOWER": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          }
+                        },
+                        "required": [
+                          "ACCURACY",
+                          "COMMUNICATION",
+                          "CONSTITUTION",
+                          "DEXTERITY",
+                          "FIGHTING",
+                          "INTELLIGENCE",
+                          "PERCEPTION",
+                          "STRENGTH",
+                          "WILLPOWER"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "resources": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": { "type": "string" },
+                            "current": {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            "maximum": {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            }
+                          },
+                          "required": ["name", "current", "maximum"],
+                          "additionalProperties": false
+                        }
+                      },
+                      "features": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "ruleId": { "type": "string" },
+                            "name": { "type": "string" },
+                            "kind": { "type": "string" },
+                            "degree": { "nullable": true, "type": "string" },
+                            "improved": { "type": "boolean" },
+                            "status": { "type": "string" }
+                          },
+                          "required": [
+                            "ruleId",
+                            "name",
+                            "kind",
+                            "degree",
+                            "improved",
+                            "status"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "languages": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "goals": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "conditions": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                            },
+                            "name": { "type": "string" },
+                            "description": { "type": "string" }
+                          },
+                          "required": ["id", "name", "description"],
+                          "additionalProperties": false
+                        }
+                      },
+                      "inventory": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "itemId": {
+                              "type": "string",
+                              "format": "uuid",
+                              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                            },
+                            "name": { "type": "string" },
+                            "description": { "type": "string" },
+                            "quantity": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "exclusiveMinimum": true,
+                              "maximum": 9007199254740991
+                            },
+                            "equipped": { "type": "boolean" },
+                            "consumable": { "type": "boolean" }
+                          },
+                          "required": [
+                            "itemId",
+                            "name",
+                            "description",
+                            "quantity",
+                            "equipped",
+                            "consumable"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "fatigueLevel",
+                      "lifeState",
+                      "id",
+                      "campaignId",
+                      "name",
+                      "description",
+                      "kind",
+                      "people",
+                      "characterClass",
+                      "background",
+                      "level",
+                      "calling",
+                      "destiny",
+                      "fate",
+                      "personality",
+                      "motivations",
+                      "state",
+                      "abilities",
+                      "resources",
+                      "features",
+                      "languages",
+                      "goals",
+                      "conditions",
+                      "inventory"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/characters/{id}": {
+      "get": {
+        "operationId": "GameEngineController_detail",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fatigueLevel": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 4
+                    },
+                    "lifeState": {
+                      "type": "string",
+                      "enum": ["ALIVE", "DYING", "DEAD", "UNCONSCIOUS"]
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "campaignId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "kind": {
+                      "type": "string",
+                      "enum": ["PROTAGONIST", "NPC", "COMPANION", "ADVERSARY"]
+                    },
+                    "people": { "type": "string" },
+                    "characterClass": {
+                      "nullable": true,
+                      "type": "string",
+                      "enum": ["ADEPT", "EXPERT", "WARRIOR"]
+                    },
+                    "background": { "type": "string" },
+                    "level": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "calling": { "type": "string" },
+                    "destiny": { "type": "string" },
+                    "fate": { "type": "string" },
+                    "personality": { "type": "string" },
+                    "motivations": { "type": "string" },
+                    "state": { "type": "string" },
+                    "abilities": {
+                      "type": "object",
+                      "properties": {
+                        "ACCURACY": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "COMMUNICATION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "CONSTITUTION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "DEXTERITY": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "FIGHTING": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "INTELLIGENCE": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "PERCEPTION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "STRENGTH": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "WILLPOWER": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        }
+                      },
+                      "required": [
+                        "ACCURACY",
+                        "COMMUNICATION",
+                        "CONSTITUTION",
+                        "DEXTERITY",
+                        "FIGHTING",
+                        "INTELLIGENCE",
+                        "PERCEPTION",
+                        "STRENGTH",
+                        "WILLPOWER"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "resources": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": { "type": "string" },
+                          "current": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "maximum": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": ["name", "current", "maximum"],
+                        "additionalProperties": false
+                      }
+                    },
+                    "features": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ruleId": { "type": "string" },
+                          "name": { "type": "string" },
+                          "kind": { "type": "string" },
+                          "degree": { "nullable": true, "type": "string" },
+                          "improved": { "type": "boolean" },
+                          "status": { "type": "string" }
+                        },
+                        "required": [
+                          "ruleId",
+                          "name",
+                          "kind",
+                          "degree",
+                          "improved",
+                          "status"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "languages": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "goals": { "type": "array", "items": { "type": "string" } },
+                    "conditions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "name": { "type": "string" },
+                          "description": { "type": "string" }
+                        },
+                        "required": ["id", "name", "description"],
+                        "additionalProperties": false
+                      }
+                    },
+                    "inventory": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "itemId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "name": { "type": "string" },
+                          "description": { "type": "string" },
+                          "quantity": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 9007199254740991
+                          },
+                          "equipped": { "type": "boolean" },
+                          "consumable": { "type": "boolean" }
+                        },
+                        "required": [
+                          "itemId",
+                          "name",
+                          "description",
+                          "quantity",
+                          "equipped",
+                          "consumable"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "fatigueLevel",
+                    "lifeState",
+                    "id",
+                    "campaignId",
+                    "name",
+                    "description",
+                    "kind",
+                    "people",
+                    "characterClass",
+                    "background",
+                    "level",
+                    "calling",
+                    "destiny",
+                    "fate",
+                    "personality",
+                    "motivations",
+                    "state",
+                    "abilities",
+                    "resources",
+                    "features",
+                    "languages",
+                    "goals",
+                    "conditions",
+                    "inventory"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      },
+      "patch": {
+        "operationId": "GameEngineController_edit",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commandId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "description": { "type": "string", "maxLength": 10000 },
+                  "goals": {
+                    "maxItems": 30,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200
+                    }
+                  }
+                },
+                "required": ["commandId"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fatigueLevel": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 4
+                    },
+                    "lifeState": {
+                      "type": "string",
+                      "enum": ["ALIVE", "DYING", "DEAD", "UNCONSCIOUS"]
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "campaignId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "kind": {
+                      "type": "string",
+                      "enum": ["PROTAGONIST", "NPC", "COMPANION", "ADVERSARY"]
+                    },
+                    "people": { "type": "string" },
+                    "characterClass": {
+                      "nullable": true,
+                      "type": "string",
+                      "enum": ["ADEPT", "EXPERT", "WARRIOR"]
+                    },
+                    "background": { "type": "string" },
+                    "level": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "calling": { "type": "string" },
+                    "destiny": { "type": "string" },
+                    "fate": { "type": "string" },
+                    "personality": { "type": "string" },
+                    "motivations": { "type": "string" },
+                    "state": { "type": "string" },
+                    "abilities": {
+                      "type": "object",
+                      "properties": {
+                        "ACCURACY": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "COMMUNICATION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "CONSTITUTION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "DEXTERITY": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "FIGHTING": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "INTELLIGENCE": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "PERCEPTION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "STRENGTH": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "WILLPOWER": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        }
+                      },
+                      "required": [
+                        "ACCURACY",
+                        "COMMUNICATION",
+                        "CONSTITUTION",
+                        "DEXTERITY",
+                        "FIGHTING",
+                        "INTELLIGENCE",
+                        "PERCEPTION",
+                        "STRENGTH",
+                        "WILLPOWER"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "resources": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": { "type": "string" },
+                          "current": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "maximum": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": ["name", "current", "maximum"],
+                        "additionalProperties": false
+                      }
+                    },
+                    "features": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ruleId": { "type": "string" },
+                          "name": { "type": "string" },
+                          "kind": { "type": "string" },
+                          "degree": { "nullable": true, "type": "string" },
+                          "improved": { "type": "boolean" },
+                          "status": { "type": "string" }
+                        },
+                        "required": [
+                          "ruleId",
+                          "name",
+                          "kind",
+                          "degree",
+                          "improved",
+                          "status"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "languages": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "goals": { "type": "array", "items": { "type": "string" } },
+                    "conditions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "name": { "type": "string" },
+                          "description": { "type": "string" }
+                        },
+                        "required": ["id", "name", "description"],
+                        "additionalProperties": false
+                      }
+                    },
+                    "inventory": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "itemId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "name": { "type": "string" },
+                          "description": { "type": "string" },
+                          "quantity": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 9007199254740991
+                          },
+                          "equipped": { "type": "boolean" },
+                          "consumable": { "type": "boolean" }
+                        },
+                        "required": [
+                          "itemId",
+                          "name",
+                          "description",
+                          "quantity",
+                          "equipped",
+                          "consumable"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "fatigueLevel",
+                    "lifeState",
+                    "id",
+                    "campaignId",
+                    "name",
+                    "description",
+                    "kind",
+                    "people",
+                    "characterClass",
+                    "background",
+                    "level",
+                    "calling",
+                    "destiny",
+                    "fate",
+                    "personality",
+                    "motivations",
+                    "state",
+                    "abilities",
+                    "resources",
+                    "features",
+                    "languages",
+                    "goals",
+                    "conditions",
+                    "inventory"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/characters/{id}/inventory/actions": {
+      "post": {
+        "operationId": "GameEngineController_inventory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commandId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "sessionId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "itemId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": ["EQUIP", "UNEQUIP", "CONSUME", "TRANSFER"]
+                  },
+                  "quantity": {
+                    "default": 1,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000
+                  },
+                  "toCharacterId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  }
+                },
+                "required": ["commandId", "sessionId", "itemId", "action"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fatigueLevel": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 4
+                    },
+                    "lifeState": {
+                      "type": "string",
+                      "enum": ["ALIVE", "DYING", "DEAD", "UNCONSCIOUS"]
+                    },
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "campaignId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "kind": {
+                      "type": "string",
+                      "enum": ["PROTAGONIST", "NPC", "COMPANION", "ADVERSARY"]
+                    },
+                    "people": { "type": "string" },
+                    "characterClass": {
+                      "nullable": true,
+                      "type": "string",
+                      "enum": ["ADEPT", "EXPERT", "WARRIOR"]
+                    },
+                    "background": { "type": "string" },
+                    "level": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "calling": { "type": "string" },
+                    "destiny": { "type": "string" },
+                    "fate": { "type": "string" },
+                    "personality": { "type": "string" },
+                    "motivations": { "type": "string" },
+                    "state": { "type": "string" },
+                    "abilities": {
+                      "type": "object",
+                      "properties": {
+                        "ACCURACY": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "COMMUNICATION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "CONSTITUTION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "DEXTERITY": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "FIGHTING": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "INTELLIGENCE": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "PERCEPTION": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "STRENGTH": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        },
+                        "WILLPOWER": {
+                          "type": "integer",
+                          "minimum": -10,
+                          "maximum": 30
+                        }
+                      },
+                      "required": [
+                        "ACCURACY",
+                        "COMMUNICATION",
+                        "CONSTITUTION",
+                        "DEXTERITY",
+                        "FIGHTING",
+                        "INTELLIGENCE",
+                        "PERCEPTION",
+                        "STRENGTH",
+                        "WILLPOWER"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "resources": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": { "type": "string" },
+                          "current": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "maximum": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          }
+                        },
+                        "required": ["name", "current", "maximum"],
+                        "additionalProperties": false
+                      }
+                    },
+                    "features": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ruleId": { "type": "string" },
+                          "name": { "type": "string" },
+                          "kind": { "type": "string" },
+                          "degree": { "nullable": true, "type": "string" },
+                          "improved": { "type": "boolean" },
+                          "status": { "type": "string" }
+                        },
+                        "required": [
+                          "ruleId",
+                          "name",
+                          "kind",
+                          "degree",
+                          "improved",
+                          "status"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "languages": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "goals": { "type": "array", "items": { "type": "string" } },
+                    "conditions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "name": { "type": "string" },
+                          "description": { "type": "string" }
+                        },
+                        "required": ["id", "name", "description"],
+                        "additionalProperties": false
+                      }
+                    },
+                    "inventory": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "itemId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "name": { "type": "string" },
+                          "description": { "type": "string" },
+                          "quantity": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 9007199254740991
+                          },
+                          "equipped": { "type": "boolean" },
+                          "consumable": { "type": "boolean" }
+                        },
+                        "required": [
+                          "itemId",
+                          "name",
+                          "description",
+                          "quantity",
+                          "equipped",
+                          "consumable"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "fatigueLevel",
+                    "lifeState",
+                    "id",
+                    "campaignId",
+                    "name",
+                    "description",
+                    "kind",
+                    "people",
+                    "characterClass",
+                    "background",
+                    "level",
+                    "calling",
+                    "destiny",
+                    "fate",
+                    "personality",
+                    "motivations",
+                    "state",
+                    "abilities",
+                    "resources",
+                    "features",
+                    "languages",
+                    "goals",
+                    "conditions",
+                    "inventory"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/blue-rose/rolls": {
+      "post": {
+        "operationId": "GameEngineController_roll",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commandId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "sessionId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  }
+                },
+                "required": ["commandId", "sessionId"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "sessionId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "characterId": {
+                      "nullable": true,
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "dice": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          { "type": "integer", "minimum": 1, "maximum": 6 },
+                          { "type": "integer", "minimum": 1, "maximum": 6 },
+                          { "type": "integer", "minimum": 1, "maximum": 6 }
+                        ]
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "dramaDie": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    "modifier": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "success": { "nullable": true, "type": "boolean" },
+                    "stuntPoints": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 6
+                    },
+                    "availableStuntPoints": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 6
+                    },
+                    "reason": { "type": "string" },
+                    "visibility": {
+                      "type": "string",
+                      "enum": ["PUBLIC", "PLAYER_ONLY"]
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sessionId",
+                    "characterId",
+                    "dice",
+                    "dramaDie",
+                    "modifier",
+                    "total",
+                    "success",
+                    "stuntPoints",
+                    "availableStuntPoints",
+                    "reason",
+                    "visibility",
+                    "createdAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      },
+      "get": {
+        "operationId": "GameEngineController_rolls",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "after",
+            "required": false,
+            "in": "query",
+            "description": "Exclusive visible sequence; default 0",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Page size 1-100; default 30",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "sessionId",
+            "required": false,
+            "in": "query",
+            "description": "Optional session UUID in this campaign",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "sessionId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "characterId": {
+                            "nullable": true,
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "dice": {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 6
+                                },
+                                {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 6
+                                },
+                                {
+                                  "type": "integer",
+                                  "minimum": 1,
+                                  "maximum": 6
+                                }
+                              ]
+                            },
+                            "minItems": 3,
+                            "maxItems": 3
+                          },
+                          "dramaDie": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 6
+                          },
+                          "modifier": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "total": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "success": { "nullable": true, "type": "boolean" },
+                          "stuntPoints": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 6
+                          },
+                          "availableStuntPoints": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 6
+                          },
+                          "reason": { "type": "string" },
+                          "visibility": {
+                            "type": "string",
+                            "enum": ["PUBLIC", "PLAYER_ONLY"]
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sessionId",
+                          "characterId",
+                          "dice",
+                          "dramaDie",
+                          "modifier",
+                          "total",
+                          "success",
+                          "stuntPoints",
+                          "availableStuntPoints",
+                          "reason",
+                          "visibility",
+                          "createdAt"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "nextCursor": {
+                      "nullable": true,
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "hasMore": { "type": "boolean" }
+                  },
+                  "required": ["data", "nextCursor", "hasMore"],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/blue-rose/checks": {
+      "post": {
+        "operationId": "GameEngineController_check",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commandId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  }
+                },
+                "required": ["commandId", "requestId"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "sessionId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "characterId": {
+                      "nullable": true,
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "dice": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          { "type": "integer", "minimum": 1, "maximum": 6 },
+                          { "type": "integer", "minimum": 1, "maximum": 6 },
+                          { "type": "integer", "minimum": 1, "maximum": 6 }
+                        ]
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "dramaDie": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 6
+                    },
+                    "modifier": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "success": { "nullable": true, "type": "boolean" },
+                    "stuntPoints": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 6
+                    },
+                    "availableStuntPoints": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 6
+                    },
+                    "reason": { "type": "string" },
+                    "visibility": {
+                      "type": "string",
+                      "enum": ["PUBLIC", "PLAYER_ONLY"]
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sessionId",
+                    "characterId",
+                    "dice",
+                    "dramaDie",
+                    "modifier",
+                    "total",
+                    "success",
+                    "stuntPoints",
+                    "availableStuntPoints",
+                    "reason",
+                    "visibility",
+                    "createdAt"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/blue-rose/requests": {
+      "get": {
+        "operationId": "GameEngineController_requests",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "characterId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "ability": {
+                        "type": "string",
+                        "enum": [
+                          "ACCURACY",
+                          "COMMUNICATION",
+                          "CONSTITUTION",
+                          "DEXTERITY",
+                          "FIGHTING",
+                          "INTELLIGENCE",
+                          "PERCEPTION",
+                          "STRENGTH",
+                          "WILLPOWER"
+                        ]
+                      },
+                      "focusId": { "nullable": true, "type": "string" },
+                      "reason": { "type": "string" }
+                    },
+                    "required": [
+                      "id",
+                      "characterId",
+                      "ability",
+                      "focusId",
+                      "reason"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/events": {
+      "get": {
+        "operationId": "GameEngineController_events",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "after",
+            "required": false,
+            "in": "query",
+            "description": "Exclusive visible sequence; default 0",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Page size 1-100; default 30",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "sessionId",
+            "required": false,
+            "in": "query",
+            "description": "Optional session UUID in this campaign",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "sequence": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 9007199254740991
+                          },
+                          "sessionId": {
+                            "nullable": true,
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "type": { "type": "string" },
+                          "description": { "type": "string" },
+                          "participants": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "format": "uuid",
+                              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                            }
+                          },
+                          "changes": {
+                            "type": "object",
+                            "additionalProperties": {}
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "sequence",
+                          "sessionId",
+                          "type",
+                          "description",
+                          "participants",
+                          "changes",
+                          "createdAt"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "nextCursor": {
+                      "nullable": true,
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "hasMore": { "type": "boolean" }
+                  },
+                  "required": ["data", "nextCursor", "hasMore"],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/world-state": {
+      "get": {
+        "operationId": "GameEngineController_world",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "kind": { "type": "string" },
+                      "name": { "type": "string" },
+                      "description": { "type": "string" },
+                      "status": { "type": "string" },
+                      "accessible": { "type": "boolean" }
+                    },
+                    "required": [
+                      "id",
+                      "kind",
+                      "name",
+                      "description",
+                      "status",
+                      "accessible"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/relationships": {
+      "get": {
+        "operationId": "GameEngineController_relationships",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fromCharacterId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "toCharacterId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "metric": { "type": "string" },
+                      "value": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "minimum": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "maximum": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "reason": { "type": "string" }
+                    },
+                    "required": [
+                      "fromCharacterId",
+                      "toCharacterId",
+                      "metric",
+                      "value",
+                      "minimum",
+                      "maximum",
+                      "reason"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/blue-rose/rules": {
+      "get": {
+        "operationId": "GameEngineController_rules",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/blue-rose/combat": {
+      "get": {
+        "operationId": "GameEngineController_combatState",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true,
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "sessionId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["ACTIVE", "COMPLETED"]
+                    },
+                    "round": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "exclusiveMinimum": true,
+                      "maximum": 9007199254740991
+                    },
+                    "turnCharacterId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "members": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "characterId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "name": { "type": "string" },
+                          "initiative": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "x": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "y": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "prone": { "type": "boolean" },
+                          "majorUsed": { "type": "boolean" },
+                          "minorUsed": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 2
+                          },
+                          "health": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "lifeState": { "type": "string" }
+                        },
+                        "required": [
+                          "characterId",
+                          "name",
+                          "initiative",
+                          "x",
+                          "y",
+                          "prone",
+                          "majorUsed",
+                          "minorUsed",
+                          "health",
+                          "lifeState"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "pendingAttacks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "actorId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "targetId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "stuntPoints": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 6
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "actorId",
+                          "targetId",
+                          "stuntPoints"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sessionId",
+                    "status",
+                    "round",
+                    "turnCharacterId",
+                    "members",
+                    "pendingAttacks"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/blue-rose/combat/actions": {
+      "post": {
+        "operationId": "GameEngineController_combatAction",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commandId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "sessionId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "encounterId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "characterId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": [
+                      "ATTACK",
+                      "AIM",
+                      "DEFEND",
+                      "MOVE",
+                      "STAND",
+                      "RELOAD",
+                      "END_TURN"
+                    ]
+                  },
+                  "targetId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "x": {
+                    "type": "integer",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  },
+                  "y": {
+                    "type": "integer",
+                    "minimum": -10000,
+                    "maximum": 10000
+                  }
+                },
+                "required": [
+                  "commandId",
+                  "sessionId",
+                  "encounterId",
+                  "characterId",
+                  "action"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "sessionId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["ACTIVE", "COMPLETED"]
+                    },
+                    "round": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "exclusiveMinimum": true,
+                      "maximum": 9007199254740991
+                    },
+                    "turnCharacterId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "members": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "characterId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "name": { "type": "string" },
+                          "initiative": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "x": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "y": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "prone": { "type": "boolean" },
+                          "majorUsed": { "type": "boolean" },
+                          "minorUsed": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 2
+                          },
+                          "health": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "lifeState": { "type": "string" }
+                        },
+                        "required": [
+                          "characterId",
+                          "name",
+                          "initiative",
+                          "x",
+                          "y",
+                          "prone",
+                          "majorUsed",
+                          "minorUsed",
+                          "health",
+                          "lifeState"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "pendingAttacks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "actorId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "targetId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "stuntPoints": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 6
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "actorId",
+                          "targetId",
+                          "stuntPoints"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sessionId",
+                    "status",
+                    "round",
+                    "turnCharacterId",
+                    "members",
+                    "pendingAttacks"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/blue-rose/combat/stunts": {
+      "post": {
+        "operationId": "GameEngineController_combatResolve",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commandId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "sessionId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "attackId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "stunts": {
+                    "default": [],
+                    "maxItems": 5,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "MIGHTY_BLOW",
+                        "PIERCE_ARMOR",
+                        "KNOCK_PRONE",
+                        "DEFENSIVE_STANCE",
+                        "LETHAL_BLOW"
+                      ]
+                    }
+                  }
+                },
+                "required": ["commandId", "sessionId", "attackId"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "sessionId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": ["ACTIVE", "COMPLETED"]
+                    },
+                    "round": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "exclusiveMinimum": true,
+                      "maximum": 9007199254740991
+                    },
+                    "turnCharacterId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                    },
+                    "members": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "characterId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "name": { "type": "string" },
+                          "initiative": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "x": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "y": {
+                            "type": "integer",
+                            "minimum": -9007199254740991,
+                            "maximum": 9007199254740991
+                          },
+                          "prone": { "type": "boolean" },
+                          "majorUsed": { "type": "boolean" },
+                          "minorUsed": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 2
+                          },
+                          "health": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "lifeState": { "type": "string" }
+                        },
+                        "required": [
+                          "characterId",
+                          "name",
+                          "initiative",
+                          "x",
+                          "y",
+                          "prone",
+                          "majorUsed",
+                          "minorUsed",
+                          "health",
+                          "lifeState"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "pendingAttacks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "actorId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "targetId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "stuntPoints": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 6
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "actorId",
+                          "targetId",
+                          "stuntPoints"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "sessionId",
+                    "status",
+                    "round",
+                    "turnCharacterId",
+                    "members",
+                    "pendingAttacks"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/blue-rose/arcana/requests": {
+      "get": {
+        "operationId": "GameEngineController_arcanaRequests",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "characterId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "targetId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      }
+                    },
+                    "required": ["id", "characterId", "targetId"],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/blue-rose/arcana/cure": {
+      "post": {
+        "operationId": "GameEngineController_cure",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commandId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  }
+                },
+                "required": ["commandId", "requestId"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fatigueLevel": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4
+                      },
+                      "lifeState": {
+                        "type": "string",
+                        "enum": ["ALIVE", "DYING", "DEAD", "UNCONSCIOUS"]
+                      },
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "campaignId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "name": { "type": "string" },
+                      "description": { "type": "string" },
+                      "kind": {
+                        "type": "string",
+                        "enum": ["PROTAGONIST", "NPC", "COMPANION", "ADVERSARY"]
+                      },
+                      "people": { "type": "string" },
+                      "characterClass": {
+                        "nullable": true,
+                        "type": "string",
+                        "enum": ["ADEPT", "EXPERT", "WARRIOR"]
+                      },
+                      "background": { "type": "string" },
+                      "level": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "calling": { "type": "string" },
+                      "destiny": { "type": "string" },
+                      "fate": { "type": "string" },
+                      "personality": { "type": "string" },
+                      "motivations": { "type": "string" },
+                      "state": { "type": "string" },
+                      "abilities": {
+                        "type": "object",
+                        "properties": {
+                          "ACCURACY": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "COMMUNICATION": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "CONSTITUTION": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "DEXTERITY": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "FIGHTING": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "INTELLIGENCE": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "PERCEPTION": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "STRENGTH": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          },
+                          "WILLPOWER": {
+                            "type": "integer",
+                            "minimum": -10,
+                            "maximum": 30
+                          }
+                        },
+                        "required": [
+                          "ACCURACY",
+                          "COMMUNICATION",
+                          "CONSTITUTION",
+                          "DEXTERITY",
+                          "FIGHTING",
+                          "INTELLIGENCE",
+                          "PERCEPTION",
+                          "STRENGTH",
+                          "WILLPOWER"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "resources": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": { "type": "string" },
+                            "current": {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            },
+                            "maximum": {
+                              "type": "integer",
+                              "minimum": -9007199254740991,
+                              "maximum": 9007199254740991
+                            }
+                          },
+                          "required": ["name", "current", "maximum"],
+                          "additionalProperties": false
+                        }
+                      },
+                      "features": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "ruleId": { "type": "string" },
+                            "name": { "type": "string" },
+                            "kind": { "type": "string" },
+                            "degree": { "nullable": true, "type": "string" },
+                            "improved": { "type": "boolean" },
+                            "status": { "type": "string" }
+                          },
+                          "required": [
+                            "ruleId",
+                            "name",
+                            "kind",
+                            "degree",
+                            "improved",
+                            "status"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "languages": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "goals": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "conditions": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                            },
+                            "name": { "type": "string" },
+                            "description": { "type": "string" }
+                          },
+                          "required": ["id", "name", "description"],
+                          "additionalProperties": false
+                        }
+                      },
+                      "inventory": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "itemId": {
+                              "type": "string",
+                              "format": "uuid",
+                              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                            },
+                            "name": { "type": "string" },
+                            "description": { "type": "string" },
+                            "quantity": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "exclusiveMinimum": true,
+                              "maximum": 9007199254740991
+                            },
+                            "equipped": { "type": "boolean" },
+                            "consumable": { "type": "boolean" }
+                          },
+                          "required": [
+                            "itemId",
+                            "name",
+                            "description",
+                            "quantity",
+                            "equipped",
+                            "consumable"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "fatigueLevel",
+                      "lifeState",
+                      "id",
+                      "campaignId",
+                      "name",
+                      "description",
+                      "kind",
+                      "people",
+                      "characterClass",
+                      "background",
+                      "level",
+                      "calling",
+                      "destiny",
+                      "fate",
+                      "personality",
+                      "motivations",
+                      "state",
+                      "abilities",
+                      "resources",
+                      "features",
+                      "languages",
+                      "goals",
+                      "conditions",
+                      "inventory"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/blue-rose/advanced-tests": {
+      "get": {
+        "operationId": "GameEngineController_advancedTests",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "characterId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "reason": { "type": "string" },
+                      "progress": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      "threshold": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "exclusiveMinimum": true,
+                        "maximum": 9007199254740991
+                      },
+                      "attempts": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      "intervalMinutes": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "exclusiveMinimum": true,
+                        "maximum": 9007199254740991
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "characterId",
+                      "reason",
+                      "progress",
+                      "threshold",
+                      "attempts",
+                      "intervalMinutes"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Blue Rose AGE / Player"]
+      }
+    },
+    "/api/v1/blue-rose/stunts": {
+      "get": {
+        "operationId": "GameEngineController_stunts",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Blue Rose AGE / Player"]
       }
     }
   },
   "info": {
     "title": "SoloRPG API",
-    "description": "Campaigns, sessions and persistent chat",
-    "version": "0.2.0",
+    "description": "Campaigns, sessions, persistent chat and Blue Rose AGE game engine",
+    "version": "0.3.0",
     "contact": {}
   },
   "tags": [],
@@ -607,10 +3739,7 @@
       "HealthDto": {
         "type": "object",
         "properties": {
-          "status": {
-            "type": "string",
-            "enum": ["ok"]
-          },
+          "status": { "type": "string", "enum": ["ok"] },
           "service": {
             "type": "string",
             "enum": ["solo-rpg-api", "solo-rpg-ai", "postgresql"]
@@ -621,10 +3750,7 @@
       "CreateCampaignDto": {
         "type": "object",
         "properties": {
-          "title": {
-            "type": "string",
-            "maxLength": 200
-          },
+          "title": { "type": "string", "maxLength": 200 },
           "description": {
             "type": "string",
             "nullable": true,
@@ -648,22 +3774,11 @@
       "SessionResponseDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "campaignId": {
-            "type": "string"
-          },
-          "sessionNumber": {
-            "type": "number"
-          },
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
+          "id": { "type": "string" },
+          "campaignId": { "type": "string" },
+          "sessionNumber": { "type": "number" },
+          "title": { "type": "string" },
+          "description": { "type": "string", "nullable": true },
           "status": {
             "type": "string",
             "enum": [
@@ -674,16 +3789,9 @@
               "COMPLETED"
             ]
           },
-          "estimatedDurationMinutes": {
-            "type": "number"
-          },
-          "activeDurationSeconds": {
-            "type": "number"
-          },
-          "timeMeasuredAt": {
-            "type": "string",
-            "format": "date-time"
-          },
+          "estimatedDurationMinutes": { "type": "number" },
+          "activeDurationSeconds": { "type": "number" },
+          "timeMeasuredAt": { "type": "string", "format": "date-time" },
           "startedAt": {
             "type": "string",
             "nullable": true,
@@ -713,18 +3821,9 @@
               "PLAYER_REQUESTED"
             ]
           },
-          "summary": {
-            "type": "string",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          }
+          "summary": { "type": "string", "nullable": true },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
         },
         "required": [
           "id",
@@ -749,38 +3848,18 @@
       "CampaignDetailDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "plannedSessions": {
-            "type": "number"
-          },
-          "defaultSessionDurationMinutes": {
-            "type": "number"
-          },
-          "currentSessionNumber": {
-            "type": "number",
-            "nullable": true
-          },
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string", "nullable": true },
+          "plannedSessions": { "type": "number" },
+          "defaultSessionDurationMinutes": { "type": "number" },
+          "currentSessionNumber": { "type": "number", "nullable": true },
           "status": {
             "type": "string",
             "enum": ["DRAFT", "ACTIVE", "COMPLETED"]
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
           "completedAt": {
             "type": "string",
             "nullable": true,
@@ -788,9 +3867,7 @@
           },
           "sessions": {
             "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SessionResponseDto"
-            }
+            "items": { "$ref": "#/components/schemas/SessionResponseDto" }
           }
         },
         "required": [
@@ -810,38 +3887,18 @@
       "CampaignResponseDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "plannedSessions": {
-            "type": "number"
-          },
-          "defaultSessionDurationMinutes": {
-            "type": "number"
-          },
-          "currentSessionNumber": {
-            "type": "number",
-            "nullable": true
-          },
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string", "nullable": true },
+          "plannedSessions": { "type": "number" },
+          "defaultSessionDurationMinutes": { "type": "number" },
+          "currentSessionNumber": { "type": "number", "nullable": true },
           "status": {
             "type": "string",
             "enum": ["DRAFT", "ACTIVE", "COMPLETED"]
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
           "completedAt": {
             "type": "string",
             "nullable": true,
@@ -864,10 +3921,7 @@
       "UpdateCampaignDto": {
         "type": "object",
         "properties": {
-          "title": {
-            "type": "string",
-            "maxLength": 200
-          },
+          "title": { "type": "string", "maxLength": 200 },
           "description": {
             "type": "string",
             "nullable": true,
@@ -906,15 +3960,9 @@
       "MessageResponseDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "campaignId": {
-            "type": "string"
-          },
-          "sessionId": {
-            "type": "string"
-          },
+          "id": { "type": "string" },
+          "campaignId": { "type": "string" },
+          "sessionId": { "type": "string" },
           "role": {
             "type": "string",
             "enum": ["PLAYER", "GAME_MASTER", "SYSTEM"]
@@ -924,20 +3972,10 @@
             "nullable": true,
             "enum": ["SPEAK", "ACT", "THINK", "OUT_OF_CHARACTER"]
           },
-          "content": {
-            "type": "string"
-          },
-          "sequenceNumber": {
-            "type": "number"
-          },
-          "metadata": {
-            "type": "object",
-            "nullable": true
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          }
+          "content": { "type": "string" },
+          "sequenceNumber": { "type": "number" },
+          "metadata": { "type": "object", "nullable": true },
+          "createdAt": { "type": "string", "format": "date-time" }
         },
         "required": [
           "id",
@@ -956,17 +3994,10 @@
         "properties": {
           "data": {
             "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MessageResponseDto"
-            }
+            "items": { "$ref": "#/components/schemas/MessageResponseDto" }
           },
-          "nextCursor": {
-            "type": "number",
-            "nullable": true
-          },
-          "hasMore": {
-            "type": "boolean"
-          }
+          "nextCursor": { "type": "number", "nullable": true },
+          "hasMore": { "type": "boolean" }
         },
         "required": ["data", "nextCursor", "hasMore"]
       }

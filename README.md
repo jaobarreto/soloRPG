@@ -1,8 +1,10 @@
 # SoloRPG
 
 Base local para uma aplicação de RPG solo. O requisito principal está em
-[docs/base-projeto.md](docs/base-projeto.md). Esta entrega inclui a Fase 2: campanhas, sessões com cronômetro pausável e chat
-persistente por sessão. Game Engine, personagens e IA ficam para as próximas fases.
+[docs/base-projeto.md](docs/base-projeto.md). Esta entrega inclui campanhas, sessões
+com cronômetro pausável e chat persistente, além do Game Engine Blue Rose AGE da
+Fase 3: personagens, dados, testes, combate básico e estado do mundo. O recorte
+mecânico e suas pendências estão documentados abaixo; o Mestre por IA continua pendente.
 A [arquitetura do domínio](docs/architecture/campaigns-and-sessions.md) descreve
 contratos, concorrência e preservação do histórico.
 
@@ -14,10 +16,10 @@ contratos, concorrência e preservação do histórico.
 - `apps/ai-service`: Python **3.12.16**, uv **0.13.6**, FastAPI, Pydantic v2,
   Pydantic Settings, LangGraph, Uvicorn, httpx, Ruff, mypy e pytest.
 - PostgreSQL **17.10** com pgvector **0.8.2**, volume Docker persistente.
-- `packages/shared-contracts`: health checks, enums e tipos públicos de campanhas, sessões e mensagens, além do OpenAPI versionado.
+- `packages/shared-contracts`: health checks, enums, tipos e esquemas públicos de campanhas, sessões, mensagens e Game Engine, além do OpenAPI versionado.
 - `packages/typescript-config`: configurações strict compartilhadas.
 - `infrastructure/docker`: Dockerfiles de desenvolvimento.
-- `docs/adr`: decisões arquiteturais; `docs/architecture`: domínio implementado; `rule-packs`: orientação para a etapa futura.
+- `docs/adr`: decisões arquiteturais; `docs/architecture`: domínio implementado; `docs/rules` e `rule-packs`: fontes, cobertura e limites das regras.
 
 ESLint 9.39.5 foi mantido por compatibilidade dos plugins do Next.js com ESLint 9.
 
@@ -193,6 +195,7 @@ SMOKE_AI_DIRECT=1 pnpm smoke
 
 Os contratos OpenAPI gerados são versionados em `packages/shared-contracts/openapi/`.
 Com a API e o Python locais em execução, atualize-os com `pnpm contracts:export`.
+Para atualizar apenas a API, sem abrir portas ou depender do Python, use `pnpm contracts:api`.
 
 ## Migrações e persistência
 
@@ -351,6 +354,46 @@ Referências técnicas: [Next.js](https://nextjs.org/docs/app/getting-started/in
 [NestJS](https://docs.nestjs.com/first-steps), [migrações Drizzle](https://orm.drizzle.team/docs/migrations),
 [uv em Docker](https://docs.astral.sh/uv/guides/integration/docker/).
 
-Próxima fase: Game Engine, personagens, estado do mundo e eventos, preservando as
-fronteiras do domínio atual e o histórico integral. IA, Director, resumos e detecção de
-inatividade serão implementados posteriormente.
+Game Engine, personagens, estado do mundo e eventos estão descritos na Fase 3 abaixo,
+preservando as fronteiras do domínio e o histórico integral. IA, Director, resumos e
+detecção de inatividade serão implementados posteriormente.
+
+## Fase 3 — Game Engine Blue Rose AGE
+
+Abra **Ficha, dados e mundo** na campanha. Antes da primeira sessão, transcreva a
+ficha da protagonista. O painel apresenta atributos, recursos, condições, inventário,
+NPCs conhecidos, mundo, relacionamentos, rolagens, testes, combate e Curar. O chat
+anterior permanece acessível e recebe mensagens de dados públicos.
+
+Para executar no host, pare primeiro a web e a API do Docker, caso estejam rodando.
+Isso libera as portas 3000 e 3001 e preserva o PostgreSQL e seus dados.
+
+```sh
+docker compose stop web api
+pnpm db:up
+pnpm db:migrate
+pnpm dev:game
+pnpm test:integration
+pnpm --filter @solo-rpg/api test:coverage
+pnpm contracts:api
+pnpm --filter @solo-rpg/api engine:command /tmp/comando.json
+```
+
+O motor suporta 3d6/Drama Die, testes básicos/opostos/prolongados, focos, SP,
+combate básico a pé nos níveis 1–2, cinco Stunts e Curar pela tradição de Cura fora
+de combate, com fadiga. Armas/proteção/dano são calculados no servidor. O livro
+brasileiro AGE 2023 disponível em `docs/references` foi consultado e permanece fora
+do Git; a documentação registra páginas e limites. Criação/progressão completas,
+demais poderes, ações, Stunts e arcanos continuam pendentes.
+
+A CLI administrativa não abre portas. NPCs, relações, mundo, recursos, perfis e
+pedidos secretos são administrados localmente. O browser não aceita dados oficiais,
+dano, TN, modificadores ou comandos administrativos. A API pública permanece sem
+autenticação, para uma jogadora numa instalação doméstica. Não há integração de
+Mestre de IA ou dependência paga.
+
+- [Arquitetura, entidades e API](docs/architecture/game-engine.md)
+- [Comandos e execução](docs/architecture/blue-rose-engine.md)
+- [Fontes e cobertura mecânica](docs/rules/blue-rose-implementation.md)
+- [Mecânicas pendentes](docs/rules/blue-rose-pending-rules.md)
+- [ADR 0004](docs/adr/0004-blue-rose-engine-e-fronteira-local.md)

@@ -57,6 +57,9 @@ button:disabled {
   select {
     @apply w-full rounded-lg border border-stone-300 bg-white px-3 py-3 text-base font-normal text-stone-900;
   }
+  input[type='checkbox'] {
+    @apply h-4 w-4 shrink-0 p-0;
+  }
   textarea {
     @apply resize-y;
   }

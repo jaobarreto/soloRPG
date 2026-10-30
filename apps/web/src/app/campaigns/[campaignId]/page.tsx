@@ -53,6 +53,12 @@ export default function CampaignPage({
               </p>
             </div>
           )}
+          <Link
+            href={`/campaigns/${campaign.id}/game`}
+            className="primary-button mb-6"
+          >
+            Ficha, dados e mundo →
+          </Link>
           <h2 className="mb-4 font-serif text-2xl">Sessões</h2>
           <ol className="space-y-3">
             {campaign.sessions.map((session) => (

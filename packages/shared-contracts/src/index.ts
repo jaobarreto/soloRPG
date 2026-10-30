@@ -84,3 +84,4 @@ export interface MessagePage {
   nextCursor: number | null;
   hasMore: boolean;
 }
+export * from './game';

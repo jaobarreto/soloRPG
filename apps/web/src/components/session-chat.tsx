@@ -172,6 +172,12 @@ export function SessionChat({
       <Link href={`/campaigns/${campaignId}`} className="back-link">
         ← Voltar à campanha
       </Link>
+      <Link
+        href={`/campaigns/${campaignId}/game`}
+        className="secondary-button ml-4"
+      >
+        Ficha e dados
+      </Link>
       <div className="mt-5">
         <ErrorNotice message={error} />
       </div>

@@ -11,5 +11,7 @@ module.exports = {
     'src/**/*.ts',
     '!src/main.ts',
     '!src/database/schema.ts',
+    '!src/database/game-schema.ts',
+    '!src/game-engine/admin.ts',
   ],
 };

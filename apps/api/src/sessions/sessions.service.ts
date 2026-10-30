@@ -6,6 +6,8 @@ import {
 } from '@nestjs/common';
 import { CampaignsRepository } from '../campaigns/campaigns.repository';
 import { DatabaseService } from '../database/database.service';
+import { and, eq } from 'drizzle-orm';
+import { combatEncounters } from '../database/game-schema';
 import type { SessionRecord } from '../database/schema';
 import { SessionResponseDto } from './dto/session-response.dto';
 import { SessionsRepository } from './sessions.repository';
@@ -44,6 +46,21 @@ export class SessionsService {
       const current = await this.repository.lock(campaignId, id, tx);
       if (!current)
         throw new NotFoundException('Session not found in campaign');
+      if (action === 'complete') {
+        const [combat] = await tx
+          .select()
+          .from(combatEncounters)
+          .where(
+            and(
+              eq(combatEncounters.campaignId, campaignId),
+              eq(combatEncounters.status, 'ACTIVE'),
+            ),
+          );
+        if (combat)
+          throw new ConflictException(
+            'Session cannot be completed in its current state',
+          );
+      }
       const now = new Date(); // Sample after locks; never count waiting time twice.
       const patch = transitionSession(current, action, now, endingType);
       if (action === 'start') {

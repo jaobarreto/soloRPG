@@ -1,0 +1,226 @@
+import { z } from 'zod';
+import {
+  DiceVisibility,
+  weaponRuleIds,
+  combatActionSchema,
+  combatResolveSchema,
+  abilitySchema,
+  createCharacterSchema,
+  editCharacterSchema,
+  visibilitySchema,
+  inventoryActionSchema,
+} from '@solo-rpg/shared-contracts';
+const id = z.uuid();
+const short = z.string().trim().min(1).max(200);
+const text = z.string().trim().max(10000);
+const reason = text.min(1);
+const characterId = id;
+export const internalCommandSchema = z.discriminatedUnion('type', [
+  z.strictObject({
+    type: z.literal('OPPOSED_PREPARE'),
+    characterId,
+    ability: abilitySchema,
+    focusId: short.optional(),
+    modifier: z.number().int().min(-30).max(30).default(0),
+    opponentId: id,
+    opponentAbility: abilitySchema,
+    opponentFocusId: short.optional(),
+    opponentModifier: z.number().int().min(-30).max(30).default(0),
+    reason,
+    visibility: visibilitySchema,
+    stuntsEligible: z.boolean().default(false),
+  }),
+  z.strictObject({
+    type: z.literal('ADVANCED_CREATE'),
+    characterId,
+    ability: abilitySchema,
+    focusId: short.optional(),
+    targetNumber: z.number().int().min(1).max(100),
+    threshold: z.number().int().min(1).max(1000),
+    intervalMinutes: z.number().int().min(1).max(10080),
+    reason,
+    visibility: visibilitySchema,
+  }),
+  z.strictObject({
+    type: z.literal('ADVANCED_PREPARE'),
+    advancedTestId: id,
+    stuntsEligible: z.boolean().default(false),
+  }),
+  z.strictObject({ type: z.literal('SPECIAL_CHECK_RESOLVE'), requestId: id }),
+
+  z.strictObject({
+    type: z.literal('COMBAT_CONFIGURE'),
+    characterId,
+    armorType: z.enum(['NONE', 'LIGHT', 'MEDIUM', 'HEAVY']),
+    armorTrained: z.boolean(),
+    shieldType: z.enum(['NONE', 'LIGHT', 'MEDIUM', 'HEAVY']),
+    shieldTrained: z.boolean(),
+    baseSpeed: z.number().int().min(0).max(100),
+    weaponTraining: z.array(z.enum(weaponRuleIds)).min(1).max(3),
+    reason,
+  }),
+  z.strictObject({
+    type: z.literal('COMBAT_START'),
+    members: z
+      .array(
+        z.strictObject({
+          characterId,
+          weaponItemId: id,
+          x: z.number().int().min(-10000).max(10000),
+          y: z.number().int().min(-10000).max(10000),
+          usesDyingRules: z.boolean().default(false),
+        }),
+      )
+      .min(2)
+      .max(30),
+    visibility: visibilitySchema,
+    reason,
+  }),
+  z.strictObject({ type: z.literal('COMBAT_END'), encounterId: id, reason }),
+  z.strictObject({
+    type: z.literal('COMBAT_ACTION'),
+    input: combatActionSchema,
+  }),
+  z.strictObject({
+    type: z.literal('COMBAT_RESOLVE'),
+    input: combatResolveSchema,
+  }),
+  z.strictObject({
+    type: z.literal('ARCANA_CURE_PREPARE'),
+    characterId,
+    targetId: id,
+    touchConfirmed: z.literal(true),
+    visibility: visibilitySchema,
+    reason,
+  }),
+  z.strictObject({ type: z.literal('ARCANA_CURE_RESOLVE'), requestId: id }),
+  z.strictObject({
+    type: z.literal('REST'),
+    characterId,
+    kind: z.enum(['BREATHER', 'SLEEP']),
+    reason,
+  }),
+
+  z.strictObject({
+    type: z.literal('CHARACTER_CREATE'),
+    sheet: createCharacterSchema,
+    kind: z.enum(['PROTAGONIST', 'NPC', 'COMPANION', 'ADVERSARY']),
+    known: z.boolean(),
+    living: z.boolean().default(true),
+    privateNotes: text.default(''),
+    privateObjectives: text.default(''),
+    personality: text.default(''),
+    motivations: text.default(''),
+    state: text.default(''),
+  }),
+  z.strictObject({
+    type: z.literal('CHARACTER_EDIT'),
+    characterId,
+    patch: editCharacterSchema,
+  }),
+  z.strictObject({ type: z.literal('CHARACTER_REVEAL'), characterId, reason }),
+  z.strictObject({
+    type: z.literal('ABILITY_SET'),
+    characterId,
+    ability: abilitySchema,
+    score: z.number().int().min(-10).max(30),
+    reason,
+  }),
+  z.strictObject({
+    type: z.literal('RESOURCE_SET'),
+    characterId,
+    name: z.enum(['HEALTH', 'CONVICTION', 'CORRUPTION']),
+    current: z.number().int().min(0).max(10000),
+    maximum: z.number().int().min(0).max(10000),
+    reason,
+  }),
+  z.strictObject({
+    type: z.literal('CONDITION_APPLY'),
+    characterId,
+    name: short,
+    description: text,
+    visibility: visibilitySchema,
+    reason,
+  }),
+  z.strictObject({
+    type: z.literal('CONDITION_REMOVE'),
+    characterId,
+    conditionId: id,
+    reason,
+  }),
+  z.strictObject({
+    type: z.literal('ITEM_CREATE'),
+    name: short,
+    description: text,
+    consumable: z.boolean(),
+    equipmentRuleId: z.enum(weaponRuleIds).optional(),
+    visibility: visibilitySchema.default(DiceVisibility.PUBLIC),
+  }),
+  z.strictObject({
+    type: z.literal('ITEM_GRANT'),
+    characterId,
+    itemId: id,
+    quantity: z.number().int().min(1).max(10000),
+    reason,
+  }),
+  z.strictObject({
+    type: z.literal('INVENTORY_ACTION'),
+    characterId,
+    input: inventoryActionSchema,
+  }),
+  z.strictObject({
+    type: z.literal('METRIC_DEFINE'),
+    name: short,
+    minimum: z.number().int().min(-10000).max(10000),
+    maximum: z.number().int().min(-10000).max(10000),
+  }),
+  z.strictObject({
+    type: z.literal('RELATIONSHIP_SET'),
+    fromCharacterId: id,
+    toCharacterId: id,
+    metric: short,
+    value: z.number().int().min(-10000).max(10000),
+    reason,
+    visibility: visibilitySchema,
+  }),
+  z.strictObject({
+    type: z.literal('WORLD_UPSERT'),
+    entityId: id,
+    kind: z.enum(['LOCATION', 'OBJECT', 'FACTION']),
+    name: short,
+    description: text,
+    status: short,
+    accessible: z.boolean(),
+    privateNotes: text.default(''),
+    visibility: visibilitySchema,
+    reason,
+  }),
+  z.strictObject({
+    type: z.literal('EVENT_RECORD'),
+    eventType: z.enum(['ENCOUNTER_RECORDED', 'CONSEQUENCE_RECORDED']),
+    description: reason,
+    participants: z.array(id).max(30).default([]),
+    visibility: visibilitySchema,
+  }),
+  z.strictObject({
+    type: z.literal('CHECK_PREPARE'),
+    characterId,
+    ability: abilitySchema,
+    focusId: short.optional(),
+    targetNumber: z.number().int().min(1).max(100),
+    modifier: z.number().int().min(-30).max(30).default(0),
+    reason,
+    visibility: visibilitySchema,
+    stuntsEligible: z.boolean().default(false),
+  }),
+  z.strictObject({ type: z.literal('CHECK_RESOLVE'), requestId: id }),
+  z.strictObject({ type: z.literal('ROLL') }),
+]);
+export const commandEnvelopeSchema = z.strictObject({
+  campaignId: id,
+  sessionId: id.optional(),
+  commandId: id,
+  command: internalCommandSchema,
+});
+export type EngineCommand = z.infer<typeof internalCommandSchema>;
+export type CommandEnvelope = z.infer<typeof commandEnvelopeSchema>;

@@ -17,15 +17,16 @@ export function configureApp(app: INestApplication): void {
     methods: ['GET', 'POST', 'PATCH'],
     credentials: false,
   });
+  SwaggerModule.setup('api/v1/docs', app, createApiDocument(app));
+  app.enableShutdownHooks();
+}
+export function createApiDocument(app: INestApplication) {
   const config = new DocumentBuilder()
     .setTitle('SoloRPG API')
-    .setDescription('Campaigns, sessions and persistent chat')
-    .setVersion('0.2.0')
+    .setDescription(
+      'Campaigns, sessions, persistent chat and Blue Rose AGE game engine',
+    )
+    .setVersion('0.3.0')
     .build();
-  SwaggerModule.setup(
-    'api/v1/docs',
-    app,
-    SwaggerModule.createDocument(app, config),
-  );
-  app.enableShutdownHooks();
+  return SwaggerModule.createDocument(app, config);
 }

@@ -15,6 +15,20 @@
       "when": 1793379661322,
       "tag": "0001_campaigns_sessions_messages",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793383983681,
+      "tag": "0002_game_engine",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793385741391,
+      "tag": "0003_blue_rose_mechanics",
+      "breakpoints": true
     }
   ]
 }

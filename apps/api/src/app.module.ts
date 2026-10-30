@@ -1,3 +1,4 @@
+import { GameEngineModule } from './game-engine/game-engine.module';
 import { CampaignsModule } from './campaigns/campaigns.module';
 import { SessionsModule } from './sessions/sessions.module';
 import { MessagesModule } from './messages/messages.module';
@@ -16,6 +17,7 @@ import { HealthModule } from './health/health.module';
     CampaignsModule,
     SessionsModule,
     MessagesModule,
+    GameEngineModule,
   ],
 })
 export class AppModule {}
