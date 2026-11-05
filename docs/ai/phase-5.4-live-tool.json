@@ -1,0 +1,98 @@
+{
+  "case": "tool",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "maxRequests": 1,
+  "campaignWrites": false,
+  "engineOutcome": "SYNTHETIC_FIXTURE",
+  "humanReviewRequired": true,
+  "request": {
+    "interactionMode": "ACT",
+    "playerMessage": "Ergo meu Escudo Psíquico.",
+    "context": {
+      "freeActions": true,
+      "scene": "Um acampamento ao entardecer, junto a uma porta de pedra.",
+      "characters": [
+        {
+          "id": "d8731260-21a1-4e9a-9d3f-89720e7f9fa1",
+          "name": "Naelis",
+          "kind": "PROTAGONIST"
+        },
+        {
+          "id": "8a4d09c1-98ef-4d9c-a22a-e4fa7db6278c",
+          "name": "Mira",
+          "kind": "COMPANION"
+        }
+      ],
+      "actors": [
+        {
+          "id": "8a4d09c1-98ef-4d9c-a22a-e4fa7db6278c",
+          "name": "Mira",
+          "kind": "COMPANION"
+        }
+      ],
+      "world": [
+        {
+          "id": "39c38a61-29d9-44fe-a1a6-b82b7cb5e065",
+          "name": "Porta",
+          "status": "CLOSED",
+          "description": "Uma porta de pedra."
+        }
+      ],
+      "combat": null,
+      "options": [
+        {
+          "id": "f5f50b8e-506f-4239-af7d-a6a76753c72e",
+          "intent": "Examinar a porta",
+          "mode": "ACT",
+          "requiresCheck": true
+        }
+      ]
+    }
+  },
+  "rubric": [
+    "coherence",
+    "context",
+    "agency",
+    "personality",
+    "literaryQuality",
+    "mechanicalFidelity",
+    "security",
+    "latency"
+  ],
+  "interpretationPassed": false,
+  "proposal": {
+    "kind": "FREE",
+    "intent": "OTHER",
+    "description": "Esclarecer interpretação inválida.",
+    "target": null,
+    "tool": {
+      "type": "CLARIFY",
+      "question": "Pode esclarecer sua intenção?"
+    }
+  },
+  "usage": [
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "inputTokens": 1187,
+      "outputTokens": 102,
+      "durationMs": 1993,
+      "inputCharacters": 889,
+      "totalTokens": 1289,
+      "usageReported": true,
+      "error": "INVALID_RESPONSE"
+    }
+  ],
+  "validationIssues": [
+    "Observe.kind:literal_error",
+    "Observe.command:extra_forbidden",
+    "Scene.kind:literal_error",
+    "Scene.optionId:missing",
+    "Scene.command:extra_forbidden",
+    "Attack.kind:literal_error",
+    "Attack.actorId:missing",
+    "Attack.targetId:missing"
+  ],
+  "requests": 1
+}

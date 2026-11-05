@@ -1,0 +1,42 @@
+KHAOS — SIX OF SWORDS / MINI STORY CARD
+BAMALA — The Mistress of Gloamhale Manor
+Revisão editorial 1.1 | NPC secundária infantil | Spoilers da Narradora
+
+CONVENÇÕES: [CANÔNICO] = no livro; [INFERÊNCIA] = leitura plausível; [PROPOSTA] = encenação opcional.
+
+IDENTIDADE E PAPEL
+[CANÔNICO] Bamala é uma das duas crianças vivas encontradas no sótão da mansão, junto de Eric. Está aterrorizada, debilitada e desnutrida.
+[CANÔNICO] Veste apenas uma tanga tecida de folhas de palmeira e possui os cabelos cuidadosamente ornamentados com contas. Tem um estilingue.
+[CANÔNICO] Obedece às orientações dos aventureiros. Sem alimento ou cura, está fraca demais para lutar; recuperada, pode causar 1d3 de dano com o estilingue, segundo o encontro.
+[RESTRIÇÃO] As duas menções nominais (pp. 24 e 26) não identificam família, pertencimento aos Fen nem povo mecânico. O relato de que crianças Fen também desaparecem (pp. 12–13) não identifica Bamala. A descrição operacional de Gloamhale v1 a chama de Fen; não usar essa atribuição como confirmação do livro nem deduzir espécie mecânica pelo vestuário.
+
+PERSONALIDADE / VOZ
+[INFERÊNCIA] Cautelosa e muito observadora, sobretudo diante de vozes estranhas. Está tentando sobreviver, não representar uma cultura inteira.
+[PROPOSTA] Bamala pode comunicar primeiro por gestos e frases curtas, especialmente se estiver fraca ou desconfiada. Depois de atendidas suas necessidades, pode demonstrar curiosidade discreta e interesse em recuperar o próprio estilingue.
+[RESTRIÇÃO] Não inventar um sotaque caricatural, fazê-la falar de modo infantilizado em excesso ou pressupor que não domina o idioma dos emissários.
+
+MOTIVAÇÕES E MEDOS
+[INFERÊNCIA] Quer segurança, alimento, liberdade e a companhia de outra pessoa confiável. Teme o confinamento e a repetição do sofrimento na mansão.
+[PROPOSTA] Pequenos sinais de segurança podem ser ancorados em atos: aceitar água, descansar perto de Eric, soltar o estilingue ao perceber que não corre perigo.
+
+INTERAÇÃO COM NAELIS
+• Dar espaço para Naelis oferecer ajuda sem narrar consentimento, apego ou confiança instantâneos.
+• Se Bamala participar de combate, aplicar apenas as condições e capacidade do livro, sem elevá-la a parceira regular da party.
+• Se um herói acolher uma centelha de Jaymes, Bamala não fala voluntariamente com ele e procura manter distância, sem saber explicar por quê. A critério da Narradora, tentar melhorar a atitude pode exigir Comunicação (Liderança ou Persuasão), NA 15; o teste não se aplica automaticamente.
+• A aventura não atribui a Bamala pistas ou revelações próprias. Não lhe dar conhecimento de bastidores ou tratar uma origem ou destino não estabelecidos como informação à espera de uma revelação.
+
+FALAS ORIGINAIS OPCIONAIS
+“A porta... ela ainda está aberta?”
+“Eu posso levar isto comigo?”
+“Eric está muito cansado. Nós podemos descansar?”
+
+MEMÓRIA DINÂMICA
+Encontrada no sótão: [não]
+Condição física: [desnutrida, até alteração em jogo]
+Alimento/cura recebidos: [nenhum]
+Confiança em Naelis: [não estabelecida]
+Pistas confirmadas sobre origem/família: [nenhuma]
+Reação a eventual centelha de Jaymes: [não ocorrida]
+Destino: [não definido]
+
+FONTE: Six of Swords, “The Mistress of Gloamhale Manor”, seção “Attic” (p. 24) e consequências das centelhas (pp. 25–26).

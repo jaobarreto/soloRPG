@@ -23,12 +23,14 @@ services:
       LLM_PROVIDER: ${LLM_PROVIDER:-gemini}
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       GROQ_API_KEY: ${GROQ_API_KEY:-}
-      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash-lite}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.5-flash-lite}
       GROQ_MODEL: ${GROQ_MODEL:-openai/gpt-oss-20b}
       AI_INTERNAL_TOKEN: ${AI_INTERNAL_TOKEN:-}
       AI_FREE_TIER_CONFIRMED: ${AI_FREE_TIER_CONFIRMED:-false}
+      GROQ_FREE_TIER_CONFIRMED: ${GROQ_FREE_TIER_CONFIRMED:-false}
       ENABLE_PROVIDER_FALLBACK: ${ENABLE_PROVIDER_FALLBACK:-false}
       LLM_TIMEOUT_SECONDS: ${LLM_TIMEOUT_SECONDS:-20}
+      LLM_TURN_TIMEOUT_SECONDS: ${LLM_TURN_TIMEOUT_SECONDS:-48}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
     volumes:
       - ./apps/ai-service/app:/app/app:ro

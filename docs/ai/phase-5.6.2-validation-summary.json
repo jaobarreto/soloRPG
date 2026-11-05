@@ -1,0 +1,128 @@
+{
+  "phase": "5.6.2",
+  "completedAt": "2026-11-02T01:43:04.157256+00:00",
+  "status": "APPROVED_DETERMINISTIC_PUBLICATION_OFFLINE",
+  "scope": "Server-owned publication fragments; not unrestricted semantic fidelity or full-campaign validation",
+  "realProviderAttempts": 0,
+  "providerUsageNew": {
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "totalTokens": 0,
+    "meaning": "No real requests, not estimated per-request usage"
+  },
+  "priorConditionalCallsReused": false,
+  "newLiveEvaluationRequiresAuthorization": true,
+  "tests": {
+    "nestJS": {
+      "suites": 29,
+      "passed": 383,
+      "failed": 0,
+      "durationSeconds": 93.928,
+      "coveragePercent": {
+        "statements": 92.39,
+        "branches": 84.21,
+        "functions": 96.48,
+        "lines": 93.83
+      }
+    },
+    "renderer": {
+      "coveragePercent": {
+        "statements": 97.89,
+        "branches": 95.95,
+        "functions": 100,
+        "lines": 98.76
+      }
+    },
+    "python": {
+      "passed": 329,
+      "failed": 0,
+      "durationSeconds": 8.26,
+      "coveragePercentRounded": 87
+    },
+    "sharedContracts": {
+      "testFilesPassed": 4,
+      "failed": 0
+    },
+    "canonicityIntegration": {
+      "passed": 11,
+      "failed": 0,
+      "productionGraph": true,
+      "disposablePostgres": true
+    },
+    "publicationUnitAndContract": {
+      "passed": 22,
+      "failed": 0
+    },
+    "newPythonProtocol": {
+      "passed": 6,
+      "failed": 0
+    },
+    "historicalCanonicityRegressionExpectationPreserved": true
+  },
+  "requiredCases": {
+    "TEST-CANON-001": "PASS_OFFLINE",
+    "TEST-CANON-002": "PASS_OFFLINE",
+    "TEST-CANON-003": "PASS_OFFLINE",
+    "TEST-CANON-004": "PASS_OFFLINE",
+    "TEST-CANON-005": "PASS_OFFLINE",
+    "TEST-CANON-006": "PASS_OFFLINE",
+    "TEST-CANON-007": "PASS_OFFLINE",
+    "TEST-CANON-008": "PASS_OFFLINE",
+    "TEST-CANON-009": "PASS_OFFLINE",
+    "TEST-CANON-010": "PASS_OFFLINE",
+    "TEST-CANON-011": "PASS_OFFLINE",
+    "TEST-CANON-012": "PASS_OFFLINE"
+  },
+  "reproduction": {
+    "officialSuccess": false,
+    "scriptedAddition": "Atrás da estante há uma galeria que conduz ao jardim.",
+    "publicReply": "A busca não identificou nenhuma abertura.",
+    "injectedVisible": false,
+    "reason": "UNAPPROVED_SEGMENT"
+  },
+  "rawAuditSHA256": "7f0c790b480878e3796787e30ea900eef04e1e3f85474e5a42d7131625bee0a0",
+  "protectedFileChecksAgainstHistoricalHashes": {
+    ".env": true,
+    "apps/ai-service/app/core/config.py": true,
+    "apps/ai-service/app/narrative/graph.py": true,
+    "apps/ai-service/app/narrative/selection.py": true,
+    "apps/ai-service/app/narrative/schemas.py": true,
+    "apps/ai-service/app/providers/gemini.py": true,
+    "apps/ai-service/app/providers/router.py": true,
+    "apps/api/src/narrative/free-action.ts": true,
+    "apps/api/src/narrative/information.ts": true,
+    "packages/shared-contracts/src/free-action.ts": true,
+    "docs/ai/phase-5.6.1-plan.json": true,
+    "docs/ai/phase-5.6.1-live-result.json": true,
+    "docs/ai/phase-5.6.1-case561-01-schema-confirmation.json": true,
+    "docs/ai/phase-5.6.1-investigation-contrast-live-result.json": true,
+    "docs/ai/phase-5.6.1-canonicity-audit.json": true
+  },
+  "schemaChanges": false,
+  "databaseMigrations": false,
+  "realCampaignWrites": false,
+  "productionFilesChangedThisPhase": [
+    "apps/api/src/narrative/rendering.ts",
+    "apps/api/src/narrative/context.service.ts",
+    "apps/api/src/narrative/narrative.service.ts",
+    "apps/ai-service/app/narrative/prompts.py"
+  ],
+  "phase561Pending": {
+    "expression56101": "DIRECT versus QUESTION; historical result unchanged",
+    "unexecutedLiveCases": [
+      "561-02",
+      "561-05",
+      "561-06",
+      "561-07",
+      "561-08"
+    ],
+    "56103And56104HistoricalResultsPreserved": true
+  },
+  "phase57Started": false,
+  "limitations": [
+    "Reviewed-fragment composition restricts spontaneous prose and vocabulary",
+    "Source authorship, freshness, relevance and literary ordering are not proven by exact matching",
+    "Legacy histories are not retroactively repaired or certified",
+    "No real-model quality measurement in this phase"
+  ]
+}

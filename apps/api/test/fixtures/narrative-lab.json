@@ -1,0 +1,195 @@
+{
+  "evidenceKind": "SYNTHETIC_AUTHORED_SCENARIOS_NOT_GEMINI_QUALITY",
+  "opening": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+  "scenarios": [
+    {
+      "id": "563A-01",
+      "name": "Diálogo prolongado",
+      "personality": "Gentil e acolhedora",
+      "turns": [
+        {
+          "kind": "dialogue",
+          "text": "Iria, como você prefere que conversemos sobre o que aconteceu?",
+          "expression": "QUESTION"
+        },
+        {
+          "kind": "dialogue",
+          "text": "Quero ouvir sua opinião sobre o nosso desacordo.",
+          "expression": "QUESTION"
+        },
+        {
+          "kind": "dialogue",
+          "text": "O que exatamente você gostaria de esclarecer comigo?",
+          "expression": "QUESTION"
+        },
+        {
+          "kind": "dialogue",
+          "text": "Não estou encerrando a conversa. Podemos examinar outro ponto?",
+          "expression": "QUESTION"
+        },
+        {
+          "kind": "dialogue",
+          "text": "Qual parte do que eu disse você compreendeu de outra forma?",
+          "expression": "QUESTION"
+        }
+      ]
+    },
+    {
+      "id": "563A-02",
+      "name": "Conflito interpessoal",
+      "personality": "Cautelosa e reservada",
+      "turns": [
+        {
+          "kind": "dialogue",
+          "text": "Iria, ainda estou magoada com nossa discussão.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "dialogue",
+          "text": "Discordo de você. Não quero que trate isso como um acordo.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "dialogue",
+          "text": "O que você lembra do desacordo que tivemos?",
+          "expression": "QUESTION"
+        },
+        {
+          "kind": "dialogue",
+          "text": "Não disse que perdoei você. Quero continuar falando sobre isso.",
+          "expression": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "563A-03",
+      "name": "Investigação prolongada",
+      "personality": "Cautelosa e reservada",
+      "turns": [
+        {
+          "kind": "observe",
+          "text": "Observo a madeira da estante.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "adjudicate",
+          "text": "Procuro uma passagem secreta atrás da estante.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "adjudicate",
+          "text": "Examino as pedras do chão procurando uma marca oculta.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "check-failure",
+          "text": "Examino a estante com o teste preparado.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "observe",
+          "text": "Volto a olhar a madeira da estante.",
+          "expression": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "563A-04",
+      "name": "Interpretação e mecânica",
+      "personality": "Cautelosa e reservada",
+      "turns": [
+        {
+          "kind": "dialogue",
+          "text": "Iria, vou examinar a estante; continuo decidindo como prosseguir.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "check-failure",
+          "text": "Examino a estante procurando um detalhe desconhecido.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "dialogue",
+          "text": "O teste falhou. Quero pensar em outro modo de agir.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "check-success",
+          "text": "Examino a estante novamente com a capacidade preparada.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "dialogue",
+          "text": "O selo foi identificado. Ainda não decidi o que farei com essa informação.",
+          "expression": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "563A-05",
+      "name": "Continuidade entre sessões",
+      "personality": "Cautelosa e reservada",
+      "turns": [
+        {
+          "kind": "dialogue",
+          "text": "Iria, quero retomar nossa antiga discussão.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "dialogue",
+          "text": "Não quero que o assunto seja esquecido quando voltarmos.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "dialogue",
+          "speaker": "Tessa",
+          "text": "Tessa, você presenciou nossa conversa anterior?",
+          "nextSession": true,
+          "expression": "QUESTION"
+        },
+        {
+          "kind": "dialogue",
+          "text": "Iria, o que você lembra da nossa discussão anterior?",
+          "expression": "QUESTION"
+        },
+        {
+          "kind": "dialogue",
+          "text": "Iria, podemos prosseguir sem presumir que tudo foi resolvido?",
+          "expression": "QUESTION"
+        }
+      ]
+    },
+    {
+      "id": "563A-06",
+      "name": "OOC e retorno à narrativa",
+      "personality": "Gentil e acolhedora",
+      "turns": [
+        {
+          "kind": "dialogue",
+          "text": "Iria, quero conversar antes de examinar o ambiente.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "ooc",
+          "text": "Fora do RPG: como funciona um teste básico?",
+          "expression": "QUESTION"
+        },
+        {
+          "kind": "dialogue",
+          "text": "De volta à cena, Iria: podemos retomar nossa conversa?",
+          "expression": "QUESTION"
+        },
+        {
+          "kind": "observe",
+          "text": "Olho para a estante antes de escolher uma ação.",
+          "expression": "DIRECT"
+        },
+        {
+          "kind": "dialogue",
+          "text": "Iria, ainda quero ouvir sua opinião, sem decidir por você.",
+          "expression": "QUESTION"
+        }
+      ]
+    }
+  ]
+}

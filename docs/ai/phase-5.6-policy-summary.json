@@ -1,0 +1,122 @@
+{
+  "evidenceKind": "SCRIPTED_PROPOSALS_NOT_MODEL_ACCURACY",
+  "summary": {
+    "count": 101,
+    "confusion": {
+      "QUERY": {
+        "QUERY": 29,
+        "ARCANA": 1
+      },
+      "OBSERVE": {
+        "OBSERVE": 17
+      },
+      "CLARIFY": {
+        "CLARIFY": 9,
+        "ARCANA": 3,
+        "DIALOGUE": 2,
+        "ADJUDICATE": 2,
+        "COMBAT": 1,
+        "REST": 1,
+        "OBSERVE": 8
+      },
+      "ADJUDICATE": {
+        "ADJUDICATE": 12,
+        "PREPARED_CHECK": 1
+      },
+      "PREPARED_CHECK": {
+        "PREPARED_CHECK": 9,
+        "QUERY": 1
+      },
+      "ARCANA": {
+        "ARCANA": 2
+      },
+      "DIALOGUE": {
+        "DIALOGUE": 3
+      }
+    },
+    "authorizationConfusion": {
+      "QUERY": {
+        "QUERY": 28,
+        "CLARIFY": 2
+      },
+      "OBSERVE": {
+        "OBSERVE": 17
+      },
+      "CLARIFY": {
+        "CLARIFY": 21,
+        "THINK": 5
+      },
+      "ADJUDICATE": {
+        "ADJUDICATE": 12,
+        "CLARIFY": 1
+      },
+      "PREPARED_CHECK": {
+        "PREPARED_CHECK": 9,
+        "CLARIFY": 1
+      },
+      "ARCANA": {
+        "ARCANA": 2
+      },
+      "DIALOGUE": {
+        "DIALOGUE": 3
+      }
+    },
+    "tools": {
+      "QUERY": {
+        "truePositive": 29,
+        "falsePositive": 1,
+        "falseNegative": 1
+      },
+      "OBSERVE": {
+        "truePositive": 17,
+        "falsePositive": 8,
+        "falseNegative": 0
+      },
+      "CLARIFY": {
+        "truePositive": 9,
+        "falsePositive": 0,
+        "falseNegative": 17
+      },
+      "ADJUDICATE": {
+        "truePositive": 12,
+        "falsePositive": 2,
+        "falseNegative": 1
+      },
+      "PREPARED_CHECK": {
+        "truePositive": 9,
+        "falsePositive": 1,
+        "falseNegative": 1
+      },
+      "ARCANA": {
+        "truePositive": 2,
+        "falsePositive": 4,
+        "falseNegative": 0
+      },
+      "DIALOGUE": {
+        "truePositive": 3,
+        "falsePositive": 2,
+        "falseNegative": 0
+      },
+      "COMBAT": {
+        "truePositive": 0,
+        "falsePositive": 1,
+        "falseNegative": 0
+      },
+      "REST": {
+        "truePositive": 0,
+        "falsePositive": 1,
+        "falseNegative": 0
+      }
+    },
+    "selectionErrors": 20,
+    "intentErrors": 0,
+    "contractErrors": 0,
+    "contextErrors": 1,
+    "fallbacks": 0,
+    "injectedSelectionErrors": 20,
+    "clarifications": 9,
+    "preventedExecution": 7,
+    "preventedDiscovery": 13,
+    "unauditedAuthorization": 0
+  }
+}

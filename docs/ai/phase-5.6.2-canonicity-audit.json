@@ -1,0 +1,319 @@
+{
+  "evidenceKind": "SCRIPTED_PRODUCTION_GRAPH_AND_DISPOSABLE_DATABASE",
+  "realGeminiCalls": 0,
+  "productionChanges": true,
+  "rows": [
+    {
+      "case": "A",
+      "canon": "ABSENT",
+      "publicText": [
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+      ],
+      "officialStateUnchanged": true,
+      "status": "COMPLETED"
+    },
+    {
+      "case": "C",
+      "canon": "UNSPECIFIED",
+      "publicText": [
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+      ],
+      "officialStateUnchanged": true,
+      "status": "COMPLETED"
+    },
+    {
+      "case": "D",
+      "publicText": [
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho.",
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho.",
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho.",
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+      ],
+      "attempts": [
+        "Procuro uma passagem secreta.",
+        "Tenho certeza de que tem alguma coisa escondida.",
+        "Examino novamente.",
+        "Empurro a estante para ver o que acontece."
+      ],
+      "officialStateUnchanged": true
+    },
+    {
+      "case": "B",
+      "variant": "literal secret phrase",
+      "scriptedModelAddition": "Atrás da estante há uma passagem secreta.",
+      "officialSuccess": false,
+      "officialConfirmed": {
+        "eventIds": ["0662e7f2-7974-4e4b-8376-9226fcb1de98"],
+        "narrative": "A busca não identificou nenhuma abertura."
+      },
+      "publicReply": {
+        "id": "c6398a95-3a65-48d8-9839-f97ee680f694",
+        "campaignId": "5a824b35-e9f2-40f1-9f1d-e9a46a86d098",
+        "sessionId": "bd437015-d9ab-41f2-965d-a3f649c58c80",
+        "role": "GAME_MASTER",
+        "interactionMode": null,
+        "content": "A busca não identificou nenhuma abertura.",
+        "sequenceNumber": 3,
+        "metadata": {
+          "actionId": "7b09a046-6483-4c44-8755-0741e5b4e34a",
+          "eventIds": ["0662e7f2-7974-4e4b-8376-9226fcb1de98"],
+          "renderingValidation": "UNAPPROVED_SEGMENT",
+          "deterministicFallback": true
+        },
+        "createdAt": "2026-11-02T01:40:04.704Z"
+      },
+      "injectedVisible": false,
+      "worldUnchanged": true,
+      "knowledgeUnchanged": true,
+      "events": [
+        {
+          "type": "CHARACTER_CREATED",
+          "description": "Personagem registrado: Naelis",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "LOCATION_UPDATED",
+          "description": "Preparação sintética autorizada",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "SCENE_PREPARED",
+          "description": "Preparação narrativa local",
+          "visibility": "GM_ONLY"
+        },
+        {
+          "type": "CHECK_REQUESTED",
+          "description": "Examinar a estante",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "ABILITY_CHECK",
+          "description": "Examinar a estante",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "CONSEQUENCE_RECORDED",
+          "description": "A busca não identificou nenhuma abertura.",
+          "visibility": "PUBLIC"
+        }
+      ],
+      "progress": {
+        "objectives": [
+          {
+            "id": "af9e00b6-57d9-4787-b597-f67d2f2e6b6d",
+            "description": "Examinar a biblioteca",
+            "completed": false,
+            "weight": 1
+          }
+        ],
+        "progress": 0,
+        "objectiveCompleted": false,
+        "suggestSessionEnding": false
+      }
+    },
+    {
+      "case": "B",
+      "variant": "paraphrased secret",
+      "scriptedModelAddition": "Atrás da estante há uma galeria que conduz ao jardim.",
+      "officialSuccess": false,
+      "officialConfirmed": {
+        "eventIds": ["24227ec9-59c5-4564-a06f-5316ade7a629"],
+        "narrative": "A busca não identificou nenhuma abertura."
+      },
+      "publicReply": {
+        "id": "e9c46618-ef1e-4c77-8ec0-1bf481005b00",
+        "campaignId": "d7029c1d-90af-4126-8a59-4d092371d041",
+        "sessionId": "90b378d9-6eec-4b0a-a057-e1e1b524cb43",
+        "role": "GAME_MASTER",
+        "interactionMode": null,
+        "content": "A busca não identificou nenhuma abertura.",
+        "sequenceNumber": 3,
+        "metadata": {
+          "actionId": "b49e0fd2-3ede-4684-87fb-c50cdb4e445e",
+          "eventIds": ["24227ec9-59c5-4564-a06f-5316ade7a629"],
+          "renderingValidation": "UNAPPROVED_SEGMENT",
+          "deterministicFallback": true
+        },
+        "createdAt": "2026-11-02T01:40:05.997Z"
+      },
+      "injectedVisible": false,
+      "worldUnchanged": true,
+      "knowledgeUnchanged": true,
+      "events": [
+        {
+          "type": "CHARACTER_CREATED",
+          "description": "Personagem registrado: Naelis",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "LOCATION_UPDATED",
+          "description": "Preparação sintética autorizada",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "SCENE_PREPARED",
+          "description": "Preparação narrativa local",
+          "visibility": "GM_ONLY"
+        },
+        {
+          "type": "CHECK_REQUESTED",
+          "description": "Examinar a estante",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "ABILITY_CHECK",
+          "description": "Examinar a estante",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "CONSEQUENCE_RECORDED",
+          "description": "A busca não identificou nenhuma abertura.",
+          "visibility": "PUBLIC"
+        }
+      ],
+      "progress": {
+        "objectives": [
+          {
+            "id": "0588fe0a-f3bb-430b-97fc-63e6b8eaf3da",
+            "description": "Examinar a biblioteca",
+            "completed": false,
+            "weight": 1
+          }
+        ],
+        "progress": 0,
+        "objectiveCompleted": false,
+        "suggestSessionEnding": false
+      }
+    },
+    {
+      "case": "B-positive",
+      "publicReply": {
+        "id": "48370552-692a-45c6-96a0-30fd0f7146bf",
+        "campaignId": "e3ca49d8-7ae9-42c7-a64f-31ecbaf77296",
+        "sessionId": "8b59f9ff-dad2-40b3-820a-9e810c165bcc",
+        "role": "GAME_MASTER",
+        "interactionMode": null,
+        "content": "Um painel atrás da estante conduz à galeria do jardim.",
+        "sequenceNumber": 3,
+        "metadata": {
+          "actionId": "cb8cbb2a-70ff-4cdf-a9b5-47cb3aae0a62",
+          "eventIds": ["d712be07-b93c-4e32-a4a1-57e14ec81140"],
+          "renderingValidation": "ACCEPTED",
+          "deterministicFallback": false
+        },
+        "createdAt": "2026-11-02T01:40:07.277Z"
+      },
+      "officialDiscovery": true
+    },
+    {
+      "case": "TEST-CANON-011-generation",
+      "status": "COMPLETED",
+      "publicReply": {
+        "id": "d6040d8e-b314-4a1f-8810-a36a0751e4af",
+        "campaignId": "46549957-b608-4946-95f1-6ddfa21fc7b5",
+        "sessionId": "c7b002d8-64da-4726-8df3-db0df9746784",
+        "role": "GAME_MASTER",
+        "interactionMode": null,
+        "content": "A busca não identificou nenhuma abertura.",
+        "sequenceNumber": 3,
+        "metadata": {
+          "actionId": "2f822582-ee38-4cb4-bc87-df790f9bf487",
+          "eventIds": ["bf19b7d5-1682-4801-a884-cde7dc82b8bd"],
+          "renderingValidation": "UNAPPROVED_SEGMENT",
+          "deterministicFallback": true
+        },
+        "createdAt": "2026-11-02T01:40:08.485Z"
+      },
+      "officialStateUnchangedOnRetry": true
+    },
+    {
+      "case": "TEST-CANON-011-persistence",
+      "status": "COMPLETED",
+      "publicReply": {
+        "id": "cfbc857a-3503-4321-b350-3c131ccb05ae",
+        "campaignId": "b273cb6d-1f29-45e6-b985-012abb5ba9b6",
+        "sessionId": "7be4e6e9-e498-46b7-99d9-b8295f3a8160",
+        "role": "GAME_MASTER",
+        "interactionMode": null,
+        "content": "A busca não identificou nenhuma abertura.",
+        "sequenceNumber": 3,
+        "metadata": {
+          "actionId": "d04fb1a4-59e4-42ce-a169-2fcb16148922",
+          "eventIds": ["5fd48fef-4980-43e0-915a-9d7860bd5d65"],
+          "renderingValidation": "UNAPPROVED_SEGMENT",
+          "deterministicFallback": true
+        },
+        "createdAt": "2026-11-02T01:40:10.187Z"
+      },
+      "officialStateUnchangedOnRetry": true
+    },
+    {
+      "case": "TEST-CANON-007",
+      "publicReply": {
+        "id": "a40ad186-537a-4e1a-8227-8352ffe62cca",
+        "campaignId": "dc749698-8591-4fc7-9b7b-b30490453751",
+        "sessionId": "b389a847-c06a-4f47-9ca7-b470c99a4f2a",
+        "role": "GAME_MASTER",
+        "interactionMode": null,
+        "content": "Mira — Prefiro cautela. O que despertou sua suspeita?\n\nMira — Recordo o que presenciei:\n> Aren acusou Mira durante uma discussão.",
+        "sequenceNumber": 2,
+        "metadata": {
+          "actionId": "8cd00a46-ed74-465f-8d38-6cd7e01e25d2",
+          "eventIds": [
+            "6945bbc7-3881-4a7d-ae57-78a8fc7d1c38",
+            "c1e5480a-2461-4f06-9543-927081f3d012"
+          ],
+          "renderingValidation": "ACCEPTED",
+          "deterministicFallback": false
+        },
+        "createdAt": "2026-11-02T01:40:11.374Z"
+      },
+      "attribution": "Mira respondeu (fala atribuída, não verdade do mundo): Mira — Prefiro cautela. O que despertou sua suspeita?\nMira — Recordo o que presenciei:\n> Aren acusou Mira durante uma discussão.",
+      "knowledge": ["HEARD", "HEARD"]
+    },
+    {
+      "case": "TEST-CANON-008",
+      "publicReply": {
+        "id": "6d00357b-cbd7-4c70-877e-b61e5f50a27b",
+        "campaignId": "af6b1cfb-b131-4328-853b-b3fca84008db",
+        "sessionId": "2efc5183-1388-4857-9a15-bf91a0737251",
+        "role": "GAME_MASTER",
+        "interactionMode": null,
+        "content": "Mira — Prefiro cautela. O que despertou sua suspeita?\n\nMira — Ouvi este rumor, mas não posso confirmá-lo:\n> Dizem que há uma passagem atrás da biblioteca.",
+        "sequenceNumber": 2,
+        "metadata": {
+          "actionId": "576c72fe-a07b-4306-818f-63348061dada",
+          "eventIds": [
+            "f5c9532f-192b-4551-b036-9ae161612729",
+            "d35f7729-5d75-46b6-a612-189ca98b963b"
+          ],
+          "renderingValidation": "ACCEPTED",
+          "deterministicFallback": false
+        },
+        "createdAt": "2026-11-02T01:40:12.595Z"
+      },
+      "attribution": "Mira respondeu (fala atribuída, não verdade do mundo): Mira — Prefiro cautela. O que despertou sua suspeita?\nMira — Ouvi este rumor, mas não posso confirmá-lo:\n> Dizem que há uma passagem atrás da biblioteca.",
+      "knowledge": ["HEARD", "HEARD"]
+    },
+    {
+      "case": "TEST-CANON-006",
+      "publicReply": {
+        "id": "74f32f7e-5efa-468e-b8a2-b9eb43f2041a",
+        "campaignId": "6cedd372-3e30-4fcc-be85-ef772855f29f",
+        "sessionId": "ae4dfe40-dc27-4f6c-a9f7-37305ccb8e8b",
+        "role": "GAME_MASTER",
+        "interactionMode": null,
+        "content": "A busca não identificou nenhuma abertura.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?",
+        "sequenceNumber": 3,
+        "metadata": {
+          "actionId": "15a3e578-aa06-42d9-8df9-efa2e1084baf",
+          "eventIds": ["bceaecfb-60d4-48ad-9de7-165faa933889"],
+          "renderingValidation": "ACCEPTED",
+          "deterministicFallback": false
+        },
+        "createdAt": "2026-11-02T01:40:13.839Z"
+      },
+      "officialDiscovery": false
+    }
+  ]
+}

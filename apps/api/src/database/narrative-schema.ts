@@ -120,6 +120,10 @@ export const aiUsage = pgTable('ai_usage', {
   inputTokens: integer('input_tokens').notNull(),
   outputTokens: integer('output_tokens').notNull(),
   durationMs: integer('duration_ms').notNull(),
+  inputCharacters: integer('input_characters').notNull().default(0),
+  totalTokens: integer('total_tokens'),
+  usageReported: boolean('usage_reported').notNull().default(false),
+  stage: text('stage', { enum: ['PROPOSE', 'NARRATE'] }),
   error: text('error'),
   createdAt: time(),
 });

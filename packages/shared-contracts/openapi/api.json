@@ -103,6 +103,28 @@
         "tags": ["Campaigns"]
       }
     },
+    "/api/v1/campaigns/library": {
+      "get": {
+        "operationId": "CampaignsController_library",
+        "parameters": [],
+        "responses": {
+          "200": { "description": "" },
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Campaign not found" }
+        },
+        "tags": ["Campaigns"]
+      },
+      "post": {
+        "operationId": "CampaignsController_openLibraryAdventure",
+        "parameters": [],
+        "responses": {
+          "200": { "description": "" },
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Campaign not found" }
+        },
+        "tags": ["Campaigns"]
+      }
+    },
     "/api/v1/campaigns/{campaignId}": {
       "get": {
         "operationId": "CampaignsController_detail",
@@ -216,6 +238,51 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/SessionResponseDto" }
+              }
+            }
+          },
+          "400": { "description": "Invalid payload or UUID" },
+          "404": { "description": "Session or campaign not found" },
+          "409": {
+            "description": "Invalid or repeated state transition (no changes applied)"
+          }
+        },
+        "tags": ["Sessions"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/reset": {
+      "post": {
+        "operationId": "SessionsController_reset",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ResetSessionDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetSessionResponseDto"
+                }
               }
             }
           },
@@ -3725,6 +3792,149 @@
         "tags": ["Blue Rose AGE / Player"]
       }
     },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/messages/queue": {
+      "post": {
+        "operationId": "NarrativeController_enqueue",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "interactionMode": {
+                    "type": "string",
+                    "enum": [
+                      "SPEAK",
+                      "ACT",
+                      "THINK",
+                      "OUT_OF_CHARACTER",
+                      "REQUEST_CHECK",
+                      "ROLL_RESULT"
+                    ]
+                  },
+                  "content": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 10000
+                  },
+                  "mentions": {
+                    "maxItems": 30,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": ["CHARACTER", "ITEM", "WORLD"]
+                        },
+                        "entityId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "label": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200
+                        },
+                        "start": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 10000
+                        },
+                        "end": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10000
+                        },
+                        "literal": {
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 201
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "entityId",
+                        "label",
+                        "start",
+                        "end",
+                        "literal"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": ["id", "interactionMode", "content"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["narrative"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/continue": {
+      "post": {
+        "operationId": "NarrativeController_continueBatch",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  }
+                },
+                "required": ["id"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["narrative"]
+      }
+    },
     "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/actions": {
       "post": {
         "operationId": "NarrativeController_create",
@@ -3748,25 +3958,401 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "additionalProperties": false,
-                "required": ["actionId", "interactionMode", "content"],
                 "properties": {
-                  "actionId": { "type": "string", "format": "uuid" },
+                  "actionId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
                   "optionId": {
                     "type": "string",
                     "format": "uuid",
-                    "description": "Prepared action explicitly selected by the player"
+                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                  },
+                  "mechanic": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": ["ADVENTURE_ACTION"]
+                          },
+                          "input": {
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "action": {
+                                    "type": "string",
+                                    "enum": ["RITUAL_ATTEMPT"]
+                                  },
+                                  "characterId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "task": {
+                                    "type": "string",
+                                    "enum": ["CANDLES", "POEM", "SHAPING"]
+                                  },
+                                  "benefit": {
+                                    "type": "string",
+                                    "enum": [
+                                      "NONE",
+                                      "EGG",
+                                      "HAINT_TARGET",
+                                      "HAINT_DAMAGE"
+                                    ]
+                                  },
+                                  "declineStunts": {
+                                    "type": "boolean",
+                                    "enum": [true]
+                                  }
+                                },
+                                "required": [
+                                  "action",
+                                  "characterId",
+                                  "task",
+                                  "benefit",
+                                  "declineStunts"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "action": {
+                                    "type": "string",
+                                    "enum": ["RITUAL_STOP"]
+                                  },
+                                  "characterId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  }
+                                },
+                                "required": ["action", "characterId"],
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        },
+                        "required": ["type", "input"],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": { "type": "string", "enum": ["ARCANA_USE"] },
+                          "input": {
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "characterId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "arcanum": {
+                                    "type": "string",
+                                    "enum": ["psychic-shield"]
+                                  },
+                                  "raised": { "type": "boolean" }
+                                },
+                                "required": [
+                                  "characterId",
+                                  "arcanum",
+                                  "raised"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "characterId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "arcanum": {
+                                    "type": "string",
+                                    "enum": ["second-sight"]
+                                  },
+                                  "contextId": {
+                                    "nullable": true,
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  }
+                                },
+                                "required": ["characterId", "arcanum"],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "characterId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "arcanum": {
+                                    "type": "string",
+                                    "enum": ["psychic-contact"]
+                                  },
+                                  "targetId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "tradition": {
+                                    "type": "string",
+                                    "enum": ["PSYCHIC", "ANIMISM"]
+                                  }
+                                },
+                                "required": [
+                                  "characterId",
+                                  "arcanum",
+                                  "targetId",
+                                  "tradition"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "characterId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "arcanum": {
+                                    "type": "string",
+                                    "enum": ["body-control"]
+                                  },
+                                  "tradition": {
+                                    "type": "string",
+                                    "enum": ["HEALING", "MEDITATIVE", "ANIMISM"]
+                                  },
+                                  "targetId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "use": {
+                                    "type": "string",
+                                    "enum": [
+                                      "SLEEP",
+                                      "DIFFICULT_SLEEP",
+                                      "HALF_BREATHING",
+                                      "QUARTER_BREATHING",
+                                      "IGNORE_PAIN",
+                                      "BODY_AWARENESS",
+                                      "FEIGN_DEATH"
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "characterId",
+                                  "arcanum",
+                                  "tradition",
+                                  "targetId",
+                                  "use"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "characterId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "arcanum": {
+                                    "type": "string",
+                                    "enum": ["move-object"]
+                                  },
+                                  "contextId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "fatigue": { "type": "boolean" }
+                                },
+                                "required": [
+                                  "characterId",
+                                  "arcanum",
+                                  "contextId",
+                                  "fatigue"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "characterId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "arcanum": {
+                                    "type": "string",
+                                    "enum": ["wind-shaping"]
+                                  },
+                                  "contextId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                                  },
+                                  "category": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 3
+                                  }
+                                },
+                                "required": [
+                                  "characterId",
+                                  "arcanum",
+                                  "contextId",
+                                  "category"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          }
+                        },
+                        "required": ["type", "input"],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": { "type": "string", "enum": ["CURE"] },
+                          "characterId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "targetId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          }
+                        },
+                        "required": ["type", "characterId", "targetId"],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": { "type": "string", "enum": ["ARCANA_END"] },
+                          "characterId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "effectId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          }
+                        },
+                        "required": ["type", "characterId", "effectId"],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "type": { "type": "string", "enum": ["REST"] },
+                          "characterId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "kind": {
+                            "type": "string",
+                            "enum": ["BREATHER", "LIGHT_REST", "SLEEP"]
+                          },
+                          "sustenanceConfirmed": {
+                            "nullable": true,
+                            "type": "boolean",
+                            "enum": [true]
+                          }
+                        },
+                        "required": ["type", "characterId", "kind"],
+                        "additionalProperties": false
+                      }
+                    ]
                   },
                   "interactionMode": {
                     "type": "string",
-                    "enum": ["SPEAK", "ACT", "THINK", "OUT_OF_CHARACTER"]
+                    "enum": [
+                      "SPEAK",
+                      "ACT",
+                      "THINK",
+                      "OUT_OF_CHARACTER",
+                      "REQUEST_CHECK",
+                      "ROLL_RESULT"
+                    ]
                   },
                   "content": {
                     "type": "string",
                     "minLength": 1,
                     "maxLength": 10000
+                  },
+                  "mentions": {
+                    "maxItems": 30,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "enum": ["CHARACTER", "ITEM", "WORLD"]
+                        },
+                        "entityId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                        },
+                        "label": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200
+                        },
+                        "start": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 10000
+                        },
+                        "end": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10000
+                        },
+                        "literal": {
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 201
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "entityId",
+                        "label",
+                        "start",
+                        "end",
+                        "literal"
+                      ],
+                      "additionalProperties": false
+                    }
                   }
-                }
+                },
+                "required": ["actionId", "interactionMode", "content"],
+                "additionalProperties": false
               }
             }
           }
@@ -3911,6 +4497,91 @@
         "tags": ["narrative"]
       }
     },
+    "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/mentions": {
+      "get": {
+        "operationId": "NarrativeController_mentions",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sessionId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "q",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "symbol",
+            "required": true,
+            "in": "query",
+            "schema": { "enum": ["@", "#"], "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "maxItems": 20,
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string",
+                            "enum": ["CHARACTER", "ITEM", "WORLD"]
+                          },
+                          "entityId": {
+                            "type": "string",
+                            "format": "uuid",
+                            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                          },
+                          "label": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200
+                          },
+                          "availability": {
+                            "type": "string",
+                            "enum": ["PRESENT", "KNOWN", "INVENTORY", "SCENE"]
+                          },
+                          "context": { "type": "string", "maxLength": 200 }
+                        },
+                        "required": [
+                          "type",
+                          "entityId",
+                          "label",
+                          "availability",
+                          "context"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "hasMore": { "type": "boolean" }
+                  },
+                  "required": ["data", "hasMore"],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "tags": ["narrative"]
+      }
+    },
     "/api/v1/campaigns/{campaignId}/sessions/{sessionId}/narrative-state": {
       "get": {
         "operationId": "NarrativeController_state",
@@ -4022,6 +4693,71 @@
         "summary": "Replay the persisted action status; never executes a workflow or streams uncommitted tokens",
         "tags": ["narrative"]
       }
+    },
+    "/api/v1/campaigns/{campaignId}/preparation": {
+      "get": {
+        "operationId": "CampaignPreparationController_detail",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "summary": "Read the adventure and its player-visible review sheets",
+        "tags": ["Campaigns"]
+      },
+      "post": {
+        "operationId": "CampaignPreparationController_prepare",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Campaigns"]
+      }
+    },
+    "/api/v1/campaigns/{campaignId}/preparation/confirm": {
+      "post": {
+        "operationId": "CampaignPreparationController_confirm",
+        "parameters": [
+          {
+            "name": "campaignId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["revision", "confirmed"],
+                "properties": {
+                  "revision": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+                  "confirmed": { "type": "boolean", "enum": [true] },
+                  "companions": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "maxItems": 3
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["Campaigns"]
+      }
     }
   },
   "info": {
@@ -4048,23 +4784,16 @@
       "CreateCampaignDto": {
         "type": "object",
         "properties": {
+          "requestId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Repeat the same key to recover a previously submitted creation."
+          },
           "title": { "type": "string", "maxLength": 200 },
           "description": {
             "type": "string",
             "nullable": true,
             "maxLength": 10000
-          },
-          "plannedSessions": {
-            "type": "number",
-            "default": 8,
-            "minimum": 1,
-            "maximum": 1000
-          },
-          "defaultSessionDurationMinutes": {
-            "type": "number",
-            "default": 120,
-            "minimum": 1,
-            "maximum": 10080
           }
         },
         "required": ["title"]
@@ -4227,6 +4956,19 @@
           }
         }
       },
+      "ResetSessionDto": {
+        "type": "object",
+        "properties": { "confirm": { "type": "boolean", "example": true } },
+        "required": ["confirm"]
+      },
+      "ResetSessionResponseDto": {
+        "type": "object",
+        "properties": {
+          "campaignId": { "type": "string" },
+          "sessionId": { "type": "string" }
+        },
+        "required": ["campaignId", "sessionId"]
+      },
       "CompleteSessionDto": {
         "type": "object",
         "properties": {
@@ -4246,7 +4988,14 @@
         "properties": {
           "interactionMode": {
             "type": "string",
-            "enum": ["SPEAK", "ACT", "THINK", "OUT_OF_CHARACTER"]
+            "enum": [
+              "SPEAK",
+              "ACT",
+              "THINK",
+              "OUT_OF_CHARACTER",
+              "REQUEST_CHECK",
+              "ROLL_RESULT"
+            ]
           },
           "content": {
             "type": "string",
@@ -4268,7 +5017,14 @@
           "interactionMode": {
             "type": "string",
             "nullable": true,
-            "enum": ["SPEAK", "ACT", "THINK", "OUT_OF_CHARACTER"]
+            "enum": [
+              "SPEAK",
+              "ACT",
+              "THINK",
+              "OUT_OF_CHARACTER",
+              "REQUEST_CHECK",
+              "ROLL_RESULT"
+            ]
           },
           "content": { "type": "string" },
           "sequenceNumber": { "type": "number" },

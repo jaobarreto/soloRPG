@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { and, desc, eq, gt } from 'drizzle-orm';
+import { and, desc, eq, gt, sql } from 'drizzle-orm';
 import {
   DatabaseService,
   type DatabaseTransaction,
@@ -42,6 +42,7 @@ export class MessagesRepository {
           eq(sessionMessages.campaignId, campaignId),
           eq(sessionMessages.sessionId, sessionId),
           gt(sessionMessages.sequenceNumber, after),
+          sql`(${sessionMessages.metadata}->>'batchFragment') IS NULL`,
         ),
       )
       .orderBy(sessionMessages.sequenceNumber)

@@ -1,0 +1,11 @@
+{
+  "status": "PREFLIGHT_ONLY_NO_REQUESTS",
+  "manifestSha256": "dcb2c1cf29f3189b85beec429709e9f6174d0c9e9da62e635bbbd47be9114768",
+  "planSha256": "04c31b43e50bd39573e75529590f5c33128d806e426930858263b40a8b93d712",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "fallback": false,
+  "normalFinancialConfirmation": false,
+  "keyFingerprintAvailable": true,
+  "activeKeyFingerprintWithheldFromPublicArtifact": true
+}

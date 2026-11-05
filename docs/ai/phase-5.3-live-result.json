@@ -1,0 +1,30 @@
+{
+  "provider": "gemini",
+  "model": "gemini-2.5-flash-lite",
+  "freeTierConfirmedByOperator": true,
+  "maxRequests": 2,
+  "campaignWrites": false,
+  "results": [],
+  "error": "MODEL_UNAVAILABLE",
+  "usage": [
+    {
+      "provider": "gemini",
+      "model": "gemini-2.5-flash-lite",
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "durationMs": 1700,
+      "inputCharacters": 89,
+      "totalTokens": null,
+      "usageReported": false,
+      "error": "MODEL_UNAVAILABLE"
+    }
+  ],
+  "date": "2026-11-01",
+  "authorization": {
+    "accountWithoutBillingConfirmed": true,
+    "maxRequests": 2,
+    "maxOutputTokens": 446,
+    "fallback": false
+  },
+  "interpretation": "Apenas uma tentativa externa; HTTP 404; teste narrativo não executado. Tokens não reportados não comprovam consumo zero."
+}

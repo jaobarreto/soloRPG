@@ -1,0 +1,23 @@
+{
+  "roundId": "44d1efc1-faef-4944-89f7-18d3ad689d20",
+  "authorizedAt": "2026-11-02T21:56:57.153433+00:00",
+  "authorizationSource": "EXPLICIT_OPERATOR_MESSAGE_THIS_ROUND",
+  "freeProjectConfirmedByOperator": true,
+  "billingDisabledConfirmedByOperator": true,
+  "manifestSha256": "dcb2c1cf29f3189b85beec429709e9f6174d0c9e9da62e635bbbd47be9114768",
+  "planSha256": "04c31b43e50bd39573e75529590f5c33128d806e426930858263b40a8b93d712",
+  "maxRequests": 12,
+  "maxPropose": 6,
+  "maxNarrate": 6,
+  "outputLimits": {
+    "PROPOSE": 700,
+    "NARRATE": 1200,
+    "aggregateConfiguredCeiling": 11400
+  },
+  "stopAtFirstSemanticOrCriticalFailure": true,
+  "continueIndependent": false,
+  "retries": 0,
+  "fallback": false,
+  "repairs": 0,
+  "realCampaignWrites": false
+}

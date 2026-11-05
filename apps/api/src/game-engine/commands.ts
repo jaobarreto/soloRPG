@@ -10,6 +10,10 @@ import {
   editCharacterSchema,
   visibilitySchema,
   inventoryActionSchema,
+  arcanaUseSchema,
+  arcaneContextSchema,
+  adventureActionSchema,
+  storyCardSpeakerSchema,
 } from '@solo-rpg/shared-contracts';
 const id = z.uuid();
 const short = z.string().trim().min(1).max(200);
@@ -17,6 +21,24 @@ const text = z.string().trim().max(10000);
 const reason = text.min(1);
 const characterId = id;
 export const internalCommandSchema = z.discriminatedUnion('type', [
+  z.strictObject({
+    type: z.literal('ADVENTURE_ACTION'),
+    input: adventureActionSchema,
+  }),
+  z.strictObject({ type: z.literal('ARCANA_USE'), input: arcanaUseSchema }),
+  z.strictObject({
+    type: z.literal('ARCANA_CONTEXT_SET'),
+    contextId: id,
+    characterId,
+    value: arcaneContextSchema,
+    reason,
+  }),
+  z.strictObject({ type: z.literal('ARCANA_END'), characterId, effectId: id }),
+  z.strictObject({
+    type: z.literal('NARRATIVE_TIME_ADVANCE'),
+    minutes: z.number().int().min(1).max(1440),
+    reason,
+  }),
   z.strictObject({
     type: z.literal('SCENE_CONFIGURE'),
     targetSessionId: id,
@@ -62,7 +84,7 @@ export const internalCommandSchema = z.discriminatedUnion('type', [
     shieldType: z.enum(['NONE', 'LIGHT', 'MEDIUM', 'HEAVY']),
     shieldTrained: z.boolean(),
     baseSpeed: z.number().int().min(0).max(100),
-    weaponTraining: z.array(z.enum(weaponRuleIds)).min(1).max(3),
+    weaponTraining: z.array(z.enum(weaponRuleIds)).min(1).max(6),
     reason,
   }),
   z.strictObject({
@@ -103,7 +125,8 @@ export const internalCommandSchema = z.discriminatedUnion('type', [
   z.strictObject({
     type: z.literal('REST'),
     characterId,
-    kind: z.enum(['BREATHER', 'SLEEP']),
+    kind: z.enum(['BREATHER', 'LIGHT_REST', 'SLEEP']),
+    sustenanceConfirmed: z.literal(true).optional(),
     reason,
   }),
 
@@ -130,6 +153,13 @@ export const internalCommandSchema = z.discriminatedUnion('type', [
     characterId,
     ability: abilitySchema,
     score: z.number().int().min(-10).max(30),
+    reason,
+  }),
+  z.strictObject({ type: z.literal('MOUNT_DISMOUNT'), characterId }),
+  z.strictObject({
+    type: z.literal('MOUNT_DAMAGE'),
+    characterId,
+    damage: z.number().int().min(1).max(10000),
     reason,
   }),
   z.strictObject({
@@ -203,7 +233,20 @@ export const internalCommandSchema = z.discriminatedUnion('type', [
   }),
   z.strictObject({
     type: z.literal('EVENT_RECORD'),
-    eventType: z.enum(['ENCOUNTER_RECORDED', 'CONSEQUENCE_RECORDED']),
+    storySpeaker: storyCardSpeakerSchema
+      .pick({ kind: true, entityId: true })
+      .optional(),
+    eventType: z.enum([
+      'ENCOUNTER_RECORDED',
+      'CONSEQUENCE_RECORDED',
+      'ADVENTURE_SCENE_ENTERED',
+      'SPEECH_RECORDED',
+      'NPC_REPLY_RECORDED',
+      'ADVENTURE_OBJECT_EXAMINED',
+    ]),
+    objectEvidence: z
+      .strictObject({ objectId: id, revision: short })
+      .optional(),
     description: reason,
     participants: z.array(id).max(30).default([]),
     visibility: visibilitySchema,
@@ -219,7 +262,17 @@ export const internalCommandSchema = z.discriminatedUnion('type', [
     visibility: visibilitySchema,
     stuntsEligible: z.boolean().default(false),
   }),
-  z.strictObject({ type: z.literal('CHECK_RESOLVE'), requestId: id }),
+  z.strictObject({
+    type: z.literal('CHECK_RESOLVE'),
+    requestId: id,
+    declaredDice: z
+      .tuple([
+        z.number().int().min(1).max(6),
+        z.number().int().min(1).max(6),
+        z.number().int().min(1).max(6),
+      ])
+      .optional(),
+  }),
   z.strictObject({ type: z.literal('ROLL') }),
 ]);
 export const commandEnvelopeSchema = z.strictObject({

@@ -1,3 +1,4 @@
+import { legacyCampaign } from '../fixtures/legacy-campaign';
 import 'reflect-metadata';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
@@ -13,7 +14,7 @@ import { AppModule } from '../../src/app.module';
 import { configureApp } from '../../src/configure-app';
 import { DatabaseService } from '../../src/database/database.service';
 import { GameEngineService } from '../../src/game-engine/game-engine.service';
-import { RANDOM_SOURCE } from '../../src/blue-rose/blue-rose.rules';
+import { RANDOM_SOURCE } from '../../src/blue-rose/mechanics/dice/blue-rose-dice';
 import {
   abilities,
   publicCharacterSchema,
@@ -37,13 +38,7 @@ describe('Blue Rose engine / PostgreSQL / HTTP boundary', () => {
     engine = app.get(GameEngineService);
   };
   const http = () => request(app.getHttpServer());
-  const create = async () =>
-    (
-      await http()
-        .post('/api/v1/campaigns')
-        .send({ title: 'Aldis', plannedSessions: 2 })
-        .expect(201)
-    ).body;
+  const create = () => legacyCampaign(app, 2, 'Aldis');
   const sheet = () => ({
     commandId: randomUUID(),
     name: 'Lia',

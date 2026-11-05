@@ -1,0 +1,245 @@
+{
+  "evidenceKind": "SCRIPTED_OFFLINE_NOT_MODEL_ACCURACY",
+  "language": [
+    {
+      "id": "memory-question",
+      "message": "O que eu já descobri sobre essa porta?",
+      "expression": "QUESTION",
+      "intent": "QUERY",
+      "tool": {
+        "type": "QUERY",
+        "subject": "MEMORY"
+      },
+      "category": "QUERY",
+      "productionPromptExample": true
+    },
+    {
+      "id": "indirect-question",
+      "message": "Você poderia me lembrar do que sabemos sobre a porta?",
+      "expression": "QUESTION",
+      "intent": "QUERY",
+      "tool": {
+        "type": "QUERY",
+        "subject": "MEMORY"
+      },
+      "category": "QUERY",
+      "productionPromptExample": true
+    },
+    {
+      "id": "indirect-statement",
+      "message": "Gostaria de saber o que já descobri sobre a porta.",
+      "expression": "QUESTION",
+      "intent": "QUERY",
+      "tool": {
+        "type": "QUERY",
+        "subject": "MEMORY"
+      },
+      "category": "QUERY",
+      "productionPromptExample": true
+    },
+    {
+      "id": "query-command",
+      "message": "Consulte minhas lembranças sobre a porta.",
+      "expression": "DIRECT",
+      "intent": "QUERY",
+      "tool": {
+        "type": "QUERY",
+        "subject": "MEMORY"
+      },
+      "category": "QUERY",
+      "productionPromptExample": true
+    },
+    {
+      "id": "query-declaration",
+      "message": "Consulto minhas lembranças sobre a porta.",
+      "expression": "DIRECT",
+      "intent": "QUERY",
+      "tool": {
+        "type": "QUERY",
+        "subject": "MEMORY"
+      },
+      "category": "QUERY",
+      "productionPromptExample": true
+    },
+    {
+      "id": "negated-investigation",
+      "message": "Não quero investigar a porta.",
+      "expression": "NEGATED",
+      "intent": "INVESTIGATE",
+      "tool": {
+        "type": "PREPARED_CHECK",
+        "capability": "Examinar a porta"
+      },
+      "category": "THINK",
+      "productionPromptExample": true
+    },
+    {
+      "id": "quoted-investigation",
+      "message": "Mira disse: “Investigue a porta”.",
+      "expression": "QUOTED",
+      "intent": "INVESTIGATE",
+      "tool": {
+        "type": "PREPARED_CHECK",
+        "capability": "Examinar a porta"
+      },
+      "category": "THINK",
+      "productionPromptExample": true
+    },
+    {
+      "id": "hypothetical-investigation",
+      "message": "Talvez eu investigue a porta mais tarde.",
+      "expression": "HYPOTHETICAL",
+      "intent": "INVESTIGATE",
+      "tool": {
+        "type": "PREPARED_CHECK",
+        "capability": "Examinar a porta"
+      },
+      "category": "CLARIFY",
+      "productionPromptExample": true
+    },
+    {
+      "id": "negative-word-in-question",
+      "message": "Não me lembro: o que sabemos sobre essa porta?",
+      "expression": "QUESTION",
+      "intent": "QUERY",
+      "tool": {
+        "type": "QUERY",
+        "subject": "MEMORY"
+      },
+      "category": "QUERY",
+      "productionPromptExample": false
+    },
+    {
+      "id": "question-no-punctuation",
+      "message": "Quero saber o que já descobrimos sobre essa porta",
+      "expression": "QUESTION",
+      "intent": "QUERY",
+      "tool": {
+        "type": "QUERY",
+        "subject": "MEMORY"
+      },
+      "category": "QUERY",
+      "productionPromptExample": false
+    },
+    {
+      "id": "unconfirmed-belief",
+      "message": "Acho que há uma passagem; o que descobrimos de fato sobre a porta?",
+      "expression": "QUESTION",
+      "intent": "QUERY",
+      "tool": {
+        "type": "QUERY",
+        "subject": "MEMORY"
+      },
+      "category": "QUERY",
+      "productionPromptExample": false
+    },
+    {
+      "id": "negated-recollection",
+      "message": "Não quero consultar minhas lembranças agora.",
+      "expression": "NEGATED",
+      "intent": "QUERY",
+      "tool": {
+        "type": "QUERY",
+        "subject": "MEMORY"
+      },
+      "category": "THINK",
+      "productionPromptExample": false
+    },
+    {
+      "id": "quoted-query",
+      "message": "Mira perguntou: “O que sabemos sobre a porta?”.",
+      "expression": "QUOTED",
+      "intent": "QUERY",
+      "tool": {
+        "type": "QUERY",
+        "subject": "MEMORY"
+      },
+      "category": "THINK",
+      "productionPromptExample": false
+    }
+  ],
+  "arcanaParameters": {
+    "psychic-shield": ["raised"],
+    "second-sight": [],
+    "psychic-contact": ["tradition"],
+    "cure": [],
+    "body-control": ["tradition", "use"],
+    "move-object": ["fatigue"],
+    "wind-shaping": ["category"]
+  },
+  "parameterValues": {
+    "raised": false,
+    "tradition": "PSYCHIC",
+    "use": "SLEEP",
+    "fatigue": false,
+    "category": 0
+  },
+  "validTools": [
+    {
+      "type": "ARCANA",
+      "arcanum": "psychic-shield",
+      "raised": true
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "psychic-shield",
+      "raised": false
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "second-sight"
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "cure"
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "psychic-contact",
+      "tradition": "PSYCHIC"
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "psychic-contact",
+      "tradition": "ANIMISM"
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "body-control",
+      "tradition": "HEALING",
+      "use": "IGNORE_PAIN"
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "body-control",
+      "tradition": "MEDITATIVE",
+      "use": "SLEEP"
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "body-control",
+      "tradition": "ANIMISM",
+      "use": "FEIGN_DEATH"
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "move-object",
+      "fatigue": false
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "move-object",
+      "fatigue": true
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "wind-shaping",
+      "category": 0
+    },
+    {
+      "type": "ARCANA",
+      "arcanum": "wind-shaping",
+      "category": 3
+    }
+  ]
+}

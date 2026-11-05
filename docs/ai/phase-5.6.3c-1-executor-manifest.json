@@ -1,0 +1,27 @@
+{
+  "formatVersion": 1,
+  "phase": "5.6.3C.1",
+  "purpose": "EVALUATION_INFRASTRUCTURE_IDENTITY_NOT_LIVE_AUTHORIZATION",
+  "frozenPlanSha256": "04c31b43e50bd39573e75529590f5c33128d806e426930858263b40a8b93d712",
+  "files": {
+    "apps/ai-service/app/evaluation/literary_capture.py": "83f69328617441e4106628b375fd6847be915b0525b0aede840e481c92658e4c",
+    "apps/ai-service/app/evaluation/literary_executor.py": "3be0a05ad76e115149857bf15e9ee8b34f9d6097d0d483d50763588b145b2b28",
+    "apps/ai-service/app/evaluation/literary_preparation.py": "7afc52f6f985e8cd541766a798124710d612def3413055511584b8820a160f5b",
+    "apps/ai-service/app/evaluation/narrative_lab.py": "8b3fc7e0051c458da143d8359d428b7a495c07f39b820f77763fd8906118d932",
+    "apps/ai-service/tests/test_literary_executor.py": "86739f1c8b75572de42c1f06f917db2e4f9d8ec42ede656e6187cb7682783b7e",
+    "apps/ai-service/uv.lock": "d3115dbea0c30f60b40ae5c0e0561e9f1bfa6f63f086707d108809402cc99657",
+    "apps/api/dist/narrative/free-action.js": "028f727cb1bb61e9cb522e4dffff01ccc6458326afa7dad65e7c6f10c06abec5",
+    "apps/api/dist/narrative/rendering.js": "37802a89532e2101433defb133f8ab422f370a3324f60316a9422368eedbc3e0",
+    "package.json": "7f030a029e5792e8499952b52836c1bd06a02803f5fc2b52e701b2e3e0fedf7e",
+    "packages/shared-contracts/dist/adventure-actions.js": "0b4feef5ca26b9889e70840c2d88835d18741f6c98d8326003349dfcf262fbde",
+    "packages/shared-contracts/dist/arcana.js": "456d73c52ab41335dab1f7d47a37c8015df4323d057f5559e03d3325c780fa19",
+    "packages/shared-contracts/dist/dialogue.js": "63549be93515ec37496fd17b5fdc63072d32ca090d3c2a538c1d53700b1f60c9",
+    "packages/shared-contracts/dist/free-action.js": "65db0fb142d6b0063621d5b8d452d23a9055cd2fd7f6fb2e2559409df8c42dcf",
+    "packages/shared-contracts/dist/game.js": "b722a064a0d29b418c81cfb842733909de3757aedd89740250eeb6581ca9263f",
+    "packages/shared-contracts/dist/index.js": "80728b00bc56db7700aaf96b32b541eb51c6b1b39da112fdc49d03a29307d6a5",
+    "packages/shared-contracts/dist/mentions.js": "f5576f7c14971bf643db1bcdcbc780ee8808e76242ccf7d19f4ed329a970c9fb",
+    "packages/shared-contracts/dist/narrative.js": "029d36680302954a2b06f3981206b5c6de39a2e3313de9c4727b1a4892cb38d4",
+    "pnpm-lock.yaml": "49cefaa6f3f871ea0b76986e6851e4893b7b9aa2302d4dbcab07aca34c7950ee",
+    "scripts/evaluate-literary-case.mjs": "ac985c3e381a070d57834fdc7f72932a4b57eeb472043114ceb088ccda13c0d5"
+  }
+}

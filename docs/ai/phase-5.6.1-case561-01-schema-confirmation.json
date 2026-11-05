@@ -1,0 +1,237 @@
+{
+  "phase": "5.6.1",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "evidenceKind": "REAL_MODEL_SYNTHETIC_CONTEXT",
+  "operatorConfirmedActiveKeyFreeProjectWithoutBilling": true,
+  "projectId": null,
+  "projectVerification": "OPERATOR_ATTESTATION",
+  "maxRequests": 1,
+  "maxOutputTokensPerRequest": 700,
+  "attempts": 1,
+  "campaignWrites": false,
+  "rows": [
+    {
+      "id": "561-01",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000001",
+        "campaignId": "00000000-0000-4000-c000-000000000001",
+        "sessionId": "00000000-0000-4000-d000-000000000001",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "O que eu já descobri sobre essa porta?",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              },
+              {
+                "key": "info-b8009dbd5409f0d34e434465",
+                "scope": "KNOWN",
+                "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "QUERY"
+        ],
+        "tools": [
+          "QUERY"
+        ],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "MEMORY"
+        },
+        "evidence": [
+          "info-b8009dbd5409f0d34e434465"
+        ],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Novo teste ou descoberta",
+          "Informação sem fonte KNOWN",
+          "Efeito ou rolagem"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"QUERY\",\n  \"description\": \"Naelis consulta suas lembranças e investigações anteriores sobre a porta.\",\n  \"target\": {\n    \"type\": \"WORLD\",\n    \"name\": \"Porta\"\n  },\n  \"expression\": \"DIRECT\",\n  \"evidence\": [\n    \"info-b8009dbd5409f0d34e434465\"\n  ],\n  \"tool\": {\n    \"type\": \"QUERY\",\n    \"subject\": \"MEMORY\"\n  }\n}",
+      "reportedModelVersion": "gemini-3.5-flash-lite",
+      "proposal": {
+        "kind": "FREE",
+        "intent": "QUERY",
+        "description": "Naelis consulta suas lembranças e investigações anteriores sobre a porta.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": [
+          "info-b8009dbd5409f0d34e434465"
+        ],
+        "tool": {
+          "type": "QUERY",
+          "subject": "MEMORY"
+        }
+      },
+      "schemaValid": true,
+      "fallback": false,
+      "semantic": {
+        "passed": false,
+        "failures": [
+          "EXPRESSION"
+        ]
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "QUERY",
+          "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+          "targetId": "00000000-0000-4000-a000-000000000004",
+          "authorizedTool": "QUERY"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+            "eventIds": []
+          },
+          "reason": null
+        }
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2095,
+          "outputTokens": 138,
+          "durationMs": 2040,
+          "inputCharacters": 1246,
+          "totalTokens": 2233,
+          "usageReported": true,
+          "error": null
+        }
+      ],
+      "validationIssues": []
+    }
+  ],
+  "fingerprintsBefore": {
+    ".env": "f7e4a08fdcd9ec6667ec5769afc97ba9311909ef3f7235db05406435b5ec7042",
+    "apps/ai-service/app/core/config.py": "1daafb172950c15efc504e77af5ec5df1361ba6ceba48b28d1b60bd6d53ee6eb",
+    "apps/ai-service/app/narrative/graph.py": "a6f3b807d4d1e2f2898c6d78fd375dd69c2f691aa10cfdbc5f91013d84e81daf",
+    "apps/ai-service/app/narrative/prompts.py": "ce92d867d2ed24b2bc94d9fb11b6d1c49bf6e80fcad11b7c2f38a805b2f59bd3",
+    "apps/ai-service/app/narrative/selection.py": "e4d9029fe7800ed5e006bbaf7861bb0c0d5dd886e571b718471dde6ba7e8d551",
+    "apps/ai-service/app/narrative/schemas.py": "52ec5eea8cac2e5c5878f00cacb93c5f6ea83e6191e1f7f641478cc5a9771f89",
+    "apps/ai-service/app/providers/gemini.py": "3ecdcc1d2534aebb5e28aa16f61fbcd9397ccd275cd839d6fa8c5a3d147ec0ff",
+    "apps/ai-service/app/providers/router.py": "f5acbe415bdc5c4fcc75797c1ce777c8deb00773a175189cd337290b50e095bc",
+    "apps/api/src/narrative/free-action.ts": "f2a31d7d83a9e66401cd6dceddd8500035c82f464c47cef7131fcab31b76f106",
+    "apps/api/src/narrative/information.ts": "fdc3a5dec1e45e2bb63233fffb539ea85c9d1e1de00b2e58b1c7b3008f8ff84c",
+    "apps/api/src/narrative/rendering.ts": "d5bf387a73d1ad46c493a43214e579be7419daeafced3c73d3527ecea8c48bd9",
+    "packages/shared-contracts/src/free-action.ts": "da72699714626f4e373f005e3cf64b8b7c18716665a4aed443fe57f54950fa08",
+    "docs/ai/phase-5.6.1-plan.json": "82f3303faf6c125ad5c59360f0e2e6404e8c7c894efbf2f01000c7f6e6878f0d"
+  },
+  "fingerprintsAfter": {
+    ".env": "f7e4a08fdcd9ec6667ec5769afc97ba9311909ef3f7235db05406435b5ec7042",
+    "apps/ai-service/app/core/config.py": "1daafb172950c15efc504e77af5ec5df1361ba6ceba48b28d1b60bd6d53ee6eb",
+    "apps/ai-service/app/narrative/graph.py": "a6f3b807d4d1e2f2898c6d78fd375dd69c2f691aa10cfdbc5f91013d84e81daf",
+    "apps/ai-service/app/narrative/prompts.py": "ce92d867d2ed24b2bc94d9fb11b6d1c49bf6e80fcad11b7c2f38a805b2f59bd3",
+    "apps/ai-service/app/narrative/selection.py": "e4d9029fe7800ed5e006bbaf7861bb0c0d5dd886e571b718471dde6ba7e8d551",
+    "apps/ai-service/app/narrative/schemas.py": "52ec5eea8cac2e5c5878f00cacb93c5f6ea83e6191e1f7f641478cc5a9771f89",
+    "apps/ai-service/app/providers/gemini.py": "3ecdcc1d2534aebb5e28aa16f61fbcd9397ccd275cd839d6fa8c5a3d147ec0ff",
+    "apps/ai-service/app/providers/router.py": "f5acbe415bdc5c4fcc75797c1ce777c8deb00773a175189cd337290b50e095bc",
+    "apps/api/src/narrative/free-action.ts": "f2a31d7d83a9e66401cd6dceddd8500035c82f464c47cef7131fcab31b76f106",
+    "apps/api/src/narrative/information.ts": "fdc3a5dec1e45e2bb63233fffb539ea85c9d1e1de00b2e58b1c7b3008f8ff84c",
+    "apps/api/src/narrative/rendering.ts": "d5bf387a73d1ad46c493a43214e579be7419daeafced3c73d3527ecea8c48bd9",
+    "packages/shared-contracts/src/free-action.ts": "da72699714626f4e373f005e3cf64b8b7c18716665a4aed443fe57f54950fa08",
+    "docs/ai/phase-5.6.1-plan.json": "82f3303faf6c125ad5c59360f0e2e6404e8c7c894efbf2f01000c7f6e6878f0d"
+  },
+  "frozenInputsPreserved": true
+}

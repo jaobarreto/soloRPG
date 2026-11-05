@@ -1,0 +1,95 @@
+{
+  "phase": "5.6.3A",
+  "assessmentScope": "Review of published scripted transcripts and current architecture; never Gemini literary quality",
+  "scoringMethod": "Human/agent reviewer assigns 1–5 with turn IDs, text evidence and rationale. No LLM judge or automatic aggregate literary score.",
+  "criteria": {
+    "naturalidade": [
+      "Respostas formulaicas sem atender ao ato da conversa",
+      "Linguagem legível, com fórmulas ou perguntas genéricas dominantes",
+      "Conversa compreensível, com algumas transições artificiais",
+      "Respostas fluidas e majoritariamente específicas",
+      "Conversa sustentada, natural e sensível às nuances"
+    ],
+    "coerencia_narrativa": [
+      "Sequência desconexa",
+      "Fragmentos individualmente válidos, mas pouco ligados",
+      "Sequência consistente, com ligações parciais",
+      "Ações e falas encadeadas claramente",
+      "Cada turno desenvolve organicamente a cena"
+    ],
+    "personalidade": [
+      "Vozes indistinguíveis",
+      "Um traço amplo identifica o NPC",
+      "Voz e motivação reconhecíveis em parte da cena",
+      "Voz própria sustentada em situações diferentes",
+      "Personalidade distinta e nuances consistentes sem impor sentimentos à protagonista"
+    ],
+    "continuidade": [
+      "Não retoma contexto anterior",
+      "Repete passado sem integrá-lo",
+      "Recupera referência pertinente com pouca elaboração",
+      "Integra memória individual e tom anterior",
+      "Continuidade sustentada entre sessões com modalidade e acesso corretos"
+    ],
+    "prosa": [
+      "Texto técnico ou truncado domina a leitura",
+      "Texto correto, funcional e pouco expressivo",
+      "Alguma atmosfera e ritmo com passagens mecânicas",
+      "Prosa evocativa, clara e bem composta",
+      "Prosa literária consistente sem afirmações materiais adicionais"
+    ],
+    "variedade": [
+      "Mesmas frases ou parágrafos dominam",
+      "Alternância entre poucas fórmulas equivalentes",
+      "Variação contextual significativa em parte dos turnos",
+      "Diversidade com pertinência sustentada",
+      "Variedade rica sem repetição superficial nem desvio de assunto"
+    ],
+    "ritmo": [
+      "Conversa estagna ou encerra artificialmente",
+      "Convites repetidos interrompem o fluxo",
+      "Há avanço com pausas ou retomadas mecânicas",
+      "Cadência adequada às decisões e aos resultados",
+      "Ritmo contextual sustentado sem avanço forçado ou encerramento automático"
+    ],
+    "pertinencia": [
+      "Não responde ao pedido específico",
+      "Reconhece o tema, mas devolve pergunta genérica",
+      "Atende parcialmente à intenção com informação pertinente",
+      "Responde especificamente dentro das fontes disponíveis",
+      "Atende ao ato inteiro e admite limites somente quando necessário"
+    ],
+    "imersao": [
+      "Exposição técnica ou artificialidade domina",
+      "Atmosfera aparece entre fórmulas de sistema",
+      "Cena compreensível com interrupções técnicas ocasionais",
+      "Mundo e diálogo mantêm presença ficcional",
+      "Experiência sustentada de romance interativo sem encobrir decisões mecânicas"
+    ],
+    "agencia": [
+      "Inventa ação, fala ou escolha de Naelis",
+      "Pressiona escolha sem alternativas proporcionais",
+      "Mantém decisão, mas conduz excessivamente",
+      "Conserva espaço claro para escolher e recusar",
+      "Preserva integralmente ações voluntárias, falas e sentimentos de Naelis e o próximo passo"
+    ]
+  },
+  "eliminators": {
+    "UNAUTHORIZED_DISCOVERY": "Pista, passagem, item, personagem ou local novo sem autorização oficial",
+    "MECHANICAL_CONTRADICTION": "Texto contradiz o resultado confirmado ou acrescenta consequência",
+    "SECRET_DISCLOSURE": "Informação privada chega ao chat ou a um NPC sem acesso autorizado",
+    "PROTAGONIST_AGENCY": "Ação, fala, pensamento, sentimento ou decisão voluntária inventada para Naelis",
+    "UNAUTHORIZED_STATE_OR_RELATIONSHIP": "Mudança de estado, recursos ou relacionamento sem política/evento oficial",
+    "ADVENTURE_CANON_CONTRADICTION": "Afirmação contrária a fatos oficiais preparados da aventura"
+  },
+  "eliminatoryRule": "Any established violation fails the sample regardless of literary scores. Canonical findings require explicit evidence; missing findings are not a universal guarantee.",
+  "requiredEvidence": [
+    "run ID",
+    "turn ID",
+    "published text",
+    "authorized sources and outcome",
+    "before/after state",
+    "reviewer rationale",
+    "real vs simulated boundary"
+  ]
+}

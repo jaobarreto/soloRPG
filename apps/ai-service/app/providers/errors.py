@@ -1,8 +1,15 @@
 class ProviderError(Exception):
-    def __init__(self, code: str, *, transient: bool = False):
+    def __init__(
+        self,
+        code: str,
+        *,
+        transient: bool = False,
+        validation_issues: list[str] | None = None,
+    ):
         super().__init__(code)
         self.code = code
         self.transient = transient
+        self.validation_issues = validation_issues or []
 
 
 def status_error(status: int) -> ProviderError:

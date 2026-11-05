@@ -1,0 +1,224 @@
+{
+  "phase": "5.6.3C.1",
+  "scope": "OFFLINE_EXECUTOR_INFRASTRUCTURE",
+  "status": "OFFLINE_VALIDATED_AWAITING_NEW_EXPLICIT_OPERATOR_AUTHORIZATION",
+  "realProviderRequests": 0,
+  "externalRoundAuthorized": false,
+  "geminiLiteraryQualityApproved": false,
+  "normalFinancialConfigurationChanged": false,
+  "validation": {
+    "pythonDirected": {
+      "passed": 171,
+      "newExecutorTests": 40,
+      "seconds": 35.73,
+      "coverageExecutor": 88,
+      "coverageCapture": 99,
+      "combinedNewModules": 90,
+      "coverageScope": "two evaluation modules, not global"
+    },
+    "nestDirected": {
+      "passed": 103,
+      "suites": 6,
+      "seconds": 96.191
+    },
+    "sharedContracts": 15,
+    "affectedBuilds": "API_SHARED_PYTHON_PASSED",
+    "workspaceTypecheck": "PASSED",
+    "workspaceLint": "PASSED",
+    "globalSuiteRerun": false,
+    "webTestsRerun": false,
+    "formatGlobal": {
+      "result": "FAILED_PREEXISTING",
+      "files": [
+        "docs/ai/phase-5.6.1-canonicity-audit.json",
+        "docs/ai/phase-5.6.1-case561-01-confirmation-preflight.json",
+        "docs/ai/phase-5.6.1-case561-01-confirmation-review.json",
+        "docs/ai/phase-5.6.1-case561-01-schema-confirmation.json",
+        "docs/ai/phase-5.6.1-completion-live-result.json",
+        "docs/ai/phase-5.6.1-final-evaluation-summary.json",
+        "docs/ai/phase-5.6.1-investigation-contrast-live-result.json",
+        "docs/ai/phase-5.6.1-investigation-contrast-preflight.json",
+        "docs/ai/phase-5.6.1-investigation-contrast-review.json",
+        "docs/ai/phase-5.6.1-live-result.json",
+        "docs/ai/phase-5.6.1-offline-result.json",
+        "docs/ai/phase-5.6.1-plan.json",
+        "docs/ai/phase-5.6.1.2-authorization.json",
+        "docs/ai/phase-5.6.1.2-live-result.json",
+        "docs/ai/phase-5.6.2-validation-summary.json",
+        "docs/ai/phase-5.6.3a-lab-result.json",
+        "docs/ai/phase-5.6.3b-comparison.json",
+        "docs/ai/phase-5.6.3b-lab-result.json",
+        "packages/shared-contracts/fixtures/phase56-semantic.json"
+      ]
+    },
+    "formatChangedScope": "PASSED",
+    "gitDiffCheck": "PASSED"
+  },
+  "planIntegrity": {
+    "path": "docs/ai/phase-5.6.3c-1-live-plan.json",
+    "sha256": "04c31b43e50bd39573e75529590f5c33128d806e426930858263b40a8b93d712",
+    "caseIds": ["C1-1", "C1-2", "C1-3", "C1-4", "C1-5", "C1-6"],
+    "productionAndFixtureHashesVerified": 18,
+    "planOrGoldensChanged": false,
+    "executorManifestSha256": "dcb2c1cf29f3189b85beec429709e9f6174d0c9e9da62e635bbbd47be9114768",
+    "infrastructureFilesVerified": 19
+  },
+  "budget": {
+    "maxRequests": 12,
+    "maxPropose": 6,
+    "maxNarrate": 6,
+    "outputPerStage": {
+      "PROPOSE": 700,
+      "NARRATE": 1200
+    },
+    "aggregateConfiguredOutputCeiling": 11400,
+    "inputCharacterLimit": 65000,
+    "retries": 0,
+    "fallback": false,
+    "repair": false,
+    "continueIndependentDefault": false,
+    "unusedSlotsMayBeReallocated": false
+  },
+  "testMatrix": [
+    {
+      "testId": "TEST-C1-001",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-002",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-003",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-004",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-005",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-006",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-007",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-008",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-009",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-010",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-011",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-012",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-013",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-014",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-015",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    },
+    {
+      "testId": "TEST-C1-016",
+      "state": "covered",
+      "scope": "offline infrastructure, not real Gemini accuracy"
+    }
+  ],
+  "authorizationRequirements": [
+    "New operator authorization for this round",
+    "Free project and billing-disabled attestation",
+    "Active key fingerprint and project identity attestation",
+    "Reviewed exact infrastructure manifest",
+    "Fresh round UUID and exclusive output directory",
+    "No automatic continuation after semantic failure unless explicitly authorized"
+  ],
+  "preservation": {
+    "initialBaselineFiles": 443,
+    "unchangedFiles": 442,
+    "modifiedExistingFiles": ["docs/testing/narrative-tests.md"],
+    "newFiles": [
+      "apps/ai-service/app/evaluation/literary_executor.py",
+      "apps/ai-service/app/evaluation/literary_capture.py",
+      "apps/ai-service/tests/test_literary_executor.py",
+      "scripts/evaluate-literary-case.mjs",
+      "docs/ai/phase-5.6.3c-1-executor-manifest.json",
+      "docs/ai/phase-5.6.3c-1-baseline-sha256.json",
+      "docs/ai/phase-5.6.3c-1-offline-demo.json",
+      "docs/ai/phase-5.6.3c-1-offline-demo-events.jsonl",
+      "docs/ai/phase-5.6.3c-1-human-review-template.json",
+      "docs/ai/phase-5.6.3c-1-preflight-observation.json",
+      "docs/ai/phase-5.6.3c-1-preflight-test-receipts.json",
+      "docs/ai/phase-5.6.3c-1-preflight-summary.json",
+      "docs/testing/phase-5.6.3c-1-preflight-validation.md"
+    ],
+    "historicalAndProductionFilesUnchanged": true,
+    "envModelFallbackUnchanged": true,
+    "definitionsDigestsPDFsBlueRoseDirectorEngineUnchanged": true,
+    "productionDatabaseWrites": 0,
+    "realCampaignWrites": 0,
+    "migrationsDependenciesServicesAdded": 0,
+    "rawFinancialDetailsOrCredentialsRecorded": false,
+    "allPriorUncommittedWorkPreserved": true
+  },
+  "limitations": [
+    "Frozen synthetic projections only, no adaptive conversation or new persistence.",
+    "Read-only Node replay verifies actual production policies; does not reconstruct private owner provenance removed by the frozen Story Card projection.",
+    "Raw capture is SDK response JSON text before local Pydantic/graph, not HTTP headers/envelope. Unsafe private/financial text is withheld with hash and reason.",
+    "Key fingerprint binds the same key; project tier depends on fresh operator attestation, not an independent financial API audit.",
+    "Catalog membership and categorical equality do not grade literary relevance or naturalness.",
+    "No full global suite or creative campaign validation claimed.",
+    "19 historical formatting failures preserved."
+  ],
+  "filesSha256": {
+    "docs/testing/narrative-tests.md": "c3c3055229a38576e5eae1db9d77854c3ef70ea7e4b4abeb75b5dfb1d57f108a",
+    "apps/ai-service/app/evaluation/literary_executor.py": "3be0a05ad76e115149857bf15e9ee8b34f9d6097d0d483d50763588b145b2b28",
+    "apps/ai-service/app/evaluation/literary_capture.py": "83f69328617441e4106628b375fd6847be915b0525b0aede840e481c92658e4c",
+    "apps/ai-service/tests/test_literary_executor.py": "86739f1c8b75572de42c1f06f917db2e4f9d8ec42ede656e6187cb7682783b7e",
+    "scripts/evaluate-literary-case.mjs": "ac985c3e381a070d57834fdc7f72932a4b57eeb472043114ceb088ccda13c0d5",
+    "docs/ai/phase-5.6.3c-1-executor-manifest.json": "dcb2c1cf29f3189b85beec429709e9f6174d0c9e9da62e635bbbd47be9114768",
+    "docs/ai/phase-5.6.3c-1-baseline-sha256.json": "87ce7f742ac3a77ac4b2cfe9a7971547cadf5f7f239580ab6eca94ce9d2fd525",
+    "docs/ai/phase-5.6.3c-1-offline-demo.json": "fc0ca7627fa662a1c1d829b60aeb2c99215bbb6d3903514ad9e1ce5c6aa3ca9f",
+    "docs/ai/phase-5.6.3c-1-offline-demo-events.jsonl": "ac2ab4d54eca1dff8da6ba0f12309f912b872b8a2c4c4404cc03f141b7964af0",
+    "docs/ai/phase-5.6.3c-1-human-review-template.json": "848952f4563a84fe71396af315188e4119df989e5e00e9fb07dad31f3a240a1f",
+    "docs/ai/phase-5.6.3c-1-preflight-observation.json": "7b524ef698c8c06401a6ea36617a3b01f7e1a5c9075d97fd34cd16cd7680d1a9",
+    "docs/ai/phase-5.6.3c-1-preflight-test-receipts.json": "6d00c56876d375acc86c3bd7370192b5f6c5f139b20d4942a78829fd325381ac",
+    "docs/testing/phase-5.6.3c-1-preflight-validation.md": "9946a2b2920dbb80b16b480a2459165ce6cb1fdfeb506cb267b7cc6ed26c7dcf"
+  }
+}

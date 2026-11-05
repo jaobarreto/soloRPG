@@ -1,3 +1,9 @@
+import { IsBoolean } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  CampaignsService,
+  ResetSessionResponseDto,
+} from '../campaigns/campaigns.service';
 import {
   Body,
   Controller,
@@ -18,6 +24,12 @@ import { SessionsService } from './sessions.service';
 import { CompleteSessionDto } from './dto/complete-session.dto';
 import { SessionResponseDto } from './dto/session-response.dto';
 
+class ResetSessionDto {
+  @ApiProperty({ type: Boolean, example: true })
+  @IsBoolean()
+  confirm!: boolean;
+}
+
 @ApiTags('Sessions')
 @ApiBadRequestResponse({ description: 'Invalid payload or UUID' })
 @ApiNotFoundResponse({ description: 'Session or campaign not found' })
@@ -26,7 +38,10 @@ import { SessionResponseDto } from './dto/session-response.dto';
 })
 @Controller('campaigns/:campaignId/sessions')
 export class SessionsController {
-  constructor(private readonly service: SessionsService) {}
+  constructor(
+    private readonly service: SessionsService,
+    private readonly campaigns: CampaignsService,
+  ) {}
   @Get()
   @ApiOkResponse({ type: [SessionResponseDto] })
   list(@Param('campaignId', new ParseUUIDPipe()) campaignId: string) {
@@ -39,6 +54,20 @@ export class SessionsController {
     @Param('sessionId', new ParseUUIDPipe()) sessionId: string,
   ) {
     return this.service.detail(campaignId, sessionId);
+  }
+  @Post(':sessionId/reset')
+  @HttpCode(200)
+  @ApiOkResponse({ type: ResetSessionResponseDto })
+  reset(
+    @Param('campaignId', new ParseUUIDPipe()) campaignId: string,
+    @Param('sessionId', new ParseUUIDPipe()) sessionId: string,
+    @Body() confirmation: ResetSessionDto,
+  ) {
+    return this.campaigns.resetLibrarySession(
+      campaignId,
+      sessionId,
+      confirmation.confirm,
+    );
   }
   @Post(':sessionId/start')
   @HttpCode(200)

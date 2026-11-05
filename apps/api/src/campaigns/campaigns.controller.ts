@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   Param,
   ParseUUIDPipe,
   Patch,
@@ -36,6 +37,15 @@ export class CampaignsController {
   @ApiOkResponse({ type: [CampaignResponseDto] })
   list() {
     return this.service.list();
+  }
+  @Get('library')
+  library() {
+    return this.service.library();
+  }
+  @Post('library')
+  @HttpCode(200)
+  openLibraryAdventure() {
+    return this.service.library(true);
   }
   @Get(':campaignId')
   @ApiOkResponse({ type: CampaignDetailDto })

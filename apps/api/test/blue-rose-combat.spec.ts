@@ -4,7 +4,7 @@ import {
   validateCombatStunts,
   weaponRules,
   combatStunts,
-} from '../src/blue-rose/combat.rules';
+} from '../src/blue-rose/mechanics/combat/combat.rules';
 const roll = (total: number, dramaDie: number) => ({
   dice: [1, 1, dramaDie] as [number, number, number],
   modifier: total - 2 - dramaDie,
@@ -36,5 +36,28 @@ describe('Blue Rose AGE core combat and opposed checks (BR pp.16,22-24,54-57)', 
     ).toThrow();
     expect(combatStunts.DEFENSIVE_STANCE.cost).toBe(2);
     expect(weaponRules['heavy-blade'].dice).toBe(2);
+  });
+  it('uses the staff and standard bow/sling profiles from BR p.54', () => {
+    expect(weaponRules.staff).toMatchObject({
+      dice: 1,
+      bonus: 1,
+      ability: 'ACCURACY',
+      damageAbility: 'STRENGTH',
+      reload: false,
+    });
+    expect(weaponRules.shortbow).toMatchObject({
+      dice: 1,
+      bonus: 1,
+      range: 16,
+      longRange: 32,
+      reload: true,
+      damageAbility: 'PERCEPTION',
+    });
+    expect(weaponRules.sling).toMatchObject({
+      dice: 1,
+      bonus: 1,
+      range: 16,
+      longRange: 32,
+    });
   });
 });

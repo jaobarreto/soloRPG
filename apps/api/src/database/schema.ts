@@ -41,6 +41,8 @@ export const interactionMode = pgEnum('interaction_mode', [
   'ACT',
   'THINK',
   'OUT_OF_CHARACTER',
+  'REQUEST_CHECK',
+  'ROLL_RESULT',
 ]);
 const timestamps = () => ({
   createdAt: timestamp('created_at', { withTimezone: true })

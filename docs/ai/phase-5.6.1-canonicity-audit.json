@@ -1,0 +1,219 @@
+{
+  "evidenceKind": "SCRIPTED_PRODUCTION_GRAPH_AND_DISPOSABLE_DATABASE",
+  "realGeminiCalls": 0,
+  "productionChanges": false,
+  "rows": [
+    {
+      "case": "A",
+      "canon": "ABSENT",
+      "publicText": [
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+      ],
+      "officialStateUnchanged": true,
+      "status": "COMPLETED"
+    },
+    {
+      "case": "C",
+      "canon": "UNSPECIFIED",
+      "publicText": [
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+      ],
+      "officialStateUnchanged": true,
+      "status": "COMPLETED"
+    },
+    {
+      "case": "D",
+      "publicText": [
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho.",
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho.",
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho.",
+        "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+      ],
+      "attempts": [
+        "Procuro uma passagem secreta.",
+        "Tenho certeza de que tem alguma coisa escondida.",
+        "Examino novamente.",
+        "Empurro a estante para ver o que acontece."
+      ],
+      "officialStateUnchanged": true
+    },
+    {
+      "case": "B",
+      "variant": "literal secret phrase",
+      "scriptedModelAddition": "Atrás da estante há uma passagem secreta.",
+      "officialSuccess": false,
+      "officialConfirmed": {
+        "eventIds": [
+          "0c49764d-52f6-4717-a7ad-53e833eab491"
+        ],
+        "narrative": "A busca não identificou nenhuma abertura."
+      },
+      "publicReply": {
+        "id": "5855e81c-cc09-4a97-8dd1-74cef37a7f1a",
+        "campaignId": "f30ff101-e7e5-47ff-88ac-9dfec93bee0e",
+        "sessionId": "2b55cdfc-7360-4886-87c8-163a668d6caf",
+        "role": "GAME_MASTER",
+        "interactionMode": null,
+        "content": "A busca não identificou nenhuma abertura.",
+        "sequenceNumber": 3,
+        "metadata": {
+          "actionId": "f06dd90e-bda8-4d8e-8f1c-5205cbfc3f04",
+          "eventIds": [
+            "0c49764d-52f6-4717-a7ad-53e833eab491"
+          ],
+          "renderingValidation": "UNCONFIRMED_CONSEQUENCE",
+          "deterministicFallback": true
+        },
+        "createdAt": "2026-11-02T01:10:04.923Z"
+      },
+      "injectedVisible": false,
+      "worldUnchanged": true,
+      "knowledgeUnchanged": true,
+      "events": [
+        {
+          "type": "CHARACTER_CREATED",
+          "description": "Personagem registrado: Naelis",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "LOCATION_UPDATED",
+          "description": "Preparação sintética autorizada",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "SCENE_PREPARED",
+          "description": "Preparação narrativa local",
+          "visibility": "GM_ONLY"
+        },
+        {
+          "type": "CHECK_REQUESTED",
+          "description": "Examinar a estante",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "ABILITY_CHECK",
+          "description": "Examinar a estante",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "CONSEQUENCE_RECORDED",
+          "description": "A busca não identificou nenhuma abertura.",
+          "visibility": "PUBLIC"
+        }
+      ],
+      "progress": {
+        "objectives": [
+          {
+            "id": "57a9269e-3502-43c5-9213-ea6312becdf9",
+            "description": "Examinar a biblioteca",
+            "completed": false,
+            "weight": 1
+          }
+        ],
+        "progress": 0,
+        "objectiveCompleted": false,
+        "suggestSessionEnding": false
+      }
+    },
+    {
+      "case": "B",
+      "variant": "paraphrased secret",
+      "scriptedModelAddition": "Atrás da estante há uma galeria que conduz ao jardim.",
+      "officialSuccess": false,
+      "officialConfirmed": {
+        "eventIds": [
+          "8e95e59c-e00a-407f-88e7-59d924d151d4"
+        ],
+        "narrative": "A busca não identificou nenhuma abertura."
+      },
+      "publicReply": {
+        "id": "4901a7e2-5cbe-4199-bf6d-97f358e35439",
+        "campaignId": "f99f4e0c-18d5-4d4f-9294-a3d8c0eecf05",
+        "sessionId": "94f9009d-2d00-4088-9074-0c6a97d8df42",
+        "role": "GAME_MASTER",
+        "interactionMode": null,
+        "content": "A busca não identificou nenhuma abertura.\n\nAtrás da estante há uma galeria que conduz ao jardim.",
+        "sequenceNumber": 3,
+        "metadata": {
+          "actionId": "32baa7ae-2203-4944-a24a-ce8c46c06073",
+          "eventIds": [
+            "8e95e59c-e00a-407f-88e7-59d924d151d4"
+          ],
+          "renderingValidation": "ACCEPTED",
+          "deterministicFallback": false
+        },
+        "createdAt": "2026-11-02T01:10:06.322Z"
+      },
+      "injectedVisible": true,
+      "worldUnchanged": true,
+      "knowledgeUnchanged": true,
+      "events": [
+        {
+          "type": "CHARACTER_CREATED",
+          "description": "Personagem registrado: Naelis",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "LOCATION_UPDATED",
+          "description": "Preparação sintética autorizada",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "SCENE_PREPARED",
+          "description": "Preparação narrativa local",
+          "visibility": "GM_ONLY"
+        },
+        {
+          "type": "CHECK_REQUESTED",
+          "description": "Examinar a estante",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "ABILITY_CHECK",
+          "description": "Examinar a estante",
+          "visibility": "PUBLIC"
+        },
+        {
+          "type": "CONSEQUENCE_RECORDED",
+          "description": "A busca não identificou nenhuma abertura.",
+          "visibility": "PUBLIC"
+        }
+      ],
+      "progress": {
+        "objectives": [
+          {
+            "id": "cc2dc851-6f36-479b-afb3-11d2d58a4de2",
+            "description": "Examinar a biblioteca",
+            "completed": false,
+            "weight": 1
+          }
+        ],
+        "progress": 0,
+        "objectiveCompleted": false,
+        "suggestSessionEnding": false
+      }
+    },
+    {
+      "case": "B-positive",
+      "publicReply": {
+        "id": "da359169-eead-4553-8995-8d5905d3dd15",
+        "campaignId": "34f8be66-1ba5-4c0f-b089-f5beb52d9915",
+        "sessionId": "b26f008b-7e25-4c68-a077-fad7d43545bd",
+        "role": "GAME_MASTER",
+        "interactionMode": null,
+        "content": "Um painel atrás da estante conduz à galeria do jardim.",
+        "sequenceNumber": 3,
+        "metadata": {
+          "actionId": "9473aade-c994-463b-aeca-d739abc6fa3e",
+          "eventIds": [
+            "31122779-93c6-4e02-8082-4c0c8618b190"
+          ],
+          "renderingValidation": "ACCEPTED",
+          "deterministicFallback": false
+        },
+        "createdAt": "2026-11-02T01:10:07.825Z"
+      },
+      "officialDiscovery": true
+    }
+  ]
+}

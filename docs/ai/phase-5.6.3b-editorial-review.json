@@ -1,0 +1,937 @@
+{
+  "phase": "5.6.3B",
+  "realProviderRequests": 0,
+  "geminiQualityScore": null,
+  "rubric": "phase-5.6.3a-rubric.json",
+  "scoringMethod": "Agent editorial judgment after reading published VARIED transcripts; no automatic literary scoring or LLM judge",
+  "comparisonCaveat": "B adds explicit prepared sources/state and scripted topic/act selection; not a model accuracy comparison",
+  "reviews": [
+    {
+      "scenarioId": "563A-01",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "before": 2,
+          "after": 2,
+          "rationale": "As frases são legíveis, mas quatro turnos devolvem esclarecimento ou limite em vez de desenvolver opinião.",
+          "turnIds": [
+            "563B-01-VARIED-t1",
+            "563B-01-VARIED-t2",
+            "563B-01-VARIED-t3",
+            "563B-01-VARIED-t4",
+            "563B-01-VARIED-t5"
+          ]
+        },
+        "coerencia_narrativa": {
+          "before": 2,
+          "after": 3,
+          "rationale": "Os atos de esclarecer e retomar se ligam à conversa; o desacordo sem fonte preparada continua sem resposta.",
+          "turnIds": [
+            "563B-01-VARIED-t1",
+            "563B-01-VARIED-t2",
+            "563B-01-VARIED-t3",
+            "563B-01-VARIED-t4",
+            "563B-01-VARIED-t5"
+          ]
+        },
+        "personalidade": {
+          "before": 2,
+          "after": 3,
+          "rationale": "O acolhimento mantém convite ao diálogo sem acordo; voz mais reconhecível, ainda pouco singular.",
+          "turnIds": [
+            "563B-01-VARIED-t1",
+            "563B-01-VARIED-t2",
+            "563B-01-VARIED-t3",
+            "563B-01-VARIED-t4",
+            "563B-01-VARIED-t5"
+          ]
+        },
+        "continuidade": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Não há memória vinculada de desacordo neste cenário; recuperação do passado não foi demonstrada.",
+          "turnIds": [
+            "563B-01-VARIED-t1",
+            "563B-01-VARIED-t2",
+            "563B-01-VARIED-t3",
+            "563B-01-VARIED-t4",
+            "563B-01-VARIED-t5"
+          ]
+        },
+        "prosa": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Prosa funcional, com explicações de cautela e a mesma atmosfera em todos os turnos.",
+          "turnIds": [
+            "563B-01-VARIED-t1",
+            "563B-01-VARIED-t2",
+            "563B-01-VARIED-t3",
+            "563B-01-VARIED-t4",
+            "563B-01-VARIED-t5"
+          ]
+        },
+        "variedade": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Quatro respostas completas para cinco turnos; CLARIFY repete e há poucas variantes por ato.",
+          "turnIds": [
+            "563B-01-VARIED-t1",
+            "563B-01-VARIED-t2",
+            "563B-01-VARIED-t3",
+            "563B-01-VARIED-t4",
+            "563B-01-VARIED-t5"
+          ]
+        },
+        "ritmo": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Todos os turnos ainda terminam em pergunta genérica e repetem a descrição.",
+          "turnIds": [
+            "563B-01-VARIED-t1",
+            "563B-01-VARIED-t2",
+            "563B-01-VARIED-t3",
+            "563B-01-VARIED-t4",
+            "563B-01-VARIED-t5"
+          ]
+        },
+        "pertinencia": {
+          "before": 1,
+          "after": 2,
+          "rationale": "Atende à maneira de conversar, mas opinião sobre o desacordo e interpretação do que Naelis disse continuam sem conteúdo preparado.",
+          "turnIds": [
+            "563B-01-VARIED-t1",
+            "563B-01-VARIED-t2",
+            "563B-01-VARIED-t3",
+            "563B-01-VARIED-t4",
+            "563B-01-VARIED-t5"
+          ]
+        },
+        "imersao": {
+          "before": 2,
+          "after": 2,
+          "rationale": "A sala permanece compreensível; fórmulas explicativas limitam a ficção.",
+          "turnIds": [
+            "563B-01-VARIED-t1",
+            "563B-01-VARIED-t2",
+            "563B-01-VARIED-t3",
+            "563B-01-VARIED-t4",
+            "563B-01-VARIED-t5"
+          ]
+        },
+        "agencia": {
+          "before": 5,
+          "after": 5,
+          "rationale": "Nenhuma fala, pensamento, ação voluntária ou sentimento de Naelis foi acrescentado.",
+          "turnIds": [
+            "563B-01-VARIED-t1",
+            "563B-01-VARIED-t2",
+            "563B-01-VARIED-t3",
+            "563B-01-VARIED-t4",
+            "563B-01-VARIED-t5"
+          ]
+        }
+      },
+      "publishedEvidence": [
+        {
+          "turnId": "563B-01-VARIED-t1",
+          "player": "Iria, como você prefere que conversemos sobre o que aconteceu?",
+          "publicText": "Iria — Podemos conversar com clareza, sem exigir que você concorde comigo. Qual ponto você quer que eu explique?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563B-01-VARIED-t2",
+          "player": "Quero ouvir sua opinião sobre o nosso desacordo.",
+          "publicText": "Iria — Não tenho uma resposta segura para isso. Prefiro pedir que esclareça a inventar uma explicação.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563B-01-VARIED-t3",
+          "player": "O que exatamente você gostaria de esclarecer comigo?",
+          "publicText": "Iria — Diga qual parte quer esclarecer, e podemos nos concentrar nela.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563B-01-VARIED-t4",
+          "player": "Não estou encerrando a conversa. Podemos examinar outro ponto?",
+          "publicText": "Iria — Podemos retomar a conversa. Qual ponto você quer trazer de volta?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563B-01-VARIED-t5",
+          "player": "Qual parte do que eu disse você compreendeu de outra forma?",
+          "publicText": "Iria — Diga qual parte quer esclarecer, e podemos nos concentrar nela.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-02",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "before": 1,
+          "after": 3,
+          "rationale": "As respostas agora tratam o desacordo; a recusa final menciona pedido de perdão que não foi feito, mostrando ajuste ainda imperfeito.",
+          "turnIds": [
+            "563B-02-VARIED-t1",
+            "563B-02-VARIED-t2",
+            "563B-02-VARIED-t3",
+            "563B-02-VARIED-t4"
+          ]
+        },
+        "coerencia_narrativa": {
+          "before": 2,
+          "after": 3,
+          "rationale": "Os quatro atos preservam o conflito em aberto. A última formulação condicional de perdão é segura, mas pouco ajustada à negação de Naelis.",
+          "turnIds": [
+            "563B-02-VARIED-t1",
+            "563B-02-VARIED-t2",
+            "563B-02-VARIED-t3",
+            "563B-02-VARIED-t4"
+          ]
+        },
+        "personalidade": {
+          "before": 2,
+          "after": 3,
+          "rationale": "A voz reservada permanece ponderada sem virar confiança ou ajuda; o repertório é estreito.",
+          "turnIds": [
+            "563B-02-VARIED-t1",
+            "563B-02-VARIED-t2",
+            "563B-02-VARIED-t3",
+            "563B-02-VARIED-t4"
+          ]
+        },
+        "continuidade": {
+          "before": 3,
+          "after": 4,
+          "rationale": "A memória própria influencia explicitamente RESUME/ANSWER e o estado permanece em aberto, sem recitar uma cadeia de falas.",
+          "turnIds": [
+            "563B-02-VARIED-t1",
+            "563B-02-VARIED-t2",
+            "563B-02-VARIED-t3",
+            "563B-02-VARIED-t4"
+          ]
+        },
+        "prosa": {
+          "before": 1,
+          "after": 2,
+          "rationale": "As falas são claras, mas didáticas e repetem acordo/reconciliação; atmosfera literal permanece.",
+          "turnIds": [
+            "563B-02-VARIED-t1",
+            "563B-02-VARIED-t2",
+            "563B-02-VARIED-t3",
+            "563B-02-VARIED-t4"
+          ]
+        },
+        "variedade": {
+          "before": 2,
+          "after": 3,
+          "rationale": "Quatro atos distintos cobrem quatro turnos; pouca nuance dentro de cada ato.",
+          "turnIds": [
+            "563B-02-VARIED-t1",
+            "563B-02-VARIED-t2",
+            "563B-02-VARIED-t3",
+            "563B-02-VARIED-t4"
+          ]
+        },
+        "ritmo": {
+          "before": 1,
+          "after": 2,
+          "rationale": "Melhora a resposta ao assunto, mas cada turno ainda inclui a mesma cena e pergunta final.",
+          "turnIds": [
+            "563B-02-VARIED-t1",
+            "563B-02-VARIED-t2",
+            "563B-02-VARIED-t3",
+            "563B-02-VARIED-t4"
+          ]
+        },
+        "pertinencia": {
+          "before": 2,
+          "after": 3,
+          "rationale": "A pergunta de memória recebe resposta sobre desacordo não resolvido; não recupera o conteúdo específico sobre continuar a viagem.",
+          "turnIds": [
+            "563B-02-VARIED-t1",
+            "563B-02-VARIED-t2",
+            "563B-02-VARIED-t3",
+            "563B-02-VARIED-t4"
+          ]
+        },
+        "imersao": {
+          "before": 1,
+          "after": 2,
+          "rationale": "O diálogo passa a habitar o conflito, embora continue explicando suas próprias ressalvas.",
+          "turnIds": [
+            "563B-02-VARIED-t1",
+            "563B-02-VARIED-t2",
+            "563B-02-VARIED-t3",
+            "563B-02-VARIED-t4"
+          ]
+        },
+        "agencia": {
+          "before": 5,
+          "after": 5,
+          "rationale": "Nenhum perdão, escolha ou sentimento da protagonista foi criado.",
+          "turnIds": [
+            "563B-02-VARIED-t1",
+            "563B-02-VARIED-t2",
+            "563B-02-VARIED-t3",
+            "563B-02-VARIED-t4"
+          ]
+        }
+      },
+      "publishedEvidence": [
+        {
+          "turnId": "563B-02-VARIED-t1",
+          "player": "Iria, ainda estou magoada com nossa discussão.",
+          "publicText": "Iria — Retomo aquele desacordo sem presumir que tenha sido resolvido. Posso explicar meu ponto sem pedir que você o aceite.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563B-02-VARIED-t2",
+          "player": "Discordo de você. Não quero que trate isso como um acordo.",
+          "publicText": "Iria — Não concordo em chamar essa retomada de reconciliação. O desacordo continua em aberto.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563B-02-VARIED-t3",
+          "player": "O que você lembra do desacordo que tivemos?",
+          "publicText": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563B-02-VARIED-t4",
+          "player": "Não disse que perdoei você. Quero continuar falando sobre isso.",
+          "publicText": "Iria — Não confirmo uma reconciliação apenas por um pedido de perdão. Prefiro manter claro o que ainda está em aberto.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-03",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Mesmos textos funcionais do laboratório A; diálogos não fazem parte desta sequência.",
+          "turnIds": [
+            "563B-03-VARIED-t1",
+            "563B-03-VARIED-t2",
+            "563B-03-VARIED-t3",
+            "563B-03-VARIED-t4",
+            "563B-03-VARIED-t5"
+          ]
+        },
+        "coerencia_narrativa": {
+          "before": 3,
+          "after": 3,
+          "rationale": "Observação, limites e fracasso seguem as fontes oficiais e a ordem das tentativas.",
+          "turnIds": [
+            "563B-03-VARIED-t1",
+            "563B-03-VARIED-t2",
+            "563B-03-VARIED-t3",
+            "563B-03-VARIED-t4",
+            "563B-03-VARIED-t5"
+          ]
+        },
+        "personalidade": {
+          "before": null,
+          "after": null,
+          "rationale": "Não aplicável: nenhum NPC fala nesta sequência.",
+          "turnIds": [
+            "563B-03-VARIED-t1",
+            "563B-03-VARIED-t2",
+            "563B-03-VARIED-t3",
+            "563B-03-VARIED-t4",
+            "563B-03-VARIED-t5"
+          ]
+        },
+        "continuidade": {
+          "before": 3,
+          "after": 3,
+          "rationale": "Objeto e ausência de descoberta adicional permanecem consistentes.",
+          "turnIds": [
+            "563B-03-VARIED-t1",
+            "563B-03-VARIED-t2",
+            "563B-03-VARIED-t3",
+            "563B-03-VARIED-t4",
+            "563B-03-VARIED-t5"
+          ]
+        },
+        "prosa": {
+          "before": 1,
+          "after": 1,
+          "rationale": "Respostas de observação e limite técnicas; nenhuma melhoria de prosa foi implementada aqui.",
+          "turnIds": [
+            "563B-03-VARIED-t1",
+            "563B-03-VARIED-t2",
+            "563B-03-VARIED-t3",
+            "563B-03-VARIED-t4",
+            "563B-03-VARIED-t5"
+          ]
+        },
+        "variedade": {
+          "before": 1,
+          "after": 1,
+          "rationale": "Observação e esclarecimento se repetem; repertório deste caminho está intacto.",
+          "turnIds": [
+            "563B-03-VARIED-t1",
+            "563B-03-VARIED-t2",
+            "563B-03-VARIED-t3",
+            "563B-03-VARIED-t4",
+            "563B-03-VARIED-t5"
+          ]
+        },
+        "ritmo": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Limites interrompem a busca, mas não encerram a cena ou completam objetivo.",
+          "turnIds": [
+            "563B-03-VARIED-t1",
+            "563B-03-VARIED-t2",
+            "563B-03-VARIED-t3",
+            "563B-03-VARIED-t4",
+            "563B-03-VARIED-t5"
+          ]
+        },
+        "pertinencia": {
+          "before": 3,
+          "after": 3,
+          "rationale": "Atende parcialmente à observação; tentativas sem política continuam limitadas.",
+          "turnIds": [
+            "563B-03-VARIED-t1",
+            "563B-03-VARIED-t2",
+            "563B-03-VARIED-t3",
+            "563B-03-VARIED-t4",
+            "563B-03-VARIED-t5"
+          ]
+        },
+        "imersao": {
+          "before": 1,
+          "after": 1,
+          "rationale": "Texto de limite domina parte da sequência.",
+          "turnIds": [
+            "563B-03-VARIED-t1",
+            "563B-03-VARIED-t2",
+            "563B-03-VARIED-t3",
+            "563B-03-VARIED-t4",
+            "563B-03-VARIED-t5"
+          ]
+        },
+        "agencia": {
+          "before": 5,
+          "after": 5,
+          "rationale": "Próximo passo permanece escolha de Naelis, sem descoberta imposta.",
+          "turnIds": [
+            "563B-03-VARIED-t1",
+            "563B-03-VARIED-t2",
+            "563B-03-VARIED-t3",
+            "563B-03-VARIED-t4",
+            "563B-03-VARIED-t5"
+          ]
+        }
+      },
+      "publishedEvidence": [
+        {
+          "turnId": "563B-03-VARIED-t1",
+          "player": "Observo a madeira da estante.",
+          "publicText": "Estante: Uma estante de madeira com lombadas gastas."
+        },
+        {
+          "turnId": "563B-03-VARIED-t2",
+          "player": "Procuro uma passagem secreta atrás da estante.",
+          "publicText": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+        },
+        {
+          "turnId": "563B-03-VARIED-t3",
+          "player": "Examino as pedras do chão procurando uma marca oculta.",
+          "publicText": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+        },
+        {
+          "turnId": "563B-03-VARIED-t4",
+          "player": "Examino a estante com o teste preparado.",
+          "publicText": "A busca não identificou nenhuma abertura."
+        },
+        {
+          "turnId": "563B-03-VARIED-t5",
+          "player": "Volto a olhar a madeira da estante.",
+          "publicText": "Estante: Uma estante de madeira com lombadas gastas."
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-04",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Resultados são claros; a dúvida sobre suspeita após o fracasso continua genérica.",
+          "turnIds": [
+            "563B-04-VARIED-t1",
+            "563B-04-VARIED-t2",
+            "563B-04-VARIED-t3",
+            "563B-04-VARIED-t4",
+            "563B-04-VARIED-t5"
+          ]
+        },
+        "coerencia_narrativa": {
+          "before": 3,
+          "after": 3,
+          "rationale": "Fracasso e sucesso mantêm seus textos e ordem oficiais; fala final não altera o selo.",
+          "turnIds": [
+            "563B-04-VARIED-t1",
+            "563B-04-VARIED-t2",
+            "563B-04-VARIED-t3",
+            "563B-04-VARIED-t4",
+            "563B-04-VARIED-t5"
+          ]
+        },
+        "personalidade": {
+          "before": 2,
+          "after": 3,
+          "rationale": "Cautela e modo ponderado são consistentes entre três falas, ainda sem nuance pessoal.",
+          "turnIds": [
+            "563B-04-VARIED-t1",
+            "563B-04-VARIED-t2",
+            "563B-04-VARIED-t3",
+            "563B-04-VARIED-t4",
+            "563B-04-VARIED-t5"
+          ]
+        },
+        "continuidade": {
+          "before": 3,
+          "after": 3,
+          "rationale": "Resultados oficiais são preservados; a conversa não desenvolve a informação do selo.",
+          "turnIds": [
+            "563B-04-VARIED-t1",
+            "563B-04-VARIED-t2",
+            "563B-04-VARIED-t3",
+            "563B-04-VARIED-t4",
+            "563B-04-VARIED-t5"
+          ]
+        },
+        "prosa": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Prosa funcional com resultado literal e atmosfera repetida.",
+          "turnIds": [
+            "563B-04-VARIED-t1",
+            "563B-04-VARIED-t2",
+            "563B-04-VARIED-t3",
+            "563B-04-VARIED-t4",
+            "563B-04-VARIED-t5"
+          ]
+        },
+        "variedade": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Alterna três atos e dois resultados, sem ampliar variantes de cena.",
+          "turnIds": [
+            "563B-04-VARIED-t1",
+            "563B-04-VARIED-t2",
+            "563B-04-VARIED-t3",
+            "563B-04-VARIED-t4",
+            "563B-04-VARIED-t5"
+          ]
+        },
+        "ritmo": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Pergunta final e sala ainda se repetem em todos os turnos.",
+          "turnIds": [
+            "563B-04-VARIED-t1",
+            "563B-04-VARIED-t2",
+            "563B-04-VARIED-t3",
+            "563B-04-VARIED-t4",
+            "563B-04-VARIED-t5"
+          ]
+        },
+        "pertinencia": {
+          "before": 3,
+          "after": 3,
+          "rationale": "Resultados atendem às ações; comentários entre eles ainda não respondem de modo específico ao próximo modo de agir.",
+          "turnIds": [
+            "563B-04-VARIED-t1",
+            "563B-04-VARIED-t2",
+            "563B-04-VARIED-t3",
+            "563B-04-VARIED-t4",
+            "563B-04-VARIED-t5"
+          ]
+        },
+        "imersao": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Mundo compreensível, mas encaixe dos comentários é visível.",
+          "turnIds": [
+            "563B-04-VARIED-t1",
+            "563B-04-VARIED-t2",
+            "563B-04-VARIED-t3",
+            "563B-04-VARIED-t4",
+            "563B-04-VARIED-t5"
+          ]
+        },
+        "agencia": {
+          "before": 5,
+          "after": 5,
+          "rationale": "Não escolhe o que Naelis faz com a informação do selo.",
+          "turnIds": [
+            "563B-04-VARIED-t1",
+            "563B-04-VARIED-t2",
+            "563B-04-VARIED-t3",
+            "563B-04-VARIED-t4",
+            "563B-04-VARIED-t5"
+          ]
+        }
+      },
+      "publishedEvidence": [
+        {
+          "turnId": "563B-04-VARIED-t1",
+          "player": "Iria, vou examinar a estante; continuo decidindo como prosseguir.",
+          "publicText": "Iria — Prefiro pesar o que sabemos antes de ir além. Ouvir você não é confirmar uma conclusão.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563B-04-VARIED-t2",
+          "player": "Examino a estante procurando um detalhe desconhecido.",
+          "publicText": "A busca não identificou nenhuma abertura.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563B-04-VARIED-t3",
+          "player": "O teste falhou. Quero pensar em outro modo de agir.",
+          "publicText": "Iria — Ainda não tenho elementos para tratar uma suspeita como certeza.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563B-04-VARIED-t4",
+          "player": "Examino a estante novamente com a capacidade preparada.",
+          "publicText": "O selo da lombada foi identificado como azul.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563B-04-VARIED-t5",
+          "player": "O selo foi identificado. Ainda não decidi o que farei com essa informação.",
+          "publicText": "Iria — Prefiro esclarecer um ponto de cada vez. Podemos começar pelo que ficou menos claro.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-05",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "before": 1,
+          "after": 3,
+          "rationale": "A retomada agora fala do desacordo em linguagem direta; as frases permanecem cautelosas e instrutivas.",
+          "turnIds": [
+            "563B-05-VARIED-t1",
+            "563B-05-VARIED-t2",
+            "563B-05-VARIED-t3",
+            "563B-05-VARIED-t4",
+            "563B-05-VARIED-t5"
+          ]
+        },
+        "coerencia_narrativa": {
+          "before": 3,
+          "after": 3,
+          "rationale": "Continuidade entre sessões é clara; Tessa admite limite sem adquirir a conversa de Iria.",
+          "turnIds": [
+            "563B-05-VARIED-t1",
+            "563B-05-VARIED-t2",
+            "563B-05-VARIED-t3",
+            "563B-05-VARIED-t4",
+            "563B-05-VARIED-t5"
+          ]
+        },
+        "personalidade": {
+          "before": 2,
+          "after": 3,
+          "rationale": "Iria conserva voz reservada em ambas as sessões; Tessa usa limite próprio, mas breve.",
+          "turnIds": [
+            "563B-05-VARIED-t1",
+            "563B-05-VARIED-t2",
+            "563B-05-VARIED-t3",
+            "563B-05-VARIED-t4",
+            "563B-05-VARIED-t5"
+          ]
+        },
+        "continuidade": {
+          "before": 3,
+          "after": 4,
+          "rationale": "A mesma memória própria sustenta a retomada após a sessão; modalidade e propriedade continuam corretas.",
+          "turnIds": [
+            "563B-05-VARIED-t1",
+            "563B-05-VARIED-t2",
+            "563B-05-VARIED-t3",
+            "563B-05-VARIED-t4",
+            "563B-05-VARIED-t5"
+          ]
+        },
+        "prosa": {
+          "before": 1,
+          "after": 2,
+          "rationale": "Elimina a recitação aninhada na seleção roteirizada, mas ainda usa prosa funcional.",
+          "turnIds": [
+            "563B-05-VARIED-t1",
+            "563B-05-VARIED-t2",
+            "563B-05-VARIED-t3",
+            "563B-05-VARIED-t4",
+            "563B-05-VARIED-t5"
+          ]
+        },
+        "variedade": {
+          "before": 2,
+          "after": 2,
+          "rationale": "As respostas de Iria repetem os turnos 1/5 e 2/4; variedade local segue limitada.",
+          "turnIds": [
+            "563B-05-VARIED-t1",
+            "563B-05-VARIED-t2",
+            "563B-05-VARIED-t3",
+            "563B-05-VARIED-t4",
+            "563B-05-VARIED-t5"
+          ]
+        },
+        "ritmo": {
+          "before": 1,
+          "after": 2,
+          "rationale": "As retomadas servem à conversa, embora perguntas finais e atmosfera permaneçam repetitivas.",
+          "turnIds": [
+            "563B-05-VARIED-t1",
+            "563B-05-VARIED-t2",
+            "563B-05-VARIED-t3",
+            "563B-05-VARIED-t4",
+            "563B-05-VARIED-t5"
+          ]
+        },
+        "pertinencia": {
+          "before": 2,
+          "after": 3,
+          "rationale": "Responde ao desacordo em aberto; não fornece detalhes da discussão e Tessa não confirma algo que desconhece.",
+          "turnIds": [
+            "563B-05-VARIED-t1",
+            "563B-05-VARIED-t2",
+            "563B-05-VARIED-t3",
+            "563B-05-VARIED-t4",
+            "563B-05-VARIED-t5"
+          ]
+        },
+        "imersao": {
+          "before": 1,
+          "after": 2,
+          "rationale": "Melhora a conversa entre sessões, sem alcançar fluidez de romance.",
+          "turnIds": [
+            "563B-05-VARIED-t1",
+            "563B-05-VARIED-t2",
+            "563B-05-VARIED-t3",
+            "563B-05-VARIED-t4",
+            "563B-05-VARIED-t5"
+          ]
+        },
+        "agencia": {
+          "before": 5,
+          "after": 5,
+          "rationale": "Prosseguir não implica reconciliação nem ação automática da protagonista.",
+          "turnIds": [
+            "563B-05-VARIED-t1",
+            "563B-05-VARIED-t2",
+            "563B-05-VARIED-t3",
+            "563B-05-VARIED-t4",
+            "563B-05-VARIED-t5"
+          ]
+        }
+      },
+      "publishedEvidence": [
+        {
+          "turnId": "563B-05-VARIED-t1",
+          "player": "Iria, quero retomar nossa antiga discussão.",
+          "publicText": "Iria — Retomo aquele desacordo sem presumir que tenha sido resolvido. Posso explicar meu ponto sem pedir que você o aceite.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563B-05-VARIED-t2",
+          "player": "Não quero que o assunto seja esquecido quando voltarmos.",
+          "publicText": "Iria — Meu ponto é este: a discussão aconteceu, e não vou tratá-la como encerrada apenas porque voltamos a conversar.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563B-05-VARIED-t3",
+          "player": "Tessa, você presenciou nossa conversa anterior?",
+          "publicText": "Tessa — Não tenho elementos para afirmar isso. Pode esclarecer o que você quer saber?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563B-05-VARIED-t4",
+          "player": "Iria, o que você lembra da nossa discussão anterior?",
+          "publicText": "Iria — Meu ponto é este: a discussão aconteceu, e não vou tratá-la como encerrada apenas porque voltamos a conversar.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563B-05-VARIED-t5",
+          "player": "Iria, podemos prosseguir sem presumir que tudo foi resolvido?",
+          "publicText": "Iria — Retomo aquele desacordo sem presumir que tenha sido resolvido. Posso explicar meu ponto sem pedir que você o aceite.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-06",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Retomada compreensível, mas a opinião final vira outra pergunta genérica.",
+          "turnIds": [
+            "563B-06-VARIED-t1",
+            "563B-06-VARIED-t2",
+            "563B-06-VARIED-t3",
+            "563B-06-VARIED-t4",
+            "563B-06-VARIED-t5"
+          ]
+        },
+        "coerencia_narrativa": {
+          "before": 3,
+          "after": 3,
+          "rationale": "OOC fica separado e a volta à cena usa RESUME, sem transferir regra ao mundo.",
+          "turnIds": [
+            "563B-06-VARIED-t1",
+            "563B-06-VARIED-t2",
+            "563B-06-VARIED-t3",
+            "563B-06-VARIED-t4",
+            "563B-06-VARIED-t5"
+          ]
+        },
+        "personalidade": {
+          "before": 2,
+          "after": 3,
+          "rationale": "Acolhimento permanece consistente em três falas, sem prometer ajuda.",
+          "turnIds": [
+            "563B-06-VARIED-t1",
+            "563B-06-VARIED-t2",
+            "563B-06-VARIED-t3",
+            "563B-06-VARIED-t4",
+            "563B-06-VARIED-t5"
+          ]
+        },
+        "continuidade": {
+          "before": 3,
+          "after": 3,
+          "rationale": "A retomada reconhece a conversa, mas não integra memória nova específica.",
+          "turnIds": [
+            "563B-06-VARIED-t1",
+            "563B-06-VARIED-t2",
+            "563B-06-VARIED-t3",
+            "563B-06-VARIED-t4",
+            "563B-06-VARIED-t5"
+          ]
+        },
+        "prosa": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Falas, regra e descrição continuam funcionais.",
+          "turnIds": [
+            "563B-06-VARIED-t1",
+            "563B-06-VARIED-t2",
+            "563B-06-VARIED-t3",
+            "563B-06-VARIED-t4",
+            "563B-06-VARIED-t5"
+          ]
+        },
+        "variedade": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Atos diferentes não tornam as respostas específicas; só uma variante em alguns atos.",
+          "turnIds": [
+            "563B-06-VARIED-t1",
+            "563B-06-VARIED-t2",
+            "563B-06-VARIED-t3",
+            "563B-06-VARIED-t4",
+            "563B-06-VARIED-t5"
+          ]
+        },
+        "ritmo": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Intercalação OOC funciona, mas diálogo ainda fecha com pergunta genérica.",
+          "turnIds": [
+            "563B-06-VARIED-t1",
+            "563B-06-VARIED-t2",
+            "563B-06-VARIED-t3",
+            "563B-06-VARIED-t4",
+            "563B-06-VARIED-t5"
+          ]
+        },
+        "pertinencia": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Esclarece como retomar, sem responder à opinião pedida no final.",
+          "turnIds": [
+            "563B-06-VARIED-t1",
+            "563B-06-VARIED-t2",
+            "563B-06-VARIED-t3",
+            "563B-06-VARIED-t4",
+            "563B-06-VARIED-t5"
+          ]
+        },
+        "imersao": {
+          "before": 2,
+          "after": 2,
+          "rationale": "Cortes OOC são claros; fórmulas de conversa ainda perceptíveis.",
+          "turnIds": [
+            "563B-06-VARIED-t1",
+            "563B-06-VARIED-t2",
+            "563B-06-VARIED-t3",
+            "563B-06-VARIED-t4",
+            "563B-06-VARIED-t5"
+          ]
+        },
+        "agencia": {
+          "before": 5,
+          "after": 5,
+          "rationale": "Naelis mantém decisão sobre o ambiente e não recebe fala ou emoção inventada.",
+          "turnIds": [
+            "563B-06-VARIED-t1",
+            "563B-06-VARIED-t2",
+            "563B-06-VARIED-t3",
+            "563B-06-VARIED-t4",
+            "563B-06-VARIED-t5"
+          ]
+        }
+      },
+      "publishedEvidence": [
+        {
+          "turnId": "563B-06-VARIED-t1",
+          "player": "Iria, quero conversar antes de examinar o ambiente.",
+          "publicText": "Iria — Quero conversar sem adiantar uma conclusão. Podemos separar o que sabemos do que ainda falta entender.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563B-06-VARIED-t2",
+          "player": "Fora do RPG: como funciona um teste básico?",
+          "publicText": "Blue Rose AGE: o teste básico usa 3d6 + habilidade + foco aplicável contra a dificuldade. O terceiro dado é o Drama Die. Fonte: livro básico, pp.15–17."
+        },
+        {
+          "turnId": "563B-06-VARIED-t3",
+          "player": "De volta à cena, Iria: podemos retomar nossa conversa?",
+          "publicText": "Iria — Podemos retomar a conversa. Qual ponto você quer trazer de volta?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563B-06-VARIED-t4",
+          "player": "Olho para a estante antes de escolher uma ação.",
+          "publicText": "Estante: Uma estante de madeira com lombadas gastas."
+        },
+        {
+          "turnId": "563B-06-VARIED-t5",
+          "player": "Iria, ainda quero ouvir sua opinião, sem decidir por você.",
+          "publicText": "Iria — Podemos conversar com clareza, sem exigir que você concorde comigo. Qual ponto você quer que eu explique?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    }
+  ],
+  "directedVoiceReview": {
+    "testId": "TEST-VOICE-001",
+    "finding": "Reserved voice emphasizes a point to clarify; warm voice emphasizes space to listen. Distinguishable in this bounded content, without automatic trust or friendship. Human voice approval remains pending.",
+    "sources": "Distinct own disagreement events with registered participation and WITNESSED knowledge; merely witnessing another NPC conflict is rejected."
+  },
+  "sourceCorpusSHA256": "d9be1dc8815a3c721f1f319e8b69aa6fdb6d686109298f393db2692e4743178b"
+}

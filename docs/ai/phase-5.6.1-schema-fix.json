@@ -1,0 +1,116 @@
+{
+  "phase": "5.6.1",
+  "scope": "OFFLINE_SCHEMA_CORRECTION",
+  "status": "OFFLINE_VALIDATED_LIVE_CONFIRMATION_PENDING",
+  "newExternalCalls": 0,
+  "newGeminiCalls": 0,
+  "historicalGeminiAttempts": 1,
+  "sdkVersion": "google-genai 1.75.0",
+  "transport": "httpx.MockTransport; real SDK serialization; socket connect APIs forbidden in new Python tests",
+  "localKind": {
+    "const": "FREE",
+    "title": "Kind",
+    "type": "string"
+  },
+  "outgoingKind": {
+    "title": "Kind",
+    "type": "string",
+    "enum": ["FREE"]
+  },
+  "outgoingRequiredFields": [
+    "kind",
+    "intent",
+    "description",
+    "target",
+    "expression",
+    "evidence",
+    "tool"
+  ],
+  "outgoingAdditionalProperties": false,
+  "outgoingToolSchemas": {
+    "AdjudicateTool": {
+      "title": "Type",
+      "type": "string",
+      "enum": ["ADJUDICATE"]
+    },
+    "ArcanaTool": {
+      "title": "Type",
+      "type": "string",
+      "enum": ["ARCANA"]
+    },
+    "ClarifyTool": {
+      "title": "Type",
+      "type": "string",
+      "enum": ["CLARIFY"]
+    },
+    "CombatTool": {
+      "title": "Type",
+      "type": "string",
+      "enum": ["COMBAT"]
+    },
+    "DialogueTool": {
+      "title": "Type",
+      "type": "string",
+      "enum": ["DIALOGUE"]
+    },
+    "NamedTarget": {
+      "enum": ["CHARACTER", "WORLD", "ITEM"],
+      "title": "Type",
+      "type": "string"
+    },
+    "ObserveTool": {
+      "title": "Type",
+      "type": "string",
+      "enum": ["OBSERVE"]
+    },
+    "PreparedCheckTool": {
+      "title": "Type",
+      "type": "string",
+      "enum": ["PREPARED_CHECK"]
+    },
+    "QueryTool": {
+      "title": "Type",
+      "type": "string",
+      "enum": ["QUERY"]
+    },
+    "RestTool": {
+      "title": "Type",
+      "type": "string",
+      "enum": ["REST"]
+    },
+    "WaitTool": {
+      "title": "Type",
+      "type": "string",
+      "enum": ["WAIT"]
+    }
+  },
+  "localSchemaPreserved": true,
+  "preservedFiles": {
+    ".env": true,
+    "apps/ai-service/app/narrative/prompts.py": true,
+    "apps/ai-service/app/narrative/schemas.py": true,
+    "packages/shared-contracts/src/free-action.ts": true,
+    "apps/api/src/narrative/free-action.ts": true,
+    "docs/ai/phase-5.6.1-live-result.json": true,
+    "docs/ai/phase-5.6.1-plan.json": true
+  },
+  "redTest": {
+    "command": "node scripts/uv.mjs run pytest tests/test_gemini_schema.py::test_sdk_wire_requires_free_without_mutating_local_schema -q",
+    "resultBeforeFix": "FAILED: responseJsonSchema.properties.kind contained const=FREE instead of enum=[FREE]"
+  },
+  "offlineTests": {
+    "python": 254,
+    "nestJS": 151,
+    "toolSelectionFixturesThroughGraphRouterAdapterSdk": 101,
+    "crossLanguageValidProposals": 109,
+    "crossLanguageInvalidProposals": 9,
+    "geminiAdapterStatementCoverage": 96.15384615384616
+  },
+  "realInvalidResponse": {
+    "kind": "QUERY",
+    "pydanticAccepted": false,
+    "zodAccepted": false,
+    "normalizedAfterGeneration": false
+  },
+  "limitation": "No remote generation performed. Remote effectiveness and semantic interpretation remain unverified. Cases 561-03 and 561-04 were not called."
+}

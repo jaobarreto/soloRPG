@@ -1,4 +1,5 @@
-import { BlueRoseTestsService } from '../blue-rose/tests.service';
+import { guidedParty } from '../adventures/core/state/guided-party';
+import { BlueRoseTestsService } from '../blue-rose/mechanics/tests/tests.service';
 import { createHash } from 'node:crypto';
 import {
   BadRequestException,
@@ -18,7 +19,6 @@ import {
   editCharacterSchema,
   inventoryActionSchema,
   rollInputSchema,
-  type CreateCharacter,
 } from '@solo-rpg/shared-contracts';
 import {
   DatabaseService,
@@ -29,8 +29,10 @@ import { narrativeActions, sessionPlans } from '../database/narrative-schema';
 import { CampaignsRepository } from '../campaigns/campaigns.repository';
 import { SessionsRepository } from '../sessions/sessions.repository';
 import { MessagesRepository } from '../messages/messages.repository';
-import { BlueRoseDice, resolveBasicCheck } from '../blue-rose/blue-rose.rules';
-import { GameRepository } from './game.repository';
+import { BlueRoseDice } from '../blue-rose/mechanics/dice/blue-rose-dice';
+import { restMinutes } from '../blue-rose/mechanics/recovery/recovery.rules';
+import { validateSheetFeatures } from '../blue-rose/sheets/sheet-validation';
+import { GameRepository } from '../database/game.repository';
 import {
   commandEnvelopeSchema,
   type CommandEnvelope,
@@ -39,8 +41,15 @@ import {
 import { parseInput } from './validation';
 
 import type { Audit, GameContext } from './context';
-import { BlueRoseCombatService } from '../blue-rose/combat.service';
-import { BlueRoseArcanaService } from '../blue-rose/arcana.service';
+import { BlueRoseCombatService } from '../blue-rose/mechanics/combat/combat.service';
+import { BlueRoseArcanaService } from '../blue-rose/arcana/arcana.service';
+import { BlueRoseArcanaExecutionService } from '../blue-rose/arcana/arcana-execution.service';
+import { AdventureRegistry } from '../adventures/core/registry/registry';
+import { adventureInstances } from '../database/adventure-schema';
+import {
+  adventureEntityId,
+  loadAdventure,
+} from '../adventures/core/state/state';
 @Injectable()
 export class GameEngineService {
   constructor(
@@ -52,12 +61,110 @@ export class GameEngineService {
     private readonly dice: BlueRoseDice,
     private readonly combat: BlueRoseCombatService,
     private readonly arcana: BlueRoseArcanaService,
+    private readonly arcanaExecution: BlueRoseArcanaExecutionService,
     private readonly tests: BlueRoseTestsService,
+    private readonly adventures: AdventureRegistry,
   ) {}
 
   // Only the local CLI and server code receive this capability. No HTTP route dispatches internal commands.
   async executeInternal(input: unknown) {
     return this.execute(parseInput(commandEnvelopeSchema, input), 'INTERNAL');
+  }
+  // Local import composition only; never reachable through the AI proposal adapter.
+  async executeLocalInTransaction(
+    input: CommandEnvelope,
+    tx: DatabaseTransaction,
+  ) {
+    return this.executeInTransaction(
+      parseInput(commandEnvelopeSchema, input),
+      'INTERNAL',
+      tx,
+    );
+  }
+  // Private adventure adapter composes its receipt in this same transaction.
+  // This capability is intentionally absent from HTTP and the narrative allowlist.
+  async executeAdventureLocalInTransaction(
+    raw: unknown,
+    campaignId: string,
+    tx: DatabaseTransaction,
+    emit: (
+      type: string,
+      description: string,
+      visibility: 'PUBLIC' | 'GM_ONLY',
+      changes: Record<string, unknown>,
+    ) => Promise<typeof s.gameEvents.$inferSelect>,
+  ) {
+    const campaign = await this.campaigns.lock(campaignId, tx);
+    if (!campaign || campaign.status !== 'ACTIVE')
+      throw new ConflictException(
+        'Adventure commands require an active campaign',
+      );
+    const loaded = await loadAdventure(campaignId, tx);
+    if (!loaded) throw new NotFoundException('Adventure not imported');
+    const module = this.adventures.forDefinition(loaded.definition);
+    if (!module.commandSchema || !module.executeCommand)
+      throw new BadRequestException('Unsupported adventure command');
+    const input = parseInput(module.commandSchema, raw);
+    if (input.campaignId !== campaignId)
+      throw new BadRequestException(
+        'Adventure command belongs to another campaign',
+      );
+    const session = await this.sessions.lock(campaignId, input.sessionId, tx);
+    if (session?.status !== 'IN_PROGRESS')
+      throw new ConflictException('Active session required');
+    const [pending] = await tx
+      .select()
+      .from(narrativeActions)
+      .where(
+        and(
+          eq(narrativeActions.campaignId, campaignId),
+          sql`${narrativeActions.status} NOT IN ('COMPLETED','REJECTED')`,
+        ),
+      );
+    if (pending)
+      throw new ConflictException('Resolve the pending narrative action first');
+    if (await this.combat.active(campaignId, tx))
+      throw new ConflictException('Resolve active combat first');
+    module.assertIdle?.(loaded.instance.mechanics, input.operation);
+    const result = await module.executeCommand(input, {
+      definition: loaded.definition,
+      state: loaded.instance.mechanics,
+      tx,
+      dice: this.dice,
+      emit,
+    });
+    const minutes = module.commandDurationMinutes?.(input) ?? 0;
+    if (minutes !== 0)
+      await this.recordNarrativeTime(campaignId, minutes, tx, (audit) =>
+        emit(audit.type, audit.description, 'PUBLIC', audit.changes),
+      );
+    return result;
+  }
+  private async recordNarrativeTime(
+    campaignId: string,
+    minutes: number,
+    tx: DatabaseTransaction,
+    emit: (audit: Audit) => Promise<typeof s.gameEvents.$inferSelect>,
+  ) {
+    const loaded = await loadAdventure(campaignId, tx);
+    if (
+      !loaded ||
+      !Number.isInteger(minutes) ||
+      minutes < 1 ||
+      minutes > 1440 ||
+      loaded.instance.narrativeMinutes + minutes > 2147483647
+    )
+      throw new ConflictException('Invalid narrative clock advance');
+    const totalMinutes = loaded.instance.narrativeMinutes + minutes;
+    await tx
+      .update(adventureInstances)
+      .set({ narrativeMinutes: totalMinutes })
+      .where(eq(adventureInstances.campaignId, campaignId));
+    return emit({
+      type: 'NARRATIVE_TIME_ADVANCED',
+      description: `Passaram ${minutes} minutos no mundo da campanha.`,
+      changes: { minutes, totalMinutes },
+    });
   }
   async createCharacter(campaignId: string, input: unknown) {
     const sheet = parseInput(createCharacterSchema, input);
@@ -207,11 +314,19 @@ export class GameEngineService {
   ) {
     if (
       ![
+        'NARRATIVE_TIME_ADVANCE',
+        'ARCANA_CURE_PREPARE',
+        'ARCANA_CURE_RESOLVE',
+        'ARCANA_USE',
+        'ADVENTURE_ACTION',
+        'ARCANA_END',
+        'REST',
         'CHECK_PREPARE',
         'CHECK_RESOLVE',
         'COMBAT_ACTION',
         'COMBAT_RESOLVE',
         'INVENTORY_ACTION',
+        'MOUNT_DISMOUNT',
         'RELATIONSHIP_SET',
         'WORLD_UPSERT',
         'EVENT_RECORD',
@@ -268,6 +383,11 @@ export class GameEngineService {
       throw new ConflictException('Resolve the pending narrative action first');
     if (campaign.status === 'COMPLETED')
       throw new ConflictException('Campaign is completed');
+    const imported = await loadAdventure(campaignId, tx);
+    if (imported)
+      await this.adventures
+        .forDefinition(imported.definition)
+        .validateEngineCommand?.(command, imported.instance.mechanics, tx);
     if (sessionId) {
       const session = await this.sessions.lock(campaignId, sessionId, tx);
       if (!session)
@@ -293,9 +413,52 @@ export class GameEngineService {
       throw new ConflictException(
         'Character transcription is only available before play',
       );
+    const guided = await this.adventures.guidedRelease(campaignId, tx);
+    const selection =
+      sessionId && guided ? await guidedParty(campaignId, tx) : null;
+    const absent = selection
+      ? (
+          await tx
+            .select({ id: s.characters.id })
+            .from(s.characters)
+            .where(
+              and(
+                eq(s.characters.campaignId, campaignId),
+                eq(s.characters.kind, 'COMPANION'),
+              ),
+            )
+        )
+          .map((row) => row.id)
+          .filter((id) => !selection.companionIds.includes(id))
+      : [];
+    const assertActiveParty = (ids: unknown[]) => {
+      if (ids.some((id) => typeof id === 'string' && absent.includes(id)))
+        throw new ConflictException(
+          'Este companheiro não integra a composição da sessão.',
+        );
+    };
+    if (absent.length) {
+      const direct = command as Record<string, unknown>;
+      const input =
+        'input' in command ? (command.input as Record<string, unknown>) : {};
+      assertActiveParty([
+        direct.characterId,
+        direct.opponentId,
+        direct.targetId,
+        direct.fromCharacterId,
+        direct.toCharacterId,
+        input.characterId,
+        input.targetId,
+        input.toCharacterId,
+      ]);
+    }
     const emit = async (audit: Audit) => {
-      let visibility = audit.visibility ?? 'PUBLIC';
+      let visibility =
+        guided && !sessionId
+          ? ('GM_ONLY' as const)
+          : (audit.visibility ?? 'PUBLIC');
       const participants = [...new Set(audit.participants ?? [])];
+      assertActiveParty(participants);
       for (const id of participants)
         if (!(await this.repository.character(campaignId, id, tx)).known)
           visibility = 'GM_ONLY';
@@ -377,9 +540,18 @@ export class GameEngineService {
     const { campaignId, sessionId } = env;
     const character = (id: string) =>
       this.repository.character(campaignId, id, tx);
+    const [scene] = sessionId
+      ? await tx
+          .select()
+          .from(sessionPlans)
+          .where(eq(sessionPlans.sessionId, sessionId))
+      : [];
     const context: GameContext = {
       ...env,
       audience,
+      sceneScope: createHash('sha256')
+        .update(JSON.stringify(scene?.plan ?? null))
+        .digest('hex'),
       tx,
       emit,
       recordRoll: (result, visibility, reason, characterId, requestId) =>
@@ -395,7 +567,72 @@ export class GameEngineService {
         ),
     };
     switch (c.type) {
+      case 'ADVENTURE_ACTION': {
+        if (!sessionId || (await this.combat.active(campaignId, tx)))
+          throw new ConflictException(
+            'Adventure action requires narrative time in an active session',
+          );
+        const loaded = await loadAdventure(campaignId, tx);
+        if (!loaded) throw new ConflictException('Adventure instance required');
+        const module = this.adventures.forDefinition(loaded.definition);
+        if (!module.executeNarrativeAction)
+          throw new BadRequestException('Adventure action unsupported');
+        let id = env.commandId;
+        await module.executeNarrativeAction(
+          c.input,
+          { campaignId, sessionId, commandId: env.commandId },
+          {
+            definition: loaded.definition,
+            state: loaded.instance.mechanics,
+            tx,
+            dice: this.dice,
+            emit: async (type, description, visibility, changes) => {
+              const event = await emit({
+                type,
+                description,
+                visibility,
+                changes,
+              });
+              id = event.id;
+              return event;
+            },
+          },
+        );
+        return { id };
+      }
+      case 'NARRATIVE_TIME_ADVANCE': {
+        if (!sessionId)
+          throw new ConflictException(
+            'Narrative time requires an active session',
+          );
+        const loaded = await loadAdventure(campaignId, tx);
+        if (!loaded)
+          throw new ConflictException(
+            'Narrative time requires an adventure instance',
+          );
+        const module = this.adventures.forDefinition(loaded.definition);
+        await module.advanceTime?.(
+          { ...env, sessionId, minutes: c.minutes, reason: c.reason },
+          {
+            definition: loaded.definition,
+            state: loaded.instance.mechanics,
+            tx,
+            dice: this.dice,
+            emit: (type, description, visibility, changes) =>
+              emit({ type, description, visibility, changes }),
+          },
+        );
+        return {
+          id: (await this.recordNarrativeTime(campaignId, c.minutes, tx, emit))
+            .id,
+        };
+      }
+
       case 'SCENE_CONFIGURE': {
+        if (await this.adventures.guidedRelease(campaignId, tx))
+          throw new ConflictException(
+            'Use a preparação de cenas da aventura da biblioteca.',
+          );
         const session = await this.sessions.find(
           campaignId,
           c.targetSessionId,
@@ -453,21 +690,62 @@ export class GameEngineService {
         };
       }
 
+      case 'CHECK_PREPARE':
+      case 'CHECK_RESOLVE':
+      case 'ROLL':
       case 'OPPOSED_PREPARE':
       case 'ADVANCED_CREATE':
       case 'ADVANCED_PREPARE':
       case 'SPECIAL_CHECK_RESOLVE':
         return this.tests.apply(c, context);
       case 'COMBAT_CONFIGURE':
-      case 'COMBAT_START':
       case 'COMBAT_END':
       case 'COMBAT_ACTION':
       case 'COMBAT_RESOLVE':
         return this.combat.apply(c, context);
+      case 'COMBAT_START':
+        await this.arcanaExecution.requireNoSustainedEffects(context);
+        return this.combat.apply(c, context);
+      case 'ARCANA_USE':
+      case 'ARCANA_CONTEXT_SET':
+      case 'ARCANA_END':
+        return this.arcanaExecution.apply(c, context);
       case 'ARCANA_CURE_PREPARE':
-      case 'ARCANA_CURE_RESOLVE':
-      case 'REST':
+      case 'ARCANA_CURE_RESOLVE': {
+        const result = await this.arcana.apply(c, context);
+        if (c.type === 'ARCANA_CURE_RESOLVE') {
+          const [request] = await tx
+            .select()
+            .from(s.arcanaRequests)
+            .where(eq(s.arcanaRequests.id, c.requestId));
+          if (request)
+            await this.arcanaExecution.endIfIncapacitated(
+              request.characterId,
+              context,
+            );
+        }
+        return result;
+      }
+      case 'REST': {
+        await this.arcanaExecution.endSustained(
+          c.characterId,
+          'O repouso encerrou a concentração arcana.',
+          context,
+        );
+        if (await loadAdventure(campaignId, tx))
+          await this.apply(
+            {
+              type: 'NARRATIVE_TIME_ADVANCE',
+              minutes: restMinutes[c.kind],
+              reason: 'Tempo ficcional do repouso concluído.',
+            },
+            env,
+            audience,
+            tx,
+            emit,
+          );
         return this.arcana.apply(c, context);
+      }
 
       case 'CHARACTER_CREATE': {
         const [existing] = await tx
@@ -482,7 +760,7 @@ export class GameEngineService {
         if (c.kind === 'PROTAGONIST' && existing)
           throw new ConflictException('Campaign already has a protagonist');
         const sheet = c.sheet;
-        await this.validateFeatures(sheet, tx);
+        await validateSheetFeatures(sheet, tx);
         const [row] = await tx
           .insert(s.characters)
           .values({
@@ -630,6 +908,86 @@ export class GameEngineService {
           visibility: 'GM_ONLY',
         });
         return { id: c.characterId };
+      }
+      case 'MOUNT_DISMOUNT': {
+        if (!sessionId || audience !== 'INTERNAL')
+          throw new ForbiddenException();
+        const [mount] = await tx
+          .update(s.campaignMounts)
+          .set({ mounted: false })
+          .where(
+            and(
+              eq(s.campaignMounts.campaignId, campaignId),
+              eq(s.campaignMounts.riderId, c.characterId),
+              eq(s.campaignMounts.mounted, true),
+            ),
+          )
+          .returning();
+        if (!mount) throw new ConflictException('Não há montaria em uso.');
+        const event = await emit({
+          type: 'MOUNT_DISMOUNTED',
+          description: 'A protagonista desmontou.',
+          participants: [c.characterId],
+          changes: { mountId: mount.characterId },
+        });
+        return { id: event.id };
+      }
+      case 'MOUNT_DAMAGE': {
+        const [mount] = await tx
+          .select()
+          .from(s.campaignMounts)
+          .where(
+            and(
+              eq(s.campaignMounts.campaignId, campaignId),
+              eq(s.campaignMounts.characterId, c.characterId),
+            ),
+          );
+        if (!mount || !sessionId || audience !== 'INTERNAL')
+          throw new ConflictException(
+            'Dano exige uma montaria da sessão e confirmação autorizada.',
+          );
+        const [health] = await tx
+          .select()
+          .from(s.characterResources)
+          .where(
+            and(
+              eq(s.characterResources.characterId, c.characterId),
+              eq(s.characterResources.name, 'HEALTH'),
+            ),
+          );
+        if (!health || health.current === 0)
+          throw new ConflictException('A montaria não está viva.');
+        const current = Math.max(0, health.current - c.damage);
+        await tx
+          .update(s.characterResources)
+          .set({ current })
+          .where(
+            and(
+              eq(s.characterResources.characterId, c.characterId),
+              eq(s.characterResources.name, 'HEALTH'),
+            ),
+          );
+        if (current === 0) {
+          await tx
+            .update(s.characterVitals)
+            .set({ lifeState: 'DEAD', living: false })
+            .where(eq(s.characterVitals.characterId, c.characterId));
+          await tx
+            .update(s.campaignMounts)
+            .set({ mounted: false })
+            .where(eq(s.campaignMounts.characterId, c.characterId));
+        }
+        const event = await emit({
+          type: 'DAMAGE_APPLIED',
+          description: c.reason,
+          participants: [c.characterId],
+          changes: {
+            damage: health.current - current,
+            current,
+            lifeState: current ? 'ALIVE' : 'DEAD',
+          },
+        });
+        return { id: event.id };
       }
       case 'RESOURCE_SET': {
         await character(c.characterId);
@@ -883,6 +1241,30 @@ export class GameEngineService {
           .where(eq(s.worldEntities.id, c.entityId));
         if (existing && existing.campaignId !== campaignId)
           throw new NotFoundException('World entity not found');
+        const adventure = await loadAdventure(campaignId, tx);
+        const managed =
+          adventure &&
+          this.adventures.forDefinition(adventure.definition).scenePolicy
+            ? adventure.definition.locations.find(
+                (loc) =>
+                  adventureEntityId(
+                    campaignId,
+                    loc.key,
+                    adventure.instance.entityNamespace,
+                  ) === c.entityId,
+              )
+            : undefined;
+        if (
+          managed &&
+          (!existing ||
+            c.name !== existing.name ||
+            c.kind !== existing.kind ||
+            c.description !== existing.description ||
+            c.visibility !== existing.visibility)
+        )
+          throw new BadRequestException(
+            'Canonical location descriptions and disclosure require adventure confirmation',
+          );
         const values = {
           kind: c.kind,
           name: c.name,
@@ -906,173 +1288,45 @@ export class GameEngineService {
             accessible: c.accessible,
           },
           visibility:
-            existing?.visibility === 'GM_ONLY' ? 'GM_ONLY' : c.visibility,
+            managed || existing?.visibility === 'GM_ONLY'
+              ? 'GM_ONLY'
+              : c.visibility,
         });
         return { id: c.entityId };
       }
       case 'EVENT_RECORD': {
+        if (
+          (c.eventType === 'ADVENTURE_OBJECT_EXAMINED') !==
+          !!c.objectEvidence
+        )
+          throw new BadRequestException(
+            'Object examination requires scoped evidence',
+          );
+        if (c.storySpeaker && c.eventType !== 'NPC_REPLY_RECORDED')
+          throw new BadRequestException(
+            'Story attribution requires an NPC reply',
+          );
         const event = await emit({
           type: c.eventType,
           description: c.description,
           participants: c.participants,
-          changes: { origin: 'SOLORPG_NARRATIVE_EXTENSION' },
+          changes: {
+            origin: 'SOLORPG_NARRATIVE_EXTENSION',
+            ...c.objectEvidence,
+            ...(c.storySpeaker
+              ? {
+                  speaker: {
+                    kind: c.storySpeaker.kind,
+                    entityId: c.storySpeaker.entityId,
+                  },
+                }
+              : {}),
+          },
           visibility: c.visibility,
         });
         return { id: event.id };
       }
-      case 'CHECK_PREPARE': {
-        const actor = await character(c.characterId);
-        if (c.focusId)
-          await this.focusBonus(c.characterId, c.ability, c.focusId, tx);
-        const [row] = await tx
-          .insert(s.checkRequests)
-          .values({
-            campaignId,
-            sessionId: sessionId!,
-            characterId: c.characterId,
-            ability: c.ability,
-            focusId: c.focusId,
-            targetNumber: c.targetNumber,
-            modifier: c.modifier,
-            reason: c.reason,
-            visibility: actor.known ? c.visibility : 'GM_ONLY',
-            stuntsEligible: c.stuntsEligible,
-          })
-          .returning();
-        if (!row) throw new Error('Missing check request');
-        await emit({
-          type: 'CHECK_REQUESTED',
-          description: c.reason,
-          participants: [actor.id],
-          changes: { requestId: row.id },
-          visibility: row.visibility,
-        });
-        return { id: row.id };
-      }
-      case 'CHECK_RESOLVE': {
-        const check = await this.repository.check(campaignId, c.requestId, tx);
-        if (audience === 'PLAYER' && check.visibility === 'GM_ONLY')
-          throw new NotFoundException('Check request not found');
-        const actor = await character(check.characterId);
-        if (audience === 'PLAYER' && actor.kind !== 'PROTAGONIST')
-          throw new ForbiddenException(
-            'Only protagonist checks can be resolved by the player',
-          );
-        if (check.sessionId !== sessionId || check.resolved)
-          throw new ConflictException(
-            'Check already resolved or belongs to another session',
-          );
-        const [ability] = await tx
-          .select()
-          .from(s.characterAbilities)
-          .where(
-            and(
-              eq(s.characterAbilities.characterId, actor.id),
-              eq(s.characterAbilities.ability, check.ability),
-            ),
-          );
-        if (!ability) throw new ConflictException('Missing ability');
-        const bonus = check.focusId
-          ? await this.focusBonus(actor.id, check.ability, check.focusId, tx)
-          : 0;
-        const roll = this.dice.roll(
-          ability.score +
-            bonus +
-            check.modifier -
-            (
-              await tx
-                .select()
-                .from(s.characterVitals)
-                .where(eq(s.characterVitals.characterId, actor.id))
-            )[0]!.fatigueLevel,
-        );
-        const result = resolveBasicCheck(
-          roll,
-          check.targetNumber,
-          check.stuntsEligible,
-        );
-        await tx
-          .update(s.checkRequests)
-          .set({ resolved: true })
-          .where(eq(s.checkRequests.id, check.id));
-        return this.persistRoll(
-          { ...roll, ...result },
-          env,
-          check.visibility,
-          check.reason,
-          tx,
-          emit,
-          actor.id,
-          check.id,
-        );
-      }
-      case 'ROLL':
-        return this.persistRoll(
-          { ...this.dice.roll(), success: null, stuntPoints: 0 },
-          env,
-          'PUBLIC',
-          'Rolagem livre de 3d6',
-          tx,
-          emit,
-        );
     }
-  }
-  private async validateFeatures(
-    sheet: CreateCharacter,
-    tx: DatabaseTransaction,
-  ) {
-    if (
-      new Set(sheet.features.map((f) => f.ruleId)).size !==
-      sheet.features.length
-    )
-      throw new BadRequestException('Duplicate features');
-    for (const feature of sheet.features) {
-      const [rule] = await tx
-        .select()
-        .from(s.ruleReferences)
-        .where(eq(s.ruleReferences.id, feature.ruleId));
-      if (feature.improved && (sheet.level < 11 || rule?.kind !== 'FOCUS'))
-        throw new BadRequestException(
-          'Improved focuses require level 11 and a focus',
-        );
-      if (!rule || rule.status === 'PENDING' || rule.kind === 'STUNT')
-        throw new BadRequestException('Rule is unavailable');
-      if (
-        (rule.kind === 'TALENT' || rule.kind === 'SPECIALIZATION') !==
-        !!feature.degree
-      )
-        throw new BadRequestException(
-          'Talent/specialization requires a degree; focuses and arcana do not accept degrees',
-        );
-    }
-  }
-  private async focusBonus(
-    characterId: string,
-    ability: (typeof abilities)[number],
-    focusId: string,
-    tx: DatabaseTransaction,
-  ) {
-    const [focus] = await tx
-      .select({ rule: s.ruleReferences, feature: s.characterFeatures })
-      .from(s.characterFeatures)
-      .innerJoin(
-        s.ruleReferences,
-        eq(s.characterFeatures.ruleId, s.ruleReferences.id),
-      )
-      .where(
-        and(
-          eq(s.characterFeatures.characterId, characterId),
-          eq(s.characterFeatures.ruleId, focusId),
-        ),
-      );
-    if (
-      !focus ||
-      focus.rule.kind !== 'FOCUS' ||
-      focus.rule.status !== 'IMPLEMENTED' ||
-      focus.rule.ability !== ability
-    )
-      throw new BadRequestException('Applicable known focus required');
-    return focus.feature.improved ? 3 : 2;
   }
   private async persistRoll(
     result: {
@@ -1081,6 +1335,7 @@ export class GameEngineService {
       modifier: number;
       total: number;
       success: boolean | null;
+      source?: 'PLAYER_DECLARED';
       stuntPoints: number;
     },
     env: CommandEnvelope,
@@ -1134,7 +1389,7 @@ export class GameEngineService {
           campaignId,
           sessionId: sessionId!,
           role: 'SYSTEM',
-          content: `${reason}: [${result.dice.join(', ')}] · Drama Die ${result.dramaDie} · modificador ${result.modifier} · total ${result.total}${result.success === null ? '' : result.success ? ' · sucesso' : ' · falha'} · SP gerados ${result.stuntPoints}.`,
+          content: `${reason}${result.source === 'PLAYER_DECLARED' ? ' (dados declarados pela jogadora)' : ''}: [${result.dice.join(', ')}] · Drama Die ${result.dramaDie} · modificador ${result.modifier} · total ${result.total}${result.success === null ? '' : result.success ? ' · sucesso' : ' · falha'} · SP gerados ${result.stuntPoints}.`,
           sequenceNumber:
             (await this.messages.lastSequence(sessionId!, tx)) + 1,
           metadata: { rollId: row.id, eventId: event.id },

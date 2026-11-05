@@ -1,0 +1,278 @@
+{
+  "formatVersion": 1,
+  "phase": "5.6.3B.0",
+  "status": "PLANNING_ONLY_NO_ADAPTER_IMPLEMENTED",
+  "notAProductionBindingContract": true,
+  "definition": {
+    "id": "story-dialogue-lab",
+    "version": 1,
+    "title": "Laboratório sintético de Story Cards",
+    "sourceBook": "Material sintético de teste; páginas são referências lógicas, não regras Blue Rose",
+    "sourcePages": [1],
+    "minimumLevel": 1,
+    "maximumLevel": 1,
+    "originalPartySize": [1, 4],
+    "synopsis": "Duas identidades distintas na mesma aventura sintética.",
+    "centralConflict": "Manter propriedade das fontes e identidade persistente.",
+    "characters": [
+      {
+        "key": "keeper-a",
+        "identityKind": "INDIVIDUAL",
+        "name": "Lior",
+        "description": "Pessoa responsável pelos registros da sala.",
+        "role": "Interlocutor sintético",
+        "personality": "Reservado e cauteloso",
+        "speech": "Fala preparada; sem confiança automática.",
+        "history": "PRIVATE_HISTORY_keeper-a",
+        "motivations": "PRIVATE_MOTIVATION_keeper-a",
+        "goals": "PRIVATE_GOAL_keeper-a",
+        "fears": "PRIVATE_FEAR_keeper-a",
+        "secrets": ["PRIVATE_SECRET_keeper-a"],
+        "knowledge": ["STATIC_CARD_KNOWLEDGE_keeper-a"],
+        "relationships": ["PRIVATE_RELATION_keeper-a"],
+        "locationKey": "study",
+        "sheet": null,
+        "sourcePages": [1]
+      },
+      {
+        "key": "keeper-b",
+        "identityKind": "INDIVIDUAL",
+        "name": "Líor",
+        "description": "Pessoa responsável pelos registros da sala.",
+        "role": "Interlocutor sintético",
+        "personality": "Acolhedor e expressivo",
+        "speech": "Fala preparada; sem confiança automática.",
+        "history": "PRIVATE_HISTORY_keeper-b",
+        "motivations": "PRIVATE_MOTIVATION_keeper-b",
+        "goals": "PRIVATE_GOAL_keeper-b",
+        "fears": "PRIVATE_FEAR_keeper-b",
+        "secrets": ["PRIVATE_SECRET_keeper-b"],
+        "knowledge": ["STATIC_CARD_KNOWLEDGE_keeper-b"],
+        "relationships": ["PRIVATE_RELATION_keeper-b"],
+        "locationKey": "study",
+        "sheet": null,
+        "sourcePages": [1]
+      },
+      {
+        "key": "guards",
+        "identityKind": "ARCHETYPE",
+        "name": "Guardas",
+        "description": "Pessoa responsável pelos registros da sala.",
+        "role": "Interlocutor sintético",
+        "personality": "Cautelosos",
+        "speech": "Fala preparada; sem confiança automática.",
+        "history": "PRIVATE_HISTORY_guards",
+        "motivations": "PRIVATE_MOTIVATION_guards",
+        "goals": "PRIVATE_GOAL_guards",
+        "fears": "PRIVATE_FEAR_guards",
+        "secrets": ["PRIVATE_SECRET_guards"],
+        "knowledge": ["STATIC_CARD_KNOWLEDGE_guards"],
+        "relationships": ["PRIVATE_RELATION_guards"],
+        "locationKey": "study",
+        "sheet": null,
+        "sourcePages": [1]
+      }
+    ],
+    "locations": [
+      {
+        "key": "study",
+        "name": "Sala de registros",
+        "description": "Uma mesa e uma estante com livros usados.",
+        "characteristics": [],
+        "discoverable": [],
+        "secrets": ["PRIVATE_LOCATION_SECRET"],
+        "objects": ["Estante"],
+        "connections": ["courtyard"],
+        "sourcePages": [1]
+      },
+      {
+        "key": "courtyard",
+        "name": "Pátio",
+        "description": "Um pátio com bancos de pedra.",
+        "characteristics": [],
+        "discoverable": [],
+        "secrets": [],
+        "objects": [],
+        "connections": ["study"],
+        "sourcePages": [1]
+      }
+    ],
+    "encounters": [
+      {
+        "key": "conversation",
+        "title": "Conversa sintética",
+        "locationKey": "study",
+        "characterKeys": ["keeper-a", "keeper-b"],
+        "sourcePages": [1],
+        "optional": false,
+        "initialConditions": "Somente pessoas explicitamente presentes podem ouvir.",
+        "objective": "Conversar sem alterar o mundo.",
+        "secrets": ["PRIVATE_ENCOUNTER_SECRET"],
+        "mechanics": [
+          "Nenhuma mecânica pendente é executada por esta fixture."
+        ],
+        "blockers": [],
+        "consequences": ["Uma fala não confirma seu conteúdo."]
+      }
+    ],
+    "scenes": [
+      {
+        "key": "study",
+        "locationKey": "study",
+        "encounterKey": "conversation",
+        "opening": "A sala conserva o silêncio entre as falas.",
+        "characterKeys": ["keeper-a"],
+        "gmSecrets": ["PRIVATE_CURRENT_SCENE_SECRET"],
+        "options": []
+      },
+      {
+        "key": "courtyard",
+        "locationKey": "courtyard",
+        "encounterKey": "conversation",
+        "opening": "Os bancos ficam sob o céu aberto.",
+        "characterKeys": ["keeper-b"],
+        "gmSecrets": ["PRIVATE_FUTURE_SCENE_SECRET"],
+        "options": []
+      }
+    ],
+    "sessions": [
+      {
+        "number": 1,
+        "title": "Conversa inicial",
+        "mainObjective": "Manter a conversa autorizada.",
+        "secondaryObjectives": [],
+        "sceneKeys": ["study"],
+        "milestones": ["Registro da conversa"],
+        "completionCriteria": [
+          "Adjudicação explícita, nunca inferida da fala."
+        ],
+        "possibleEndings": ["Pausa escolhida"]
+      },
+      {
+        "number": 2,
+        "title": "Retomada",
+        "mainObjective": "Recuperar somente memória própria.",
+        "secondaryObjectives": [],
+        "sceneKeys": ["study", "courtyard"],
+        "milestones": ["Retomada da conversa"],
+        "completionCriteria": ["Adjudicação explícita."],
+        "possibleEndings": ["Pausa escolhida"]
+      }
+    ],
+    "endings": [
+      {
+        "key": "pause",
+        "condition": "A jogadora escolhe pausar.",
+        "consequence": "A conversa pode ser retomada.",
+        "sourcePages": [1]
+      }
+    ]
+  },
+  "campaign": {
+    "campaignId": "10000000-0000-4000-8000-000000000001",
+    "entityNamespace": "story-dialogue-lab",
+    "definitionId": "story-dialogue-lab:v1",
+    "definitionDigest": "1ab0f22afde3f20164e328961ec2105129be4a07a4f36a52039f96a17d3817fe",
+    "activeSceneKey": "study"
+  },
+  "cast": [
+    {
+      "characterKey": "keeper-a",
+      "entityId": "30c7d06e-11c8-41ea-acb5-ba277cad657b",
+      "known": true,
+      "currentState": "UNRESOLVED"
+    },
+    {
+      "characterKey": "keeper-b",
+      "entityId": "64eb592e-bb27-45b5-ac04-603aea27b94d",
+      "known": true,
+      "currentState": "UNRESOLVED"
+    },
+    {
+      "characterKey": "guards",
+      "entityId": "2d2679ae-446f-4fbb-a1a2-d62a7e7bc648",
+      "known": true,
+      "currentState": "UNRESOLVED"
+    }
+  ],
+  "events": [
+    {
+      "id": "20000000-0000-4000-8000-000000000001",
+      "type": "SPEECH_RECORDED",
+      "visibility": "PUBLIC",
+      "description": "A protagonista disse: pretendo ajudar quando puder."
+    },
+    {
+      "id": "20000000-0000-4000-8000-000000000002",
+      "type": "SPEECH_RECORDED",
+      "visibility": "PUBLIC",
+      "description": "OTHER_NPC_ONLY: uma fala conhecida apenas por keeper-b."
+    },
+    {
+      "id": "20000000-0000-4000-8000-000000000003",
+      "type": "CONSEQUENCE_RECORDED",
+      "visibility": "GM_ONLY",
+      "description": "PRIVATE_EVENT_SECRET"
+    },
+    {
+      "id": "20000000-0000-4000-8000-000000000004",
+      "type": "CONSEQUENCE_RECORDED",
+      "visibility": "PUBLIC",
+      "description": "Um desacordo foi registrado; a associação legada não informa modalidade nem participação."
+    }
+  ],
+  "adventureMemories": [
+    {
+      "characterKey": "keeper-a",
+      "eventId": "20000000-0000-4000-8000-000000000001"
+    },
+    {
+      "characterKey": "keeper-b",
+      "eventId": "20000000-0000-4000-8000-000000000002"
+    },
+    {
+      "characterKey": "keeper-a",
+      "eventId": "20000000-0000-4000-8000-000000000003"
+    },
+    {
+      "characterKey": "keeper-a",
+      "eventId": "20000000-0000-4000-8000-000000000004"
+    }
+  ],
+  "draftBinding": {
+    "bindingVersion": 1,
+    "owner": {
+      "kind": "STORY_CARD",
+      "characterKey": "keeper-a",
+      "definitionId": "story-dialogue-lab:v1",
+      "definitionDigest": "1ab0f22afde3f20164e328961ec2105129be4a07a4f36a52039f96a17d3817fe",
+      "entityNamespace": "story-dialogue-lab",
+      "entityId": "30c7d06e-11c8-41ea-acb5-ba277cad657b"
+    },
+    "libraryId": "khaos-dialogue",
+    "contentVersion": 1,
+    "voiceId": "RESERVED",
+    "expectedState": "UNRESOLVED",
+    "topics": ["conversation", "promise"],
+    "sources": [
+      {
+        "key": "promise",
+        "kind": "KNOWLEDGE",
+        "referenceId": "20000000-0000-4000-8000-000000000001",
+        "descriptionHash": "b816883091b9878be271f9f4be8d9ca29d1b47842d0b9388c71e8685c5cecc2c"
+      }
+    ],
+    "provenance": {
+      "authorId": "synthetic-test-preparer",
+      "source": "phase-5.6.3B.0 design fixture",
+      "reviewed": true
+    },
+    "sceneKeys": ["study"]
+  },
+  "notes": [
+    "Do not register/import this fixture in a real campaign.",
+    "draftBinding is a proposed internal shape, not accepted by the current scenePlanSchema.",
+    "No legacy adventure memory can be promoted automatically to WITNESSED or personal participation.",
+    "No NPC receives a response library from name similarity or personality alone."
+  ]
+}

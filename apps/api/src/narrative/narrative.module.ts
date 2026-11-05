@@ -1,3 +1,4 @@
+import { AdventureRegistryModule } from '../adventures/adventure-registry.module';
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
 import { CampaignsModule } from '../campaigns/campaigns.module';
@@ -11,6 +12,7 @@ import { NarrativeService } from './narrative.service';
 import { NarrativeController } from './narrative.controller';
 @Module({
   imports: [
+    AdventureRegistryModule,
     DatabaseModule,
     CampaignsModule,
     SessionsModule,

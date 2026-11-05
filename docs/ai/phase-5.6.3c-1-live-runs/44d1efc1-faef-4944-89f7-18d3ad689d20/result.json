@@ -1,0 +1,796 @@
+{
+  "phase": "5.6.3C.1",
+  "roundId": "44d1efc1-faef-4944-89f7-18d3ad689d20",
+  "mode": "AUTHORIZED_REAL_GEMINI",
+  "status": "INTERRUPTED",
+  "planSha256": "04c31b43e50bd39573e75529590f5c33128d806e426930858263b40a8b93d712",
+  "executorManifestSha256": "dcb2c1cf29f3189b85beec429709e9f6174d0c9e9da62e635bbbd47be9114768",
+  "createdAt": "2026-11-02T21:56:58.415254+00:00",
+  "attempts": [
+    {
+      "caseId": "C1-1",
+      "stage": "PROPOSE",
+      "requestedProvider": "gemini",
+      "requestedModel": "gemini-3.5-flash-lite",
+      "reportedModel": "gemini-3.5-flash-lite",
+      "rawText": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"TALK\",\n  \"description\": \"Pergunto a Iria se ela ainda discorda de mim sobre continuarmos a viagem.\",\n  \"target\": {\n    \"type\": \"CHARACTER\",\n    \"name\": \"Iria\"\n  },\n  \"expression\": \"QUESTION\",\n  \"evidence\": [],\n  \"tool\": {\n    \"type\": \"DIALOGUE\",\n    \"topic\": \"disagreement\",\n    \"act\": \"ANSWER\"\n  }\n}",
+      "structuredOriginal": {
+        "kind": "FREE",
+        "intent": "TALK",
+        "description": "Pergunto a Iria se ela ainda discorda de mim sobre continuarmos a viagem.",
+        "target": {
+          "type": "CHARACTER",
+          "name": "Iria"
+        },
+        "expression": "QUESTION",
+        "evidence": [],
+        "tool": {
+          "type": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER"
+        }
+      },
+      "inputTokens": 2725,
+      "outputTokens": 120,
+      "totalTokens": 2845,
+      "usageReported": true,
+      "latencyMs": 1844,
+      "providerError": null,
+      "parsing": {
+        "json": true,
+        "pydantic": true,
+        "errors": []
+      },
+      "nest": {
+        "zod": {
+          "valid": true,
+          "errors": []
+        },
+        "resolution": {
+          "category": "DIALOGUE",
+          "targetId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+          "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa."
+        },
+        "wouldAuthorizeEffect": false,
+        "backendBlocked": false,
+        "publication": null
+      },
+      "fallbackUsed": false,
+      "requestSha256": "120ff5f1f5258325a867973b2b1fead43ea5c2c1c4254d46e1fbf3627eeb0807",
+      "attemptReserved": true,
+      "inputCharacters": 1482,
+      "promptSha256": "1d6376930e46d1b945d10f2143a4ec720dfa18df9a3146e1b83721e0e5504092",
+      "configuredOutputLimit": 700,
+      "sdkStarted": true,
+      "rawTextBoundary": "SDK_TEXT_BEFORE_PYDANTIC_AND_GRAPH",
+      "rawTextSha256": "f2416b1647e4808966a17ec50d4046147916b7777aae0f39359b00559e7b28d3",
+      "graphResponse": {
+        "proposal": {
+          "kind": "FREE",
+          "intent": "TALK",
+          "description": "Pergunto a Iria se ela ainda discorda de mim sobre continuarmos a viagem.",
+          "target": {
+            "type": "CHARACTER",
+            "name": "Iria"
+          },
+          "expression": "QUESTION",
+          "evidence": [],
+          "tool": {
+            "type": "DIALOGUE",
+            "topic": "disagreement",
+            "act": "ANSWER"
+          }
+        },
+        "narration": null,
+        "usage": [],
+        "error": null
+      },
+      "selection": {
+        "categoricalSelectionPassed": true,
+        "differentFields": [],
+        "descriptionSemanticReview": "PENDING_HUMAN_NOT_EXACT_WORDING"
+      },
+      "modelSelectionOutcome": "MATCHED_FROZEN_SELECTION",
+      "backendContractRejected": false,
+      "backendSafeBlock": false
+    },
+    {
+      "caseId": "C1-1",
+      "stage": "NARRATE",
+      "requestedProvider": "gemini",
+      "requestedModel": "gemini-3.5-flash-lite",
+      "reportedModel": "gemini-3.5-flash-lite",
+      "rawText": "{\n  \"narrative\": \"Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.\\n\\nIria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.\",\n  \"eventIds\": [],\n  \"beats\": [\n    {\n      \"kind\": \"RESULT\",\n      \"speakerId\": null,\n      \"text\": \"Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.\",\n      \"factIds\": []\n    },\n    {\n      \"kind\": \"DIALOGUE\",\n      \"speakerId\": \"68feff2c-cfa3-47eb-a425-b99d3dd11dbc\",\n      \"text\": \"Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.\",\n      \"factIds\": [\n        \"53f31b33-2b66-4478-ace5-f8c3b965fb2b\"\n      ]\n    }\n  ]\n}",
+      "structuredOriginal": {
+        "narrative": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.\n\nIria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+        "eventIds": [],
+        "beats": [
+          {
+            "kind": "RESULT",
+            "speakerId": null,
+            "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.",
+            "factIds": []
+          },
+          {
+            "kind": "DIALOGUE",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+            "factIds": [
+              "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+            ]
+          }
+        ]
+      },
+      "inputTokens": 2032,
+      "outputTokens": 273,
+      "totalTokens": 2305,
+      "usageReported": true,
+      "latencyMs": 2030,
+      "providerError": null,
+      "parsing": {
+        "json": true,
+        "pydantic": true,
+        "errors": []
+      },
+      "nest": {
+        "zod": {
+          "valid": true,
+          "errors": []
+        },
+        "graphZod": {
+          "valid": true
+        },
+        "originalValidation": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.\n\nIria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+            "eventIds": [],
+            "beats": [
+              {
+                "kind": "RESULT",
+                "speakerId": null,
+                "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.",
+                "factIds": []
+              },
+              {
+                "kind": "DIALOGUE",
+                "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+                "factIds": [
+                  "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+                ]
+              }
+            ]
+          },
+          "reason": null
+        },
+        "publication": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.\n\nIria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+            "eventIds": [],
+            "beats": [
+              {
+                "kind": "RESULT",
+                "speakerId": null,
+                "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.",
+                "factIds": []
+              },
+              {
+                "kind": "DIALOGUE",
+                "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+                "factIds": [
+                  "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+                ]
+              }
+            ]
+          },
+          "reason": null
+        },
+        "graphChangedNarrative": false,
+        "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+        "facts": [
+          {
+            "eventId": "53f31b33-2b66-4478-ace5-f8c3b965fb2b",
+            "description": "Iria e a protagonista discordaram sobre continuar a viagem; o desacordo não foi resolvido.",
+            "source": "WITNESSED"
+          }
+        ],
+        "reconstructedCatalog": [
+          {
+            "kind": "RESULT",
+            "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.",
+            "speakerId": null,
+            "factIds": []
+          },
+          {
+            "kind": "ATMOSPHERE",
+            "text": "Uma mesa e uma estante com livros usados.",
+            "speakerId": null,
+            "factIds": []
+          },
+          {
+            "kind": "DIALOGUE",
+            "text": "Iria — Prefiro cautela. O que despertou sua suspeita?",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "factIds": []
+          },
+          {
+            "kind": "DIALOGUE",
+            "text": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "factIds": []
+          },
+          {
+            "kind": "DIALOGUE",
+            "text": "Iria — Não tenho uma resposta segura para isso. Pode me contar mais?",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "factIds": []
+          },
+          {
+            "kind": "DIALOGUE",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+            "factIds": [
+              "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+            ]
+          },
+          {
+            "kind": "DIALOGUE",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "text": "Iria — Meu ponto é este: a discussão aconteceu, e não vou tratá-la como encerrada apenas porque voltamos a conversar.",
+            "factIds": [
+              "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+            ]
+          },
+          {
+            "kind": "DIALOGUE",
+            "text": "Iria — Recordo o que presenciei:\n> Iria e a protagonista discordaram sobre continuar a viagem; o desacordo não foi resolvido.",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "factIds": [
+              "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+            ]
+          },
+          {
+            "kind": "QUESTION",
+            "text": "O que você deseja fazer?",
+            "speakerId": null,
+            "factIds": []
+          },
+          {
+            "kind": "QUESTION",
+            "text": "Como deseja prosseguir?",
+            "speakerId": null,
+            "factIds": []
+          }
+        ],
+        "attributionScope": "FROZEN_SPEAKER_ID_AND_OWN_FACTS_NO_DATABASE_OR_PRIVATE_OWNER_RECONSTRUCTION",
+        "campaignWrites": false
+      },
+      "fallbackUsed": false,
+      "requestSha256": "86cc23cb83a39f40bfd1636d6c6b441384baa6d3e22b7b699eff24d04d29308c",
+      "attemptReserved": true,
+      "inputCharacters": 4448,
+      "promptSha256": "f237e899ea830932c1d6674e753b7a89893bd34eaac9ccaed34f6f1b107dd4cb",
+      "configuredOutputLimit": 1200,
+      "sdkStarted": true,
+      "rawTextBoundary": "SDK_TEXT_BEFORE_PYDANTIC_AND_GRAPH",
+      "rawTextSha256": "d4caa7c19c6388d30001dd97ada9a979f9b9d115f9b383965ace6eccfdd7c62f",
+      "graphResponse": {
+        "proposal": null,
+        "narration": {
+          "narrative": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.\n\nIria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+          "eventIds": [],
+          "beats": [
+            {
+              "kind": "RESULT",
+              "speakerId": null,
+              "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.",
+              "factIds": []
+            },
+            {
+              "kind": "DIALOGUE",
+              "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+              "factIds": [
+                "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+              ]
+            }
+          ]
+        },
+        "usage": [],
+        "error": null
+      },
+      "selection": {
+        "preparedReplyChosen": true,
+        "categoricalSelectionPassed": true,
+        "semanticPertinence": null,
+        "humanReviewRequired": true,
+        "genericDespitePreparedContent": false
+      },
+      "modelSelectionOutcome": "MATCHED_FROZEN_SELECTION",
+      "backendContractRejected": false,
+      "backendSafeBlock": false
+    },
+    {
+      "caseId": "C1-2",
+      "stage": "PROPOSE",
+      "requestedProvider": "gemini",
+      "requestedModel": "gemini-3.5-flash-lite",
+      "reportedModel": "gemini-3.5-flash-lite",
+      "rawText": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"TALK\",\n  \"description\": \"Pede para Iria explicar seu ponto sem presumir um acordo.\",\n  \"target\": {\n    \"type\": \"CHARACTER\",\n    \"name\": \"Iria\"\n  },\n  \"expression\": \"DIRECT\",\n  \"evidence\": [],\n  \"tool\": {\n    \"type\": \"DIALOGUE\",\n    \"topic\": \"disagreement\",\n    \"act\": \"CLARIFY\"\n  }\n}",
+      "structuredOriginal": {
+        "kind": "FREE",
+        "intent": "TALK",
+        "description": "Pede para Iria explicar seu ponto sem presumir um acordo.",
+        "target": {
+          "type": "CHARACTER",
+          "name": "Iria"
+        },
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "CLARIFY"
+        }
+      },
+      "inputTokens": 2723,
+      "outputTokens": 117,
+      "totalTokens": 2840,
+      "usageReported": true,
+      "latencyMs": 2544,
+      "providerError": null,
+      "parsing": {
+        "json": true,
+        "pydantic": true,
+        "errors": []
+      },
+      "nest": {
+        "zod": {
+          "valid": true,
+          "errors": []
+        },
+        "resolution": {
+          "category": "CLARIFY",
+          "text": "Não há uma resposta autorizada para esse assunto e interlocutor. Pode esclarecer o que deseja conversar?",
+          "reason": "UNAUTHORIZED_DIALOGUE_SELECTION"
+        },
+        "wouldAuthorizeEffect": false,
+        "backendBlocked": true,
+        "publication": null
+      },
+      "fallbackUsed": false,
+      "requestSha256": "dab5affaa0113687d548210d8526ffc73fc23b9729a6699e54669af00cb63b96",
+      "attemptReserved": true,
+      "inputCharacters": 1474,
+      "promptSha256": "9d34665d0f18537f3e4ee17dc970e5149ff73835b68051d78ea94403a6b2339d",
+      "configuredOutputLimit": 700,
+      "sdkStarted": true,
+      "rawTextBoundary": "SDK_TEXT_BEFORE_PYDANTIC_AND_GRAPH",
+      "rawTextSha256": "fe96ddeba3d20afcf3caedb019ed2dcb84ddb06c1d1f497687e5644b2256b067",
+      "graphResponse": {
+        "proposal": {
+          "kind": "FREE",
+          "intent": "TALK",
+          "description": "Pede para Iria explicar seu ponto sem presumir um acordo.",
+          "target": {
+            "type": "CHARACTER",
+            "name": "Iria"
+          },
+          "expression": "DIRECT",
+          "evidence": [],
+          "tool": {
+            "type": "DIALOGUE",
+            "topic": "disagreement",
+            "act": "CLARIFY"
+          }
+        },
+        "narration": null,
+        "usage": [],
+        "error": null
+      },
+      "selection": {
+        "categoricalSelectionPassed": false,
+        "differentFields": [
+          "expression",
+          "tool.act"
+        ],
+        "descriptionSemanticReview": "PENDING_HUMAN_NOT_EXACT_WORDING"
+      },
+      "modelSelectionOutcome": "FAILED_FROZEN_SELECTION",
+      "backendContractRejected": false,
+      "backendSafeBlock": true
+    }
+  ],
+  "campaignWrites": false,
+  "realProviderRequests": 3,
+  "humanLiteraryApproved": false,
+  "limits": {
+    "requests": 12,
+    "PROPOSE": 6,
+    "NARRATE": 6,
+    "characters": 65000,
+    "configuredOutputTokenCeiling": 11400
+  },
+  "continueIndependentAfterSemanticFailure": false,
+  "authorization": {
+    "source": "NEW_OPERATOR_ROUND",
+    "freeProjectConfirmed": true,
+    "billingDisabledConfirmed": true,
+    "keyBindingSha256": "f2877f56a22edc11f82591d7ed210a376722ea418eb36130d4b56d9246e1bdee",
+    "financialConfirmationProcessOnly": true,
+    "projectTierIndependentlyVerified": false
+  },
+  "stopReason": "SEMANTIC_FAILURE_OPERATOR_REVIEW_REQUIRED",
+  "sdkInvocations": 3,
+  "budget": {
+    "reservedRequests": 3,
+    "proposeReserved": 2,
+    "narrateReserved": 1,
+    "configuredOutputCeilingReserved": 2600,
+    "retiredNarrateCases": [
+      "C1-2"
+    ]
+  },
+  "publishedMetrics": {
+    "scenarioId": "FROZEN_SIX_CASE_PROJECTIONS",
+    "selector": "AUTHORIZED_REAL_GEMINI",
+    "turns": 1,
+    "fullReplies": {
+      "occurrences": 1,
+      "distinct": 1,
+      "repeatedBeyondFirst": 0,
+      "distribution": {
+        "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.\n\nIria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.": 1
+      }
+    },
+    "identicalAdjacentReplies": 0,
+    "publishedFragments": {
+      "occurrences": 2,
+      "distinct": 2,
+      "repeatedBeyondFirst": 0,
+      "distribution": {
+        "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.": 1,
+        "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.": 1
+      }
+    },
+    "unknownPublishedBeatTurns": 0,
+    "identicalFragmentsAcrossAdjacentTurns": 0,
+    "openingSentenceProxy": {
+      "occurrences": 1,
+      "distinct": 1,
+      "repeatedBeyondFirst": 0,
+      "distribution": {
+        "Não considero aquele desacordo resolvido.": 1
+      }
+    },
+    "lastLine": {
+      "occurrences": 1,
+      "distinct": 1,
+      "repeatedBeyondFirst": 0,
+      "distribution": {
+        "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.": 1
+      }
+    },
+    "syntacticStructureProxy": {
+      "occurrences": 1,
+      "distinct": 1,
+      "repeatedBeyondFirst": 0,
+      "distribution": {
+        "RESULT/DIALOGUE:medium/medium/medium/medium": 1
+      }
+    },
+    "maxQuoteDepth": 0,
+    "nestedQuoteTurns": 0,
+    "auditLanguageProxy": {
+      "turnsFlagged": 0,
+      "phrases": [
+        "resultado confirmado",
+        "não comprova",
+        "verdade do mundo",
+        "resposta autorizada",
+        "alegação",
+        "nenhum efeito foi aplicado",
+        "não é confirmar",
+        "não tenho elementos"
+      ],
+      "interpretation": "HUMAN_REVIEW_SIGNAL_NOT_A_LITERARY_GRADE"
+    },
+    "eligiblePreparedCounts": [],
+    "eligiblePreparedDistribution": {},
+    "contextualSelectionObservableTurns": 0,
+    "genericInsteadOfPrepared": 0,
+    "noContentClarifications": 0,
+    "noContentClassificationAvailable": false,
+    "publicationRejections": {},
+    "publishedFallbacks": 0,
+    "referencedTurnsCheckedAgainstOwnProjection": 0,
+    "allSelectedReferencesInOwnProjection": null,
+    "sourceSetsByTurn": [],
+    "semanticSourceRelevance": null,
+    "semanticSourceRelevanceStatus": "REQUIRES_CITED_HUMAN_REVIEW_IDS_AND_HASHES_ARE_NOT_MEANING",
+    "canonicalGateFromRecordedFindings": {
+      "eligible": true,
+      "violations": [],
+      "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+    },
+    "gateScope": "EXPLICIT_TEST_OR_REVIEW_FINDINGS_NOT_A_SEMANTIC_ORACLE",
+    "humanLiteraryScores": null
+  },
+  "sequenceMetrics": [
+    {
+      "scenarioId": "A_REGULAR_CONFLICT",
+      "selector": "AUTHORIZED_REAL_GEMINI",
+      "turns": 1,
+      "fullReplies": {
+        "occurrences": 1,
+        "distinct": 1,
+        "repeatedBeyondFirst": 0,
+        "distribution": {
+          "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.\n\nIria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.": 1
+        }
+      },
+      "identicalAdjacentReplies": 0,
+      "publishedFragments": {
+        "occurrences": 2,
+        "distinct": 2,
+        "repeatedBeyondFirst": 0,
+        "distribution": {
+          "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.": 1,
+          "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.": 1
+        }
+      },
+      "unknownPublishedBeatTurns": 0,
+      "identicalFragmentsAcrossAdjacentTurns": 0,
+      "openingSentenceProxy": {
+        "occurrences": 1,
+        "distinct": 1,
+        "repeatedBeyondFirst": 0,
+        "distribution": {
+          "Não considero aquele desacordo resolvido.": 1
+        }
+      },
+      "lastLine": {
+        "occurrences": 1,
+        "distinct": 1,
+        "repeatedBeyondFirst": 0,
+        "distribution": {
+          "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.": 1
+        }
+      },
+      "syntacticStructureProxy": {
+        "occurrences": 1,
+        "distinct": 1,
+        "repeatedBeyondFirst": 0,
+        "distribution": {
+          "RESULT/DIALOGUE:medium/medium/medium/medium": 1
+        }
+      },
+      "maxQuoteDepth": 0,
+      "nestedQuoteTurns": 0,
+      "auditLanguageProxy": {
+        "turnsFlagged": 0,
+        "phrases": [
+          "resultado confirmado",
+          "não comprova",
+          "verdade do mundo",
+          "resposta autorizada",
+          "alegação",
+          "nenhum efeito foi aplicado",
+          "não é confirmar",
+          "não tenho elementos"
+        ],
+        "interpretation": "HUMAN_REVIEW_SIGNAL_NOT_A_LITERARY_GRADE"
+      },
+      "eligiblePreparedCounts": [],
+      "eligiblePreparedDistribution": {},
+      "contextualSelectionObservableTurns": 0,
+      "genericInsteadOfPrepared": 0,
+      "noContentClarifications": 0,
+      "noContentClassificationAvailable": false,
+      "publicationRejections": {},
+      "publishedFallbacks": 0,
+      "referencedTurnsCheckedAgainstOwnProjection": 0,
+      "allSelectedReferencesInOwnProjection": null,
+      "sourceSetsByTurn": [],
+      "semanticSourceRelevance": null,
+      "semanticSourceRelevanceStatus": "REQUIRES_CITED_HUMAN_REVIEW_IDS_AND_HASHES_ARE_NOT_MEANING",
+      "canonicalGateFromRecordedFindings": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "EXPLICIT_TEST_OR_REVIEW_FINDINGS_NOT_A_SEMANTIC_ORACLE",
+      "humanLiteraryScores": null
+    },
+    {
+      "scenarioId": "B_STORY_PROMISE",
+      "selector": "AUTHORIZED_REAL_GEMINI",
+      "turns": 0,
+      "fullReplies": {
+        "occurrences": 0,
+        "distinct": 0,
+        "repeatedBeyondFirst": 0,
+        "distribution": {}
+      },
+      "identicalAdjacentReplies": 0,
+      "publishedFragments": {
+        "occurrences": 0,
+        "distinct": 0,
+        "repeatedBeyondFirst": 0,
+        "distribution": {}
+      },
+      "unknownPublishedBeatTurns": 0,
+      "identicalFragmentsAcrossAdjacentTurns": 0,
+      "openingSentenceProxy": {
+        "occurrences": 0,
+        "distinct": 0,
+        "repeatedBeyondFirst": 0,
+        "distribution": {}
+      },
+      "lastLine": {
+        "occurrences": 0,
+        "distinct": 0,
+        "repeatedBeyondFirst": 0,
+        "distribution": {}
+      },
+      "syntacticStructureProxy": {
+        "occurrences": 0,
+        "distinct": 0,
+        "repeatedBeyondFirst": 0,
+        "distribution": {}
+      },
+      "maxQuoteDepth": 0,
+      "nestedQuoteTurns": 0,
+      "auditLanguageProxy": {
+        "turnsFlagged": 0,
+        "phrases": [
+          "resultado confirmado",
+          "não comprova",
+          "verdade do mundo",
+          "resposta autorizada",
+          "alegação",
+          "nenhum efeito foi aplicado",
+          "não é confirmar",
+          "não tenho elementos"
+        ],
+        "interpretation": "HUMAN_REVIEW_SIGNAL_NOT_A_LITERARY_GRADE"
+      },
+      "eligiblePreparedCounts": [],
+      "eligiblePreparedDistribution": {},
+      "contextualSelectionObservableTurns": 0,
+      "genericInsteadOfPrepared": 0,
+      "noContentClarifications": 0,
+      "noContentClassificationAvailable": false,
+      "publicationRejections": {},
+      "publishedFallbacks": 0,
+      "referencedTurnsCheckedAgainstOwnProjection": 0,
+      "allSelectedReferencesInOwnProjection": null,
+      "sourceSetsByTurn": [],
+      "semanticSourceRelevance": null,
+      "semanticSourceRelevanceStatus": "REQUIRES_CITED_HUMAN_REVIEW_IDS_AND_HASHES_ARE_NOT_MEANING",
+      "canonicalGateFromRecordedFindings": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "EXPLICIT_TEST_OR_REVIEW_FINDINGS_NOT_A_SEMANTIC_ORACLE",
+      "humanLiteraryScores": null
+    },
+    {
+      "scenarioId": "C_WARM_MATCHED_A1",
+      "selector": "AUTHORIZED_REAL_GEMINI",
+      "turns": 0,
+      "fullReplies": {
+        "occurrences": 0,
+        "distinct": 0,
+        "repeatedBeyondFirst": 0,
+        "distribution": {}
+      },
+      "identicalAdjacentReplies": 0,
+      "publishedFragments": {
+        "occurrences": 0,
+        "distinct": 0,
+        "repeatedBeyondFirst": 0,
+        "distribution": {}
+      },
+      "unknownPublishedBeatTurns": 0,
+      "identicalFragmentsAcrossAdjacentTurns": 0,
+      "openingSentenceProxy": {
+        "occurrences": 0,
+        "distinct": 0,
+        "repeatedBeyondFirst": 0,
+        "distribution": {}
+      },
+      "lastLine": {
+        "occurrences": 0,
+        "distinct": 0,
+        "repeatedBeyondFirst": 0,
+        "distribution": {}
+      },
+      "syntacticStructureProxy": {
+        "occurrences": 0,
+        "distinct": 0,
+        "repeatedBeyondFirst": 0,
+        "distribution": {}
+      },
+      "maxQuoteDepth": 0,
+      "nestedQuoteTurns": 0,
+      "auditLanguageProxy": {
+        "turnsFlagged": 0,
+        "phrases": [
+          "resultado confirmado",
+          "não comprova",
+          "verdade do mundo",
+          "resposta autorizada",
+          "alegação",
+          "nenhum efeito foi aplicado",
+          "não é confirmar",
+          "não tenho elementos"
+        ],
+        "interpretation": "HUMAN_REVIEW_SIGNAL_NOT_A_LITERARY_GRADE"
+      },
+      "eligiblePreparedCounts": [],
+      "eligiblePreparedDistribution": {},
+      "contextualSelectionObservableTurns": 0,
+      "genericInsteadOfPrepared": 0,
+      "noContentClarifications": 0,
+      "noContentClassificationAvailable": false,
+      "publicationRejections": {},
+      "publishedFallbacks": 0,
+      "referencedTurnsCheckedAgainstOwnProjection": 0,
+      "allSelectedReferencesInOwnProjection": null,
+      "sourceSetsByTurn": [],
+      "semanticSourceRelevance": null,
+      "semanticSourceRelevanceStatus": "REQUIRES_CITED_HUMAN_REVIEW_IDS_AND_HASHES_ARE_NOT_MEANING",
+      "canonicalGateFromRecordedFindings": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "EXPLICIT_TEST_OR_REVIEW_FINDINGS_NOT_A_SEMANTIC_ORACLE",
+      "humanLiteraryScores": null
+    }
+  ],
+  "caseOutcomes": [
+    {
+      "caseId": "C1-1",
+      "status": "MACHINE_SELECTION_MATCHED_HUMAN_REVIEW_PENDING",
+      "narrateAttempted": true,
+      "humanLiteraryApproved": false
+    },
+    {
+      "caseId": "C1-2",
+      "status": "FAILED_OR_INTERRUPTED",
+      "narrateAttempted": false,
+      "humanLiteraryApproved": false
+    },
+    {
+      "caseId": "C1-3",
+      "status": "NOT_ATTEMPTED_AFTER_STOP",
+      "narrateAttempted": false,
+      "humanLiteraryApproved": false
+    },
+    {
+      "caseId": "C1-4",
+      "status": "NOT_ATTEMPTED_AFTER_STOP",
+      "narrateAttempted": false,
+      "humanLiteraryApproved": false
+    },
+    {
+      "caseId": "C1-5",
+      "status": "NOT_ATTEMPTED_AFTER_STOP",
+      "narrateAttempted": false,
+      "humanLiteraryApproved": false
+    },
+    {
+      "caseId": "C1-6",
+      "status": "NOT_ATTEMPTED_AFTER_STOP",
+      "narrateAttempted": false,
+      "humanLiteraryApproved": false
+    }
+  ],
+  "metricsScope": "Accepted server output/fallback only, virtual publication with no persistence; six cases are not one adaptive conversation."
+}

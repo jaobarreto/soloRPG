@@ -1,0 +1,118 @@
+{
+  "case": "ooc",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "maxRequests": 1,
+  "campaignWrites": false,
+  "engineOutcome": "SYNTHETIC_FIXTURE",
+  "humanReviewRequired": true,
+  "request": {
+    "interactionMode": "OUT_OF_CHARACTER",
+    "playerMessage": "Mestre, como funciona o Drama Die nesse teste?",
+    "context": {
+      "freeActions": true,
+      "scene": "Um acampamento ao entardecer, junto a uma porta de pedra.",
+      "characters": [
+        {
+          "id": "d8731260-21a1-4e9a-9d3f-89720e7f9fa1",
+          "name": "Naelis",
+          "kind": "PROTAGONIST"
+        },
+        {
+          "id": "8a4d09c1-98ef-4d9c-a22a-e4fa7db6278c",
+          "name": "Mira",
+          "kind": "COMPANION"
+        }
+      ],
+      "actors": [
+        {
+          "id": "8a4d09c1-98ef-4d9c-a22a-e4fa7db6278c",
+          "name": "Mira",
+          "kind": "COMPANION"
+        }
+      ],
+      "world": [
+        {
+          "id": "39c38a61-29d9-44fe-a1a6-b82b7cb5e065",
+          "name": "Porta",
+          "status": "CLOSED",
+          "description": "Uma porta de pedra."
+        }
+      ],
+      "combat": null,
+      "options": [
+        {
+          "id": "f5f50b8e-506f-4239-af7d-a6a76753c72e",
+          "intent": "Examinar a porta",
+          "mode": "ACT",
+          "requiresCheck": true
+        }
+      ]
+    }
+  },
+  "rubric": [
+    "coherence",
+    "context",
+    "agency",
+    "personality",
+    "literaryQuality",
+    "mechanicalFidelity",
+    "security",
+    "latency"
+  ],
+  "interpretationSkipped": true,
+  "renderingContext": {
+    "category": "OOC",
+    "protagonist": {
+      "id": "d8731260-21a1-4e9a-9d3f-89720e7f9fa1",
+      "name": "Naelis"
+    },
+    "speaker": null,
+    "scene": null,
+    "facts": [],
+    "rules": [
+      {
+        "description": "3d6 + habilidade + foco; terceiro dado Drama Die."
+      }
+    ]
+  },
+  "confirmed": {
+    "narrative": "O Drama Die é o terceiro dado do teste básico de 3d6.",
+    "eventIds": []
+  },
+  "draft": {
+    "narrative": "O Drama Die é o terceiro dado do teste básico de 3d6.\n\nEle adiciona imprevisibilidade dramática às suas rolagens, podendo gerar reviravoltas dependendo do valor obtido.",
+    "eventIds": [],
+    "beats": [
+      {
+        "kind": "OOC",
+        "speakerId": null,
+        "text": "O Drama Die é o terceiro dado do teste básico de 3d6.",
+        "factIds": []
+      },
+      {
+        "kind": "OOC",
+        "speakerId": null,
+        "text": "Ele adiciona imprevisibilidade dramática às suas rolagens, podendo gerar reviravoltas dependendo do valor obtido.",
+        "factIds": []
+      }
+    ]
+  },
+  "referencesValid": true,
+  "beatsAssembled": true,
+  "usage": [
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "inputTokens": 712,
+      "outputTokens": 147,
+      "durationMs": 3509,
+      "inputCharacters": 626,
+      "totalTokens": 859,
+      "usageReported": true,
+      "error": null
+    }
+  ],
+  "validationIssues": [],
+  "requests": 1
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "adventure_instances" ADD COLUMN "mechanics" jsonb;

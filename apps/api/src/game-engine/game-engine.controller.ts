@@ -1,7 +1,7 @@
-import { BlueRoseTestsService } from '../blue-rose/tests.service';
-import { BlueRoseCombatService } from '../blue-rose/combat.service';
-import { BlueRoseArcanaService } from '../blue-rose/arcana.service';
-import { combatStunts } from '../blue-rose/combat.rules';
+import { BlueRoseTestsService } from '../blue-rose/mechanics/tests/tests.service';
+import { BlueRoseCombatService } from '../blue-rose/mechanics/combat/combat.service';
+import { BlueRoseArcanaService } from '../blue-rose/arcana/arcana.service';
+import { combatStunts } from '../blue-rose/mechanics/combat/combat.rules';
 import {
   applyDecorators,
   Body,

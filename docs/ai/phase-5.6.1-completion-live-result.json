@@ -1,0 +1,972 @@
+{
+  "phase": "5.6.1",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "evidenceKind": "REAL_MODEL_SYNTHETIC_CONTEXT",
+  "operatorConfirmedActiveKeyFreeProjectWithoutBilling": true,
+  "projectId": null,
+  "projectVerification": "OPERATOR_ATTESTATION",
+  "maxRequests": 5,
+  "maxOutputTokensPerRequest": 700,
+  "selectedCaseIds": [
+    "561-02",
+    "561-05",
+    "561-06",
+    "561-07",
+    "561-08"
+  ],
+  "attempts": 5,
+  "campaignWrites": false,
+  "rows": [
+    {
+      "id": "561-02",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000002",
+        "campaignId": "00000000-0000-4000-c000-000000000002",
+        "sessionId": "00000000-0000-4000-d000-000000000002",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "Olho atentamente para a fechadura.",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "OBSERVE"
+        ],
+        "tools": [
+          "OBSERVE"
+        ],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Teste desnecessário",
+          "Descoberta oculta"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"OBSERVE\",\n  \"description\": \"Naelis olha atentamente para a fechadura de metal da porta.\",\n  \"target\": {\n    \"type\": \"WORLD\",\n    \"name\": \"Porta\"\n  },\n  \"expression\": \"DIRECT\",\n  \"evidence\": [\n    \"info-59f40a209c6f283318a8d3fe\"\n  ],\n  \"tool\": {\n    \"type\": \"OBSERVE\"\n  }\n}",
+      "reportedModelVersion": "gemini-3.5-flash-lite",
+      "proposal": {
+        "kind": "FREE",
+        "intent": "OBSERVE",
+        "description": "Naelis olha atentamente para a fechadura de metal da porta.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "tool": {
+          "type": "OBSERVE"
+        }
+      },
+      "schemaValid": true,
+      "fallback": false,
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "OBSERVE",
+          "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+          "targetId": "00000000-0000-4000-a000-000000000004",
+          "authorizedTool": "OBSERVE"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+            "eventIds": []
+          },
+          "reason": null
+        }
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2043,
+          "outputTokens": 133,
+          "durationMs": 2569,
+          "inputCharacters": 1099,
+          "totalTokens": 2176,
+          "usageReported": true,
+          "error": null
+        }
+      ],
+      "validationIssues": []
+    },
+    {
+      "id": "561-05",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000005",
+        "campaignId": "00000000-0000-4000-c000-000000000005",
+        "sessionId": "00000000-0000-4000-d000-000000000005",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "Una, como funciona o arcano Escudo? Preciso gastar alguma coisa para utilizá-lo?",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              },
+              {
+                "key": "info-ab7b61cdf63b4a5fb09fce2a",
+                "scope": "RULES",
+                "text": "Escudo Psíquico protege a mente contra influências arcanas: quando aplicável, há um teste oposto antes da resistência de Vontade. Erguer ou baixar voluntariamente o escudo é uma ação livre; nas demais situações, permanece ativo. O uso normal indica Fadiga: Nenhuma. A disputa especial para superar escudos permite opções de fadiga voluntária, sem consumo automático ao erguer. Fonte: Blue Rose AGE, livro básico brasileiro, p.102."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "QUERY",
+          "OOC"
+        ],
+        "tools": [
+          "QUERY"
+        ],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "RULES"
+        },
+        "evidence": [
+          "info-ab7b61cdf63b4a5fb09fce2a"
+        ],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "ARCANA executado em pergunta",
+          "Regra inventada",
+          "Consumo de recursos"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"QUERY\",\n  \"description\": \"Naelis consulta as regras sobre o funcionamento e o custo de uso do arcano Escudo Psíquico.\",\n  \"target\": null,\n  \"expression\": \"QUESTION\",\n  \"evidence\": [\n    \"info-ab7b61cdf63b4a5fb09fce2a\"\n  ],\n  \"tool\": {\n    \"type\": \"QUERY\",\n    \"subject\": \"RULES\"\n  }\n}",
+      "reportedModelVersion": "gemini-3.5-flash-lite",
+      "proposal": {
+        "kind": "FREE",
+        "intent": "QUERY",
+        "description": "Naelis consulta as regras sobre o funcionamento e o custo de uso do arcano Escudo Psíquico.",
+        "target": null,
+        "expression": "QUESTION",
+        "evidence": [
+          "info-ab7b61cdf63b4a5fb09fce2a"
+        ],
+        "tool": {
+          "type": "QUERY",
+          "subject": "RULES"
+        }
+      },
+      "schemaValid": true,
+      "fallback": false,
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "OOC",
+          "text": "Escudo Psíquico protege a mente contra influências arcanas: quando aplicável, há um teste oposto antes da resistência de Vontade. Erguer ou baixar voluntariamente o escudo é uma ação livre; nas demais situações, permanece ativo. O uso normal indica Fadiga: Nenhuma. A disputa especial para superar escudos permite opções de fadiga voluntária, sem consumo automático ao erguer. Fonte: Blue Rose AGE, livro básico brasileiro, p.102.",
+          "authorizedTool": "QUERY"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Escudo Psíquico protege a mente contra influências arcanas: quando aplicável, há um teste oposto antes da resistência de Vontade. Erguer ou baixar voluntariamente o escudo é uma ação livre; nas demais situações, permanece ativo. O uso normal indica Fadiga: Nenhuma. A disputa especial para superar escudos permite opções de fadiga voluntária, sem consumo automático ao erguer. Fonte: Blue Rose AGE, livro básico brasileiro, p.102.",
+            "eventIds": []
+          },
+          "reason": null
+        }
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2188,
+          "outputTokens": 122,
+          "durationMs": 2723,
+          "inputCharacters": 1641,
+          "totalTokens": 2310,
+          "usageReported": true,
+          "error": null
+        }
+      ],
+      "validationIssues": []
+    },
+    {
+      "id": "561-06",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000006",
+        "campaignId": "00000000-0000-4000-c000-000000000006",
+        "sessionId": "00000000-0000-4000-d000-000000000006",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "Eu ergo meu Escudo.",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "ARCANA"
+        ],
+        "tools": [
+          "ARCANA"
+        ],
+        "expression": "DIRECT",
+        "toolFields": {
+          "arcanum": "psychic-shield",
+          "raised": true
+        },
+        "evidence": [],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [
+          "tradition",
+          "use",
+          "fatigue",
+          "category"
+        ],
+        "failureCriteria": [
+          "Consulta em lugar de execução",
+          "Arcano ou parâmetro inventados"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"ARCANA\",\n  \"description\": \"Naelis ergue seu Escudo Psíquico.\",\n  \"target\": null,\n  \"expression\": \"DIRECT\",\n  \"evidence\": [],\n  \"tool\": {\n    \"type\": \"ARCANA\",\n    \"arcanum\": \"psychic-shield\",\n    \"raised\": true,\n    \"tradition\": \"PSYCHIC\",\n    \"use\": null,\n    \"fatigue\": null,\n    \"category\": null\n  }\n}",
+      "reportedModelVersion": "gemini-3.5-flash-lite",
+      "proposal": {
+        "kind": "FREE",
+        "intent": "ARCANA",
+        "description": "Naelis ergue seu Escudo Psíquico.",
+        "target": null,
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "ARCANA",
+          "arcanum": "psychic-shield",
+          "raised": true,
+          "tradition": "PSYCHIC",
+          "use": null,
+          "fatigue": null,
+          "category": null
+        }
+      },
+      "schemaValid": true,
+      "fallback": false,
+      "semantic": {
+        "passed": false,
+        "failures": [
+          "INVENTED_PARAMETER:tradition"
+        ]
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "MECHANIC",
+          "text": "O motor verifica o arcano e suas condições.",
+          "command": {
+            "type": "ARCANA_USE",
+            "input": {
+              "arcanum": "psychic-shield",
+              "characterId": "00000000-0000-4000-a000-000000000001",
+              "raised": true
+            }
+          }
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2041,
+          "outputTokens": 129,
+          "durationMs": 1533,
+          "inputCharacters": 1084,
+          "totalTokens": 2170,
+          "usageReported": true,
+          "error": null
+        }
+      ],
+      "validationIssues": []
+    },
+    {
+      "id": "561-07",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000007",
+        "campaignId": "00000000-0000-4000-c000-000000000007",
+        "sessionId": "00000000-0000-4000-d000-000000000007",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "Quero usar minha magia nele.",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                },
+                {
+                  "name": "Curar",
+                  "ruleId": "cure",
+                  "status": "ACTIVE",
+                  "degree": null
+                },
+                {
+                  "name": "Contato Psíquico",
+                  "ruleId": "psychic-contact",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "ARCANA"
+        ],
+        "tools": [
+          "CLARIFY"
+        ],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": [],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Escolha arbitrária de arcano ou alvo",
+          "Efeito ou consumo",
+          "Schema inválido"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"ARCANA\",\n  \"description\": \"Naelis tenta usar sua magia no alvo mencionado.\",\n  \"target\": null,\n  \"expression\": \"DIRECT\",\n  \"evidence\": [],\n  \"tool\": {\n    \"type\": \"CLARIFY\",\n    \"question\": \"Qual arcanum você deseja usar e em qual alvo?\"\n  }\n}",
+      "reportedModelVersion": "gemini-3.5-flash-lite",
+      "proposal": {
+        "kind": "FREE",
+        "intent": "ARCANA",
+        "description": "Naelis tenta usar sua magia no alvo mencionado.",
+        "target": null,
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "CLARIFY",
+          "question": "Qual arcanum você deseja usar e em qual alvo?"
+        }
+      },
+      "schemaValid": true,
+      "fallback": false,
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "CLARIFY",
+          "text": "Qual arcano deseja utilizar e em quem?",
+          "reason": "CLARIFICATION_REQUIRED"
+        },
+        "authorization": "LIMITED_OR_REFUSED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2082,
+          "outputTokens": 95,
+          "durationMs": 1656,
+          "inputCharacters": 1245,
+          "totalTokens": 2177,
+          "usageReported": true,
+          "error": null
+        }
+      ],
+      "validationIssues": []
+    },
+    {
+      "id": "561-08",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000008",
+        "campaignId": "00000000-0000-4000-c000-000000000008",
+        "sessionId": "00000000-0000-4000-d000-000000000008",
+        "stage": "PROPOSE",
+        "interactionMode": "OUT_OF_CHARACTER",
+        "playerMessage": "Fora do RPG: como eu sei quando uma sessão terminou? A história sempre vai ter alguma reviravolta antes disso?",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              },
+              {
+                "key": "info-441d1e9142e76c5c865c5fd7",
+                "scope": "RULES",
+                "text": "KHAOS: uma sessão é uma unidade narrativa. Pausar ou retomar não encerra a sessão. Seu encerramento depende da condição narrativa oficial e de confirmação persistida pelo Director. Tempo e quantidade de mensagens não concluem objetivos nem liberam capítulos. Não existe garantia geral de uma reviravolta antes do encerramento; acontecimentos futuros não são informação pública confirmada. Fonte: docs/architecture/campaigns-and-sessions.md, abertura; docs/architecture/campaign-director.md, progressão por condições confirmadas."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "OOC",
+          "QUERY"
+        ],
+        "tools": [
+          "QUERY"
+        ],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "RULES"
+        },
+        "evidence": [
+          "info-441d1e9142e76c5c865c5fd7"
+        ],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Promessa de reviravolta",
+          "Spoiler ou futuro sem fonte",
+          "Evento de mundo"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"OOC\",\n  \"description\": \"Explicação fora do personagem sobre o término de sessões e progressão narrativa.\",\n  \"target\": null,\n  \"expression\": \"QUESTION\",\n  \"evidence\": [\n    \"info-441d1e9142e76c5c865c5fd7\"\n  ],\n  \"tool\": {\n    \"type\": \"QUERY\",\n    \"subject\": \"RULES\"\n  }\n}",
+      "reportedModelVersion": "gemini-3.5-flash-lite",
+      "proposal": {
+        "kind": "FREE",
+        "intent": "OOC",
+        "description": "Explicação fora do personagem sobre o término de sessões e progressão narrativa.",
+        "target": null,
+        "expression": "QUESTION",
+        "evidence": [
+          "info-441d1e9142e76c5c865c5fd7"
+        ],
+        "tool": {
+          "type": "QUERY",
+          "subject": "RULES"
+        }
+      },
+      "schemaValid": true,
+      "fallback": false,
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "OOC",
+          "text": "KHAOS: uma sessão é uma unidade narrativa. Pausar ou retomar não encerra a sessão. Seu encerramento depende da condição narrativa oficial e de confirmação persistida pelo Director. Tempo e quantidade de mensagens não concluem objetivos nem liberam capítulos. Não existe garantia geral de uma reviravolta antes do encerramento; acontecimentos futuros não são informação pública confirmada. Fonte: docs/architecture/campaigns-and-sessions.md, abertura; docs/architecture/campaign-director.md, progressão por condições confirmadas.",
+          "authorizedTool": "QUERY"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": {
+          "accepted": true,
+          "narration": {
+            "narrative": "KHAOS: uma sessão é uma unidade narrativa. Pausar ou retomar não encerra a sessão. Seu encerramento depende da condição narrativa oficial e de confirmação persistida pelo Director. Tempo e quantidade de mensagens não concluem objetivos nem liberam capítulos. Não existe garantia geral de uma reviravolta antes do encerramento; acontecimentos futuros não são informação pública confirmada. Fonte: docs/architecture/campaigns-and-sessions.md, abertura; docs/architecture/campaign-director.md, progressão por condições confirmadas.",
+            "eventIds": []
+          },
+          "reason": null
+        }
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2214,
+          "outputTokens": 120,
+          "durationMs": 1844,
+          "inputCharacters": 1782,
+          "totalTokens": 2334,
+          "usageReported": true,
+          "error": null
+        }
+      ],
+      "validationIssues": []
+    }
+  ],
+  "fingerprintsBefore": {
+    ".env": "f7e4a08fdcd9ec6667ec5769afc97ba9311909ef3f7235db05406435b5ec7042",
+    "apps/ai-service/app/core/config.py": "1daafb172950c15efc504e77af5ec5df1361ba6ceba48b28d1b60bd6d53ee6eb",
+    "apps/ai-service/app/narrative/graph.py": "a6f3b807d4d1e2f2898c6d78fd375dd69c2f691aa10cfdbc5f91013d84e81daf",
+    "apps/ai-service/app/narrative/prompts.py": "3827b49cbcb4642f29181ceaa19cf48fe3b52929f4e5276ba283ba5278c617d4",
+    "apps/ai-service/app/narrative/selection.py": "e4d9029fe7800ed5e006bbaf7861bb0c0d5dd886e571b718471dde6ba7e8d551",
+    "apps/ai-service/app/narrative/schemas.py": "52ec5eea8cac2e5c5878f00cacb93c5f6ea83e6191e1f7f641478cc5a9771f89",
+    "apps/ai-service/app/providers/gemini.py": "3ecdcc1d2534aebb5e28aa16f61fbcd9397ccd275cd839d6fa8c5a3d147ec0ff",
+    "apps/ai-service/app/providers/router.py": "f5acbe415bdc5c4fcc75797c1ce777c8deb00773a175189cd337290b50e095bc",
+    "apps/api/src/narrative/free-action.ts": "f2a31d7d83a9e66401cd6dceddd8500035c82f464c47cef7131fcab31b76f106",
+    "apps/api/src/narrative/information.ts": "fdc3a5dec1e45e2bb63233fffb539ea85c9d1e1de00b2e58b1c7b3008f8ff84c",
+    "apps/api/src/narrative/rendering.ts": "634889dd2069877296c3cc2176a0f09c101aa1ae0de902c692fc1a1bc0ae0f7b",
+    "packages/shared-contracts/src/free-action.ts": "da72699714626f4e373f005e3cf64b8b7c18716665a4aed443fe57f54950fa08",
+    "docs/ai/phase-5.6.1-plan.json": "82f3303faf6c125ad5c59360f0e2e6404e8c7c894efbf2f01000c7f6e6878f0d"
+  },
+  "fingerprintsAfter": {
+    ".env": "f7e4a08fdcd9ec6667ec5769afc97ba9311909ef3f7235db05406435b5ec7042",
+    "apps/ai-service/app/core/config.py": "1daafb172950c15efc504e77af5ec5df1361ba6ceba48b28d1b60bd6d53ee6eb",
+    "apps/ai-service/app/narrative/graph.py": "a6f3b807d4d1e2f2898c6d78fd375dd69c2f691aa10cfdbc5f91013d84e81daf",
+    "apps/ai-service/app/narrative/prompts.py": "3827b49cbcb4642f29181ceaa19cf48fe3b52929f4e5276ba283ba5278c617d4",
+    "apps/ai-service/app/narrative/selection.py": "e4d9029fe7800ed5e006bbaf7861bb0c0d5dd886e571b718471dde6ba7e8d551",
+    "apps/ai-service/app/narrative/schemas.py": "52ec5eea8cac2e5c5878f00cacb93c5f6ea83e6191e1f7f641478cc5a9771f89",
+    "apps/ai-service/app/providers/gemini.py": "3ecdcc1d2534aebb5e28aa16f61fbcd9397ccd275cd839d6fa8c5a3d147ec0ff",
+    "apps/ai-service/app/providers/router.py": "f5acbe415bdc5c4fcc75797c1ce777c8deb00773a175189cd337290b50e095bc",
+    "apps/api/src/narrative/free-action.ts": "f2a31d7d83a9e66401cd6dceddd8500035c82f464c47cef7131fcab31b76f106",
+    "apps/api/src/narrative/information.ts": "fdc3a5dec1e45e2bb63233fffb539ea85c9d1e1de00b2e58b1c7b3008f8ff84c",
+    "apps/api/src/narrative/rendering.ts": "634889dd2069877296c3cc2176a0f09c101aa1ae0de902c692fc1a1bc0ae0f7b",
+    "packages/shared-contracts/src/free-action.ts": "da72699714626f4e373f005e3cf64b8b7c18716665a4aed443fe57f54950fa08",
+    "docs/ai/phase-5.6.1-plan.json": "82f3303faf6c125ad5c59360f0e2e6404e8c7c894efbf2f01000c7f6e6878f0d"
+  },
+  "frozenInputsPreserved": true
+}

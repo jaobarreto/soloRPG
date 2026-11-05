@@ -22,6 +22,8 @@ export enum InteractionMode {
   ACT = 'ACT',
   THINK = 'THINK',
   OUT_OF_CHARACTER = 'OUT_OF_CHARACTER',
+  REQUEST_CHECK = 'REQUEST_CHECK',
+  ROLL_RESULT = 'ROLL_RESULT',
 }
 export enum EndingType {
   OBJECTIVE_COMPLETED = 'OBJECTIVE_COMPLETED',
@@ -86,3 +88,9 @@ export interface MessagePage {
 }
 export * from './game';
 export * from './narrative';
+export * from './arcana';
+export * from './adventure-actions';
+export * from './free-action';
+
+export * from './mentions';
+export * from './dialogue';

@@ -17,7 +17,11 @@ import {
   uuid,
 } from 'drizzle-orm/pg-core';
 import { campaigns, campaignSessions } from './schema';
-import { abilities, characterKinds } from '@solo-rpg/shared-contracts';
+import {
+  abilities,
+  characterKinds,
+  weaponRuleIds,
+} from '@solo-rpg/shared-contracts';
 export const diceVisibility = pgEnum('dice_visibility', [
   'PUBLIC',
   'PLAYER_ONLY',
@@ -195,11 +199,7 @@ export const characterConditions = pgTable(
   },
   (t) => [unique('condition_rule_unique').on(t.characterId, t.ruleKey)],
 );
-export const weaponRule = pgEnum('blue_rose_weapon_rule', [
-  'heavy-blade',
-  'light-blade',
-  'longbow',
-]);
+export const weaponRule = pgEnum('blue_rose_weapon_rule', weaponRuleIds);
 export const gameItems = pgTable(
   'game_items',
   {
@@ -743,4 +743,22 @@ export const specialCheckRequests = pgTable(
       sql`(${t.kind} = 'OPPOSED' AND ${t.opponentId} IS NOT NULL AND ${t.opponentAbility} IS NOT NULL AND ${t.advancedTestId} IS NULL) OR (${t.kind} = 'ADVANCED' AND ${t.advancedTestId} IS NOT NULL AND ${t.opponentId} IS NULL)`,
     ),
   ],
+);
+
+export const campaignMounts = pgTable(
+  'campaign_mounts',
+  {
+    campaignId: campaignId(),
+    characterId: uuid('character_id')
+      .primaryKey()
+      .references(() => characters.id),
+    riderId: uuid('rider_id')
+      .notNull()
+      .references(() => characters.id),
+    locationId: uuid('location_id')
+      .notNull()
+      .references(() => worldEntities.id),
+    mounted: boolean('mounted').notNull(),
+  },
+  (t) => [unique().on(t.campaignId, t.riderId)],
 );

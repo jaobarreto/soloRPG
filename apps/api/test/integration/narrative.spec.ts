@@ -1,3 +1,4 @@
+import { legacyCampaign } from '../fixtures/legacy-campaign';
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
 import { resolve } from 'node:path';
@@ -12,7 +13,11 @@ import { DatabaseService } from '../../src/database/database.service';
 import { GameEngineService } from '../../src/game-engine/game-engine.service';
 import { AiServiceClient } from '../../src/integrations/ai-service/ai-service.client';
 import { NarrativeContextService } from '../../src/narrative/context.service';
-import { RANDOM_SOURCE } from '../../src/blue-rose/blue-rose.rules';
+import { RANDOM_SOURCE } from '../../src/blue-rose/mechanics/dice/blue-rose-dice';
+import * as game from '../../src/database/game-schema';
+import * as narrative from '../../src/database/narrative-schema';
+import { campaignSessions } from '../../src/database/schema';
+import { eq } from 'drizzle-orm';
 import {
   abilities,
   scenePlanSchema,
@@ -52,12 +57,7 @@ describe('Narrative officialization and recovery / PostgreSQL', () => {
       plan: ScenePlan,
     ) => Promise<void>,
   ) {
-    const campaign = (
-      await http()
-        .post('/api/v1/campaigns')
-        .send({ title: 'Ecos', plannedSessions: 2 })
-        .expect(201)
-    ).body;
+    const campaign = await legacyCampaign(app, 2, 'Ecos');
     const pc = (
       await http()
         .post(`/api/v1/campaigns/${campaign.id}/characters`)
@@ -76,7 +76,7 @@ describe('Narrative officialization and recovery / PostgreSQL', () => {
     const optionId = randomUUID(),
       objectiveId = randomUUID();
     selectedOptionId = optionId;
-    const sessionId = campaign.sessions[0].id;
+    const sessionId = campaign.sessions[0]!.id;
     const plan = scenePlanSchema.parse({
       opening: 'A trilha termina diante da muralha.',
       presentCharacterIds: [pc.id],
@@ -146,6 +146,618 @@ describe('Narrative officialization and recovery / PostgreSQL', () => {
       DEXTERITY: dexterity,
     },
     features: [{ ruleId: 'fighting-heavy-blades' }],
+  });
+  async function freeSetup() {
+    let miraId = '';
+    const fixture = await setup(false, async (c, _pc, plan) => {
+      const mira = await admin(c.id, {
+        type: 'CHARACTER_CREATE',
+        kind: 'COMPANION',
+        known: true,
+        sheet: npcSheet('Mira'),
+        personality: 'Serena, cautelosa; não concorda por cortesia.',
+        motivations: 'Proteger seus companheiros.',
+        privateNotes: 'SEGREDO_PRIVADO_DE_MIRA',
+      });
+      miraId = mira.id;
+      plan.presentCharacterIds.push(mira.id);
+      const secret = await admin(c.id, {
+        type: 'EVENT_RECORD',
+        eventType: 'CONSEQUENCE_RECORDED',
+        description: 'SEGREDO_CONHECIDO_APENAS_POR_NAELIS',
+        participants: [_pc.id],
+        visibility: 'PLAYER_ONLY',
+      });
+      await db.db.insert(narrative.characterKnowledge).values({
+        campaignId: c.id,
+        characterId: _pc.id,
+        eventId: secret.id,
+        source: 'WITNESSED',
+        importance: 90,
+      });
+      await admin(c.id, {
+        type: 'SCENE_CONFIGURE',
+        targetSessionId: c.sessions[1]!.id,
+        plan,
+      });
+    });
+    return { ...fixture, miraId };
+  }
+  const freeProposal = (
+    intent: string,
+    tool: object,
+    target: object | null = null,
+  ) => ({
+    kind: 'FREE',
+    intent,
+    description: 'Intenção livre da jogadora',
+    target,
+    tool,
+  });
+  function freeProvider(proposal: object, line?: string) {
+    turn.mockImplementation(async (r) => ({
+      proposal: r.stage === 'PROPOSE' ? proposal : null,
+      narration:
+        r.stage === 'NARRATE' && r.context.rendering?.category === 'DIALOGUE'
+          ? (() => {
+              const approved = r.context.rendering.publication.choices.find(
+                (b: { kind: string; factIds: string[] }) =>
+                  b.kind === 'DIALOGUE' && !b.factIds.length,
+              );
+              const beat = line ? { ...approved, text: line } : approved;
+              return {
+                narrative: beat.text,
+                eventIds: r.confirmed.eventIds,
+                beats: [beat],
+              };
+            })()
+          : r.stage === 'NARRATE'
+            ? r.confirmed
+            : null,
+      usage: [],
+      error: null,
+    }));
+  }
+  it('publishes a composed NPC reply, records attributed dialogue, and preserves it across two chats', async () => {
+    const { path, campaign, miraId, sessionId } = await freeSetup();
+    freeProvider(
+      freeProposal(
+        'TALK',
+        { type: 'DIALOGUE' },
+        { type: 'CHARACTER', name: 'Mira' },
+      ),
+    );
+    const body = {
+      actionId: randomUUID(),
+      interactionMode: 'SPEAK',
+      content:
+        'Mira, você acha que podemos confiar em Aren? Ele parece esconder alguma coisa.',
+    };
+    const first = (await http().post(`${path}/actions`).send(body).expect(201))
+      .body;
+    expect(first.status).toBe('COMPLETED');
+    expect(turn).toHaveBeenCalledTimes(2);
+    const render = turn.mock.calls.find(([r]) => r.stage === 'NARRATE')![0];
+    expect(render.context.rendering.speaker.id).toBe(miraId);
+    expect(render.context.rendering.speaker.personality).toContain('Serena');
+    expect(JSON.stringify(render)).not.toContain('SEGREDO_');
+    expect(render.context.adventure).toBeUndefined();
+    const history = (await http().get(`${path}/messages`)).body.data;
+    expect(history).toHaveLength(2);
+    expect(history[1].content).toContain('despertou sua suspeita');
+    expect(JSON.stringify(history)).not.toContain('freeResolution');
+    await http().post(`${path}/actions`).send(body).expect(201);
+    expect((await http().get(`${path}/messages`)).body.data).toEqual(history);
+    const events = await db.db
+      .select()
+      .from(game.gameEvents)
+      .where(eq(game.gameEvents.campaignId, campaign.id));
+    expect(events.filter((e) => e.type === 'SPEECH_RECORDED')).toHaveLength(1);
+    expect(events.filter((e) => e.type === 'NPC_REPLY_RECORDED')).toHaveLength(
+      1,
+    );
+    const before = await app
+      .get(NarrativeContextService)
+      .build(campaign.id, sessionId);
+    expect(
+      before.characters
+        .find((c) => c.id === miraId)!
+        .knowledge.some((k) =>
+          k.description.includes('despertou sua suspeita'),
+        ),
+    ).toBe(true);
+    await http()
+      .post(`${path}/finalize`)
+      .send({ endingType: 'PLAYER_REQUESTED' })
+      .expect(200);
+    const second = `/api/v1/campaigns/${campaign.id}/sessions/${campaign.sessions[1]!.id}`;
+    await http().post(`${second}/start`).send({}).expect(200);
+    await http()
+      .post(`${second}/actions`)
+      .send({
+        ...body,
+        actionId: randomUUID(),
+        content: 'Mira, ainda tenho dúvidas sobre Aren.',
+      })
+      .expect(201);
+    const last = turn.mock.calls
+      .filter(([r]) => r.stage === 'NARRATE')
+      .at(-1)![0];
+    expect(
+      last.context.rendering.facts.some((f: { description: string }) =>
+        f.description.includes('despertou sua suspeita'),
+      ),
+    ).toBe(true);
+    expect((await http().get(`${path}/messages`)).body.data).toEqual(history);
+  });
+  it('clarifies an ambiguous arcanum without consuming resources or recording world events', async () => {
+    const { path, campaign } = await freeSetup();
+    freeProvider(
+      freeProposal('ARCANA', {
+        type: 'CLARIFY',
+        question: 'Qual arcano deseja utilizar e em quem?',
+      }),
+    );
+    const before = await db.db
+      .select()
+      .from(game.gameEvents)
+      .where(eq(game.gameEvents.campaignId, campaign.id));
+    const body = {
+      actionId: randomUUID(),
+      interactionMode: 'ACT',
+      content: 'Quero usar minha magia nele.',
+    };
+    expect(
+      (await http().post(`${path}/actions`).send(body).expect(201)).body.status,
+    ).toBe('COMPLETED');
+    expect(
+      (await http().get(`${path}/messages`)).body.data.at(-1).content,
+    ).toContain('Qual arcano');
+    expect(
+      await db.db
+        .select()
+        .from(game.gameEvents)
+        .where(eq(game.gameEvents.campaignId, campaign.id)),
+    ).toEqual(before);
+  });
+  it('resolves a free investigation through an authorized check and waits for the player dice', async () => {
+    const { path } = await setup(true);
+    freeProvider(
+      freeProposal('INVESTIGATE', {
+        type: 'PREPARED_CHECK',
+        capability: 'Escalar a muralha',
+      }),
+    );
+    const body = {
+      actionId: randomUUID(),
+      interactionMode: 'ACT',
+      content: 'Procuro um apoio para subir e investigar o alto da muralha.',
+    };
+    const action = (await http().post(`${path}/actions`).send(body).expect(201))
+      .body;
+    expect(action.status).toBe('AWAITING_ROLL');
+    expect(turn).toHaveBeenCalledTimes(1);
+    await http().post(`${path}/actions/${action.id}/roll`).send({}).expect(200);
+    await http().post(`${path}/actions/${action.id}/roll`).send({}).expect(200);
+    const history = (await http().get(`${path}/messages`)).body.data;
+    expect(
+      history.filter((m: { role: string }) => m.role === 'SYSTEM'),
+    ).toHaveLength(1);
+    expect(
+      history.filter((m: { role: string }) => m.role === 'GAME_MASTER'),
+    ).toHaveLength(1);
+    expect(JSON.stringify(history)).not.toContain('resolvedOptionId');
+  });
+  it('keeps OOC clarification separate even if the model proposes a mechanical tool', async () => {
+    const { path, campaign } = await freeSetup();
+    freeProvider(freeProposal('CORRECT', { type: 'REST', kind: 'SLEEP' }));
+    const before = await db.db
+      .select()
+      .from(game.gameEvents)
+      .where(eq(game.gameEvents.campaignId, campaign.id));
+    const body = {
+      actionId: randomUUID(),
+      interactionMode: 'OUT_OF_CHARACTER',
+      content: 'Eu quis observar, não dormir. Pode esclarecer?',
+    };
+    expect(
+      (await http().post(`${path}/actions`).send(body).expect(201)).body.status,
+    ).toBe('COMPLETED');
+    expect(
+      await db.db
+        .select()
+        .from(game.gameEvents)
+        .where(eq(game.gameEvents.campaignId, campaign.id)),
+    ).toEqual(before);
+    const render = turn.mock.calls.find(([r]) => r.stage === 'NARRATE')![0];
+    expect(render.context.rendering.speaker).toBeNull();
+    expect(render.context.rendering.facts).toEqual([]);
+  });
+  it('falls back from invented outcomes and never records a rejected NPC reply', async () => {
+    const { path, campaign } = await freeSetup();
+    freeProvider(
+      freeProposal(
+        'TALK',
+        { type: 'DIALOGUE' },
+        { type: 'CHARACTER', name: 'Mira' },
+      ),
+      'Naelis aceita a proposta e recebe uma espada.',
+    );
+    const body = {
+      actionId: randomUUID(),
+      interactionMode: 'SPEAK',
+      content: 'Mira, podemos conversar?',
+    };
+    expect(
+      (await http().post(`${path}/actions`).send(body).expect(201)).body.status,
+    ).toBe('COMPLETED');
+    const history = (await http().get(`${path}/messages`)).body.data;
+    expect(history.at(-1).metadata.deterministicFallback).toBe(true);
+    expect(history.at(-1).content).not.toContain('espada');
+    const events = await db.db
+      .select()
+      .from(game.gameEvents)
+      .where(eq(game.gameEvents.campaignId, campaign.id));
+    expect(events.filter((e) => e.type === 'NPC_REPLY_RECORDED')).toHaveLength(
+      1,
+    );
+  });
+  it('rolls back reply memories with a failed final message and retries only narration', async () => {
+    const { path, campaign } = await freeSetup();
+    freeProvider(
+      freeProposal(
+        'TALK',
+        { type: 'DIALOGUE' },
+        { type: 'CHARACTER', name: 'Mira' },
+      ),
+    );
+    await db.db.execute(
+      sql`CREATE FUNCTION phase54_reject_master() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF NEW.role = 'GAME_MASTER' THEN RAISE EXCEPTION 'synthetic persistence failure'; END IF; RETURN NEW; END $$`,
+    );
+    await db.db.execute(
+      sql`CREATE TRIGGER phase54_reject_master BEFORE INSERT ON session_messages FOR EACH ROW EXECUTE FUNCTION phase54_reject_master()`,
+    );
+    const body = {
+      actionId: randomUUID(),
+      interactionMode: 'SPEAK',
+      content: 'Mira, ainda podemos conversar?',
+    };
+    try {
+      const action = (
+        await http().post(`${path}/actions`).send(body).expect(201)
+      ).body;
+      expect(action.status).toBe('COMMITTED');
+      const events = await db.db
+        .select()
+        .from(game.gameEvents)
+        .where(eq(game.gameEvents.campaignId, campaign.id));
+      expect(events.filter((e) => e.type === 'SPEECH_RECORDED')).toHaveLength(
+        1,
+      );
+      expect(
+        events.filter((e) => e.type === 'NPC_REPLY_RECORDED'),
+      ).toHaveLength(0);
+    } finally {
+      await db.db.execute(
+        sql`DROP TRIGGER phase54_reject_master ON session_messages`,
+      );
+      await db.db.execute(sql`DROP FUNCTION phase54_reject_master()`);
+    }
+    expect(
+      (
+        await http()
+          .post(`${path}/actions/${body.actionId}/retry`)
+          .send({})
+          .expect(200)
+      ).body.status,
+    ).toBe('COMPLETED');
+    expect(turn.mock.calls.filter(([r]) => r.stage === 'PROPOSE')).toHaveLength(
+      1,
+    );
+    const events = await db.db
+      .select()
+      .from(game.gameEvents)
+      .where(eq(game.gameEvents.campaignId, campaign.id));
+    expect(events.filter((e) => e.type === 'NPC_REPLY_RECORDED')).toHaveLength(
+      1,
+    );
+  });
+  it('retains each NPC critical conflicts and rumor sources despite another NPC having over 60 memories', async () => {
+    const npcs: string[] = [];
+    const { campaign, sessionId, pc } = await setup(
+      false,
+      async (c, _pc, plan) => {
+        for (const name of ['Theron', 'Moradora']) {
+          const npc = await admin(c.id, {
+            type: 'CHARACTER_CREATE',
+            kind: 'NPC',
+            known: true,
+            sheet: npcSheet(name),
+            personality: 'Cauteloso',
+          });
+          npcs.push(npc.id);
+          plan.presentCharacterIds.push(npc.id);
+        }
+      },
+    );
+    const [last] = await db.db
+      .select({ value: sql<number>`max(${game.gameEvents.publicSequence})` })
+      .from(game.gameEvents)
+      .where(sql`${game.gameEvents.campaignId} = ${campaign.id}`);
+    let sequence = last!.value ?? 0;
+    async function remember(
+      characterId: string,
+      description: string,
+      source: string,
+      importance: number,
+    ) {
+      const [event] = await db.db
+        .insert(game.gameEvents)
+        .values({
+          campaignId: campaign.id,
+          sessionId,
+          commandId: randomUUID(),
+          publicSequence: ++sequence,
+          type: 'TEST_MEMORY',
+          description,
+          visibility: 'PLAYER_ONLY',
+          changes: {},
+        })
+        .returning();
+      await db.db.insert(narrative.characterKnowledge).values({
+        campaignId: campaign.id,
+        characterId,
+        eventId: event!.id,
+        source,
+        importance,
+      });
+    }
+    await remember(npcs[1]!, 'Discussão anterior com Naelis.', 'WITNESSED', 90);
+    await remember(npcs[1]!, 'Talvez a janela esteja quebrada.', 'RUMOR', 90);
+    await remember(
+      pc.id,
+      'Descoberta privada sem testemunhas.',
+      'WITNESSED',
+      90,
+    );
+    for (let i = 0; i < 65; i++)
+      await remember(npcs[0]!, `Lembrança relevante ${i}`, 'HEARD', 95);
+    const context = await app
+      .get(NarrativeContextService)
+      .build(campaign.id, sessionId);
+    const npc = context.characters.find((c) => c.id === npcs[1])!;
+    expect(npc.knowledge).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          description: 'Discussão anterior com Naelis.',
+          source: 'WITNESSED',
+        }),
+        expect.objectContaining({
+          description: 'Talvez a janela esteja quebrada.',
+          source: 'RUMOR',
+        }),
+      ]),
+    );
+    expect(JSON.stringify(npc.knowledge)).not.toContain('Descoberta privada');
+    expect(
+      context.characters.find((c) => c.id === npcs[0])!.knowledge,
+    ).toHaveLength(65);
+    expect(context.characters.find((c) => c.id === pc.id)!.knowledge).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          description: 'Descoberta privada sem testemunhas.',
+        }),
+      ]),
+    );
+  });
+  it('aggregates measured usage, rate limits and retries by turn without exposing prompts', async () => {
+    const { path } = await setup();
+    const normal = turn.getMockImplementation()!;
+    const body = input();
+    turn.mockResolvedValueOnce({
+      proposal: null,
+      narration: null,
+      error: 'RATE_LIMIT',
+      usage: [
+        {
+          provider: 'gemini',
+          model: 'simulated',
+          inputTokens: 0,
+          outputTokens: 0,
+          durationMs: 10,
+          inputCharacters: 150,
+          totalTokens: null,
+          usageReported: false,
+          error: 'RATE_LIMIT',
+        },
+      ],
+    });
+    expect(
+      (await http().post(`${path}/actions`).send(body).expect(201)).body.status,
+    ).toBe('PENDING');
+    turn.mockImplementation(async (r) => ({
+      ...(await normal(r)),
+      usage:
+        r.stage === 'PROPOSE'
+          ? [
+              {
+                provider: 'gemini',
+                model: 'simulated',
+                inputTokens: 20,
+                outputTokens: 5,
+                totalTokens: 28,
+                usageReported: true,
+                inputCharacters: 150,
+                durationMs: 30,
+                error: null,
+              },
+            ]
+          : [],
+    }));
+    await http()
+      .post(`${path}/actions/${body.actionId}/retry`)
+      .send({})
+      .expect(200);
+    const usage = (await http().get(`${path}/ai-usage`).expect(200)).body;
+    expect(usage).toEqual([
+      expect.objectContaining({
+        provider: 'gemini',
+        model: 'simulated',
+        requests: 2,
+        turns: 1,
+        maxRequestsPerTurn: 2,
+        inputTokens: 20,
+        outputTokens: 5,
+        totalTokens: 28,
+        inputCharacters: 300,
+        durationMs: 40,
+        averageLatencyMs: 20,
+        errors: 1,
+        rateLimits: 1,
+        usageReportedRequests: 1,
+      }),
+    ]);
+    expect(JSON.stringify(usage)).not.toContain(body.content);
+    await http().post(`${path}/actions`).send(body).expect(201);
+    expect((await http().get(`${path}/ai-usage`)).body).toEqual(usage);
+  });
+  it('explains an unavailable model without losing the action or retrying it automatically', async () => {
+    const { path } = await setup();
+    turn.mockResolvedValue({
+      proposal: null,
+      narration: null,
+      error: 'MODEL_UNAVAILABLE',
+      usage: [],
+    });
+    const result = (
+      await http().post(`${path}/actions`).send(input()).expect(201)
+    ).body;
+    expect(result.status).toBe('PENDING');
+    expect(result.error).toContain('modelo do Mestre está indisponível');
+    expect(result.error).toContain('configuração do provedor');
+    expect(turn).toHaveBeenCalledTimes(1);
+    expect((await http().get(`${path}/messages`)).body.data).toHaveLength(1);
+  });
+  it.each([
+    {
+      label: 'early objective',
+      seconds: 0,
+      done: true,
+      ending: 'OBJECTIVE_COMPLETED',
+      status: 200,
+    },
+    {
+      label: 'pending after two hours',
+      seconds: 7300,
+      done: false,
+      ending: 'OBJECTIVE_COMPLETED',
+      status: 409,
+    },
+    {
+      label: 'abandoned investigation',
+      seconds: 100,
+      done: false,
+      ending: 'PLAYER_REQUESTED',
+      status: 200,
+    },
+    {
+      label: 'narrative pause',
+      seconds: 100,
+      done: false,
+      ending: 'NARRATIVE_PAUSE',
+      status: 200,
+    },
+    {
+      label: 'explicit ending',
+      seconds: 100,
+      done: false,
+      ending: 'PLAYER_REQUESTED',
+      status: 200,
+    },
+    {
+      label: 'prepared peaceful alternative',
+      seconds: 100,
+      done: true,
+      ending: 'OBJECTIVE_COMPLETED',
+      status: 200,
+    },
+  ])(
+    'Director respects $label and never starts the next session by itself',
+    async (scenario) => {
+      const alternative = scenario.label === 'prepared peaceful alternative';
+      const { path, campaign, sessionId } = await setup(
+        false,
+        async (_c, _pc, plan) => {
+          if (alternative) {
+            plan.options[0]!.keywords = ['negociar'];
+            plan.options[0]!.intent = 'Negociar a passagem';
+            plan.options[0]!.successText =
+              'A passagem foi autorizada após o acordo.';
+          }
+        },
+      );
+      await db.db
+        .update(campaignSessions)
+        .set({ activeDurationSeconds: scenario.seconds })
+        .where(eq(campaignSessions.id, sessionId));
+      if (scenario.done)
+        await http()
+          .post(`${path}/actions`)
+          .send({
+            ...input(),
+            ...(alternative ? { content: 'Quero negociar a passagem.' } : {}),
+          })
+          .expect(201);
+      const state = (await http().get(`${path}/narrative-state`).expect(200))
+        .body;
+      expect(state.objectiveCompleted).toBe(scenario.done);
+      expect(state.suggestSessionEnding).toBe(scenario.done);
+      expect((await http().get(path)).body.status).toBe('IN_PROGRESS');
+      await http()
+        .post(`${path}/finalize`)
+        .send({ endingType: scenario.ending })
+        .expect(scenario.status);
+      const second = `/api/v1/campaigns/${campaign.id}/sessions/${campaign.sessions[1]!.id}`;
+      expect((await http().get(second)).body.status).toBe(
+        scenario.status === 200 ? 'AVAILABLE' : 'LOCKED',
+      );
+      expect((await http().get(`${second}/messages`)).body.data).toHaveLength(
+        0,
+      );
+    },
+  );
+  it('rolls back a failed summary persistence and recovers finalization without losing the transcript', async () => {
+    const { path, campaign } = await setup();
+    await http().post(`${path}/actions`).send(input()).expect(201);
+    const history = (await http().get(`${path}/messages`)).body.data;
+    await db.db.execute(
+      sql`CREATE FUNCTION phase53_reject_summary() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF NEW.summary IS NOT NULL AND OLD.summary IS NULL THEN RAISE EXCEPTION 'summary failure'; END IF; RETURN NEW; END $$`,
+    );
+    await db.db.execute(
+      sql`CREATE TRIGGER phase53_reject_summary BEFORE UPDATE ON campaign_sessions FOR EACH ROW EXECUTE FUNCTION phase53_reject_summary()`,
+    );
+    try {
+      await http()
+        .post(`${path}/finalize`)
+        .send({ endingType: 'OBJECTIVE_COMPLETED' })
+        .expect(500);
+      expect((await http().get(path)).body.status).toBe('IN_PROGRESS');
+      expect((await http().get(`${path}/summary`)).body.summary).toBeNull();
+      expect((await http().get(`${path}/messages`)).body.data).toEqual(history);
+      const second = `/api/v1/campaigns/${campaign.id}/sessions/${campaign.sessions[1]!.id}`;
+      expect((await http().get(second)).body.status).toBe('LOCKED');
+    } finally {
+      await db.db.execute(
+        sql`DROP TRIGGER phase53_reject_summary ON campaign_sessions`,
+      );
+      await db.db.execute(sql`DROP FUNCTION phase53_reject_summary()`);
+    }
+    for (let i = 0; i < 2; i++)
+      await http()
+        .post(`${path}/finalize`)
+        .send({ endingType: 'OBJECTIVE_COMPLETED' })
+        .expect(200);
+    expect((await http().get(`${path}/messages`)).body.data).toEqual(history);
   });
   it('persists relationship, inventory, world, witnessed memory and objective evidence across sessions', async () => {
     let npcId = '',
@@ -257,7 +869,7 @@ describe('Narrative officialization and recovery / PostgreSQL', () => {
       .post(`${path}/finalize`)
       .send({ endingType: 'OBJECTIVE_COMPLETED' })
       .expect(200);
-    const secondId = campaign.sessions[1].id;
+    const secondId = campaign.sessions[1]!.id;
     await http()
       .post(`/api/v1/campaigns/${campaign.id}/sessions/${secondId}/start`)
       .send({})
@@ -375,117 +987,140 @@ describe('Narrative officialization and recovery / PostgreSQL', () => {
       .send({ ...input(), interactionMode: 'THINK' })
       .expect(201);
   });
-  it('keeps NPC attack damage pending until Stunts resolve, without ever repeating the attack', async () => {
-    let npcId = '',
-      itemId = '';
-    const { campaign, pc, sessionId, path } = await setup(
-      false,
-      async (c, _pc, plan) => {
-        npcId = (
-          await admin(c.id, {
-            type: 'CHARACTER_CREATE',
-            kind: 'NPC',
-            known: true,
-            sheet: npcSheet(),
-          })
-        ).id;
-        itemId = (
-          await admin(c.id, {
-            type: 'ITEM_CREATE',
-            name: 'Espada',
-            description: 'Lâmina pesada',
-            consumable: false,
-            equipmentRuleId: 'heavy-blade',
-          })
-        ).id;
-        plan.presentCharacterIds.push(npcId);
-      },
-    );
-    const command = (cmd: unknown) =>
-      engine.executeInternal({
-        campaignId: campaign.id,
-        sessionId,
-        commandId: randomUUID(),
-        command: cmd,
-      });
-    for (const characterId of [pc.id, npcId]) {
+  it.each(['NPC', 'FREE_PLAYER'] as const)(
+    'keeps %s attack damage pending until Stunts resolve without repetition',
+    async (role) => {
+      let npcId = '',
+        itemId = '';
+      const { campaign, pc, sessionId, path } = await setup(
+        false,
+        async (c, _pc, plan) => {
+          npcId = (
+            await admin(c.id, {
+              type: 'CHARACTER_CREATE',
+              kind: 'NPC',
+              known: true,
+              sheet: npcSheet('Theron', role === 'NPC' ? 4 : 1),
+            })
+          ).id;
+          itemId = (
+            await admin(c.id, {
+              type: 'ITEM_CREATE',
+              name: 'Espada',
+              description: 'Lâmina pesada',
+              consumable: false,
+              equipmentRuleId: 'heavy-blade',
+            })
+          ).id;
+          plan.presentCharacterIds.push(npcId);
+        },
+      );
+      const command = (cmd: unknown) =>
+        engine.executeInternal({
+          campaignId: campaign.id,
+          sessionId,
+          commandId: randomUUID(),
+          command: cmd,
+        });
+      for (const characterId of [pc.id, npcId]) {
+        await command({
+          type: 'ITEM_GRANT',
+          characterId,
+          itemId,
+          quantity: 1,
+          reason: 'Arma equipada',
+        });
+        await command({
+          type: 'INVENTORY_ACTION',
+          characterId,
+          input: {
+            commandId: randomUUID(),
+            sessionId,
+            action: 'EQUIP',
+            itemId,
+          },
+        });
+        await command({
+          type: 'COMBAT_CONFIGURE',
+          characterId,
+          armorType: 'NONE',
+          armorTrained: false,
+          shieldType: 'NONE',
+          shieldTrained: false,
+          baseSpeed: 10,
+          weaponTraining: ['heavy-blade'],
+          reason: 'Perfil revisado',
+        });
+      }
       await command({
-        type: 'ITEM_GRANT',
-        characterId,
-        itemId,
-        quantity: 1,
-        reason: 'Arma equipada',
+        type: 'COMBAT_START',
+        visibility: 'PUBLIC',
+        reason: 'Confronto preparado',
+        members: [
+          { characterId: pc.id, weaponItemId: itemId, x: 0, y: 0 },
+          { characterId: npcId, weaponItemId: itemId, x: 1, y: 0 },
+        ],
       });
-      await command({
-        type: 'INVENTORY_ACTION',
-        characterId,
-        input: { commandId: randomUUID(), sessionId, action: 'EQUIP', itemId },
-      });
-      await command({
-        type: 'COMBAT_CONFIGURE',
-        characterId,
-        armorType: 'NONE',
-        armorTrained: false,
-        shieldType: 'NONE',
-        shieldTrained: false,
-        baseSpeed: 10,
-        weaponTraining: ['heavy-blade'],
-        reason: 'Perfil revisado',
-      });
-    }
-    await command({
-      type: 'COMBAT_START',
-      visibility: 'PUBLIC',
-      reason: 'Confronto preparado',
-      members: [
-        { characterId: pc.id, weaponItemId: itemId, x: 0, y: 0 },
-        { characterId: npcId, weaponItemId: itemId, x: 1, y: 0 },
-      ],
-    });
-    turn.mockImplementation(async (r) => ({
-      proposal:
-        r.stage === 'PROPOSE'
-          ? { kind: 'ATTACK', actorId: npcId, targetId: pc.id }
-          : null,
-      narration: r.stage === 'NARRATE' ? r.confirmed : null,
-      usage: [],
-      error: null,
-    }));
-    const body = input();
-    const pending = (
-      await http().post(`${path}/actions`).send(body).expect(201)
-    ).body;
-    expect(pending.status).toBe('AWAITING_STUNTS');
-    expect(
-      (await http().get(`/api/v1/characters/${pc.id}`)).body.resources[0]
-        .current,
-    ).toBe(30);
-    expect(
-      (await http().get(`${path}/messages`)).body.data.filter(
-        (m: { role: string }) => m.role === 'GAME_MASTER',
-      ),
-    ).toHaveLength(0);
-    expect(
-      (
-        await http()
-          .post(`${path}/actions/${body.actionId}/decline-npc-stunts`)
-          .send({})
-          .expect(200)
-      ).body.status,
-    ).toBe('COMPLETED');
-    const health = (await http().get(`/api/v1/characters/${pc.id}`)).body
-      .resources[0].current;
-    expect(health).toBeLessThan(30);
-    await http().post(`${path}/actions`).send(body).expect(201);
-    expect(
-      (await http().get(`/api/v1/characters/${pc.id}`)).body.resources[0]
-        .current,
-    ).toBe(health);
-    const attacks = await db.db.execute(
-      sql`SELECT * FROM blue_rose_attacks WHERE actor_id = ${npcId}`,
-    );
-    expect(attacks.rows).toHaveLength(1);
-  });
+      turn.mockImplementation(async (r) => ({
+        proposal:
+          r.stage === 'PROPOSE'
+            ? role === 'NPC'
+              ? { kind: 'ATTACK', actorId: npcId, targetId: pc.id }
+              : freeProposal(
+                  'ATTACK',
+                  { type: 'COMBAT', action: 'ATTACK' },
+                  { type: 'CHARACTER', name: 'Theron' },
+                )
+            : null,
+        narration: r.stage === 'NARRATE' ? r.confirmed : null,
+        usage: [],
+        error: null,
+      }));
+      const targetId = role === 'NPC' ? pc.id : npcId;
+      const actorId = role === 'NPC' ? npcId : pc.id;
+      const body =
+        role === 'NPC'
+          ? input()
+          : {
+              actionId: randomUUID(),
+              interactionMode: 'ACT',
+              content: 'Ataco Theron.',
+            };
+      const pending = (
+        await http().post(`${path}/actions`).send(body).expect(201)
+      ).body;
+      expect(pending.status).toBe('AWAITING_STUNTS');
+      expect(
+        (await http().get(`/api/v1/characters/${targetId}`)).body.resources[0]
+          .current,
+      ).toBe(30);
+      expect(
+        (await http().get(`${path}/messages`)).body.data.filter(
+          (m: { role: string }) => m.role === 'GAME_MASTER',
+        ),
+      ).toHaveLength(0);
+      expect(
+        (
+          await http()
+            .post(`${path}/actions/${body.actionId}/decline-npc-stunts`)
+            .send({})
+            .expect(200)
+        ).body.status,
+      ).toBe('COMPLETED');
+      const health = (await http().get(`/api/v1/characters/${targetId}`)).body
+        .resources[0].current;
+      expect(health).toBeLessThan(30);
+      await http().post(`${path}/actions`).send(body).expect(201);
+      expect(
+        (await http().get(`/api/v1/characters/${targetId}`)).body.resources[0]
+          .current,
+      ).toBe(health);
+      const attacks = await db.db.execute(
+        sql`SELECT * FROM blue_rose_attacks WHERE actor_id = ${actorId}`,
+      );
+      expect(attacks.rows).toHaveLength(1);
+    },
+  );
   it('requires explicit player authorization and never completes objectives through the legacy endpoint', async () => {
     const { path } = await setup();
     const body = {
@@ -553,7 +1188,7 @@ describe('Narrative officialization and recovery / PostgreSQL', () => {
       .post(`${path}/finalize`)
       .send({ endingType: 'OBJECTIVE_COMPLETED' })
       .expect(200);
-    const second = `/api/v1/campaigns/${campaign.id}/sessions/${campaign.sessions[1].id}`;
+    const second = `/api/v1/campaigns/${campaign.id}/sessions/${campaign.sessions[1]!.id}`;
     await http().post(`${second}/start`).send({}).expect(200);
     expect((await http().get(`${path}/messages`)).body.data).toEqual(history);
     expect((await http().get(`${path}/summary`)).body.summary).toContain(

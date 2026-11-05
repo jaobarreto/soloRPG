@@ -1,0 +1,165 @@
+{
+  "phase": "5.6.1.1",
+  "evidenceKind": "OFFLINE_RAW_REPLAY_AND_SCRIPTED_CANDIDATES_NOT_NEW_GEMINI_RESPONSES",
+  "realProviderRequests": 0,
+  "rows": [
+    {
+      "id": "561-01",
+      "receipt": "phase-5.6.1-case561-01-schema-confirmation.json",
+      "receiptSHA256": "9ba05bae0360dd142cf5a5791335934791e1448d56339d7a510e0453d0398c3a",
+      "historicalRaw": {
+        "kind": "FREE",
+        "intent": "QUERY",
+        "description": "Naelis consulta suas lembranças e investigações anteriores sobre a porta.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": ["info-b8009dbd5409f0d34e434465"],
+        "tool": {
+          "type": "QUERY",
+          "subject": "MEMORY"
+        }
+      },
+      "historicalSemanticGradeUnchanged": {
+        "passed": false,
+        "failures": ["EXPRESSION"]
+      },
+      "currentProductionPolicyOnHistoricalRaw": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "QUERY",
+          "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+          "targetId": "00000000-0000-4000-a000-000000000004",
+          "authorizedTool": "QUERY"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+            "eventIds": []
+          },
+          "reason": null
+        }
+      },
+      "scriptedExpectedCandidate": {
+        "kind": "FREE",
+        "intent": "QUERY",
+        "description": "Proposta roteirizada exclusivamente para validar o replay offline.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "QUESTION",
+        "evidence": ["info-b8009dbd5409f0d34e434465"],
+        "tool": {
+          "type": "QUERY",
+          "subject": "MEMORY"
+        }
+      },
+      "scriptedCandidateGrade": {
+        "passed": true,
+        "failures": []
+      },
+      "currentPolicyOnScriptedCandidate": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "QUERY",
+          "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+          "targetId": "00000000-0000-4000-a000-000000000004",
+          "authorizedTool": "QUERY"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+            "eventIds": []
+          },
+          "reason": null
+        }
+      }
+    },
+    {
+      "id": "561-06",
+      "receipt": "phase-5.6.1-completion-live-result.json",
+      "receiptSHA256": "e8069435006ff4663710e3cefb3cee2b0c0161eec6afd44efb3514975a85a9c2",
+      "historicalRaw": {
+        "kind": "FREE",
+        "intent": "ARCANA",
+        "description": "Naelis ergue seu Escudo Psíquico.",
+        "target": null,
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "ARCANA",
+          "arcanum": "psychic-shield",
+          "raised": true,
+          "tradition": "PSYCHIC",
+          "use": null,
+          "fatigue": null,
+          "category": null
+        }
+      },
+      "historicalSemanticGradeUnchanged": {
+        "passed": false,
+        "failures": ["INVENTED_PARAMETER:tradition"]
+      },
+      "currentProductionPolicyOnHistoricalRaw": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "CLARIFY",
+          "text": "Há parâmetros que não se aplicam ao arcano escolhido. Pode esclarecer a tentativa sem esses parâmetros?",
+          "reason": "ARCANA_PARAMETER_MISMATCH"
+        },
+        "authorization": "LIMITED_OR_REFUSED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      },
+      "scriptedExpectedCandidate": {
+        "kind": "FREE",
+        "intent": "ARCANA",
+        "description": "Proposta roteirizada exclusivamente para validar o replay offline.",
+        "target": null,
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "ARCANA",
+          "arcanum": "psychic-shield",
+          "raised": true
+        }
+      },
+      "scriptedCandidateGrade": {
+        "passed": true,
+        "failures": []
+      },
+      "currentPolicyOnScriptedCandidate": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "MECHANIC",
+          "text": "O motor verifica o arcano e suas condições.",
+          "command": {
+            "type": "ARCANA_USE",
+            "input": {
+              "arcanum": "psychic-shield",
+              "characterId": "00000000-0000-4000-a000-000000000001",
+              "raised": true
+            }
+          }
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      }
+    }
+  ],
+  "permanentFreeTierConfirmation": false
+}

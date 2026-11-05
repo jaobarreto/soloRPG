@@ -78,6 +78,141 @@
   },
   "components": {
     "schemas": {
+      "AdjudicateTool": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "ADJUDICATE",
+            "title": "Type"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type"],
+        "title": "AdjudicateTool"
+      },
+      "AdventureAction": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "ADVENTURE_ACTION",
+            "title": "Type"
+          },
+          "input": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RitualAttempt"
+              },
+              {
+                "$ref": "#/components/schemas/RitualStop"
+              }
+            ],
+            "title": "Input"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "input"],
+        "title": "AdventureAction"
+      },
+      "ArcanaTool": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "ARCANA",
+            "title": "Type"
+          },
+          "arcanum": {
+            "type": "string",
+            "enum": [
+              "psychic-shield",
+              "second-sight",
+              "psychic-contact",
+              "cure",
+              "body-control",
+              "move-object",
+              "wind-shaping"
+            ],
+            "title": "Arcanum"
+          },
+          "raised": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Raised",
+            "description": "Somente psychic-shield: erguer=true ou baixar=false, se declarado. Nos demais arcanos omitir ou null."
+          },
+          "tradition": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": ["PSYCHIC", "ANIMISM", "HEALING", "MEDITATIVE"]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tradition",
+            "description": "Somente psychic-contact ou body-control, se declarada. Não deduzir tradição pelo nome do arcano ou pela ficha. Nos demais omitir ou null."
+          },
+          "use": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "SLEEP",
+                  "DIFFICULT_SLEEP",
+                  "HALF_BREATHING",
+                  "QUARTER_BREATHING",
+                  "IGNORE_PAIN",
+                  "BODY_AWARENESS",
+                  "FEIGN_DEATH"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Use",
+            "description": "Somente body-control: uso expressamente escolhido. Nos demais arcanos omitir ou null."
+          },
+          "fatigue": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fatigue",
+            "description": "Somente move-object: opção voluntária expressamente escolhida. Não é fadiga calculada pelo motor. Nos demais omitir ou null."
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 3.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category",
+            "description": "Somente wind-shaping: categoria desejada expressamente escolhida. Não é a categoria atual do contexto. Nos demais omitir ou null."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "arcanum"],
+        "title": "ArcanaTool"
+      },
       "Attack": {
         "properties": {
           "kind": {
@@ -100,6 +235,334 @@
         "type": "object",
         "required": ["kind", "actorId", "targetId"],
         "title": "Attack"
+      },
+      "BodyControl": {
+        "properties": {
+          "arcanum": {
+            "type": "string",
+            "const": "body-control",
+            "title": "Arcanum"
+          },
+          "characterId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Characterid"
+          },
+          "targetId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Targetid"
+          },
+          "tradition": {
+            "type": "string",
+            "enum": ["HEALING", "MEDITATIVE", "ANIMISM"],
+            "title": "Tradition"
+          },
+          "use": {
+            "type": "string",
+            "enum": [
+              "SLEEP",
+              "DIFFICULT_SLEEP",
+              "HALF_BREATHING",
+              "QUARTER_BREATHING",
+              "IGNORE_PAIN",
+              "BODY_AWARENESS",
+              "FEIGN_DEATH"
+            ],
+            "title": "Use"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["arcanum", "characterId", "targetId", "tradition", "use"],
+        "title": "BodyControl"
+      },
+      "ClarifyTool": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "CLARIFY",
+            "title": "Type"
+          },
+          "question": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Question"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "question"],
+        "title": "ClarifyTool"
+      },
+      "CombatTool": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "COMBAT",
+            "title": "Type"
+          },
+          "action": {
+            "type": "string",
+            "enum": ["ATTACK", "DEFEND"],
+            "title": "Action"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "action"],
+        "title": "CombatTool"
+      },
+      "Contact": {
+        "properties": {
+          "arcanum": {
+            "type": "string",
+            "const": "psychic-contact",
+            "title": "Arcanum"
+          },
+          "characterId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Characterid"
+          },
+          "targetId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Targetid"
+          },
+          "tradition": {
+            "type": "string",
+            "enum": ["PSYCHIC", "ANIMISM"],
+            "title": "Tradition"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["arcanum", "characterId", "targetId", "tradition"],
+        "title": "Contact"
+      },
+      "Cure": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "CURE",
+            "title": "Type"
+          },
+          "characterId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Characterid"
+          },
+          "targetId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Targetid"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "characterId", "targetId"],
+        "title": "Cure"
+      },
+      "DialogueTool": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "DIALOGUE",
+            "title": "Type"
+          },
+          "topic": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Topic"
+          },
+          "act": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "ANSWER",
+                  "DOUBT",
+                  "DISAGREE",
+                  "CLARIFY",
+                  "CAUTION",
+                  "RESUME",
+                  "REFUSE",
+                  "UNKNOWN"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Act"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type"],
+        "title": "DialogueTool"
+      },
+      "EndArcanum": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "ARCANA_END",
+            "title": "Type"
+          },
+          "characterId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Characterid"
+          },
+          "effectId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Effectid"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "characterId", "effectId"],
+        "title": "EndArcanum"
+      },
+      "FreeAction": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "const": "FREE",
+            "title": "Kind"
+          },
+          "intent": {
+            "type": "string",
+            "enum": [
+              "TALK",
+              "QUERY",
+              "INVESTIGATE",
+              "OBSERVE",
+              "EXPLORE",
+              "MOVE",
+              "ARCANA",
+              "ATTACK",
+              "DEFEND",
+              "INTERACT",
+              "USE_ITEM",
+              "HELP",
+              "REST",
+              "WAIT",
+              "SOCIAL",
+              "REFUSE",
+              "NEGOTIATE",
+              "LIE",
+              "OOC",
+              "CORRECT",
+              "THINK",
+              "OTHER"
+            ],
+            "title": "Intent"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Description"
+          },
+          "target": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NamedTarget"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "expression": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "DIRECT",
+                  "QUESTION",
+                  "HYPOTHETICAL",
+                  "NEGATED",
+                  "QUOTED",
+                  "COMPOUND"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expression",
+            "description": "Ato comunicativo da mensagem inteira, independente de intent, tool e interactionMode. QUESTION: pedido de informação, inclusive indireto e sem interrogação. DIRECT: declaração ou comando atual, inclusive comando de consulta. HYPOTHETICAL: possibilidade não executada; NEGATED: ação recusada; QUOTED: conteúdo atribuído; COMPOUND: tentativas distintas. O canal ACT e a descrição operacional não transformam pergunta em DIRECT."
+          },
+          "evidence": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "maxLength": 80,
+                  "minLength": 1
+                },
+                "type": "array",
+                "maxItems": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence"
+          },
+          "tool": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DialogueTool"
+              },
+              {
+                "$ref": "#/components/schemas/ObserveTool"
+              },
+              {
+                "$ref": "#/components/schemas/QueryTool"
+              },
+              {
+                "$ref": "#/components/schemas/ClarifyTool"
+              },
+              {
+                "$ref": "#/components/schemas/AdjudicateTool"
+              },
+              {
+                "$ref": "#/components/schemas/PreparedCheckTool"
+              },
+              {
+                "$ref": "#/components/schemas/ArcanaTool"
+              },
+              {
+                "$ref": "#/components/schemas/CombatTool"
+              },
+              {
+                "$ref": "#/components/schemas/RestTool"
+              },
+              {
+                "$ref": "#/components/schemas/WaitTool"
+              }
+            ],
+            "title": "Tool"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["kind", "intent", "description", "target", "tool"],
+        "title": "FreeAction"
       },
       "HTTPValidationError": {
         "properties": {
@@ -132,6 +595,85 @@
         "type": "object",
         "title": "HealthResponse"
       },
+      "Mechanic": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "const": "MECHANIC",
+            "title": "Kind"
+          },
+          "command": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UseArcanum"
+              },
+              {
+                "$ref": "#/components/schemas/Cure"
+              },
+              {
+                "$ref": "#/components/schemas/EndArcanum"
+              },
+              {
+                "$ref": "#/components/schemas/Rest"
+              },
+              {
+                "$ref": "#/components/schemas/AdventureAction"
+              }
+            ],
+            "title": "Command"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["kind", "command"],
+        "title": "Mechanic"
+      },
+      "MoveObject": {
+        "properties": {
+          "arcanum": {
+            "type": "string",
+            "const": "move-object",
+            "title": "Arcanum"
+          },
+          "characterId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Characterid"
+          },
+          "contextId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Contextid"
+          },
+          "fatigue": {
+            "type": "boolean",
+            "title": "Fatigue"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["arcanum", "characterId", "contextId", "fatigue"],
+        "title": "MoveObject"
+      },
+      "NamedTarget": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["CHARACTER", "WORLD", "ITEM"],
+            "title": "Type"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "name"],
+        "title": "NamedTarget"
+      },
       "Narration": {
         "properties": {
           "narrative": {
@@ -148,12 +690,68 @@
             "type": "array",
             "maxItems": 100,
             "title": "Eventids"
+          },
+          "beats": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/NarrativeBeat"
+                },
+                "type": "array",
+                "maxItems": 8,
+                "minItems": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Beats"
           }
         },
         "additionalProperties": false,
         "type": "object",
         "required": ["narrative", "eventIds"],
         "title": "Narration"
+      },
+      "NarrativeBeat": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["RESULT", "ATMOSPHERE", "DIALOGUE", "QUESTION", "OOC"],
+            "title": "Kind"
+          },
+          "speakerId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Speakerid"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 3000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "factIds": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Factids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["kind", "speakerId", "text", "factIds"],
+        "title": "NarrativeBeat"
       },
       "Observe": {
         "properties": {
@@ -168,6 +766,38 @@
         "required": ["kind"],
         "title": "Observe"
       },
+      "ObserveTool": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "OBSERVE",
+            "title": "Type"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type"],
+        "title": "ObserveTool"
+      },
+      "PreparedCheckTool": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "PREPARED_CHECK",
+            "title": "Type"
+          },
+          "capability": {
+            "type": "string",
+            "maxLength": 3000,
+            "minLength": 1,
+            "title": "Capability"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "capability"],
+        "title": "PreparedCheckTool"
+      },
       "Proposal": {
         "anyOf": [
           {
@@ -178,9 +808,162 @@
           },
           {
             "$ref": "#/components/schemas/Attack"
+          },
+          {
+            "$ref": "#/components/schemas/Mechanic"
+          },
+          {
+            "$ref": "#/components/schemas/FreeAction"
           }
         ],
         "title": "Proposal"
+      },
+      "QueryTool": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "QUERY",
+            "title": "Type"
+          },
+          "subject": {
+            "type": "string",
+            "enum": [
+              "CHARACTER",
+              "LOCATION",
+              "INVENTORY",
+              "RULES",
+              "MEMORY",
+              "OBJECTIVES"
+            ],
+            "title": "Subject"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "subject"],
+        "title": "QueryTool"
+      },
+      "Rest": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "REST",
+            "title": "Type"
+          },
+          "characterId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Characterid"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["BREATHER", "LIGHT_REST", "SLEEP"],
+            "title": "Kind"
+          },
+          "sustenanceConfirmed": {
+            "anyOf": [
+              {
+                "type": "boolean",
+                "const": true
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sustenanceconfirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "characterId", "kind"],
+        "title": "Rest"
+      },
+      "RestTool": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "REST",
+            "title": "Type"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["BREATHER", "LIGHT_REST", "SLEEP"],
+            "title": "Kind"
+          },
+          "sustenanceConfirmed": {
+            "anyOf": [
+              {
+                "type": "boolean",
+                "const": true
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sustenanceconfirmed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "kind"],
+        "title": "RestTool"
+      },
+      "RitualAttempt": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "const": "RITUAL_ATTEMPT",
+            "title": "Action"
+          },
+          "characterId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Characterid"
+          },
+          "task": {
+            "type": "string",
+            "enum": ["CANDLES", "POEM", "SHAPING"],
+            "title": "Task"
+          },
+          "benefit": {
+            "type": "string",
+            "enum": ["NONE", "EGG", "HAINT_TARGET", "HAINT_DAMAGE"],
+            "title": "Benefit"
+          },
+          "declineStunts": {
+            "type": "boolean",
+            "const": true,
+            "title": "Declinestunts"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "action",
+          "characterId",
+          "task",
+          "benefit",
+          "declineStunts"
+        ],
+        "title": "RitualAttempt"
+      },
+      "RitualStop": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "const": "RITUAL_STOP",
+            "title": "Action"
+          },
+          "characterId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Characterid"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["action", "characterId"],
+        "title": "RitualStop"
       },
       "Scene": {
         "properties": {
@@ -199,6 +982,58 @@
         "type": "object",
         "required": ["kind", "optionId"],
         "title": "Scene"
+      },
+      "Shield": {
+        "properties": {
+          "arcanum": {
+            "type": "string",
+            "const": "psychic-shield",
+            "title": "Arcanum"
+          },
+          "characterId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Characterid"
+          },
+          "raised": {
+            "type": "boolean",
+            "title": "Raised"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["arcanum", "characterId", "raised"],
+        "title": "Shield"
+      },
+      "Sight": {
+        "properties": {
+          "arcanum": {
+            "type": "string",
+            "const": "second-sight",
+            "title": "Arcanum"
+          },
+          "characterId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Characterid"
+          },
+          "contextId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contextid"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["arcanum", "characterId"],
+        "title": "Sight"
       },
       "TurnRequest": {
         "properties": {
@@ -321,18 +1156,44 @@
           },
           "inputTokens": {
             "type": "integer",
+            "minimum": 0.0,
             "title": "Inputtokens",
             "default": 0
           },
           "outputTokens": {
             "type": "integer",
+            "minimum": 0.0,
             "title": "Outputtokens",
             "default": 0
           },
           "durationMs": {
             "type": "integer",
+            "minimum": 0.0,
             "title": "Durationms",
             "default": 0
+          },
+          "inputCharacters": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Inputcharacters",
+            "default": 0
+          },
+          "totalTokens": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Totaltokens"
+          },
+          "usageReported": {
+            "type": "boolean",
+            "title": "Usagereported",
+            "default": false
           },
           "error": {
             "anyOf": [
@@ -350,6 +1211,42 @@
         "type": "object",
         "required": ["provider", "model"],
         "title": "Usage"
+      },
+      "UseArcanum": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "ARCANA_USE",
+            "title": "Type"
+          },
+          "input": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Shield"
+              },
+              {
+                "$ref": "#/components/schemas/Sight"
+              },
+              {
+                "$ref": "#/components/schemas/Contact"
+              },
+              {
+                "$ref": "#/components/schemas/BodyControl"
+              },
+              {
+                "$ref": "#/components/schemas/MoveObject"
+              },
+              {
+                "$ref": "#/components/schemas/Wind"
+              }
+            ],
+            "title": "Input"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "input"],
+        "title": "UseArcanum"
       },
       "ValidationError": {
         "properties": {
@@ -386,6 +1283,54 @@
         "type": "object",
         "required": ["loc", "msg", "type"],
         "title": "ValidationError"
+      },
+      "WaitTool": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "WAIT",
+            "title": "Type"
+          },
+          "minutes": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 1.0,
+            "title": "Minutes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["type", "minutes"],
+        "title": "WaitTool"
+      },
+      "Wind": {
+        "properties": {
+          "arcanum": {
+            "type": "string",
+            "const": "wind-shaping",
+            "title": "Arcanum"
+          },
+          "characterId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Characterid"
+          },
+          "contextId": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Contextid"
+          },
+          "category": {
+            "type": "integer",
+            "maximum": 3.0,
+            "minimum": 0.0,
+            "title": "Category"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": ["arcanum", "characterId", "contextId", "category"],
+        "title": "Wind"
       }
     }
   }

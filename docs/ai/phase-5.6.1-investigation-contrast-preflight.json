@@ -1,0 +1,56 @@
+{
+  "phase": "5.6.1",
+  "scope": "ONLY_56103_AND_56104",
+  "maxRequests": 2,
+  "maxOutputTokensPerRequest": 700,
+  "operatorAuthorization": "One attempt per original case; no retries or repairs; isolated safe semantic mismatch may continue; critical errors stop.",
+  "checks": {
+    "selectedOnlyAuthorizedCases": true,
+    "sameOriginalMessage": true,
+    "onlyContextDifferenceIsOptions": true,
+    "allOriginalPlanAndProductionHashesPreserved": true,
+    "envUnchanged": true,
+    "noKeyOverride": true,
+    "keyPresent": true,
+    "gemini": true,
+    "modelMatches": true,
+    "fallbackDisabled": true,
+    "permanentFreeTierFlagFalse": true,
+    "outgoingKindFree": true,
+    "receiptPathUnused": true
+  },
+  "protectedHashesBefore": {
+    ".env": "f7e4a08fdcd9ec6667ec5769afc97ba9311909ef3f7235db05406435b5ec7042",
+    "apps/ai-service/app/core/config.py": "1daafb172950c15efc504e77af5ec5df1361ba6ceba48b28d1b60bd6d53ee6eb",
+    "apps/ai-service/app/narrative/graph.py": "a6f3b807d4d1e2f2898c6d78fd375dd69c2f691aa10cfdbc5f91013d84e81daf",
+    "apps/ai-service/app/narrative/prompts.py": "ce92d867d2ed24b2bc94d9fb11b6d1c49bf6e80fcad11b7c2f38a805b2f59bd3",
+    "apps/ai-service/app/narrative/selection.py": "e4d9029fe7800ed5e006bbaf7861bb0c0d5dd886e571b718471dde6ba7e8d551",
+    "apps/ai-service/app/narrative/schemas.py": "52ec5eea8cac2e5c5878f00cacb93c5f6ea83e6191e1f7f641478cc5a9771f89",
+    "apps/ai-service/app/providers/gemini.py": "3ecdcc1d2534aebb5e28aa16f61fbcd9397ccd275cd839d6fa8c5a3d147ec0ff",
+    "apps/ai-service/app/providers/router.py": "f5acbe415bdc5c4fcc75797c1ce777c8deb00773a175189cd337290b50e095bc",
+    "apps/api/src/narrative/free-action.ts": "f2a31d7d83a9e66401cd6dceddd8500035c82f464c47cef7131fcab31b76f106",
+    "apps/api/src/narrative/information.ts": "fdc3a5dec1e45e2bb63233fffb539ea85c9d1e1de00b2e58b1c7b3008f8ff84c",
+    "apps/api/src/narrative/rendering.ts": "d5bf387a73d1ad46c493a43214e579be7419daeafced3c73d3527ecea8c48bd9",
+    "packages/shared-contracts/src/free-action.ts": "da72699714626f4e373f005e3cf64b8b7c18716665a4aed443fe57f54950fa08",
+    "docs/ai/phase-5.6.1-plan.json": "82f3303faf6c125ad5c59360f0e2e6404e8c7c894efbf2f01000c7f6e6878f0d"
+  },
+  "historicalReceiptHashes": {
+    "docs/ai/phase-5.6.1-live-result.json": "1afbead5f2b009796bf13e7e5e513d7635aa0c9c1c76b7bc65bb30868d84dd00",
+    "docs/ai/phase-5.6.1-case561-01-schema-confirmation.json": "9ba05bae0360dd142cf5a5791335934791e1448d56339d7a510e0453d0398c3a",
+    "docs/ai/phase-5.6.1-case561-01-confirmation-review.json": "b78177ee625769b63944de46520900474cd7bffd3e0cfa49fe8cb20c9f8ec143"
+  },
+  "runnerSHA256": "ba748e908b070d115300b4b190eaeb56576850e2b716f1464a15ccd258e58d19",
+  "generationSchemaSHA256": "278929b0e4a967371c4884db60eb7eb0ef920d6e7cb0f3a0191dcaa3efe05298",
+  "requestSHA256": {
+    "561-03": "69a3ad12eb2a4fdf0ebacc6c670d788a55613e80d4011e0c5b0742bbbf3fb788",
+    "561-04": "4cf3fab7c92ebde4be369aa8b8bd7c996521549ab51e148f3946d5a6b97fee51"
+  },
+  "plannerRequestSHA256": {
+    "561-03": "556f6620c058807a85b47105c967ded898dbea446a776d13b78395c981408dba",
+    "561-04": "30873946d0da63da7ec1df0795004616e11318b3bcb57140d6e830df0fe7dbc8"
+  },
+  "contextDifferenceKeys": [
+    "options"
+  ],
+  "projectVerification": "Same .env key; free project without billing attested by operator earlier; no independent Cloud billing lookup."
+}

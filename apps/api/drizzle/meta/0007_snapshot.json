@@ -1,0 +1,4586 @@
+{
+  "id": "6dd3ce7d-7c4b-4ca7-8118-9f91239c95f5",
+  "prevId": "ddb8baa3-bfb4-4274-abb6-b22478561362",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.campaign_sessions": {
+      "name": "campaign_sessions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_number": {
+          "name": "session_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "session_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'LOCKED'"
+        },
+        "estimated_duration_minutes": {
+          "name": "estimated_duration_minutes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 120
+        },
+        "active_duration_seconds": {
+          "name": "active_duration_seconds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "started_at": {
+          "name": "started_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resumed_at": {
+          "name": "resumed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "paused_at": {
+          "name": "paused_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ending_type": {
+          "name": "ending_type",
+          "type": "ending_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "summary": {
+          "name": "summary",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "sessions_one_running_per_campaign": {
+          "name": "sessions_one_running_per_campaign",
+          "columns": [
+            {
+              "expression": "campaign_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"campaign_sessions\".\"status\" IN ('IN_PROGRESS', 'PAUSED')",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "campaign_sessions_campaign_id_campaigns_id_fk": {
+          "name": "campaign_sessions_campaign_id_campaigns_id_fk",
+          "tableFrom": "campaign_sessions",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "sessions_campaign_number_unique": {
+          "name": "sessions_campaign_number_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "campaign_id",
+            "session_number"
+          ]
+        },
+        "sessions_id_campaign_unique": {
+          "name": "sessions_id_campaign_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "campaign_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "session_number_positive": {
+          "name": "session_number_positive",
+          "value": "\"campaign_sessions\".\"session_number\" > 0"
+        },
+        "session_duration_positive": {
+          "name": "session_duration_positive",
+          "value": "\"campaign_sessions\".\"estimated_duration_minutes\" > 0"
+        },
+        "session_active_nonnegative": {
+          "name": "session_active_nonnegative",
+          "value": "\"campaign_sessions\".\"active_duration_seconds\" >= 0"
+        },
+        "session_title_nonempty": {
+          "name": "session_title_nonempty",
+          "value": "length(btrim(\"campaign_sessions\".\"title\")) > 0"
+        },
+        "session_running_clock": {
+          "name": "session_running_clock",
+          "value": "(\"campaign_sessions\".\"status\" = 'IN_PROGRESS') = (\"campaign_sessions\".\"resumed_at\" IS NOT NULL)"
+        },
+        "session_completed_fields": {
+          "name": "session_completed_fields",
+          "value": "(\"campaign_sessions\".\"status\" = 'COMPLETED') = (\"campaign_sessions\".\"completed_at\" IS NOT NULL AND \"campaign_sessions\".\"ending_type\" IS NOT NULL)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.campaigns": {
+      "name": "campaigns",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "planned_sessions": {
+          "name": "planned_sessions",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 8
+        },
+        "default_session_duration_minutes": {
+          "name": "default_session_duration_minutes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 120
+        },
+        "current_session_number": {
+          "name": "current_session_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "campaign_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'DRAFT'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "campaigns_created_idx": {
+          "name": "campaigns_created_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "campaign_title_nonempty": {
+          "name": "campaign_title_nonempty",
+          "value": "length(btrim(\"campaigns\".\"title\")) > 0"
+        },
+        "campaign_planned_positive": {
+          "name": "campaign_planned_positive",
+          "value": "\"campaigns\".\"planned_sessions\" > 0"
+        },
+        "campaign_duration_positive": {
+          "name": "campaign_duration_positive",
+          "value": "\"campaigns\".\"default_session_duration_minutes\" > 0"
+        },
+        "campaign_current_in_range": {
+          "name": "campaign_current_in_range",
+          "value": "\"campaigns\".\"current_session_number\" BETWEEN 1 AND \"campaigns\".\"planned_sessions\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.session_messages": {
+      "name": "session_messages",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "message_role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "interaction_mode": {
+          "name": "interaction_mode",
+          "type": "interaction_mode",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sequence_number": {
+          "name": "sequence_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "messages_campaign_created_idx": {
+          "name": "messages_campaign_created_idx",
+          "columns": [
+            {
+              "expression": "campaign_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "session_messages_campaign_id_campaigns_id_fk": {
+          "name": "session_messages_campaign_id_campaigns_id_fk",
+          "tableFrom": "session_messages",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "messages_session_campaign_fk": {
+          "name": "messages_session_campaign_fk",
+          "tableFrom": "session_messages",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "messages_session_sequence_unique": {
+          "name": "messages_session_sequence_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "session_id",
+            "sequence_number"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "message_content_nonempty": {
+          "name": "message_content_nonempty",
+          "value": "length(btrim(\"session_messages\".\"content\")) > 0"
+        },
+        "message_sequence_positive": {
+          "name": "message_sequence_positive",
+          "value": "\"session_messages\".\"sequence_number\" > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_advanced_tests": {
+      "name": "blue_rose_advanced_tests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ability": {
+          "name": "ability",
+          "type": "blue_rose_ability",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "focus_id": {
+          "name": "focus_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_number": {
+          "name": "target_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "threshold": {
+          "name": "threshold",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "progress": {
+          "name": "progress",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "attempts": {
+          "name": "attempts",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "interval_minutes": {
+          "name": "interval_minutes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "dice_visibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "blue_rose_advanced_tests_campaign_id_campaigns_id_fk": {
+          "name": "blue_rose_advanced_tests_campaign_id_campaigns_id_fk",
+          "tableFrom": "blue_rose_advanced_tests",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_advanced_tests_focus_id_blue_rose_rules_id_fk": {
+          "name": "blue_rose_advanced_tests_focus_id_blue_rose_rules_id_fk",
+          "tableFrom": "blue_rose_advanced_tests",
+          "tableTo": "blue_rose_rules",
+          "columnsFrom": [
+            "focus_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_advanced_tests_character_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "blue_rose_advanced_tests_character_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "blue_rose_advanced_tests",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "advanced_id_campaign": {
+          "name": "advanced_id_campaign",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "campaign_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "advanced_bounds": {
+          "name": "advanced_bounds",
+          "value": "\"blue_rose_advanced_tests\".\"target_number\" > 0 AND \"blue_rose_advanced_tests\".\"threshold\" > 0 AND \"blue_rose_advanced_tests\".\"progress\" >= 0 AND \"blue_rose_advanced_tests\".\"attempts\" >= 0 AND \"blue_rose_advanced_tests\".\"interval_minutes\" > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_arcana_requests": {
+      "name": "blue_rose_arcana_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "target_id": {
+          "name": "target_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "dice_visibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resolved": {
+          "name": "resolved",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "blue_rose_arcana_requests_campaign_id_campaigns_id_fk": {
+          "name": "blue_rose_arcana_requests_campaign_id_campaigns_id_fk",
+          "tableFrom": "blue_rose_arcana_requests",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_arcana_requests_session_id_campaign_id_campaign_sessions_id_campaign_id_fk": {
+          "name": "blue_rose_arcana_requests_session_id_campaign_id_campaign_sessions_id_campaign_id_fk",
+          "tableFrom": "blue_rose_arcana_requests",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_arcana_requests_character_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "blue_rose_arcana_requests_character_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "blue_rose_arcana_requests",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_arcana_requests_target_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "blue_rose_arcana_requests_target_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "blue_rose_arcana_requests",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "target_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.character_abilities": {
+      "name": "character_abilities",
+      "schema": "",
+      "columns": {
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ability": {
+          "name": "ability",
+          "type": "blue_rose_ability",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "character_abilities_character_id_characters_id_fk": {
+          "name": "character_abilities_character_id_characters_id_fk",
+          "tableFrom": "character_abilities",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "character_abilities_character_id_ability_pk": {
+          "name": "character_abilities_character_id_ability_pk",
+          "columns": [
+            "character_id",
+            "ability"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "ability_storage_bounds": {
+          "name": "ability_storage_bounds",
+          "value": "\"character_abilities\".\"score\" BETWEEN -10 AND 30"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.character_conditions": {
+      "name": "character_conditions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rule_key": {
+          "name": "rule_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "dice_visibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "character_conditions_character_id_characters_id_fk": {
+          "name": "character_conditions_character_id_characters_id_fk",
+          "tableFrom": "character_conditions",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "condition_rule_unique": {
+          "name": "condition_rule_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "character_id",
+            "rule_key"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.character_details": {
+      "name": "character_details",
+      "schema": "",
+      "columns": {
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "character_details_character_id_characters_id_fk": {
+          "name": "character_details_character_id_characters_id_fk",
+          "tableFrom": "character_details",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "character_details_character_id_kind_value_pk": {
+          "name": "character_details_character_id_kind_value_pk",
+          "columns": [
+            "character_id",
+            "kind",
+            "value"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "detail_kind_valid": {
+          "name": "detail_kind_valid",
+          "value": "\"character_details\".\"kind\" IN ('LANGUAGE','GOAL')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.character_features": {
+      "name": "character_features",
+      "schema": "",
+      "columns": {
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rule_id": {
+          "name": "rule_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "improved": {
+          "name": "improved",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "degree": {
+          "name": "degree",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "character_features_character_id_characters_id_fk": {
+          "name": "character_features_character_id_characters_id_fk",
+          "tableFrom": "character_features",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "character_features_rule_id_blue_rose_rules_id_fk": {
+          "name": "character_features_rule_id_blue_rose_rules_id_fk",
+          "tableFrom": "character_features",
+          "tableTo": "blue_rose_rules",
+          "columnsFrom": [
+            "rule_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "character_features_character_id_rule_id_pk": {
+          "name": "character_features_character_id_rule_id_pk",
+          "columns": [
+            "character_id",
+            "rule_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "feature_degree_valid": {
+          "name": "feature_degree_valid",
+          "value": "\"character_features\".\"degree\" IN ('NOVICE','JOURNEYMAN','MASTER')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.character_resources": {
+      "name": "character_resources",
+      "schema": "",
+      "columns": {
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "current": {
+          "name": "current",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "maximum": {
+          "name": "maximum",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "character_resources_character_id_characters_id_fk": {
+          "name": "character_resources_character_id_characters_id_fk",
+          "tableFrom": "character_resources",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "character_resources_character_id_name_pk": {
+          "name": "character_resources_character_id_name_pk",
+          "columns": [
+            "character_id",
+            "name"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "resource_name_valid": {
+          "name": "resource_name_valid",
+          "value": "\"character_resources\".\"name\" IN ('HEALTH','CONVICTION','CORRUPTION')"
+        },
+        "resource_bounds": {
+          "name": "resource_bounds",
+          "value": "\"character_resources\".\"current\" >= 0 AND \"character_resources\".\"current\" <= \"character_resources\".\"maximum\" AND \"character_resources\".\"maximum\" BETWEEN 0 AND 10000"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.character_secrets": {
+      "name": "character_secrets",
+      "schema": "",
+      "columns": {
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "notes": {
+          "name": "notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "objectives": {
+          "name": "objectives",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "character_secrets_character_id_characters_id_fk": {
+          "name": "character_secrets_character_id_characters_id_fk",
+          "tableFrom": "character_secrets",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.character_vitals": {
+      "name": "character_vitals",
+      "schema": "",
+      "columns": {
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "fatigue_level": {
+          "name": "fatigue_level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "casts_since_rest": {
+          "name": "casts_since_rest",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "living": {
+          "name": "living",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "unconscious_hours": {
+          "name": "unconscious_hours",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cure_used": {
+          "name": "cure_used",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "breather_available": {
+          "name": "breather_available",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "life_state": {
+          "name": "life_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ALIVE'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "character_vitals_character_id_characters_id_fk": {
+          "name": "character_vitals_character_id_characters_id_fk",
+          "tableFrom": "character_vitals",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "vitals_fatigue_range": {
+          "name": "vitals_fatigue_range",
+          "value": "\"character_vitals\".\"fatigue_level\" BETWEEN 0 AND 4"
+        },
+        "vitals_casts_nonnegative": {
+          "name": "vitals_casts_nonnegative",
+          "value": "\"character_vitals\".\"casts_since_rest\" >= 0"
+        },
+        "vitals_state_valid": {
+          "name": "vitals_state_valid",
+          "value": "\"character_vitals\".\"life_state\" IN ('ALIVE','DYING','DEAD','UNCONSCIOUS')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.characters": {
+      "name": "characters",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "character_kind",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "known": {
+          "name": "known",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "people": {
+          "name": "people",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_class": {
+          "name": "character_class",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "background": {
+          "name": "background",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "level": {
+          "name": "level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "calling": {
+          "name": "calling",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "destiny": {
+          "name": "destiny",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "fate": {
+          "name": "fate",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "personality": {
+          "name": "personality",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "motivations": {
+          "name": "motivations",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "state": {
+          "name": "state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "one_protagonist_per_campaign": {
+          "name": "one_protagonist_per_campaign",
+          "columns": [
+            {
+              "expression": "campaign_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"characters\".\"kind\" = 'PROTAGONIST'",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "characters_campaign_id_campaigns_id_fk": {
+          "name": "characters_campaign_id_campaigns_id_fk",
+          "tableFrom": "characters",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "characters_id_campaign": {
+          "name": "characters_id_campaign",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "campaign_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "character_level_range": {
+          "name": "character_level_range",
+          "value": "\"characters\".\"level\" BETWEEN 1 AND 20"
+        },
+        "character_name_nonempty": {
+          "name": "character_name_nonempty",
+          "value": "length(btrim(\"characters\".\"name\")) > 0"
+        },
+        "character_class_valid": {
+          "name": "character_class_valid",
+          "value": "\"characters\".\"character_class\" IN ('ADEPT','EXPERT','WARRIOR')"
+        },
+        "protagonist_known": {
+          "name": "protagonist_known",
+          "value": "\"characters\".\"kind\" <> 'PROTAGONIST' OR \"characters\".\"known\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_check_requests": {
+      "name": "blue_rose_check_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ability": {
+          "name": "ability",
+          "type": "blue_rose_ability",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "focus_id": {
+          "name": "focus_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "target_number": {
+          "name": "target_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "modifier": {
+          "name": "modifier",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stunts_eligible": {
+          "name": "stunts_eligible",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "dice_visibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resolved": {
+          "name": "resolved",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "check_requests_campaign_idx": {
+          "name": "check_requests_campaign_idx",
+          "columns": [
+            {
+              "expression": "campaign_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "resolved",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "blue_rose_check_requests_campaign_id_campaigns_id_fk": {
+          "name": "blue_rose_check_requests_campaign_id_campaigns_id_fk",
+          "tableFrom": "blue_rose_check_requests",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_check_requests_focus_id_blue_rose_rules_id_fk": {
+          "name": "blue_rose_check_requests_focus_id_blue_rose_rules_id_fk",
+          "tableFrom": "blue_rose_check_requests",
+          "tableTo": "blue_rose_rules",
+          "columnsFrom": [
+            "focus_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_check_requests_session_id_campaign_id_campaign_sessions_id_campaign_id_fk": {
+          "name": "blue_rose_check_requests_session_id_campaign_id_campaign_sessions_id_campaign_id_fk",
+          "tableFrom": "blue_rose_check_requests",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_check_requests_character_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "blue_rose_check_requests_character_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "blue_rose_check_requests",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "check_id_campaign": {
+          "name": "check_id_campaign",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "campaign_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "check_tn_positive": {
+          "name": "check_tn_positive",
+          "value": "\"blue_rose_check_requests\".\"target_number\" BETWEEN 1 AND 100"
+        },
+        "check_modifier_bounds": {
+          "name": "check_modifier_bounds",
+          "value": "\"blue_rose_check_requests\".\"modifier\" BETWEEN -30 AND 30"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_attacks": {
+      "name": "blue_rose_attacks",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "encounter_id": {
+          "name": "encounter_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "target_id": {
+          "name": "target_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "roll_id": {
+          "name": "roll_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "round": {
+          "name": "round",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stunt_points": {
+          "name": "stunt_points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resolved": {
+          "name": "resolved",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "raw_damage": {
+          "name": "raw_damage",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "armor": {
+          "name": "armor",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "damage": {
+          "name": "damage",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "attacks_encounter_pending": {
+          "name": "attacks_encounter_pending",
+          "columns": [
+            {
+              "expression": "encounter_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "resolved",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "blue_rose_attacks_encounter_id_blue_rose_encounters_id_fk": {
+          "name": "blue_rose_attacks_encounter_id_blue_rose_encounters_id_fk",
+          "tableFrom": "blue_rose_attacks",
+          "tableTo": "blue_rose_encounters",
+          "columnsFrom": [
+            "encounter_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_attacks_roll_id_blue_rose_dice_rolls_id_fk": {
+          "name": "blue_rose_attacks_roll_id_blue_rose_dice_rolls_id_fk",
+          "tableFrom": "blue_rose_attacks",
+          "tableTo": "blue_rose_dice_rolls",
+          "columnsFrom": [
+            "roll_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_attacks_encounter_id_actor_id_blue_rose_combat_members_encounter_id_character_id_fk": {
+          "name": "blue_rose_attacks_encounter_id_actor_id_blue_rose_combat_members_encounter_id_character_id_fk",
+          "tableFrom": "blue_rose_attacks",
+          "tableTo": "blue_rose_combat_members",
+          "columnsFrom": [
+            "encounter_id",
+            "actor_id"
+          ],
+          "columnsTo": [
+            "encounter_id",
+            "character_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_attacks_encounter_id_target_id_blue_rose_combat_members_encounter_id_character_id_fk": {
+          "name": "blue_rose_attacks_encounter_id_target_id_blue_rose_combat_members_encounter_id_character_id_fk",
+          "tableFrom": "blue_rose_attacks",
+          "tableTo": "blue_rose_combat_members",
+          "columnsFrom": [
+            "encounter_id",
+            "target_id"
+          ],
+          "columnsTo": [
+            "encounter_id",
+            "character_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "attack_roll_unique": {
+          "name": "attack_roll_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "roll_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "attack_damage_nonnegative": {
+          "name": "attack_damage_nonnegative",
+          "value": "\"blue_rose_attacks\".\"damage\" IS NULL OR \"blue_rose_attacks\".\"damage\" >= 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_encounters": {
+      "name": "blue_rose_encounters",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ACTIVE'"
+        },
+        "round": {
+          "name": "round",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "turn_index": {
+          "name": "turn_index",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "dice_visibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "one_active_encounter": {
+          "name": "one_active_encounter",
+          "columns": [
+            {
+              "expression": "campaign_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"blue_rose_encounters\".\"status\" = 'ACTIVE'",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "blue_rose_encounters_campaign_id_campaigns_id_fk": {
+          "name": "blue_rose_encounters_campaign_id_campaigns_id_fk",
+          "tableFrom": "blue_rose_encounters",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_encounters_session_id_campaign_id_campaign_sessions_id_campaign_id_fk": {
+          "name": "blue_rose_encounters_session_id_campaign_id_campaign_sessions_id_campaign_id_fk",
+          "tableFrom": "blue_rose_encounters",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "encounter_id_campaign": {
+          "name": "encounter_id_campaign",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "campaign_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "encounter_state_valid": {
+          "name": "encounter_state_valid",
+          "value": "\"blue_rose_encounters\".\"status\" IN ('ACTIVE','COMPLETED') AND \"blue_rose_encounters\".\"round\" > 0 AND \"blue_rose_encounters\".\"turn_index\" >= 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_combat_members": {
+      "name": "blue_rose_combat_members",
+      "schema": "",
+      "columns": {
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "encounter_id": {
+          "name": "encounter_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ordinal": {
+          "name": "ordinal",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "initiative": {
+          "name": "initiative",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "initiative_drama": {
+          "name": "initiative_drama",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "weapon_item_id": {
+          "name": "weapon_item_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "x": {
+          "name": "x",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "y": {
+          "name": "y",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "major_used": {
+          "name": "major_used",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "minor_used": {
+          "name": "minor_used",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "aimed": {
+          "name": "aimed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "defense_bonus": {
+          "name": "defense_bonus",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "prone": {
+          "name": "prone",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "loaded": {
+          "name": "loaded",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "dying_at_round": {
+          "name": "dying_at_round",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "uses_dying_rules": {
+          "name": "uses_dying_rules",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "blue_rose_combat_members_campaign_id_campaigns_id_fk": {
+          "name": "blue_rose_combat_members_campaign_id_campaigns_id_fk",
+          "tableFrom": "blue_rose_combat_members",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_combat_members_encounter_id_campaign_id_blue_rose_encounters_id_campaign_id_fk": {
+          "name": "blue_rose_combat_members_encounter_id_campaign_id_blue_rose_encounters_id_campaign_id_fk",
+          "tableFrom": "blue_rose_combat_members",
+          "tableTo": "blue_rose_encounters",
+          "columnsFrom": [
+            "encounter_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_combat_members_character_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "blue_rose_combat_members_character_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "blue_rose_combat_members",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_combat_members_weapon_item_id_campaign_id_game_items_id_campaign_id_fk": {
+          "name": "blue_rose_combat_members_weapon_item_id_campaign_id_game_items_id_campaign_id_fk",
+          "tableFrom": "blue_rose_combat_members",
+          "tableTo": "game_items",
+          "columnsFrom": [
+            "weapon_item_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "blue_rose_combat_members_encounter_id_character_id_pk": {
+          "name": "blue_rose_combat_members_encounter_id_character_id_pk",
+          "columns": [
+            "encounter_id",
+            "character_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "member_order_unique": {
+          "name": "member_order_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "encounter_id",
+            "ordinal"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "combat_member_actions": {
+          "name": "combat_member_actions",
+          "value": "\"blue_rose_combat_members\".\"minor_used\" BETWEEN 0 AND 2 AND (NOT \"blue_rose_combat_members\".\"major_used\" OR \"blue_rose_combat_members\".\"minor_used\" <= 1)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_combat_profiles": {
+      "name": "blue_rose_combat_profiles",
+      "schema": "",
+      "columns": {
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "armor_type": {
+          "name": "armor_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "armor_trained": {
+          "name": "armor_trained",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "shield_type": {
+          "name": "shield_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "shield_trained": {
+          "name": "shield_trained",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "base_speed": {
+          "name": "base_speed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "blue_rose_combat_profiles_character_id_characters_id_fk": {
+          "name": "blue_rose_combat_profiles_character_id_characters_id_fk",
+          "tableFrom": "blue_rose_combat_profiles",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "combat_profile_armor": {
+          "name": "combat_profile_armor",
+          "value": "\"blue_rose_combat_profiles\".\"armor_type\" IN ('NONE','LIGHT','MEDIUM','HEAVY') AND \"blue_rose_combat_profiles\".\"shield_type\" IN ('NONE','LIGHT','MEDIUM','HEAVY')"
+        },
+        "combat_profile_speed": {
+          "name": "combat_profile_speed",
+          "value": "\"blue_rose_combat_profiles\".\"base_speed\" BETWEEN 0 AND 100"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_stunt_uses": {
+      "name": "blue_rose_stunt_uses",
+      "schema": "",
+      "columns": {
+        "attack_id": {
+          "name": "attack_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stunt_id": {
+          "name": "stunt_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cost": {
+          "name": "cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "blue_rose_stunt_uses_attack_id_blue_rose_attacks_id_fk": {
+          "name": "blue_rose_stunt_uses_attack_id_blue_rose_attacks_id_fk",
+          "tableFrom": "blue_rose_stunt_uses",
+          "tableTo": "blue_rose_attacks",
+          "columnsFrom": [
+            "attack_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "blue_rose_stunt_uses_attack_id_stunt_id_pk": {
+          "name": "blue_rose_stunt_uses_attack_id_stunt_id_pk",
+          "columns": [
+            "attack_id",
+            "stunt_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "stunt_cost_positive": {
+          "name": "stunt_cost_positive",
+          "value": "\"blue_rose_stunt_uses\".\"cost\" > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_dice_rolls": {
+      "name": "blue_rose_dice_rolls",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "sequence": {
+          "name": "sequence",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "public_sequence": {
+          "name": "public_sequence",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "die1": {
+          "name": "die1",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "die2": {
+          "name": "die2",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "drama_die": {
+          "name": "drama_die",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "modifier": {
+          "name": "modifier",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total": {
+          "name": "total",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "success": {
+          "name": "success",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stunt_points": {
+          "name": "stunt_points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "dice_visibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "rolls_campaign_sequence_idx": {
+          "name": "rolls_campaign_sequence_idx",
+          "columns": [
+            {
+              "expression": "campaign_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "sequence",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "blue_rose_dice_rolls_campaign_id_campaigns_id_fk": {
+          "name": "blue_rose_dice_rolls_campaign_id_campaigns_id_fk",
+          "tableFrom": "blue_rose_dice_rolls",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_dice_rolls_session_id_campaign_id_campaign_sessions_id_campaign_id_fk": {
+          "name": "blue_rose_dice_rolls_session_id_campaign_id_campaign_sessions_id_campaign_id_fk",
+          "tableFrom": "blue_rose_dice_rolls",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_dice_rolls_character_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "blue_rose_dice_rolls_character_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "blue_rose_dice_rolls",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_dice_rolls_request_id_campaign_id_blue_rose_check_requests_id_campaign_id_fk": {
+          "name": "blue_rose_dice_rolls_request_id_campaign_id_blue_rose_check_requests_id_campaign_id_fk",
+          "tableFrom": "blue_rose_dice_rolls",
+          "tableTo": "blue_rose_check_requests",
+          "columnsFrom": [
+            "request_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "blue_rose_dice_rolls_sequence_unique": {
+          "name": "blue_rose_dice_rolls_sequence_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "sequence"
+          ]
+        },
+        "blue_rose_dice_rolls_request_id_unique": {
+          "name": "blue_rose_dice_rolls_request_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "request_id"
+          ]
+        },
+        "rolls_public_sequence": {
+          "name": "rolls_public_sequence",
+          "nullsNotDistinct": false,
+          "columns": [
+            "campaign_id",
+            "public_sequence"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "rolls_public_sequence_visibility": {
+          "name": "rolls_public_sequence_visibility",
+          "value": "(\"blue_rose_dice_rolls\".\"visibility\" = 'GM_ONLY' AND \"blue_rose_dice_rolls\".\"public_sequence\" IS NULL) OR (\"blue_rose_dice_rolls\".\"visibility\" <> 'GM_ONLY' AND \"blue_rose_dice_rolls\".\"public_sequence\" > 0 AND \"blue_rose_dice_rolls\".\"public_sequence\" IS NOT NULL)"
+        },
+        "roll_faces_valid": {
+          "name": "roll_faces_valid",
+          "value": "\"blue_rose_dice_rolls\".\"die1\" BETWEEN 1 AND 6 AND \"blue_rose_dice_rolls\".\"die2\" BETWEEN 1 AND 6 AND \"blue_rose_dice_rolls\".\"drama_die\" BETWEEN 1 AND 6"
+        },
+        "roll_total_valid": {
+          "name": "roll_total_valid",
+          "value": "\"blue_rose_dice_rolls\".\"total\" = \"blue_rose_dice_rolls\".\"die1\" + \"blue_rose_dice_rolls\".\"die2\" + \"blue_rose_dice_rolls\".\"drama_die\" + \"blue_rose_dice_rolls\".\"modifier\""
+        },
+        "roll_sp_valid": {
+          "name": "roll_sp_valid",
+          "value": "\"blue_rose_dice_rolls\".\"stunt_points\" BETWEEN 0 AND 6 AND (\"blue_rose_dice_rolls\".\"stunt_points\" = 0 OR (\"blue_rose_dice_rolls\".\"success\" AND \"blue_rose_dice_rolls\".\"stunt_points\" = \"blue_rose_dice_rolls\".\"drama_die\" AND (\"blue_rose_dice_rolls\".\"die1\" = \"blue_rose_dice_rolls\".\"die2\" OR \"blue_rose_dice_rolls\".\"die1\" = \"blue_rose_dice_rolls\".\"drama_die\" OR \"blue_rose_dice_rolls\".\"die2\" = \"blue_rose_dice_rolls\".\"drama_die\")))"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.game_event_participants": {
+      "name": "game_event_participants",
+      "schema": "",
+      "columns": {
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_id": {
+          "name": "event_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "game_event_participants_campaign_id_campaigns_id_fk": {
+          "name": "game_event_participants_campaign_id_campaigns_id_fk",
+          "tableFrom": "game_event_participants",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "game_event_participants_event_id_campaign_id_game_events_id_campaign_id_fk": {
+          "name": "game_event_participants_event_id_campaign_id_game_events_id_campaign_id_fk",
+          "tableFrom": "game_event_participants",
+          "tableTo": "game_events",
+          "columnsFrom": [
+            "event_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "game_event_participants_character_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "game_event_participants_character_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "game_event_participants",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "game_event_participants_event_id_character_id_pk": {
+          "name": "game_event_participants_event_id_character_id_pk",
+          "columns": [
+            "event_id",
+            "character_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.game_commands": {
+      "name": "game_commands",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "command_id": {
+          "name": "command_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "digest": {
+          "name": "digest",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "result": {
+          "name": "result",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "game_commands_campaign_id_campaigns_id_fk": {
+          "name": "game_commands_campaign_id_campaigns_id_fk",
+          "tableFrom": "game_commands",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "command_campaign_key": {
+          "name": "command_campaign_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "campaign_id",
+            "command_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.game_events": {
+      "name": "game_events",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "sequence": {
+          "name": "sequence",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "public_sequence": {
+          "name": "public_sequence",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "command_id": {
+          "name": "command_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "dice_visibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "changes": {
+          "name": "changes",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "events_campaign_sequence_idx": {
+          "name": "events_campaign_sequence_idx",
+          "columns": [
+            {
+              "expression": "campaign_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "sequence",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "events_session_sequence_idx": {
+          "name": "events_session_sequence_idx",
+          "columns": [
+            {
+              "expression": "session_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "sequence",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "game_events_campaign_id_campaigns_id_fk": {
+          "name": "game_events_campaign_id_campaigns_id_fk",
+          "tableFrom": "game_events",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "game_events_session_id_campaign_id_campaign_sessions_id_campaign_id_fk": {
+          "name": "game_events_session_id_campaign_id_campaign_sessions_id_campaign_id_fk",
+          "tableFrom": "game_events",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "game_events_sequence_unique": {
+          "name": "game_events_sequence_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "sequence"
+          ]
+        },
+        "event_id_campaign": {
+          "name": "event_id_campaign",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "campaign_id"
+          ]
+        },
+        "events_public_sequence": {
+          "name": "events_public_sequence",
+          "nullsNotDistinct": false,
+          "columns": [
+            "campaign_id",
+            "public_sequence"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "events_public_sequence_visibility": {
+          "name": "events_public_sequence_visibility",
+          "value": "(\"game_events\".\"visibility\" = 'GM_ONLY' AND \"game_events\".\"public_sequence\" IS NULL) OR (\"game_events\".\"visibility\" <> 'GM_ONLY' AND \"game_events\".\"public_sequence\" > 0 AND \"game_events\".\"public_sequence\" IS NOT NULL)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.game_items": {
+      "name": "game_items",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "consumable": {
+          "name": "consumable",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "equipment_rule_id": {
+          "name": "equipment_rule_id",
+          "type": "blue_rose_weapon_rule",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "dice_visibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "game_items_campaign_id_campaigns_id_fk": {
+          "name": "game_items_campaign_id_campaigns_id_fk",
+          "tableFrom": "game_items",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "items_id_campaign": {
+          "name": "items_id_campaign",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "campaign_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.character_inventory": {
+      "name": "character_inventory",
+      "schema": "",
+      "columns": {
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "equipped": {
+          "name": "equipped",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "character_inventory_campaign_id_campaigns_id_fk": {
+          "name": "character_inventory_campaign_id_campaigns_id_fk",
+          "tableFrom": "character_inventory",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "character_inventory_character_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "character_inventory_character_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "character_inventory",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "character_inventory_item_id_campaign_id_game_items_id_campaign_id_fk": {
+          "name": "character_inventory_item_id_campaign_id_game_items_id_campaign_id_fk",
+          "tableFrom": "character_inventory",
+          "tableTo": "game_items",
+          "columnsFrom": [
+            "item_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "character_inventory_character_id_item_id_pk": {
+          "name": "character_inventory_character_id_item_id_pk",
+          "columns": [
+            "character_id",
+            "item_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "inventory_quantity_bounds": {
+          "name": "inventory_quantity_bounds",
+          "value": "\"character_inventory\".\"quantity\" BETWEEN 0 AND 10000"
+        },
+        "equipped_requires_quantity": {
+          "name": "equipped_requires_quantity",
+          "value": "NOT \"character_inventory\".\"equipped\" OR \"character_inventory\".\"quantity\" > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.relationship_metrics": {
+      "name": "relationship_metrics",
+      "schema": "",
+      "columns": {
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "minimum": {
+          "name": "minimum",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "maximum": {
+          "name": "maximum",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "relationship_metrics_campaign_id_campaigns_id_fk": {
+          "name": "relationship_metrics_campaign_id_campaigns_id_fk",
+          "tableFrom": "relationship_metrics",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "relationship_metrics_campaign_id_name_pk": {
+          "name": "relationship_metrics_campaign_id_name_pk",
+          "columns": [
+            "campaign_id",
+            "name"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "metric_range": {
+          "name": "metric_range",
+          "value": "\"relationship_metrics\".\"minimum\" < \"relationship_metrics\".\"maximum\""
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.character_relationships": {
+      "name": "character_relationships",
+      "schema": "",
+      "columns": {
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "from_character_id": {
+          "name": "from_character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "to_character_id": {
+          "name": "to_character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metric": {
+          "name": "metric",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "dice_visibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "character_relationships_campaign_id_campaigns_id_fk": {
+          "name": "character_relationships_campaign_id_campaigns_id_fk",
+          "tableFrom": "character_relationships",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "character_relationships_from_character_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "character_relationships_from_character_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "character_relationships",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "from_character_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "character_relationships_to_character_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "character_relationships_to_character_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "character_relationships",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "to_character_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "character_relationships_campaign_id_metric_relationship_metrics_campaign_id_name_fk": {
+          "name": "character_relationships_campaign_id_metric_relationship_metrics_campaign_id_name_fk",
+          "tableFrom": "character_relationships",
+          "tableTo": "relationship_metrics",
+          "columnsFrom": [
+            "campaign_id",
+            "metric"
+          ],
+          "columnsTo": [
+            "campaign_id",
+            "name"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "character_relationships_campaign_id_from_character_id_to_character_id_metric_pk": {
+          "name": "character_relationships_campaign_id_from_character_id_to_character_id_metric_pk",
+          "columns": [
+            "campaign_id",
+            "from_character_id",
+            "to_character_id",
+            "metric"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "relationship_not_self": {
+          "name": "relationship_not_self",
+          "value": "\"character_relationships\".\"from_character_id\" <> \"character_relationships\".\"to_character_id\""
+        },
+        "relationship_reason_nonempty": {
+          "name": "relationship_reason_nonempty",
+          "value": "length(btrim(\"character_relationships\".\"reason\")) > 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_rules": {
+      "name": "blue_rose_rules",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "page": {
+          "name": "page",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ability": {
+          "name": "ability",
+          "type": "blue_rose_ability",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prerequisites": {
+          "name": "prerequisites",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "usage": {
+          "name": "usage",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cost": {
+          "name": "cost",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "effect": {
+          "name": "effect",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "duration": {
+          "name": "duration",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "limitations": {
+          "name": "limitations",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "rule_status_valid": {
+          "name": "rule_status_valid",
+          "value": "\"blue_rose_rules\".\"status\" IN ('IMPLEMENTED','RECORDED','PENDING')"
+        },
+        "rule_kind_valid": {
+          "name": "rule_kind_valid",
+          "value": "\"blue_rose_rules\".\"kind\" IN ('FOCUS','TALENT','SPECIALIZATION','ARCANUM','STUNT')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_special_check_requests": {
+      "name": "blue_rose_special_check_requests",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ability": {
+          "name": "ability",
+          "type": "blue_rose_ability",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "focus_id": {
+          "name": "focus_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "modifier": {
+          "name": "modifier",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "opponent_id": {
+          "name": "opponent_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opponent_ability": {
+          "name": "opponent_ability",
+          "type": "blue_rose_ability",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opponent_focus_id": {
+          "name": "opponent_focus_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opponent_modifier": {
+          "name": "opponent_modifier",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "advanced_test_id": {
+          "name": "advanced_test_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "dice_visibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stunts_eligible": {
+          "name": "stunts_eligible",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "resolved": {
+          "name": "resolved",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "blue_rose_special_check_requests_campaign_id_campaigns_id_fk": {
+          "name": "blue_rose_special_check_requests_campaign_id_campaigns_id_fk",
+          "tableFrom": "blue_rose_special_check_requests",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_special_check_requests_character_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "blue_rose_special_check_requests_character_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "blue_rose_special_check_requests",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_special_check_requests_opponent_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "blue_rose_special_check_requests_opponent_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "blue_rose_special_check_requests",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "opponent_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_special_check_requests_advanced_test_id_campaign_id_blue_rose_advanced_tests_id_campaign_id_fk": {
+          "name": "blue_rose_special_check_requests_advanced_test_id_campaign_id_blue_rose_advanced_tests_id_campaign_id_fk",
+          "tableFrom": "blue_rose_special_check_requests",
+          "tableTo": "blue_rose_advanced_tests",
+          "columnsFrom": [
+            "advanced_test_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "blue_rose_special_check_requests_session_id_campaign_id_campaign_sessions_id_campaign_id_fk": {
+          "name": "blue_rose_special_check_requests_session_id_campaign_id_campaign_sessions_id_campaign_id_fk",
+          "tableFrom": "blue_rose_special_check_requests",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "special_kind_fields": {
+          "name": "special_kind_fields",
+          "value": "(\"blue_rose_special_check_requests\".\"kind\" = 'OPPOSED' AND \"blue_rose_special_check_requests\".\"opponent_id\" IS NOT NULL AND \"blue_rose_special_check_requests\".\"opponent_ability\" IS NOT NULL AND \"blue_rose_special_check_requests\".\"advanced_test_id\" IS NULL) OR (\"blue_rose_special_check_requests\".\"kind\" = 'ADVANCED' AND \"blue_rose_special_check_requests\".\"advanced_test_id\" IS NOT NULL AND \"blue_rose_special_check_requests\".\"opponent_id\" IS NULL)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.blue_rose_weapon_training": {
+      "name": "blue_rose_weapon_training",
+      "schema": "",
+      "columns": {
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rule_id": {
+          "name": "rule_id",
+          "type": "blue_rose_weapon_rule",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "blue_rose_weapon_training_character_id_characters_id_fk": {
+          "name": "blue_rose_weapon_training_character_id_characters_id_fk",
+          "tableFrom": "blue_rose_weapon_training",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "blue_rose_weapon_training_character_id_rule_id_pk": {
+          "name": "blue_rose_weapon_training_character_id_rule_id_pk",
+          "columns": [
+            "character_id",
+            "rule_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.world_entities": {
+      "name": "world_entities",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kind": {
+          "name": "kind",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "accessible": {
+          "name": "accessible",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "private_notes": {
+          "name": "private_notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "dice_visibility",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "world_campaign_idx": {
+          "name": "world_campaign_idx",
+          "columns": [
+            {
+              "expression": "campaign_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "world_entities_campaign_id_campaigns_id_fk": {
+          "name": "world_entities_campaign_id_campaigns_id_fk",
+          "tableFrom": "world_entities",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "world_kind_valid": {
+          "name": "world_kind_valid",
+          "value": "\"world_entities\".\"kind\" IN ('LOCATION','OBJECT','FACTION')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.ai_usage": {
+      "name": "ai_usage",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "action_id": {
+          "name": "action_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "model": {
+          "name": "model",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "input_tokens": {
+          "name": "input_tokens",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "output_tokens": {
+          "name": "output_tokens",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "duration_ms": {
+          "name": "duration_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "error": {
+          "name": "error",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ai_usage_action_id_narrative_actions_id_fk": {
+          "name": "ai_usage_action_id_narrative_actions_id_fk",
+          "tableFrom": "ai_usage",
+          "tableTo": "narrative_actions",
+          "columnsFrom": [
+            "action_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.character_knowledge": {
+      "name": "character_knowledge",
+      "schema": "",
+      "columns": {
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_id": {
+          "name": "character_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_id": {
+          "name": "event_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "importance": {
+          "name": "importance",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 50
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "character_knowledge_character_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "character_knowledge_character_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "character_knowledge",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "character_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "character_knowledge_event_id_campaign_id_game_events_id_campaign_id_fk": {
+          "name": "character_knowledge_event_id_campaign_id_game_events_id_campaign_id_fk",
+          "tableFrom": "character_knowledge",
+          "tableTo": "game_events",
+          "columnsFrom": [
+            "event_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "character_knowledge_character_id_event_id_pk": {
+          "name": "character_knowledge_character_id_event_id_pk",
+          "columns": [
+            "character_id",
+            "event_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "knowledge_importance": {
+          "name": "knowledge_importance",
+          "value": "\"character_knowledge\".\"importance\" BETWEEN 0 AND 100"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.narrative_actions": {
+      "name": "narrative_actions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "digest": {
+          "name": "digest",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PENDING'"
+        },
+        "player_message_id": {
+          "name": "player_message_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "master_message_id": {
+          "name": "master_message_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revision": {
+          "name": "revision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "proposal": {
+          "name": "proposal",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "confirmed": {
+          "name": "confirmed",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "option_id": {
+          "name": "option_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "success": {
+          "name": "success",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lease_token": {
+          "name": "lease_token",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lease_until": {
+          "name": "lease_until",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "error": {
+          "name": "error",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "one_pending_narrative_per_campaign": {
+          "name": "one_pending_narrative_per_campaign",
+          "columns": [
+            {
+              "expression": "campaign_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "where": "\"narrative_actions\".\"status\" NOT IN ('COMPLETED','REJECTED')",
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "narrative_player_message_unique": {
+          "name": "narrative_player_message_unique",
+          "columns": [
+            {
+              "expression": "player_message_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "narrative_master_message_unique": {
+          "name": "narrative_master_message_unique",
+          "columns": [
+            {
+              "expression": "master_message_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "narrative_session_idx": {
+          "name": "narrative_session_idx",
+          "columns": [
+            {
+              "expression": "session_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "narrative_actions_campaign_id_campaigns_id_fk": {
+          "name": "narrative_actions_campaign_id_campaigns_id_fk",
+          "tableFrom": "narrative_actions",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "narrative_actions_player_message_id_session_messages_id_fk": {
+          "name": "narrative_actions_player_message_id_session_messages_id_fk",
+          "tableFrom": "narrative_actions",
+          "tableTo": "session_messages",
+          "columnsFrom": [
+            "player_message_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "narrative_actions_master_message_id_session_messages_id_fk": {
+          "name": "narrative_actions_master_message_id_session_messages_id_fk",
+          "tableFrom": "narrative_actions",
+          "tableTo": "session_messages",
+          "columnsFrom": [
+            "master_message_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "narrative_actions_session_id_campaign_id_campaign_sessions_id_campaign_id_fk": {
+          "name": "narrative_actions_session_id_campaign_id_campaign_sessions_id_campaign_id_fk",
+          "tableFrom": "narrative_actions",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "narrative_status_valid": {
+          "name": "narrative_status_valid",
+          "value": "\"narrative_actions\".\"status\" IN ('PENDING','AWAITING_ROLL','AWAITING_STUNTS','COMMITTED','COMPLETED','REJECTED')"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.narrative_session_plans": {
+      "name": "narrative_session_plans",
+      "schema": "",
+      "columns": {
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "plan": {
+          "name": "plan",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "narrative_session_plans_session_id_campaign_id_campaign_sessions_id_campaign_id_fk": {
+          "name": "narrative_session_plans_session_id_campaign_id_campaign_sessions_id_campaign_id_fk",
+          "tableFrom": "narrative_session_plans",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.adventure_cast": {
+      "name": "adventure_cast",
+      "schema": "",
+      "columns": {
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "key": {
+          "name": "key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "known": {
+          "name": "known",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "current_state": {
+          "name": "current_state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Sem alterações confirmadas.'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "adventure_cast_campaign_id_adventure_instances_campaign_id_fk": {
+          "name": "adventure_cast_campaign_id_adventure_instances_campaign_id_fk",
+          "tableFrom": "adventure_cast",
+          "tableTo": "adventure_instances",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "adventure_cast_campaign_id_key_pk": {
+          "name": "adventure_cast_campaign_id_key_pk",
+          "columns": [
+            "campaign_id",
+            "key"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.adventure_definitions": {
+      "name": "adventure_definitions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "digest": {
+          "name": "digest",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "definition": {
+          "name": "definition",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.adventure_instances": {
+      "name": "adventure_instances",
+      "schema": "",
+      "columns": {
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "definition_id": {
+          "name": "definition_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entity_namespace": {
+          "name": "entity_namespace",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'adventure'"
+        },
+        "narrative_minutes": {
+          "name": "narrative_minutes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "protagonist_id": {
+          "name": "protagonist_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reviewed_digest": {
+          "name": "reviewed_digest",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "review_notes": {
+          "name": "review_notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mechanics": {
+          "name": "mechanics",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "adventure_instances_campaign_id_campaigns_id_fk": {
+          "name": "adventure_instances_campaign_id_campaigns_id_fk",
+          "tableFrom": "adventure_instances",
+          "tableTo": "campaigns",
+          "columnsFrom": [
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "adventure_instances_definition_id_adventure_definitions_id_fk": {
+          "name": "adventure_instances_definition_id_adventure_definitions_id_fk",
+          "tableFrom": "adventure_instances",
+          "tableTo": "adventure_definitions",
+          "columnsFrom": [
+            "definition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "adventure_instances_protagonist_id_campaign_id_characters_id_campaign_id_fk": {
+          "name": "adventure_instances_protagonist_id_campaign_id_characters_id_campaign_id_fk",
+          "tableFrom": "adventure_instances",
+          "tableTo": "characters",
+          "columnsFrom": [
+            "protagonist_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.adventure_memories": {
+      "name": "adventure_memories",
+      "schema": "",
+      "columns": {
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "character_key": {
+          "name": "character_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_id": {
+          "name": "event_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "adventure_memories_campaign_id_character_key_adventure_cast_campaign_id_key_fk": {
+          "name": "adventure_memories_campaign_id_character_key_adventure_cast_campaign_id_key_fk",
+          "tableFrom": "adventure_memories",
+          "tableTo": "adventure_cast",
+          "columnsFrom": [
+            "campaign_id",
+            "character_key"
+          ],
+          "columnsTo": [
+            "campaign_id",
+            "key"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "adventure_memories_event_id_campaign_id_game_events_id_campaign_id_fk": {
+          "name": "adventure_memories_event_id_campaign_id_game_events_id_campaign_id_fk",
+          "tableFrom": "adventure_memories",
+          "tableTo": "game_events",
+          "columnsFrom": [
+            "event_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "adventure_memories_campaign_id_character_key_event_id_pk": {
+          "name": "adventure_memories_campaign_id_character_key_event_id_pk",
+          "columns": [
+            "campaign_id",
+            "character_key",
+            "event_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.adventure_reviews": {
+      "name": "adventure_reviews",
+      "schema": "",
+      "columns": {
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "session_number": {
+          "name": "session_number",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_ids": {
+          "name": "event_ids",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "adventure_reviews_session_id_campaign_id_campaign_sessions_id_campaign_id_fk": {
+          "name": "adventure_reviews_session_id_campaign_id_campaign_sessions_id_campaign_id_fk",
+          "tableFrom": "adventure_reviews",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.adventure_scenes": {
+      "name": "adventure_scenes",
+      "schema": "",
+      "columns": {
+        "campaign_id": {
+          "name": "campaign_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "scene_key": {
+          "name": "scene_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "adventure_scenes_session_id_campaign_id_campaign_sessions_id_campaign_id_fk": {
+          "name": "adventure_scenes_session_id_campaign_id_campaign_sessions_id_campaign_id_fk",
+          "tableFrom": "adventure_scenes",
+          "tableTo": "campaign_sessions",
+          "columnsFrom": [
+            "session_id",
+            "campaign_id"
+          ],
+          "columnsTo": [
+            "id",
+            "campaign_id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.campaign_status": {
+      "name": "campaign_status",
+      "schema": "public",
+      "values": [
+        "DRAFT",
+        "ACTIVE",
+        "COMPLETED"
+      ]
+    },
+    "public.ending_type": {
+      "name": "ending_type",
+      "schema": "public",
+      "values": [
+        "OBJECTIVE_COMPLETED",
+        "NARRATIVE_PAUSE",
+        "PLAYER_REQUESTED"
+      ]
+    },
+    "public.interaction_mode": {
+      "name": "interaction_mode",
+      "schema": "public",
+      "values": [
+        "SPEAK",
+        "ACT",
+        "THINK",
+        "OUT_OF_CHARACTER"
+      ]
+    },
+    "public.message_role": {
+      "name": "message_role",
+      "schema": "public",
+      "values": [
+        "PLAYER",
+        "GAME_MASTER",
+        "SYSTEM"
+      ]
+    },
+    "public.session_status": {
+      "name": "session_status",
+      "schema": "public",
+      "values": [
+        "LOCKED",
+        "AVAILABLE",
+        "IN_PROGRESS",
+        "PAUSED",
+        "COMPLETED"
+      ]
+    },
+    "public.blue_rose_ability": {
+      "name": "blue_rose_ability",
+      "schema": "public",
+      "values": [
+        "ACCURACY",
+        "COMMUNICATION",
+        "CONSTITUTION",
+        "DEXTERITY",
+        "FIGHTING",
+        "INTELLIGENCE",
+        "PERCEPTION",
+        "STRENGTH",
+        "WILLPOWER"
+      ]
+    },
+    "public.character_kind": {
+      "name": "character_kind",
+      "schema": "public",
+      "values": [
+        "PROTAGONIST",
+        "NPC",
+        "COMPANION",
+        "ADVERSARY"
+      ]
+    },
+    "public.dice_visibility": {
+      "name": "dice_visibility",
+      "schema": "public",
+      "values": [
+        "PUBLIC",
+        "PLAYER_ONLY",
+        "GM_ONLY"
+      ]
+    },
+    "public.blue_rose_weapon_rule": {
+      "name": "blue_rose_weapon_rule",
+      "schema": "public",
+      "values": [
+        "heavy-blade",
+        "light-blade",
+        "longbow",
+        "staff",
+        "shortbow",
+        "sling"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "proposal": {
+    "kind": "FREE",
+    "intent": "TALK",
+    "description": "Perguntar a Mira sobre confiar em Aren",
+    "target": {
+      "type": "CHARACTER",
+      "name": "Mira"
+    },
+    "tool": {
+      "type": "DIALOGUE"
+    },
+    "expression": null,
+    "evidence": null
+  },
+  "narration": null,
+  "usage": [],
+  "error": null
+}

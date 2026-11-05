@@ -202,7 +202,14 @@ export interface GamePage<T> {
   hasMore: boolean;
 }
 
-export const weaponRuleIds = ['heavy-blade', 'light-blade', 'longbow'] as const;
+export const weaponRuleIds = [
+  'heavy-blade',
+  'light-blade',
+  'longbow',
+  'staff',
+  'shortbow',
+  'sling',
+] as const;
 export const combatStuntIds = [
   'MIGHTY_BLOW',
   'PIERCE_ARMOR',

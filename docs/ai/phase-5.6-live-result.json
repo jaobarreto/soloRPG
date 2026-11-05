@@ -1,0 +1,14 @@
+{
+  "error": "FREE_TIER_NOT_CONFIRMED",
+  "requests": 0,
+  "phase": "5.6",
+  "operatorAuthorized": true,
+  "authorizedMaxRequests": 8,
+  "maxOutputTokensPerRequest": 700,
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "status": "BLOCKED_CONFIGURATION",
+  "providerConstructed": false,
+  "configurationChanged": false,
+  "campaignWrites": false
+}

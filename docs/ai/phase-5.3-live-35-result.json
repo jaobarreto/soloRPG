@@ -1,0 +1,53 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "freeTierConfirmedByOperator": true,
+  "maxRequests": 2,
+  "campaignWrites": false,
+  "results": [
+    {
+      "case": "smoke",
+      "passed": true,
+      "response": "Mestre de RPG conectado com sucesso."
+    },
+    {
+      "case": "narrative",
+      "draft": "O crepúsculo tinge o jardim com tons de violeta e o ar carrega a umidade fria de uma chuva iminente. Theron desvia o olhar para a janela fechada ao lado do banco de pedra, cruzando os braços com hesitação. Seu cenho se enruga ao ponderar sua lembrança da última discussão de ambos. Ele se mexe desconfortável antes de responder, mantendo a voz baixa. \"Confiar nele? Não sei dizer ao certo... Ouvi apenas boatos vagos sobre aquela janela estar danificada, mas nada disso é prova concreta. A cautela ainda me parece o caminho mais prudente, Naelis.\"",
+      "referencesValid": true,
+      "humanReviewRequired": true
+    }
+  ],
+  "usage": [
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "inputTokens": 577,
+      "outputTokens": 17,
+      "durationMs": 2176,
+      "inputCharacters": 89,
+      "totalTokens": 594,
+      "usageReported": true,
+      "error": null
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "inputTokens": 799,
+      "outputTokens": 160,
+      "durationMs": 3427,
+      "inputCharacters": 874,
+      "totalTokens": 959,
+      "usageReported": true,
+      "error": null
+    }
+  ],
+  "date": "2026-11-01",
+  "authorization": {
+    "accountWithoutBillingConfirmed": true,
+    "additionalRequests": 2,
+    "phaseTotalRequestLimit": 3,
+    "maxOutputTokens": 446,
+    "fallback": false
+  },
+  "sampleReviewStatus": "Revisão técnica inicial pelo agente; revisão humana e generalização pendentes."
+}

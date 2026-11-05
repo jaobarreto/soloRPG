@@ -1,0 +1,124 @@
+{
+  "roundId": "92de710e-9a2d-44e8-933d-2db6f90f800f",
+  "rubric": "docs/ai/phase-5.6.3c-literary-evaluation.md",
+  "reviewer": null,
+  "humanApproved": false,
+  "automaticLiteraryScores": null,
+  "eliminatoryFindings": [],
+  "cases": [
+    {
+      "caseId": "C1-1",
+      "scores": {
+        "naturalidade": null,
+        "personalidade": null,
+        "contextualização": null,
+        "continuidade": null,
+        "variedade": null,
+        "qualidade literária": null,
+        "ritmo": null,
+        "agência": null,
+        "fidelidade ao cânone": null,
+        "segurança narrativa": null
+      },
+      "citedExcerpts": [],
+      "sourcePertinence": null,
+      "selectionVersusContent": null,
+      "rationale": null
+    },
+    {
+      "caseId": "C1-2",
+      "scores": {
+        "naturalidade": null,
+        "personalidade": null,
+        "contextualização": null,
+        "continuidade": null,
+        "variedade": null,
+        "qualidade literária": null,
+        "ritmo": null,
+        "agência": null,
+        "fidelidade ao cânone": null,
+        "segurança narrativa": null
+      },
+      "citedExcerpts": [],
+      "sourcePertinence": null,
+      "selectionVersusContent": null,
+      "rationale": null
+    },
+    {
+      "caseId": "C1-3",
+      "scores": {
+        "naturalidade": null,
+        "personalidade": null,
+        "contextualização": null,
+        "continuidade": null,
+        "variedade": null,
+        "qualidade literária": null,
+        "ritmo": null,
+        "agência": null,
+        "fidelidade ao cânone": null,
+        "segurança narrativa": null
+      },
+      "citedExcerpts": [],
+      "sourcePertinence": null,
+      "selectionVersusContent": null,
+      "rationale": null
+    },
+    {
+      "caseId": "C1-4",
+      "scores": {
+        "naturalidade": null,
+        "personalidade": null,
+        "contextualização": null,
+        "continuidade": null,
+        "variedade": null,
+        "qualidade literária": null,
+        "ritmo": null,
+        "agência": null,
+        "fidelidade ao cânone": null,
+        "segurança narrativa": null
+      },
+      "citedExcerpts": [],
+      "sourcePertinence": null,
+      "selectionVersusContent": null,
+      "rationale": null
+    },
+    {
+      "caseId": "C1-5",
+      "scores": {
+        "naturalidade": null,
+        "personalidade": null,
+        "contextualização": null,
+        "continuidade": null,
+        "variedade": null,
+        "qualidade literária": null,
+        "ritmo": null,
+        "agência": null,
+        "fidelidade ao cânone": null,
+        "segurança narrativa": null
+      },
+      "citedExcerpts": [],
+      "sourcePertinence": null,
+      "selectionVersusContent": null,
+      "rationale": null
+    },
+    {
+      "caseId": "C1-6",
+      "scores": {
+        "naturalidade": null,
+        "personalidade": null,
+        "contextualização": null,
+        "continuidade": null,
+        "variedade": null,
+        "qualidade literária": null,
+        "ritmo": null,
+        "agência": null,
+        "fidelidade ao cânone": null,
+        "segurança narrativa": null
+      },
+      "citedExcerpts": [],
+      "sourcePertinence": null,
+      "selectionVersusContent": null,
+      "rationale": null
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "phase": "5.6.1",
+  "case": "561-01",
+  "scope": "ONE_AUTHORIZED_REAL_ATTEMPT_AFTER_SCHEMA_FIX",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "schemaConfirmation": "PASSED_THIS_REAL_ATTEMPT",
+  "caseClassification": "FAILED_ORIGINAL_EXPRESSION_CRITERION",
+  "semanticClassification": "PARTIAL: correct intent/tool/source/target; wrong speech-act expression",
+  "checks": {
+    "exactlyOneAttempt": true,
+    "onlyCase56101": true,
+    "originalRequestPreserved": true,
+    "rawPydanticValid": true,
+    "pydanticDidNotNormalizeFields": true,
+    "originalRawAcceptedByNestJS": true,
+    "originalRawAuthorized": true,
+    "noEffectsExecuted": true,
+    "noCampaignWrites": true,
+    "inputsPreservedAfterRun": true,
+    "permanentFreeTierFlagStillFalse": true,
+    "modelUnchanged": true,
+    "noFallback": true
+  },
+  "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"QUERY\",\n  \"description\": \"Naelis consulta suas lembranças e investigações anteriores sobre a porta.\",\n  \"target\": {\n    \"type\": \"WORLD\",\n    \"name\": \"Porta\"\n  },\n  \"expression\": \"DIRECT\",\n  \"evidence\": [\n    \"info-b8009dbd5409f0d34e434465\"\n  ],\n  \"tool\": {\n    \"type\": \"QUERY\",\n    \"subject\": \"MEMORY\"\n  }\n}",
+  "rawProposal": {
+    "kind": "FREE",
+    "intent": "QUERY",
+    "description": "Naelis consulta suas lembranças e investigações anteriores sobre a porta.",
+    "target": {
+      "type": "WORLD",
+      "name": "Porta"
+    },
+    "expression": "DIRECT",
+    "evidence": [
+      "info-b8009dbd5409f0d34e434465"
+    ],
+    "tool": {
+      "type": "QUERY",
+      "subject": "MEMORY"
+    }
+  },
+  "expectedIntent": [
+    "QUERY"
+  ],
+  "expectedTool": [
+    "QUERY"
+  ],
+  "expectedExpression": "QUESTION",
+  "proposedExpression": "DIRECT",
+  "selectedSources": [
+    {
+      "key": "info-b8009dbd5409f0d34e434465",
+      "scope": "KNOWN",
+      "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada."
+    }
+  ],
+  "pydantic": {
+    "schemaValid": true,
+    "validationIssues": [],
+    "normalizedAfterGeneration": false
+  },
+  "nestJSValidationOfOriginalRaw": {
+    "schemaValid": true,
+    "resolution": {
+      "category": "QUERY",
+      "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+      "targetId": "00000000-0000-4000-a000-000000000004",
+      "authorizedTool": "QUERY"
+    },
+    "authorization": "AUTHORIZED",
+    "effectsExecuted": false,
+    "campaignWrites": false,
+    "renderer": {
+      "accepted": true,
+      "narration": {
+        "narrative": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+        "eventIds": []
+      },
+      "reason": null
+    }
+  },
+  "semanticEvaluator": {
+    "passed": false,
+    "failures": [
+      "EXPRESSION"
+    ]
+  },
+  "usage": [
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "inputTokens": 2095,
+      "outputTokens": 138,
+      "durationMs": 2040,
+      "inputCharacters": 1246,
+      "totalTokens": 2233,
+      "usageReported": true,
+      "error": null
+    }
+  ],
+  "attemptsThisAuthorization": 1,
+  "maxRequests": 1,
+  "maxOutputTokens": 700,
+  "realAttemptsAcrossPhase561": 2,
+  "aggregateHistoricalReportedUsage": {
+    "inputTokens": 4190,
+    "outputTokens": 275,
+    "totalTokens": 4465,
+    "durationMs": 3712
+  },
+  "priorCaseAndNewCaseKeptSeparate": true,
+  "unexecutedCases": [
+    "561-02",
+    "561-03",
+    "561-04",
+    "561-05",
+    "561-06",
+    "561-07",
+    "561-08"
+  ],
+  "automaticRetries": 0,
+  "providerFallbacks": 0,
+  "responseRepairCalls": 0,
+  "literaryCalls": 0,
+  "stopReason": "AUTHORIZED_SINGLE_ATTEMPT_COMPLETED; no continuation permitted",
+  "financialVerification": "Same .env and active key with no override; free project without billing confirmed by operator earlier; no independent cloud billing lookup.",
+  "receiptSHA256": "9ba05bae0360dd142cf5a5791335934791e1448d56339d7a510e0453d0398c3a",
+  "originalReceiptPreserved": true
+}

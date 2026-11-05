@@ -1,0 +1,98 @@
+{
+  "phase": "5.6.3B",
+  "status": "OFFLINE_G1_G2_IMPLEMENTED_AND_VALIDATED",
+  "realProviderRequests": 0,
+  "geminiLiteraryQualityCertified": false,
+  "humanVoiceApproval": false,
+  "nextInterventionStarted": false,
+  "validation": {
+    "nestjs": {
+      "completeRun": {
+        "passed": 484,
+        "failed": 1,
+        "total": 485,
+        "suites": 33,
+        "seconds": 497.848
+      },
+      "failure": "TEST-55-017/018/019/020 compared unordered database rows; same records in different order",
+      "correction": "Both reads orderBy(eventId), preserving full row equality",
+      "affectedSuiteReexecution": {
+        "passed": 10,
+        "total": 10,
+        "seconds": 13.755
+      },
+      "passedUniqueCasesAfterReexecution": 485,
+      "coverage": {
+        "statements": 92.55,
+        "branches": 84.55,
+        "functions": 96.63,
+        "lines": 94.0
+      }
+    },
+    "python": {
+      "passed": 359,
+      "seconds": 10.04,
+      "coveragePercent": 86
+    },
+    "sharedContracts": {
+      "passed": 14,
+      "files": 6
+    },
+    "finalLaboratory": {
+      "passed": 18,
+      "includedInCompleteSuite": true,
+      "turns": 58,
+      "directedControls": 5
+    },
+    "initialRedTests": 4,
+    "historicalPublishedTurnsReproduced": 58,
+    "additionalParticipationRedTests": 2,
+    "literalSourceRedTest": 1,
+    "postLiteralFixPublicationTests": 40,
+    "finalCompleteSuiteLog": "/tmp/khaos563b-api-final4.log"
+  },
+  "preservation": {
+    "preexistingFilesChecked": 387,
+    "byteIdentical": 372,
+    "expectedChanges": [
+      "apps/ai-service/app/narrative/schemas.py",
+      "apps/ai-service/app/narrative/prompts.py",
+      "apps/ai-service/app/narrative/selection.py",
+      "apps/api/src/narrative/rendering.ts",
+      "apps/api/src/narrative/free-action.ts",
+      "apps/api/src/narrative/resolution.service.ts",
+      "apps/api/src/narrative/narrative.service.ts",
+      "apps/api/src/narrative/context.service.ts",
+      "apps/api/src/messages/dto/message-response.dto.ts",
+      "packages/shared-contracts/openapi/ai.json",
+      "packages/shared-contracts/src/narrative.ts",
+      "packages/shared-contracts/src/free-action.ts",
+      "packages/shared-contracts/src/index.ts",
+      "docs/testing/narrative-tests.md",
+      "apps/api/test/integration/phase55.spec.ts"
+    ],
+    "unexpectedChanges": [],
+    "envAndProvidersUnchanged": true,
+    "originalLaboratoryArtifactsUnchanged": true,
+    "newBehavior": "First-person disagreement fragments additionally require official event participation; promise/source interpolation preserves literal replacement symbols."
+  },
+  "authoringLimit": "Reviewed local topic/source association is trusted preparation; hash proves source identity, not semantic appropriateness.",
+  "comparisonLimit": "Same player sequence; B adds explicit reviewed bindings/current state and a scripted selector for prepared replies. Not a causal model eval.",
+  "artifacts": {
+    "docs/ai/phase-5.6.3b-lab-result.json": "d9be1dc8815a3c721f1f319e8b69aa6fdb6d686109298f393db2692e4743178b",
+    "docs/ai/phase-5.6.3b-comparison.json": "9f654b062f0d0c06e62d63456a6286bead17a1c128555352045b471ad8b66069",
+    "docs/ai/phase-5.6.3b-editorial-review.json": "fc7c8fd9bd67ee809198f2384b0dd1ccbfc5865c5c681bab6c204c86c743a966",
+    "docs/ai/phase-5.6.3a-rubric.json": "69ad8092fe84592f3815ace0a511ad374d5fd9fc11a731aaad43631f313be7dd",
+    "docs/ai/phase-5.6.3a-lab-result.json": "9eab527ef9aa2590e0bff9ff86d706091741e97eb72b5a78ca42cb20f884e1ef"
+  },
+  "testLogDigests": {
+    "/tmp/khaos563b-api-final4.log": "840decffcbfdecd2b98223560d91becfaa729181b40dd6f657bb8769e6a6fdb0",
+    "/tmp/khaos563b-python-final3.log": "c281ef300f526b84e7e40a63ae9d9437ce96eb5f94c84db96d30b96ceae1794b",
+    "/tmp/khaos563b-shared-verified.log": "c166af5e6b1dea0f0cb93a6c452b4dc5bba0a0b3f255e7dc0132e3e84365275b",
+    "/tmp/khaos563b-participation-red.log": "50bb822ab8b438f7976d8972984722a5eb6d0a4b8c7050cb816b1855ef28422a",
+    "/tmp/khaos563b-participation-green.log": "ef49864031d85991e10f36e3852f41d8282cca1455f45c835872c0db440f14a4",
+    "/tmp/khaos563b-literal-red.log": "f5d8555e1e9bf268c554286a03ed2558ffe149e3399e407f9a833143400e7157",
+    "/tmp/khaos563b-literal-green.log": "2f31241529d7ea8d9f4e5dcaeea5370264c936ab8af91508733ddd09f91db312",
+    "/tmp/khaos563b-phase55-final.log": "835082f19e05c213abf2bde34bfbdba70b99e7eed369b22adfe6b30a06bf604f"
+  }
+}

@@ -13,6 +13,9 @@ module.exports = {
     '!src/database/schema.ts',
     '!src/database/game-schema.ts',
     '!src/database/narrative-schema.ts',
+    '!src/database/adventure-schema.ts',
+    '!src/database/arcana-schema.ts',
     '!src/game-engine/admin.ts',
+    '!src/adventures/admin.ts',
   ],
 };

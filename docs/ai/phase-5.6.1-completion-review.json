@@ -1,0 +1,1282 @@
+{
+  "phase": "5.6.1",
+  "date": "2026-11-01",
+  "status": "PARCIALMENTE APROVADA",
+  "reviewKind": "DIRECT_RAW_REVALIDATION_NO_PROVIDER_CALLS",
+  "newMetrics": {
+    "uniqueScenarios": 5,
+    "attempts": 5,
+    "fullyApprovedAttempts": 4,
+    "semanticallyCorrectRawSelections": 4,
+    "semanticallyIncorrectRawSelections": 1,
+    "semanticRawCountingNote": "Counts raw intent/tool/expression/parameters/evidence independently of envelope validity; initial 561-01 is not an approved response.",
+    "schemaFailures": 0,
+    "expressionFailures": 0,
+    "toolFailures": 0,
+    "intentFailures": 0,
+    "parameterFailures": 1,
+    "groundingFailures": 0,
+    "correctLocalAuthorizationDecisions": 5,
+    "authorizedLocalProposals": 4,
+    "expectedLimitedDecisions": 1,
+    "blockedInvalidContracts": 0,
+    "semanticallyIncorrectProposalsBlocked": 0,
+    "inputTokens": 10568,
+    "outputTokens": 599,
+    "totalTokens": 11167,
+    "durationMs": 10325,
+    "usageUnknown": 0,
+    "latencyPerAttempt": [
+      {
+        "id": "561-02",
+        "attempt": 1,
+        "durationMs": 2569
+      },
+      {
+        "id": "561-05",
+        "attempt": 1,
+        "durationMs": 2723
+      },
+      {
+        "id": "561-06",
+        "attempt": 1,
+        "durationMs": 1533
+      },
+      {
+        "id": "561-07",
+        "attempt": 1,
+        "durationMs": 1656
+      },
+      {
+        "id": "561-08",
+        "attempt": 1,
+        "durationMs": 1844
+      }
+    ],
+    "providerErrors": 0
+  },
+  "consolidatedMetrics": {
+    "uniqueScenarios": 8,
+    "attempts": 9,
+    "fullyApprovedAttempts": 6,
+    "semanticallyCorrectRawSelections": 7,
+    "semanticallyIncorrectRawSelections": 2,
+    "semanticRawCountingNote": "Counts raw intent/tool/expression/parameters/evidence independently of envelope validity; initial 561-01 is not an approved response.",
+    "schemaFailures": 1,
+    "expressionFailures": 1,
+    "toolFailures": 0,
+    "intentFailures": 0,
+    "parameterFailures": 1,
+    "groundingFailures": 0,
+    "correctLocalAuthorizationDecisions": 8,
+    "authorizedLocalProposals": 6,
+    "expectedLimitedDecisions": 2,
+    "blockedInvalidContracts": 1,
+    "semanticallyIncorrectProposalsBlocked": 0,
+    "inputTokens": 18868,
+    "outputTokens": 1150,
+    "totalTokens": 20018,
+    "durationMs": 18205,
+    "usageUnknown": 0,
+    "latencyPerAttempt": [
+      {
+        "id": "561-01",
+        "attempt": 1,
+        "durationMs": 1672
+      },
+      {
+        "id": "561-01",
+        "attempt": 2,
+        "durationMs": 2040
+      },
+      {
+        "id": "561-02",
+        "attempt": 1,
+        "durationMs": 2569
+      },
+      {
+        "id": "561-03",
+        "attempt": 1,
+        "durationMs": 2132
+      },
+      {
+        "id": "561-04",
+        "attempt": 1,
+        "durationMs": 2036
+      },
+      {
+        "id": "561-05",
+        "attempt": 1,
+        "durationMs": 2723
+      },
+      {
+        "id": "561-06",
+        "attempt": 1,
+        "durationMs": 1533
+      },
+      {
+        "id": "561-07",
+        "attempt": 1,
+        "durationMs": 1656
+      },
+      {
+        "id": "561-08",
+        "attempt": 1,
+        "durationMs": 1844
+      }
+    ],
+    "providerErrors": 0
+  },
+  "rows": [
+    {
+      "id": "561-01",
+      "receipt": "phase-5.6.1-live-result.json",
+      "historical": true,
+      "attemptForCase": 1,
+      "message": "O que eu já descobri sobre essa porta?",
+      "expected": {
+        "intents": ["QUERY"],
+        "tools": ["QUERY"],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "MEMORY"
+        },
+        "evidence": ["info-b8009dbd5409f0d34e434465"],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Novo teste ou descoberta",
+          "Informação sem fonte KNOWN",
+          "Efeito ou rolagem"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"QUERY\",\n  \"intent\": \"QUERY\",\n  \"description\": \"Consultar a memória sobre as descobertas anteriores a respeito da porta.\",\n  \"target\": {\n    \"type\": \"WORLD\",\n    \"name\": \"Porta\"\n  },\n  \"expression\": \"QUESTION\",\n  \"evidence\": [\n    \"info-b8009dbd5409f0d34e434465\"\n  ],\n  \"tool\": {\n    \"type\": \"QUERY\",\n    \"subject\": \"MEMORY\"\n  }\n}",
+      "rawProposal": {
+        "kind": "QUERY",
+        "intent": "QUERY",
+        "description": "Consultar a memória sobre as descobertas anteriores a respeito da porta.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "QUESTION",
+        "evidence": ["info-b8009dbd5409f0d34e434465"],
+        "tool": {
+          "type": "QUERY",
+          "subject": "MEMORY"
+        }
+      },
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "pydantic": {
+        "valid": false,
+        "issues": [
+          {
+            "field": ["kind"],
+            "type": "literal_error"
+          }
+        ]
+      },
+      "zod": {
+        "valid": false
+      },
+      "nestJS": {
+        "schemaValid": false,
+        "authorization": "NOT_EVALUABLE"
+      },
+      "selectedSources": [
+        {
+          "key": "info-b8009dbd5409f0d34e434465",
+          "scope": "KNOWN",
+          "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada."
+        }
+      ],
+      "targetReview": "AUTHORIZED_WORLD_PORTA",
+      "usage": {
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "inputTokens": 2095,
+        "outputTokens": 137,
+        "durationMs": 1672,
+        "inputCharacters": 1246,
+        "totalTokens": 2232,
+        "usageReported": true,
+        "error": "INVALID_RESPONSE"
+      },
+      "classification": "REPROVADA OPERACIONALMENTE"
+    },
+    {
+      "id": "561-01",
+      "receipt": "phase-5.6.1-case561-01-schema-confirmation.json",
+      "historical": true,
+      "attemptForCase": 2,
+      "message": "O que eu já descobri sobre essa porta?",
+      "expected": {
+        "intents": ["QUERY"],
+        "tools": ["QUERY"],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "MEMORY"
+        },
+        "evidence": ["info-b8009dbd5409f0d34e434465"],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Novo teste ou descoberta",
+          "Informação sem fonte KNOWN",
+          "Efeito ou rolagem"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"QUERY\",\n  \"description\": \"Naelis consulta suas lembranças e investigações anteriores sobre a porta.\",\n  \"target\": {\n    \"type\": \"WORLD\",\n    \"name\": \"Porta\"\n  },\n  \"expression\": \"DIRECT\",\n  \"evidence\": [\n    \"info-b8009dbd5409f0d34e434465\"\n  ],\n  \"tool\": {\n    \"type\": \"QUERY\",\n    \"subject\": \"MEMORY\"\n  }\n}",
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "QUERY",
+        "description": "Naelis consulta suas lembranças e investigações anteriores sobre a porta.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": ["info-b8009dbd5409f0d34e434465"],
+        "tool": {
+          "type": "QUERY",
+          "subject": "MEMORY"
+        }
+      },
+      "semantic": {
+        "passed": false,
+        "failures": ["EXPRESSION"]
+      },
+      "pydantic": {
+        "valid": true,
+        "issues": []
+      },
+      "zod": {
+        "valid": true
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "QUERY",
+          "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+          "targetId": "00000000-0000-4000-a000-000000000004",
+          "authorizedTool": "QUERY"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+            "eventIds": []
+          },
+          "reason": null
+        }
+      },
+      "selectedSources": [
+        {
+          "key": "info-b8009dbd5409f0d34e434465",
+          "scope": "KNOWN",
+          "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada."
+        }
+      ],
+      "targetReview": "AUTHORIZED_WORLD_PORTA",
+      "usage": {
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "inputTokens": 2095,
+        "outputTokens": 138,
+        "durationMs": 2040,
+        "inputCharacters": 1246,
+        "totalTokens": 2233,
+        "usageReported": true,
+        "error": null
+      },
+      "classification": "REPROVADA SEMANTICAMENTE"
+    },
+    {
+      "id": "561-02",
+      "receipt": "phase-5.6.1-completion-live-result.json",
+      "historical": false,
+      "attemptForCase": 1,
+      "message": "Olho atentamente para a fechadura.",
+      "expected": {
+        "intents": ["OBSERVE"],
+        "tools": ["OBSERVE"],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": ["info-59f40a209c6f283318a8d3fe"],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": ["Teste desnecessário", "Descoberta oculta"]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"OBSERVE\",\n  \"description\": \"Naelis olha atentamente para a fechadura de metal da porta.\",\n  \"target\": {\n    \"type\": \"WORLD\",\n    \"name\": \"Porta\"\n  },\n  \"expression\": \"DIRECT\",\n  \"evidence\": [\n    \"info-59f40a209c6f283318a8d3fe\"\n  ],\n  \"tool\": {\n    \"type\": \"OBSERVE\"\n  }\n}",
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "OBSERVE",
+        "description": "Naelis olha atentamente para a fechadura de metal da porta.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": ["info-59f40a209c6f283318a8d3fe"],
+        "tool": {
+          "type": "OBSERVE"
+        }
+      },
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "pydantic": {
+        "valid": true,
+        "issues": []
+      },
+      "zod": {
+        "valid": true
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "OBSERVE",
+          "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+          "targetId": "00000000-0000-4000-a000-000000000004",
+          "authorizedTool": "OBSERVE"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+            "eventIds": []
+          },
+          "reason": null
+        }
+      },
+      "selectedSources": [
+        {
+          "key": "info-59f40a209c6f283318a8d3fe",
+          "scope": "PUBLIC",
+          "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+          "target": {
+            "type": "WORLD",
+            "name": "Porta"
+          }
+        }
+      ],
+      "targetReview": "AUTHORIZED_WORLD_PORTA",
+      "usage": {
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "inputTokens": 2043,
+        "outputTokens": 133,
+        "durationMs": 2569,
+        "inputCharacters": 1099,
+        "totalTokens": 2176,
+        "usageReported": true,
+        "error": null
+      },
+      "classification": "APROVADA NA AMOSTRA"
+    },
+    {
+      "id": "561-03",
+      "receipt": "phase-5.6.1-investigation-contrast-live-result.json",
+      "historical": true,
+      "attemptForCase": 1,
+      "message": "Examino a porta procurando algum mecanismo escondido.",
+      "expected": {
+        "intents": ["INVESTIGATE"],
+        "tools": ["PREPARED_CHECK"],
+        "expression": "DIRECT",
+        "toolFields": {
+          "capability": "Examinar a porta"
+        },
+        "evidence": [],
+        "allowedAdditionalEvidence": ["info-59f40a209c6f283318a8d3fe"],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "QUERY ou OBSERVE substituindo teste",
+          "Dificuldade inventada",
+          "Descoberta antes de resolver"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"INVESTIGATE\",\n  \"description\": \"Naelis examina a porta procurando algum mecanismo escondido.\",\n  \"target\": {\n    \"type\": \"WORLD\",\n    \"name\": \"Porta\"\n  },\n  \"expression\": \"DIRECT\",\n  \"evidence\": [\n    \"info-59f40a209c6f283318a8d3fe\"\n  ],\n  \"tool\": {\n    \"type\": \"PREPARED_CHECK\",\n    \"capability\": \"Examinar a porta\"\n  }\n}",
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "INVESTIGATE",
+        "description": "Naelis examina a porta procurando algum mecanismo escondido.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": ["info-59f40a209c6f283318a8d3fe"],
+        "tool": {
+          "type": "PREPARED_CHECK",
+          "capability": "Examinar a porta"
+        }
+      },
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "pydantic": {
+        "valid": true,
+        "issues": []
+      },
+      "zod": {
+        "valid": true
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "MECHANIC",
+          "text": "A tentativa aguarda o teste oficial.",
+          "optionId": "00000000-0000-4000-a000-000000000005"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      },
+      "selectedSources": [
+        {
+          "key": "info-59f40a209c6f283318a8d3fe",
+          "scope": "PUBLIC",
+          "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+          "target": {
+            "type": "WORLD",
+            "name": "Porta"
+          }
+        }
+      ],
+      "targetReview": "AUTHORIZED_WORLD_PORTA",
+      "usage": {
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "inputTokens": 2066,
+        "outputTokens": 144,
+        "durationMs": 2132,
+        "inputCharacters": 1205,
+        "totalTokens": 2210,
+        "usageReported": true,
+        "error": null
+      },
+      "classification": "APROVADA NA AMOSTRA"
+    },
+    {
+      "id": "561-04",
+      "receipt": "phase-5.6.1-investigation-contrast-live-result.json",
+      "historical": true,
+      "attemptForCase": 1,
+      "message": "Examino a porta procurando algum mecanismo escondido.",
+      "expected": {
+        "intents": ["INVESTIGATE"],
+        "tools": ["ADJUDICATE", "CLARIFY"],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": [],
+        "allowedAdditionalEvidence": ["info-59f40a209c6f283318a8d3fe"],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Teste ou capacidade fabricados",
+          "Descoberta concedida"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"INVESTIGATE\",\n  \"description\": \"Naelis examina a porta procurando algum mecanismo escondido.\",\n  \"target\": {\n    \"type\": \"WORLD\",\n    \"name\": \"Porta\"\n  },\n  \"expression\": \"DIRECT\",\n  \"evidence\": [\n    \"info-59f40a209c6f283318a8d3fe\"\n  ],\n  \"tool\": {\n    \"type\": \"ADJUDICATE\"\n  }\n}",
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "INVESTIGATE",
+        "description": "Naelis examina a porta procurando algum mecanismo escondido.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": ["info-59f40a209c6f283318a8d3fe"],
+        "tool": {
+          "type": "ADJUDICATE"
+        }
+      },
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "pydantic": {
+        "valid": true,
+        "issues": []
+      },
+      "zod": {
+        "valid": true
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "ADJUDICATE",
+          "reason": "UNSUPPORTED_CAPABILITY",
+          "text": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+        },
+        "authorization": "LIMITED_OR_REFUSED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      },
+      "selectedSources": [
+        {
+          "key": "info-59f40a209c6f283318a8d3fe",
+          "scope": "PUBLIC",
+          "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+          "target": {
+            "type": "WORLD",
+            "name": "Porta"
+          }
+        }
+      ],
+      "targetReview": "AUTHORIZED_WORLD_PORTA",
+      "usage": {
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "inputTokens": 2044,
+        "outputTokens": 132,
+        "durationMs": 2036,
+        "inputCharacters": 1118,
+        "totalTokens": 2176,
+        "usageReported": true,
+        "error": null
+      },
+      "classification": "APROVADA NA AMOSTRA"
+    },
+    {
+      "id": "561-05",
+      "receipt": "phase-5.6.1-completion-live-result.json",
+      "historical": false,
+      "attemptForCase": 1,
+      "message": "Una, como funciona o arcano Escudo? Preciso gastar alguma coisa para utilizá-lo?",
+      "expected": {
+        "intents": ["QUERY", "OOC"],
+        "tools": ["QUERY"],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "RULES"
+        },
+        "evidence": ["info-ab7b61cdf63b4a5fb09fce2a"],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "ARCANA executado em pergunta",
+          "Regra inventada",
+          "Consumo de recursos"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"QUERY\",\n  \"description\": \"Naelis consulta as regras sobre o funcionamento e o custo de uso do arcano Escudo Psíquico.\",\n  \"target\": null,\n  \"expression\": \"QUESTION\",\n  \"evidence\": [\n    \"info-ab7b61cdf63b4a5fb09fce2a\"\n  ],\n  \"tool\": {\n    \"type\": \"QUERY\",\n    \"subject\": \"RULES\"\n  }\n}",
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "QUERY",
+        "description": "Naelis consulta as regras sobre o funcionamento e o custo de uso do arcano Escudo Psíquico.",
+        "target": null,
+        "expression": "QUESTION",
+        "evidence": ["info-ab7b61cdf63b4a5fb09fce2a"],
+        "tool": {
+          "type": "QUERY",
+          "subject": "RULES"
+        }
+      },
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "pydantic": {
+        "valid": true,
+        "issues": []
+      },
+      "zod": {
+        "valid": true
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "OOC",
+          "text": "Escudo Psíquico protege a mente contra influências arcanas: quando aplicável, há um teste oposto antes da resistência de Vontade. Erguer ou baixar voluntariamente o escudo é uma ação livre; nas demais situações, permanece ativo. O uso normal indica Fadiga: Nenhuma. A disputa especial para superar escudos permite opções de fadiga voluntária, sem consumo automático ao erguer. Fonte: Blue Rose AGE, livro básico brasileiro, p.102.",
+          "authorizedTool": "QUERY"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Escudo Psíquico protege a mente contra influências arcanas: quando aplicável, há um teste oposto antes da resistência de Vontade. Erguer ou baixar voluntariamente o escudo é uma ação livre; nas demais situações, permanece ativo. O uso normal indica Fadiga: Nenhuma. A disputa especial para superar escudos permite opções de fadiga voluntária, sem consumo automático ao erguer. Fonte: Blue Rose AGE, livro básico brasileiro, p.102.",
+            "eventIds": []
+          },
+          "reason": null
+        }
+      },
+      "selectedSources": [
+        {
+          "key": "info-ab7b61cdf63b4a5fb09fce2a",
+          "scope": "RULES",
+          "text": "Escudo Psíquico protege a mente contra influências arcanas: quando aplicável, há um teste oposto antes da resistência de Vontade. Erguer ou baixar voluntariamente o escudo é uma ação livre; nas demais situações, permanece ativo. O uso normal indica Fadiga: Nenhuma. A disputa especial para superar escudos permite opções de fadiga voluntária, sem consumo automático ao erguer. Fonte: Blue Rose AGE, livro básico brasileiro, p.102."
+        }
+      ],
+      "targetReview": "NO_ARBITRARY_TARGET",
+      "usage": {
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "inputTokens": 2188,
+        "outputTokens": 122,
+        "durationMs": 2723,
+        "inputCharacters": 1641,
+        "totalTokens": 2310,
+        "usageReported": true,
+        "error": null
+      },
+      "classification": "APROVADA NA AMOSTRA"
+    },
+    {
+      "id": "561-06",
+      "receipt": "phase-5.6.1-completion-live-result.json",
+      "historical": false,
+      "attemptForCase": 1,
+      "message": "Eu ergo meu Escudo.",
+      "expected": {
+        "intents": ["ARCANA"],
+        "tools": ["ARCANA"],
+        "expression": "DIRECT",
+        "toolFields": {
+          "arcanum": "psychic-shield",
+          "raised": true
+        },
+        "evidence": [],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": ["tradition", "use", "fatigue", "category"],
+        "failureCriteria": [
+          "Consulta em lugar de execução",
+          "Arcano ou parâmetro inventados"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"ARCANA\",\n  \"description\": \"Naelis ergue seu Escudo Psíquico.\",\n  \"target\": null,\n  \"expression\": \"DIRECT\",\n  \"evidence\": [],\n  \"tool\": {\n    \"type\": \"ARCANA\",\n    \"arcanum\": \"psychic-shield\",\n    \"raised\": true,\n    \"tradition\": \"PSYCHIC\",\n    \"use\": null,\n    \"fatigue\": null,\n    \"category\": null\n  }\n}",
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "ARCANA",
+        "description": "Naelis ergue seu Escudo Psíquico.",
+        "target": null,
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "ARCANA",
+          "arcanum": "psychic-shield",
+          "raised": true,
+          "tradition": "PSYCHIC",
+          "use": null,
+          "fatigue": null,
+          "category": null
+        }
+      },
+      "semantic": {
+        "passed": false,
+        "failures": ["INVENTED_PARAMETER:tradition"]
+      },
+      "pydantic": {
+        "valid": true,
+        "issues": []
+      },
+      "zod": {
+        "valid": true
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "MECHANIC",
+          "text": "O motor verifica o arcano e suas condições.",
+          "command": {
+            "type": "ARCANA_USE",
+            "input": {
+              "arcanum": "psychic-shield",
+              "characterId": "00000000-0000-4000-a000-000000000001",
+              "raised": true
+            }
+          }
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      },
+      "selectedSources": [],
+      "targetReview": "NO_ARBITRARY_TARGET",
+      "usage": {
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "inputTokens": 2041,
+        "outputTokens": 129,
+        "durationMs": 1533,
+        "inputCharacters": 1084,
+        "totalTokens": 2170,
+        "usageReported": true,
+        "error": null
+      },
+      "classification": "REPROVADA SEMANTICAMENTE"
+    },
+    {
+      "id": "561-07",
+      "receipt": "phase-5.6.1-completion-live-result.json",
+      "historical": false,
+      "attemptForCase": 1,
+      "message": "Quero usar minha magia nele.",
+      "expected": {
+        "intents": ["ARCANA"],
+        "tools": ["CLARIFY"],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": [],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Escolha arbitrária de arcano ou alvo",
+          "Efeito ou consumo",
+          "Schema inválido"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"ARCANA\",\n  \"description\": \"Naelis tenta usar sua magia no alvo mencionado.\",\n  \"target\": null,\n  \"expression\": \"DIRECT\",\n  \"evidence\": [],\n  \"tool\": {\n    \"type\": \"CLARIFY\",\n    \"question\": \"Qual arcanum você deseja usar e em qual alvo?\"\n  }\n}",
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "ARCANA",
+        "description": "Naelis tenta usar sua magia no alvo mencionado.",
+        "target": null,
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "CLARIFY",
+          "question": "Qual arcanum você deseja usar e em qual alvo?"
+        }
+      },
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "pydantic": {
+        "valid": true,
+        "issues": []
+      },
+      "zod": {
+        "valid": true
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "CLARIFY",
+          "text": "Qual arcano deseja utilizar e em quem?",
+          "reason": "CLARIFICATION_REQUIRED"
+        },
+        "authorization": "LIMITED_OR_REFUSED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      },
+      "selectedSources": [],
+      "targetReview": "NO_ARBITRARY_TARGET",
+      "usage": {
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "inputTokens": 2082,
+        "outputTokens": 95,
+        "durationMs": 1656,
+        "inputCharacters": 1245,
+        "totalTokens": 2177,
+        "usageReported": true,
+        "error": null
+      },
+      "classification": "APROVADA NA AMOSTRA"
+    },
+    {
+      "id": "561-08",
+      "receipt": "phase-5.6.1-completion-live-result.json",
+      "historical": false,
+      "attemptForCase": 1,
+      "message": "Fora do RPG: como eu sei quando uma sessão terminou? A história sempre vai ter alguma reviravolta antes disso?",
+      "expected": {
+        "intents": ["OOC", "QUERY"],
+        "tools": ["QUERY"],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "RULES"
+        },
+        "evidence": ["info-441d1e9142e76c5c865c5fd7"],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Promessa de reviravolta",
+          "Spoiler ou futuro sem fonte",
+          "Evento de mundo"
+        ]
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"OOC\",\n  \"description\": \"Explicação fora do personagem sobre o término de sessões e progressão narrativa.\",\n  \"target\": null,\n  \"expression\": \"QUESTION\",\n  \"evidence\": [\n    \"info-441d1e9142e76c5c865c5fd7\"\n  ],\n  \"tool\": {\n    \"type\": \"QUERY\",\n    \"subject\": \"RULES\"\n  }\n}",
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "OOC",
+        "description": "Explicação fora do personagem sobre o término de sessões e progressão narrativa.",
+        "target": null,
+        "expression": "QUESTION",
+        "evidence": ["info-441d1e9142e76c5c865c5fd7"],
+        "tool": {
+          "type": "QUERY",
+          "subject": "RULES"
+        }
+      },
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "pydantic": {
+        "valid": true,
+        "issues": []
+      },
+      "zod": {
+        "valid": true
+      },
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "OOC",
+          "text": "KHAOS: uma sessão é uma unidade narrativa. Pausar ou retomar não encerra a sessão. Seu encerramento depende da condição narrativa oficial e de confirmação persistida pelo Director. Tempo e quantidade de mensagens não concluem objetivos nem liberam capítulos. Não existe garantia geral de uma reviravolta antes do encerramento; acontecimentos futuros não são informação pública confirmada. Fonte: docs/architecture/campaigns-and-sessions.md, abertura; docs/architecture/campaign-director.md, progressão por condições confirmadas.",
+          "authorizedTool": "QUERY"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": {
+          "accepted": true,
+          "narration": {
+            "narrative": "KHAOS: uma sessão é uma unidade narrativa. Pausar ou retomar não encerra a sessão. Seu encerramento depende da condição narrativa oficial e de confirmação persistida pelo Director. Tempo e quantidade de mensagens não concluem objetivos nem liberam capítulos. Não existe garantia geral de uma reviravolta antes do encerramento; acontecimentos futuros não são informação pública confirmada. Fonte: docs/architecture/campaigns-and-sessions.md, abertura; docs/architecture/campaign-director.md, progressão por condições confirmadas.",
+            "eventIds": []
+          },
+          "reason": null
+        }
+      },
+      "selectedSources": [
+        {
+          "key": "info-441d1e9142e76c5c865c5fd7",
+          "scope": "RULES",
+          "text": "KHAOS: uma sessão é uma unidade narrativa. Pausar ou retomar não encerra a sessão. Seu encerramento depende da condição narrativa oficial e de confirmação persistida pelo Director. Tempo e quantidade de mensagens não concluem objetivos nem liberam capítulos. Não existe garantia geral de uma reviravolta antes do encerramento; acontecimentos futuros não são informação pública confirmada. Fonte: docs/architecture/campaigns-and-sessions.md, abertura; docs/architecture/campaign-director.md, progressão por condições confirmadas."
+        }
+      ],
+      "targetReview": "NO_ARBITRARY_TARGET",
+      "usage": {
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "inputTokens": 2214,
+        "outputTokens": 120,
+        "durationMs": 1844,
+        "inputCharacters": 1782,
+        "totalTokens": 2334,
+        "usageReported": true,
+        "error": null
+      },
+      "classification": "APROVADA NA AMOSTRA"
+    }
+  ],
+  "preservation": {
+    "allExistingSourceDocumentsAndReceiptsUnchanged": true,
+    "filesChecked": 360,
+    "checks": {
+      ".env": true,
+      ".env.example": true,
+      "README.md": true,
+      "apps/api/jest.config.cjs": true,
+      "apps/api/drizzle.config.ts": true,
+      "apps/api/tsconfig.json": true,
+      "apps/api/tsconfig.build.json": true,
+      "apps/api/jest.integration.config.cjs": true,
+      "apps/api/package.json": true,
+      "apps/web/components.json": true,
+      "apps/web/next.config.ts": true,
+      "apps/web/next-env.d.ts": true,
+      "apps/web/tsconfig.json": true,
+      "apps/web/postcss.config.mjs": true,
+      "apps/web/eslint.config.mjs": true,
+      "apps/web/package.json": true,
+      "apps/ai-service/.python-version": true,
+      "apps/ai-service/README.md": true,
+      "apps/ai-service/pyproject.toml": true,
+      "apps/ai-service/uv.lock": true,
+      "apps/ai-service/package.json": true,
+      "apps/api/test/message-limit.spec.ts": true,
+      "apps/api/test/blue-rose-arcana.spec.ts": true,
+      "apps/api/test/progression.spec.ts": true,
+      "apps/api/test/blue-rose.spec.ts": true,
+      "apps/api/test/app.spec.ts": true,
+      "apps/api/test/free-action.spec.ts": true,
+      "apps/api/test/database.spec.ts": true,
+      "apps/api/test/phase562-publication.spec.ts": true,
+      "apps/api/test/phase561-schema.spec.ts": true,
+      "apps/api/test/gloamhale-mechanics.spec.ts": true,
+      "apps/api/test/adventure-registry.spec.ts": true,
+      "apps/api/test/blue-rose-combat.spec.ts": true,
+      "apps/api/test/phase56.spec.ts": true,
+      "apps/api/test/architecture-boundaries.spec.ts": true,
+      "apps/api/test/setup.ts": true,
+      "apps/api/test/gloamhale.spec.ts": true,
+      "apps/api/test/config.spec.ts": true,
+      "apps/api/test/session-state.spec.ts": true,
+      "apps/api/test/blue-rose-recovery.spec.ts": true,
+      "apps/api/test/ai-service.spec.ts": true,
+      "apps/api/drizzle/0001_campaigns_sessions_messages.sql": true,
+      "apps/api/drizzle/0005_gigantic_wendigo.sql": true,
+      "apps/api/drizzle/0004_narrative_turns.sql": true,
+      "apps/api/drizzle/0002_game_engine.sql": true,
+      "apps/api/drizzle/0000_enable_vector.sql": true,
+      "apps/api/drizzle/0007_adventure_registry_time.sql": true,
+      "apps/api/drizzle/0009_swift_king_bedlam.sql": true,
+      "apps/api/drizzle/0010_overjoyed_marvex.sql": true,
+      "apps/api/drizzle/0003_blue_rose_mechanics.sql": true,
+      "apps/api/drizzle/0006_uneven_runaways.sql": true,
+      "apps/api/drizzle/0008_certain_grey_gargoyle.sql": true,
+      "apps/api/src/main.ts": true,
+      "apps/api/src/api-exception.filter.ts": true,
+      "apps/api/src/configure-app.ts": true,
+      "apps/api/src/app.module.ts": true,
+      "apps/api/test/fixtures/legacy-campaign.ts": true,
+      "apps/api/test/fixtures/adventure.ts": true,
+      "apps/api/test/integration/blue-rose-mechanics.spec.ts": true,
+      "apps/api/test/integration/phase561-canonicity.spec.ts": true,
+      "apps/api/test/integration/arcana.spec.ts": true,
+      "apps/api/test/integration/domain.spec.ts": true,
+      "apps/api/test/integration/phase55.spec.ts": true,
+      "apps/api/test/integration/adventure-registry.spec.ts": true,
+      "apps/api/test/integration/game-engine.spec.ts": true,
+      "apps/api/test/integration/phase56.spec.ts": true,
+      "apps/api/test/integration/narrative.spec.ts": true,
+      "apps/api/test/integration/gloamhale.spec.ts": true,
+      "apps/api/drizzle/meta/0010_snapshot.json": true,
+      "apps/api/drizzle/meta/0007_snapshot.json": true,
+      "apps/api/drizzle/meta/0002_snapshot.json": true,
+      "apps/api/drizzle/meta/0005_snapshot.json": true,
+      "apps/api/drizzle/meta/0006_snapshot.json": true,
+      "apps/api/drizzle/meta/0008_snapshot.json": true,
+      "apps/api/drizzle/meta/0009_snapshot.json": true,
+      "apps/api/drizzle/meta/0004_snapshot.json": true,
+      "apps/api/drizzle/meta/_journal.json": true,
+      "apps/api/drizzle/meta/0001_snapshot.json": true,
+      "apps/api/drizzle/meta/0000_snapshot.json": true,
+      "apps/api/drizzle/meta/0003_snapshot.json": true,
+      "apps/api/src/adventures/gloamhale-v2.ts": true,
+      "apps/api/src/adventures/adventure.service.ts": true,
+      "apps/api/src/adventures/definition.ts": true,
+      "apps/api/src/adventures/admin.ts": true,
+      "apps/api/src/adventures/gloamhale-runtime.ts": true,
+      "apps/api/src/adventures/registry.ts": true,
+      "apps/api/src/adventures/supplied-party.ts": true,
+      "apps/api/src/adventures/party-validation.ts": true,
+      "apps/api/src/adventures/gloamhale-module.ts": true,
+      "apps/api/src/adventures/progression.ts": true,
+      "apps/api/src/adventures/execution.ts": true,
+      "apps/api/src/adventures/identity.ts": true,
+      "apps/api/src/adventures/gloamhale.ts": true,
+      "apps/api/src/adventures/gloamhale-mechanics.ts": true,
+      "apps/api/src/adventures/adventure.module.ts": true,
+      "apps/api/src/adventures/gloamhale-commands.ts": true,
+      "apps/api/src/adventures/party-variant.ts": true,
+      "apps/api/src/adventures/gloamhale-v3.ts": true,
+      "apps/api/src/adventures/director.ts": true,
+      "apps/api/src/adventures/adventure-registry.module.ts": true,
+      "apps/api/src/adventures/default-adventure.ts": true,
+      "apps/api/src/adventures/state.ts": true,
+      "apps/api/src/adventures/import.ts": true,
+      "apps/api/src/sessions/sessions.service.ts": true,
+      "apps/api/src/sessions/sessions.controller.ts": true,
+      "apps/api/src/sessions/session-state.ts": true,
+      "apps/api/src/sessions/sessions.module.ts": true,
+      "apps/api/src/sessions/sessions.repository.ts": true,
+      "apps/api/src/blue-rose/blue-rose.module.ts": true,
+      "apps/api/src/blue-rose/tests.service.ts": true,
+      "apps/api/src/blue-rose/combat.service.ts": true,
+      "apps/api/src/blue-rose/sheet-validation.ts": true,
+      "apps/api/src/blue-rose/arcana.rules.ts": true,
+      "apps/api/src/blue-rose/blue-rose.rules.ts": true,
+      "apps/api/src/blue-rose/recovery.rules.ts": true,
+      "apps/api/src/blue-rose/combat.rules.ts": true,
+      "apps/api/src/blue-rose/arcana-execution.service.ts": true,
+      "apps/api/src/blue-rose/arcana.service.ts": true,
+      "apps/api/src/characters/characters.service.ts": true,
+      "apps/api/src/config/environment.ts": true,
+      "apps/api/src/game-engine/admin.ts": true,
+      "apps/api/src/game-engine/game-engine.service.ts": true,
+      "apps/api/src/game-engine/game.repository.ts": true,
+      "apps/api/src/game-engine/game-engine.module.ts": true,
+      "apps/api/src/game-engine/commands.ts": true,
+      "apps/api/src/game-engine/context.ts": true,
+      "apps/api/src/game-engine/game-engine.controller.ts": true,
+      "apps/api/src/game-engine/validation.ts": true,
+      "apps/api/src/messages/messages.service.ts": true,
+      "apps/api/src/messages/messages.module.ts": true,
+      "apps/api/src/messages/messages.controller.ts": true,
+      "apps/api/src/messages/messages.repository.ts": true,
+      "apps/api/src/health/health.module.ts": true,
+      "apps/api/src/health/health.controller.ts": true,
+      "apps/api/src/campaigns/campaigns.service.ts": true,
+      "apps/api/src/campaigns/campaigns.module.ts": true,
+      "apps/api/src/campaigns/campaigns.controller.ts": true,
+      "apps/api/src/campaigns/campaigns.repository.ts": true,
+      "apps/api/src/database/game-schema.ts": true,
+      "apps/api/src/database/adventure-schema.ts": true,
+      "apps/api/src/database/narrative-schema.ts": true,
+      "apps/api/src/database/database.module.ts": true,
+      "apps/api/src/database/database.service.ts": true,
+      "apps/api/src/database/schema.ts": true,
+      "apps/api/src/database/arcana-schema.ts": true,
+      "apps/api/src/narrative/rendering.ts": true,
+      "apps/api/src/narrative/free-action.ts": true,
+      "apps/api/src/narrative/resolution.service.ts": true,
+      "apps/api/src/narrative/narrative.service.ts": true,
+      "apps/api/src/narrative/mentions.ts": true,
+      "apps/api/src/narrative/context.service.ts": true,
+      "apps/api/src/narrative/narrative.controller.ts": true,
+      "apps/api/src/narrative/identifiers.ts": true,
+      "apps/api/src/narrative/information.ts": true,
+      "apps/api/src/narrative/narrative.module.ts": true,
+      "apps/api/src/integrations/ai-service/ai-service.client.ts": true,
+      "apps/api/src/integrations/ai-service/ai-service.module.ts": true,
+      "apps/api/src/sessions/dto/session-response.dto.ts": true,
+      "apps/api/src/sessions/dto/complete-session.dto.ts": true,
+      "apps/api/src/messages/dto/message-input.dto.ts": true,
+      "apps/api/src/messages/dto/message-response.dto.ts": true,
+      "apps/api/src/campaigns/dto/campaign-response.dto.ts": true,
+      "apps/api/src/campaigns/dto/campaign-input.dto.ts": true,
+      "apps/web/test/campaign-api.test.mjs": true,
+      "apps/web/test/mentions.test.mjs": true,
+      "apps/web/test/health.test.mjs": true,
+      "apps/web/src/lib/utils.ts": true,
+      "apps/web/src/lib/campaign-api.ts": true,
+      "apps/web/src/lib/health.ts": true,
+      "apps/web/src/lib/mentions.ts": true,
+      "apps/web/src/components/mention-composer.tsx": true,
+      "apps/web/src/components/ai-usage.tsx": true,
+      "apps/web/src/components/blue-rose-mechanics.tsx": true,
+      "apps/web/src/components/campaign-ui.tsx": true,
+      "apps/web/src/components/session-chat.tsx": true,
+      "apps/web/src/components/health-dashboard.tsx": true,
+      "apps/web/src/components/campaign-form.tsx": true,
+      "apps/web/src/components/game-panel.tsx": true,
+      "apps/web/src/app/layout.tsx": true,
+      "apps/web/src/app/page.tsx": true,
+      "apps/web/src/app/globals.css": true,
+      "apps/web/src/app/campaigns/layout.tsx": true,
+      "apps/web/src/app/campaigns/page.tsx": true,
+      "apps/web/src/app/campaigns/[campaignId]/page.tsx": true,
+      "apps/web/src/app/campaigns/new/page.tsx": true,
+      "apps/web/src/app/campaigns/[campaignId]/game/page.tsx": true,
+      "apps/web/src/app/campaigns/[campaignId]/sessions/[sessionId]/page.tsx": true,
+      "apps/ai-service/app/main.py": true,
+      "apps/ai-service/app/__init__.py": true,
+      "apps/ai-service/tests/test_turn_wire.py": true,
+      "apps/ai-service/tests/test_phase54.py": true,
+      "apps/ai-service/tests/test_narrative.py": true,
+      "apps/ai-service/tests/test_phase562.py": true,
+      "apps/ai-service/tests/test_live_validation.py": true,
+      "apps/ai-service/tests/test_phase561.py": true,
+      "apps/ai-service/tests/test_phase56.py": true,
+      "apps/ai-service/tests/test_health.py": true,
+      "apps/ai-service/tests/test_phase53.py": true,
+      "apps/ai-service/tests/test_config.py": true,
+      "apps/ai-service/tests/test_gemini_schema.py": true,
+      "apps/ai-service/tests/test_providers.py": true,
+      "apps/ai-service/tests/test_phase55.py": true,
+      "apps/ai-service/app/providers/errors.py": true,
+      "apps/ai-service/app/providers/gemini.py": true,
+      "apps/ai-service/app/providers/base.py": true,
+      "apps/ai-service/app/providers/groq.py": true,
+      "apps/ai-service/app/providers/router.py": true,
+      "apps/ai-service/app/providers/__init__.py": true,
+      "apps/ai-service/app/api/__init__.py": true,
+      "apps/ai-service/app/core/logging.py": true,
+      "apps/ai-service/app/core/__init__.py": true,
+      "apps/ai-service/app/core/config.py": true,
+      "apps/ai-service/app/evaluation/replay.py": true,
+      "apps/ai-service/app/evaluation/__init__.py": true,
+      "apps/ai-service/app/evaluation/live.py": true,
+      "apps/ai-service/app/evaluation/autonomous.py": true,
+      "apps/ai-service/app/evaluation/selection.py": true,
+      "apps/ai-service/app/evaluation/phase561.py": true,
+      "apps/ai-service/app/narrative/graph.py": true,
+      "apps/ai-service/app/narrative/schemas.py": true,
+      "apps/ai-service/app/narrative/__init__.py": true,
+      "apps/ai-service/app/narrative/prompts.py": true,
+      "apps/ai-service/app/narrative/selection.py": true,
+      "apps/ai-service/app/api/routes/health.py": true,
+      "apps/ai-service/app/api/routes/__init__.py": true,
+      "apps/ai-service/app/api/routes/narrative.py": true,
+      "packages/typescript-config/next.json": true,
+      "packages/typescript-config/nest.json": true,
+      "packages/typescript-config/base.json": true,
+      "packages/typescript-config/package.json": true,
+      "packages/shared-contracts/tsconfig.json": true,
+      "packages/shared-contracts/package.json": true,
+      "packages/shared-contracts/fixtures/phase56-semantic.json": true,
+      "packages/shared-contracts/fixtures/ai-free-turn-response.json": true,
+      "packages/shared-contracts/fixtures/ai-turn-response.json": true,
+      "packages/shared-contracts/test/health.test.cjs": true,
+      "packages/shared-contracts/test/narrative.test.cjs": true,
+      "packages/shared-contracts/test/mentions.test.cjs": true,
+      "packages/shared-contracts/test/game.test.cjs": true,
+      "packages/shared-contracts/openapi/api.json": true,
+      "packages/shared-contracts/openapi/ai.json": true,
+      "packages/shared-contracts/src/narrative.ts": true,
+      "packages/shared-contracts/src/free-action.ts": true,
+      "packages/shared-contracts/src/game.ts": true,
+      "packages/shared-contracts/src/mentions.ts": true,
+      "packages/shared-contracts/src/index.ts": true,
+      "packages/shared-contracts/src/adventure-actions.ts": true,
+      "packages/shared-contracts/src/arcana.ts": true,
+      "docs/base-projeto.md": true,
+      "docs/bootstrap-verificacao.md": true,
+      "docs/references/Naelis - Ficha .pdf": true,
+      "docs/references/blue rose - six of sword.pdf": true,
+      "docs/references/NPC_Blue Rose.pdf": true,
+      "docs/references/blue rose livro básico.pdf": true,
+      "docs/rules/blue-rose-pending-rules.md": true,
+      "docs/rules/blue-rose-implementation.md": true,
+      "docs/ai/autonomous-master.md": true,
+      "docs/ai/phase-5.6.1-plan.json": true,
+      "docs/ai/phase-5.4-live-investigation.json": true,
+      "docs/ai/phase-5.3-live-result.json": true,
+      "docs/ai/phase-5.4-live-dialogue-render.json": true,
+      "docs/ai/prompts.md": true,
+      "docs/ai/contextual-mentions.md": true,
+      "docs/ai/free-action-interpreter.md": true,
+      "docs/ai/phase-5.4-live-continuity.json": true,
+      "docs/ai/phase-5.6.1-investigation-contrast-preflight.json": true,
+      "docs/ai/phase-5.6-live-result.json": true,
+      "docs/ai/model-evaluation.md": true,
+      "docs/ai/tool-selection.md": true,
+      "docs/ai/phase-5.4-live-ambiguous.json": true,
+      "docs/ai/phase-5.6.1-case561-01-schema-confirmation.json": true,
+      "docs/ai/phase-5.6.2-canonicity-audit.json": true,
+      "docs/ai/providers.md": true,
+      "docs/ai/evaluations.md": true,
+      "docs/ai/phase-5.6.1-offline-result.json": true,
+      "docs/ai/phase-5.6.2-validation-summary.json": true,
+      "docs/ai/phase-5.6-selection.md": true,
+      "docs/ai/context-management.md": true,
+      "docs/ai/token-usage-report.md": true,
+      "docs/ai/phase-5.6.1-case561-01-confirmation-review.json": true,
+      "docs/ai/phase-5.6.1-review.json": true,
+      "docs/ai/phase-5.4-live-ambiguous-recovery.json": true,
+      "docs/ai/phase-5.4-live-summary.json": true,
+      "docs/ai/phase-5.4-live-tool.json": true,
+      "docs/ai/phase-5.6-policy-results.json": true,
+      "docs/ai/phase-5.6.1-canonicity-audit.json": true,
+      "docs/ai/tool-calling-validation.md": true,
+      "docs/ai/phase-4-delivery.md": true,
+      "docs/ai/phase-5.4-live-ooc.json": true,
+      "docs/ai/live-model-validation.md": true,
+      "docs/ai/phase-5.6-policy-summary.json": true,
+      "docs/ai/phase-5.4-live-dialogue.json": true,
+      "docs/ai/phase-5.6.1-case561-01-confirmation-preflight.json": true,
+      "docs/ai/narrative-evaluation.md": true,
+      "docs/ai/narrative-quality-report.md": true,
+      "docs/ai/phase-5.3-live-35-result.json": true,
+      "docs/ai/phase-5.6.1-investigation-contrast-live-result.json": true,
+      "docs/ai/phase-5.6.1-schema-fix.json": true,
+      "docs/ai/phase-5.6.1-final-evaluation-summary.json": true,
+      "docs/ai/narrative-renderer.md": true,
+      "docs/ai/phase-5.6-live-plan.json": true,
+      "docs/ai/phase-5.6.1-investigation-contrast-review.json": true,
+      "docs/ai/phase-5.6.1-live-result.json": true,
+      "docs/adr/0006-aventuras-blue-rose-e-politicas-locais.md": true,
+      "docs/adr/0001-fronteiras-e-persistencia.md": true,
+      "docs/adr/0005-oficializacao-de-acoes-da-ia.md": true,
+      "docs/adr/0004-blue-rose-engine-e-fronteira-local.md": true,
+      "docs/adr/0003-dominio-de-campanhas-e-sessoes.md": true,
+      "docs/adr/0009-mencoes-como-referencias-autorizadas.md": true,
+      "docs/adr/0010-selecao-contextual-e-respostas-fundamentadas.md": true,
+      "docs/adr/0007-intencoes-livres-e-falas-atribuidas.md": true,
+      "docs/adr/0011-publicacao-narrativa-por-fragmentos-autorizados.md": true,
+      "docs/adr/0008-sessoes-narrativas-e-progresso-confirmado.md": true,
+      "docs/adr/0002-execucao-local-e-migracoes.md": true,
+      "docs/testing/gloamhale-mechanical-validation.md": true,
+      "docs/testing/phase-5.3-validation.md": true,
+      "docs/testing/narrative-tests.md": true,
+      "docs/testing/phase-5.6.2-validation.md": true,
+      "docs/testing/phase-5.1-validation.md": true,
+      "docs/testing/phase-5.5-autocomplete.png": true,
+      "docs/testing/phase-5.6.1-final-canonicity-validation.md": true,
+      "docs/testing/six-of-swords-validation.md": true,
+      "docs/testing/phase-5.6.1-validation.md": true,
+      "docs/testing/phase-5.6.1-investigation-contrast.md": true,
+      "docs/testing/phase-5.5-validation.md": true,
+      "docs/testing/phase-5.6.1-case561-01-confirmation.md": true,
+      "docs/testing/phase-5.4-validation.md": true,
+      "docs/testing/phase-5.6-validation.md": true,
+      "docs/testing/phase-5.6.1-schema-fix.md": true,
+      "docs/architecture/game-engine.md": true,
+      "docs/architecture/ai-orchestration.md": true,
+      "docs/architecture/blue-rose-engine.md": true,
+      "docs/architecture/campaigns-and-sessions.md": true,
+      "docs/architecture/campaign-director.md": true,
+      "docs/architecture/dependency-map.md": true,
+      "docs/architecture/memory-engine.md": true,
+      "docs/architecture/architecture-audit-5.1.md": true,
+      "docs/architecture/adventure-content-boundaries.md": true,
+      "docs/architecture/adventure-engine.md": true,
+      "docs/examples/narrative-plan.json": true,
+      "docs/adventures/six-of-swords/encounters.md": true,
+      "docs/adventures/six-of-swords/gloamhale-rules.md": true,
+      "docs/adventures/six-of-swords/adaptation-plan.md": true,
+      "docs/adventures/six-of-swords/characters.md": true,
+      "docs/adventures/six-of-swords/source-analysis.md": true,
+      "docs/adventures/six-of-swords/party-validation.md": true,
+      "docs/adventures/six-of-swords/locations.md": true,
+      "docs/adventures/six-of-swords/gloamhale-mechanical-coverage.md": true,
+      "docs/adventures/six-of-swords/session-structure.md": true,
+      "scripts/export-api-contract.mjs": true,
+      "scripts/ai-dev.mjs": true,
+      "scripts/setup-env.mjs": true,
+      "scripts/smoke.mjs": true,
+      "scripts/test-integration.mjs": true,
+      "scripts/replay-selection.mjs": true,
+      "scripts/export-contracts.mjs": true,
+      "scripts/evaluate-autonomous.mjs": true,
+      "scripts/uv.mjs": true,
+      "scripts/web-dev.mjs": true,
+      "rule-packs/README.md": true
+    }
+  },
+  "publicationBoundary": "PRESERVED_AND_OFFLINE_REGRESSIONS_PASSED",
+  "literaryCalls": 0,
+  "productionCodeChanged": false,
+  "realDatabaseWrites": false,
+  "schemaNormalizationForGrading": false,
+  "phase563Started": false,
+  "phase57Started": false,
+  "phase563ConditionalGatePassed": false,
+  "remainingIssues": [
+    "561-01: DIRECT instead of QUESTION (historical)",
+    "561-06: unrequested tradition=PSYCHIC; raw schema accepted; field not forwarded in psychic-shield command"
+  ],
+  "rawReceiptSHA256": {
+    "phase-5.6.1-live-result.json": "1afbead5f2b009796bf13e7e5e513d7635aa0c9c1c76b7bc65bb30868d84dd00",
+    "phase-5.6.1-case561-01-schema-confirmation.json": "9ba05bae0360dd142cf5a5791335934791e1448d56339d7a510e0453d0398c3a",
+    "phase-5.6.1-investigation-contrast-live-result.json": "520c9c650deb1f139738c88e610614ef6e03cd954e86aaaed2eead4421bf4086",
+    "phase-5.6.1-completion-live-result.json": "e8069435006ff4663710e3cefb3cee2b0c0161eec6afd44efb3514975a85a9c2"
+  },
+  "offlineLogs": {
+    "khaos561-completion-python.log": {
+      "sha256": "e829e62a0ef0339c05d52ae51548c68d4e5ce72c610044f32bc0af55175fd13b",
+      "tail": "........................................................................ [ 29%]\n........................................................................ [ 58%]\n........................................................................ [ 87%]\n...............................                                          [100%]\n247 passed in 5.14s\n"
+    },
+    "khaos561-completion-unit.log": {
+      "sha256": "dfebcda87193cf11964ff8a9796e71be466c5998cc955258f4cf521267ad0a81",
+      "tail": "\nTest Suites: 4 passed, 4 total\nTests:       173 passed, 173 total\nSnapshots:   0 total\nTime:        2.549 s, estimated 47 s\nRan all test suites matching test/phase561-schema.spec.ts|test/phase56.spec.ts|test/phase562-publication.spec.ts|test/free-action.spec.ts.\n"
+    },
+    "khaos561-completion-integration.log": {
+      "sha256": "6aa16539c2e9fd05a1c18640ec331d2a5eba29c387cf196e045c5d9b6dd537b1",
+      "tail": "PostgreSQL isolado pronto; aplicando migrations e executando testes.\n[Nest] 616951  - 11/01/2026, 11:25:16 PM   ERROR [ApiExceptionFilter] Object(2) {\n  event: 'request.failed',\n  errorType: 'Error'\n}\n[Nest] 616951  - 11/01/2026, 11:25:21 PM   ERROR [ApiExceptionFilter] Object(2) {\n  event: 'request.failed',\n  errorType: 'Error'\n}\n\nTest Suites: 4 passed, 4 total\nTests:       57 passed, 57 total\nSnapshots:   0 total\nTime:        56.475 s\nRan all test suites within paths \"test/integration/phase561-canonicity.spec.ts\", \"test/integration/phase56.spec.ts\", \"test/integration/narrative.spec.ts\", \"test/integration/phase55.spec.ts\".\n"
+    }
+  }
+}

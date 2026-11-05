@@ -1,3 +1,4 @@
+import { legacyCampaign } from '../fixtures/legacy-campaign';
 import { execFileSync } from 'node:child_process';
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
@@ -29,13 +30,8 @@ describe('campaigns / sessions / persistent chat (real PostgreSQL)', () => {
     await app.listen(0, '127.0.0.1');
     database = app.get(DatabaseService);
   };
-  const create = async (plannedSessions = 8): Promise<CampaignDetail> => {
-    const response = await request(app.getHttpServer())
-      .post(root)
-      .send({ title: 'Os Ecos da Montanha', plannedSessions })
-      .expect(201);
-    return response.body;
-  };
+  const create = (plannedSessions = 8): Promise<CampaignDetail> =>
+    legacyCampaign(app, plannedSessions, 'Os Ecos da Montanha');
   const path = (campaign: CampaignDetail, index = 0) =>
     `${root}/${campaign.id}/sessions/${campaign.sessions[index]!.id}`;
   const change = (url: string, action: string) =>
@@ -78,7 +74,7 @@ describe('campaigns / sessions / persistent chat (real PostgreSQL)', () => {
     if (app) await app.close();
   });
 
-  it('creates eight sessions, lists, reads and edits only public campaign fields', async () => {
+  it('preserves a historical eight-session campaign, lists, reads and edits only public campaign fields', async () => {
     const c = await create();
     expect(c.status).toBe('DRAFT');
     expect(c.currentSessionNumber).toBeNull();

@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { use } from 'react';
 import type { CampaignDetail } from '@solo-rpg/shared-contracts';
 import { ErrorNotice, StatusBadge, useApiData } from '@/components/campaign-ui';
+import { CampaignPreparation } from '@/components/campaign-preparation';
 import { CampaignForm } from '@/components/campaign-form';
+import { AdventureLibrary } from '@/components/adventure-library';
 import { campaignLabels, sessionLabels } from '@/lib/campaign-api';
 export default function CampaignPage({
   params,
@@ -15,7 +17,10 @@ export default function CampaignPage({
     data: campaign,
     error,
     refresh,
-  } = useApiData<CampaignDetail>(`/campaigns/${campaignId}`);
+  } = useApiData<CampaignDetail & { guided?: boolean }>(
+    `/campaigns/${campaignId}`,
+  );
+  if (campaign?.guided) return <AdventureLibrary details />;
   return (
     <>
       <Link href="/campaigns" className="back-link">
@@ -40,10 +45,10 @@ export default function CampaignPage({
               {campaign.currentSessionNumber
                 ? `Sessão ${campaign.currentSessionNumber} de ${campaign.plannedSessions}`
                 : `${campaign.plannedSessions} sessões planejadas`}{' '}
-              · {campaign.defaultSessionDurationMinutes} minutos estimados por
-              sessão
+              · Pause e retome cada chat quando precisar.
             </p>
           </div>
+          <CampaignPreparation campaign={campaign} />
           {campaign.status === 'COMPLETED' && (
             <div className="panel mb-6 border-emerald-200 bg-emerald-50">
               <h2 className="font-serif text-2xl">Campanha concluída</h2>

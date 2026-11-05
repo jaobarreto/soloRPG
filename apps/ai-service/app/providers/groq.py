@@ -4,7 +4,8 @@ from typing import TypeVar
 import httpx
 from pydantic import BaseModel
 
-from app.narrative.prompts import MASTER
+from app.narrative.prompts import MASTER, NARRATOR
+from app.narrative.schemas import Narration
 from app.providers.errors import ProviderError, status_error
 
 T = TypeVar("T", bound=BaseModel)
@@ -20,6 +21,8 @@ class GroqProvider:
         )
         self.input_tokens = 0
         self.output_tokens = 0
+        self.total_tokens: int | None = None
+        self.usage_reported = False
 
     async def generate_structured(
         self, prompt: str, output_schema: type[T], *, max_output_tokens: int
@@ -32,7 +35,7 @@ class GroqProvider:
                 "messages": [
                     {
                         "role": "system",
-                        "content": MASTER
+                        "content": (NARRATOR if output_schema is Narration else MASTER)
                         + "\nReturn only JSON matching this schema: "
                         + json.dumps(output_schema.model_json_schema()),
                     },
@@ -46,6 +49,11 @@ class GroqProvider:
         try:
             data = response.json()
             usage = data.get("usage", {})
+            self.usage_reported = (
+                usage.get("prompt_tokens") is not None
+                and usage.get("completion_tokens") is not None
+            )
+            self.total_tokens = usage.get("total_tokens")
             self.input_tokens = usage.get("prompt_tokens", 0)
             self.output_tokens = usage.get("completion_tokens", 0)
             return output_schema.model_validate_json(

@@ -1,0 +1,1170 @@
+{
+  "phase": "5.6.1",
+  "maxRequests": 8,
+  "maxOutputTokensPerRequest": 700,
+  "stages": [
+    "PROPOSE"
+  ],
+  "campaignWrites": false,
+  "expectationsSentToModel": false,
+  "cases": [
+    {
+      "id": "561-01",
+      "authorizedContext": "Conhecimento próprio previamente confirmado sobre a fechadura.",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000001",
+        "campaignId": "00000000-0000-4000-c000-000000000001",
+        "sessionId": "00000000-0000-4000-d000-000000000001",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "O que eu já descobri sobre essa porta?",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              },
+              {
+                "key": "info-b8009dbd5409f0d34e434465",
+                "scope": "KNOWN",
+                "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "QUERY"
+        ],
+        "tools": [
+          "QUERY"
+        ],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "MEMORY"
+        },
+        "evidence": [
+          "info-b8009dbd5409f0d34e434465"
+        ],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Novo teste ou descoberta",
+          "Informação sem fonte KNOWN",
+          "Efeito ou rolagem"
+        ]
+      },
+      "offlineProposal": {
+        "kind": "FREE",
+        "intent": "QUERY",
+        "description": "Proposta roteirizada exclusivamente para validar o replay offline.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "QUESTION",
+        "evidence": [
+          "info-b8009dbd5409f0d34e434465"
+        ],
+        "tool": {
+          "type": "QUERY",
+          "subject": "MEMORY"
+        }
+      }
+    },
+    {
+      "id": "561-02",
+      "authorizedContext": "Características perceptíveis sem teste.",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000002",
+        "campaignId": "00000000-0000-4000-c000-000000000002",
+        "sessionId": "00000000-0000-4000-d000-000000000002",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "Olho atentamente para a fechadura.",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "OBSERVE"
+        ],
+        "tools": [
+          "OBSERVE"
+        ],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Teste desnecessário",
+          "Descoberta oculta"
+        ]
+      },
+      "offlineProposal": {
+        "kind": "FREE",
+        "intent": "OBSERVE",
+        "description": "Proposta roteirizada exclusivamente para validar o replay offline.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "tool": {
+          "type": "OBSERVE"
+        }
+      }
+    },
+    {
+      "id": "561-03",
+      "authorizedContext": "Mecanismo oculto ainda desconhecido; investigação preparada e vinculada à Porta. A solução oculta não entra no contexto do modelo.",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000003",
+        "campaignId": "00000000-0000-4000-c000-000000000003",
+        "sessionId": "00000000-0000-4000-d000-000000000003",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "Examino a porta procurando algum mecanismo escondido.",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [
+            {
+              "id": "00000000-0000-4000-a000-000000000005",
+              "intent": "Examinar a porta",
+              "mode": "ACT",
+              "requiresCheck": true,
+              "targetEntityId": "00000000-0000-4000-a000-000000000004",
+              "target": {
+                "type": "WORLD",
+                "name": "Porta"
+              }
+            }
+          ],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "INVESTIGATE"
+        ],
+        "tools": [
+          "PREPARED_CHECK"
+        ],
+        "expression": "DIRECT",
+        "toolFields": {
+          "capability": "Examinar a porta"
+        },
+        "evidence": [],
+        "allowedAdditionalEvidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "QUERY ou OBSERVE substituindo teste",
+          "Dificuldade inventada",
+          "Descoberta antes de resolver"
+        ]
+      },
+      "offlineProposal": {
+        "kind": "FREE",
+        "intent": "INVESTIGATE",
+        "description": "Proposta roteirizada exclusivamente para validar o replay offline.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "PREPARED_CHECK",
+          "capability": "Examinar a porta"
+        }
+      }
+    },
+    {
+      "id": "561-04",
+      "authorizedContext": "Porta equivalente ao caso 3; nenhuma capacidade de investigação aplicável.",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000004",
+        "campaignId": "00000000-0000-4000-c000-000000000004",
+        "sessionId": "00000000-0000-4000-d000-000000000004",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "Examino a porta procurando algum mecanismo escondido.",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "INVESTIGATE"
+        ],
+        "tools": [
+          "ADJUDICATE",
+          "CLARIFY"
+        ],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": [],
+        "allowedAdditionalEvidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Teste ou capacidade fabricados",
+          "Descoberta concedida"
+        ]
+      },
+      "offlineProposal": {
+        "kind": "FREE",
+        "intent": "INVESTIGATE",
+        "description": "Proposta roteirizada exclusivamente para validar o replay offline.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "ADJUDICATE"
+        }
+      }
+    },
+    {
+      "id": "561-05",
+      "authorizedContext": "Escudo conhecido e fonte oficial de regras disponível.",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000005",
+        "campaignId": "00000000-0000-4000-c000-000000000005",
+        "sessionId": "00000000-0000-4000-d000-000000000005",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "Una, como funciona o arcano Escudo? Preciso gastar alguma coisa para utilizá-lo?",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              },
+              {
+                "key": "info-ab7b61cdf63b4a5fb09fce2a",
+                "scope": "RULES",
+                "text": "Escudo Psíquico protege a mente contra influências arcanas: quando aplicável, há um teste oposto antes da resistência de Vontade. Erguer ou baixar voluntariamente o escudo é uma ação livre; nas demais situações, permanece ativo. O uso normal indica Fadiga: Nenhuma. A disputa especial para superar escudos permite opções de fadiga voluntária, sem consumo automático ao erguer. Fonte: Blue Rose AGE, livro básico brasileiro, p.102."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "QUERY",
+          "OOC"
+        ],
+        "tools": [
+          "QUERY"
+        ],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "RULES"
+        },
+        "evidence": [
+          "info-ab7b61cdf63b4a5fb09fce2a"
+        ],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "ARCANA executado em pergunta",
+          "Regra inventada",
+          "Consumo de recursos"
+        ]
+      },
+      "offlineProposal": {
+        "kind": "FREE",
+        "intent": "QUERY",
+        "description": "Proposta roteirizada exclusivamente para validar o replay offline.",
+        "target": null,
+        "expression": "QUESTION",
+        "evidence": [
+          "info-ab7b61cdf63b4a5fb09fce2a"
+        ],
+        "tool": {
+          "type": "QUERY",
+          "subject": "RULES"
+        }
+      }
+    },
+    {
+      "id": "561-06",
+      "authorizedContext": "Escudo conhecido; declaração completa, sem efeito real a executar na avaliação.",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000006",
+        "campaignId": "00000000-0000-4000-c000-000000000006",
+        "sessionId": "00000000-0000-4000-d000-000000000006",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "Eu ergo meu Escudo.",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "ARCANA"
+        ],
+        "tools": [
+          "ARCANA"
+        ],
+        "expression": "DIRECT",
+        "toolFields": {
+          "arcanum": "psychic-shield",
+          "raised": true
+        },
+        "evidence": [],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [
+          "tradition",
+          "use",
+          "fatigue",
+          "category"
+        ],
+        "failureCriteria": [
+          "Consulta em lugar de execução",
+          "Arcano ou parâmetro inventados"
+        ]
+      },
+      "offlineProposal": {
+        "kind": "FREE",
+        "intent": "ARCANA",
+        "description": "Proposta roteirizada exclusivamente para validar o replay offline.",
+        "target": null,
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "ARCANA",
+          "arcanum": "psychic-shield",
+          "raised": true
+        }
+      }
+    },
+    {
+      "id": "561-07",
+      "authorizedContext": "Múltiplos arcanos conhecidos e duas personagens como alvos possíveis.",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000007",
+        "campaignId": "00000000-0000-4000-c000-000000000007",
+        "sessionId": "00000000-0000-4000-d000-000000000007",
+        "stage": "PROPOSE",
+        "interactionMode": "ACT",
+        "playerMessage": "Quero usar minha magia nele.",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                },
+                {
+                  "name": "Curar",
+                  "ruleId": "cure",
+                  "status": "ACTIVE",
+                  "degree": null
+                },
+                {
+                  "name": "Contato Psíquico",
+                  "ruleId": "psychic-contact",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "ARCANA"
+        ],
+        "tools": [
+          "CLARIFY"
+        ],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": [],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Escolha arbitrária de arcano ou alvo",
+          "Efeito ou consumo",
+          "Schema inválido"
+        ]
+      },
+      "offlineProposal": {
+        "kind": "FREE",
+        "intent": "ARCANA",
+        "description": "Proposta roteirizada exclusivamente para validar o replay offline.",
+        "target": null,
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "CLARIFY",
+          "question": "Qual arcano deseja usar e em quem?"
+        }
+      }
+    },
+    {
+      "id": "561-08",
+      "authorizedContext": "Somente política pública de sessão/progressão, sem roteiro futuro.",
+      "request": {
+        "actionId": "00000000-0000-4000-b000-000000000008",
+        "campaignId": "00000000-0000-4000-c000-000000000008",
+        "sessionId": "00000000-0000-4000-d000-000000000008",
+        "stage": "PROPOSE",
+        "interactionMode": "OUT_OF_CHARACTER",
+        "playerMessage": "Fora do RPG: como eu sei quando uma sessão terminou? A história sempre vai ter alguma reviravolta antes disso?",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ],
+              "features": [
+                {
+                  "name": "Escudo Psíquico",
+                  "ruleId": "psychic-shield",
+                  "status": "ACTIVE",
+                  "degree": null
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "actors": [
+            {
+              "id": "00000000-0000-4000-a000-000000000001",
+              "name": "Naelis",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "inventory": [
+                {
+                  "itemId": "00000000-0000-4000-a000-000000000003",
+                  "name": "Lampião"
+                }
+              ]
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000002",
+              "name": "Eileen",
+              "kind": "NPC",
+              "available": true
+            },
+            {
+              "id": "00000000-0000-4000-a000-000000000006",
+              "name": "Mira",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [
+            {
+              "id": "00000000-0000-4000-a000-000000000004",
+              "name": "Porta",
+              "accessible": true
+            }
+          ],
+          "options": [],
+          "combat": null,
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bac1e6341298f93f89b59ca9",
+                "scope": "PUBLIC",
+                "text": "Naelis está diante de uma porta fechada. Eileen e Mira estão próximas e disponíveis."
+              },
+              {
+                "key": "info-59f40a209c6f283318a8d3fe",
+                "scope": "PUBLIC",
+                "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+                "target": {
+                  "type": "WORLD",
+                  "name": "Porta"
+                }
+              },
+              {
+                "key": "info-441d1e9142e76c5c865c5fd7",
+                "scope": "RULES",
+                "text": "KHAOS: uma sessão é uma unidade narrativa. Pausar ou retomar não encerra a sessão. Seu encerramento depende da condição narrativa oficial e de confirmação persistida pelo Director. Tempo e quantidade de mensagens não concluem objetivos nem liberam capítulos. Não existe garantia geral de uma reviravolta antes do encerramento; acontecimentos futuros não são informação pública confirmada. Fonte: docs/architecture/campaigns-and-sessions.md, abertura; docs/architecture/campaign-director.md, progressão por condições confirmadas."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expected": {
+        "intents": [
+          "OOC",
+          "QUERY"
+        ],
+        "tools": [
+          "QUERY"
+        ],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "RULES"
+        },
+        "evidence": [
+          "info-441d1e9142e76c5c865c5fd7"
+        ],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Promessa de reviravolta",
+          "Spoiler ou futuro sem fonte",
+          "Evento de mundo"
+        ]
+      },
+      "offlineProposal": {
+        "kind": "FREE",
+        "intent": "OOC",
+        "description": "Proposta roteirizada exclusivamente para validar o replay offline.",
+        "target": null,
+        "expression": "QUESTION",
+        "evidence": [
+          "info-441d1e9142e76c5c865c5fd7"
+        ],
+        "tool": {
+          "type": "QUERY",
+          "subject": "RULES"
+        }
+      }
+    }
+  ]
+}

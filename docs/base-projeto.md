@@ -8,7 +8,7 @@
 
 Aplicação web de **RPG solo por chat**, com um Mestre de RPG apoiado por LLM. A jogadora interpreta exclusivamente a protagonista; o Mestre descreve o mundo, representa NPCs, consulta regras, solicita testes, acompanha objetivos e conduz encerramentos de sessões sem retirar a agência da jogadora.
 
-A campanha é dividida em um **número planejado de sessões**, cada uma com chat próprio, objetivo narrativo e meta de duração de **120 minutos de atividade**. Ao finalizar uma sessão, a jogadora vê um resumo e pode iniciar a próxima em **novo chat**. **Todo o chat anterior permanece salvo e consultável, mensagem por mensagem, com suas rolagens e acontecimentos**, mesmo após a campanha terminar. O estado do mundo e as memórias atravessam as sessões.
+A campanha é dividida em **unidades narrativas derivadas da aventura versionada**, cada uma com chat próprio e condição verificável de encerramento. Uma unidade pode atravessar várias ocasiões de jogo; pausa e retomada preservam o mesmo chat. Tempo real é somente estatística e não determina progresso ou conclusão ([ADR 0008](adr/0008-sessoes-narrativas-e-progresso-confirmado.md)). Ao finalizar uma sessão, a jogadora vê um resumo e pode iniciar a próxima em **novo chat**. **Todo o chat anterior permanece salvo e consultável, mensagem por mensagem, com suas rolagens e acontecimentos**, mesmo após a campanha terminar. O estado do mundo e as memórias atravessam as sessões.
 
 ### Princípios inegociáveis
 
@@ -16,7 +16,7 @@ A campanha é dividida em um **número planejado de sessões**, cada uma com cha
 2. **O backend mantém a verdade.** IA propõe → Game Engine valida e resolve → estado/eventos são confirmados no banco → IA narra o resultado confirmado. Texto gerado não concede itens, causa dano, revela conhecimento, altera relacionamentos ou conclui objetivos por si só.
 3. **Não há informação secreta no cliente.** Segredos de campanha, planos privados, resultados de dados do Mestre e conhecimento exclusivo de NPCs ficam no servidor.
 4. **Uma sessão é um capítulo, não um reset.** O chat é separado, mas campanha, mundo, personagem e relacionamentos continuam.
-5. **Tempo orienta; não obriga.** A duração-alvo não autoriza forçar escolhas, inventar vitórias ou concluir um objetivo sem evidência.
+5. **A história determina as sessões.** Tempo real não orienta o Director nem força encontros. Durações ficcionais mecânicas de Blue Rose permanecem independentes.
 6. **Gratuidade por padrão.** Não configurar cobrança automática, fallback pago ou serviços gerenciados necessários ao MVP. API externa gratuita é limitada e pode mudar; prever pausa graciosa quando a cota acabar.
 7. **Regras mecânicas são determinísticas.** Cálculos e lançamentos de dados ocorrem no servidor; o LLM nunca fornece o resultado oficial.
 8. **Persistência verificável.** A ação só pode ser considerada consolidada depois de confirmada no banco; requisições repetidas não aplicam eventos duas vezes.
@@ -27,7 +27,7 @@ A campanha é dividida em um **número planejado de sessões**, cada uma com cha
 
 - Uma jogadora, uma instalação doméstica e uma campanha ativa por vez (o modelo de dados deve permitir várias no futuro).
 - Cadastro/edição de campanha, protagonista, NPCs, ambientação, estilo narrativo e Story Cards.
-- Planejamento de quantidade de sessões, objetivos, marcos e duração-alvo de 120 minutos.
+- Unidades derivadas da aventura, objetivos e marcos oficiais com caminhos alternativos e desfechos terminais.
 - **Chat persistente por sessão**, ordenado cronologicamente, recuperável integralmente, inclusive após encerramento; com paginação e navegação entre sessões.
 - Modos de mensagem: **Falar**, **Fazer**, **Pensar** e **Fora do RPG (OOC)**.
 - Mestre narrativo via API de LLM com plano gratuito; seleção de provedor por configuração e fallback *somente* para outro provedor gratuito ativado.
@@ -217,10 +217,11 @@ No MVP, recuperar por chaves relacionais e relevância explícita. Adicionar pgv
 
 ### 6.1 Campanha
 
-- Na criação, autor define nome, tom, sistema/edição, protagonista, contexto, número **planejado** de sessões e objetivo geral.
-- Sessões futuras podem ter título/objetivo ocultos para prevenir spoilers. Admin vê plano, jogadora vê apenas o permitido.
-- `planned_sessions` é a meta de estrutura; não pode justificar violação de agência. Se o rumo desviar, Director pode propor adaptação e o criador aprova mudanças estruturais (MVP: por configuração/admin).
-- Progresso = `100 × soma(pesos dos marcos concluídos) / soma(pesos dos marcos planejados)`. Não usar contagem de mensagens nem simplesmente `sessões concluídas / total` como progressão da história.
+- Criação pública define título/descrição e usa a aventura atualmente registrada; não aceita quantidade ou duração escolhidas pela jogadora.
+- Novas definições determinam objetivos, marcos, condições e unidades. Versões importadas são imutáveis, e campanhas antigas não são reimportadas automaticamente.
+- Objetivos privados e condições do Mestre ficam no servidor. A jogadora recebe somente objetivos públicos conhecidos e uma projeção de progresso que protege spoilers.
+- Progresso oficial deriva de marcos confirmados; OPTIONAL não bloqueia e ANY agrupa alternativas mutuamente exclusivas. 100% da campanha requer um terminal persistido.
+- Campos históricos de planejamento/duração continuam no banco e respostas por compatibilidade, sem controlar o novo Director. [Detalhes](architecture/campaign-director.md).
 
 ### 6.2 Estados da sessão
 
@@ -241,14 +242,11 @@ LOCKED → AVAILABLE → IN_PROGRESS ↔ PAUSED
 
 ### 6.3 Encerramento e duração
 
-- Duração-alvo: **120 minutos de jogo ativo**, desconsiderando pausas e desconexão/inatividade conforme regra do cronômetro definida na implementação.
-- Cronômetro mede atividade, não “tempo desde started_at”; não cria conclusão automática ao completar 120 minutos.
-- Director avalia `objetivo`, `evidências`, `ritmo`, `tempo`, `ponto dramático` e `decisões da jogadora`.
-- Encerramentos: `OBJECTIVE_COMPLETED`, `NARRATIVE_PAUSE`, `PLAYER_REQUESTED`; registrar razão e evidências.
-- Critérios concluídos devem ser verificados por eventos/estado, não apenas alegação do LLM.
-- Desvios são permitidos: sessão pode fechar em um gancho sem cumprir o objetivo; objetivo pendente pode ser transferido ou abandonado com justificativa.
-- Finalização: persistir último resultado → consolidar estado/eventos → gerar resumo/diário → `COMPLETED` → liberar próxima. Toda etapa deve tolerar repetição.
-- **Nunca iniciar outra sessão automaticamente.** A jogadora clica “Iniciar sessão N+1”.
+- Sessão narrativa encerra somente quando o Director comprova sua condição e as consequências estão persistidas.
+- A jogadora interrompe uma ocasião com PAUSED e retoma o mesmo chat. Em definições novas, PLAYER_REQUESTED/NARRATIVE_PAUSE não concluem ou liberam capítulos.
+- Fechamento, resumo factual, prova e próxima disponibilidade/terminal são transacionais e idempotentes. IA pode narrar fatos confirmados, sem declarar o término por conta própria.
+- Tempo real não aumenta progresso, força encontro, acelera narrativa ou decide término. Durações de magia, espera, descanso e outras regras ficcionais permanecem.
+- O clique da jogadora inicia a próxima unidade, nunca automaticamente. Saves legados conservam sua política anterior, explicitamente documentada.
 
 ### 6.4 Transição de chat
 
@@ -490,3 +488,7 @@ Uma campanha de teste com **2 sessões** pode ser jogada do começo ao fim: sess
 ## Regra síntese
 
 > **Um chat por sessão, histórico integral para sempre enquanto a campanha existir; memória e mundo compartilhados entre sessões; Mestre improvisa, Game Engine valida; a jogadora decide; nenhuma dependência de serviço pago no MVP.**
+
+## Fase 5.5 — menções contextuais
+
+Ações livres aceitam references selecionadas por @ (personagens) e # (inventário/objetos). Catálogo, identidade e autorização vêm do NestJS, com revalidação antes da execução. O payload opcional mentions usa intervalos UTF-16 [start,end), rótulo e literal consistentes; sem mentions o contrato anterior continua válido. Menção não concede presença, efeito, consentimento ou comunicação remota. [ADR 0009](adr/0009-mencoes-como-referencias-autorizadas.md), [contrato e interface](ai/contextual-mentions.md).

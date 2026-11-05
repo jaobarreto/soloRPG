@@ -7,15 +7,15 @@ export default function Home() {
         <Link
           className="flex items-center gap-3 font-semibold tracking-tight"
           href="/"
-          aria-label="SoloRPG início"
+          aria-label="CAOS início"
         >
           <span
             className="flex h-9 w-9 items-center justify-center rounded-lg bg-stone-900 text-amber-100"
             aria-hidden="true"
           >
-            S
+            C
           </span>
-          SoloRPG
+          CAOS
         </Link>
         <span className="rounded-full border border-stone-300 px-3 py-1 text-xs text-stone-600">
           Ambiente de desenvolvimento
@@ -31,7 +31,7 @@ export default function Home() {
           <span className="text-stone-500">de uma boa base.</span>
         </h1>
         <p className="mt-7 max-w-lg text-base leading-7 text-stone-600">
-          Bem-vinda ao SoloRPG. Este é o ponto de partida do seu ambiente local.
+          Bem-vinda ao CAOS. Este é o ponto de partida do seu ambiente local.
           Acompanhe abaixo a disponibilidade dos serviços.
         </p>
       </section>
@@ -40,7 +40,7 @@ export default function Home() {
       </Link>
       <HealthDashboard />
       <footer className="mt-auto flex flex-wrap justify-between gap-3 border-t border-stone-300 pt-6 text-xs text-stone-500">
-        <span>SoloRPG · Fundação do projeto</span>
+        <span>CAOS · Fundação do projeto</span>
         <span>Uma jogadora. Um mundo de possibilidades.</span>
       </footer>
     </main>

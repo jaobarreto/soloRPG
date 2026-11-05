@@ -7,41 +7,69 @@ import {
   ParseUUIDPipe,
   Post,
   Sse,
+  Query,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiTags,
+  ApiQuery,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { of } from 'rxjs';
 import { z } from 'zod';
+import {
+  narrativeInputSchema,
+  mentionCatalogSchema,
+} from '@solo-rpg/shared-contracts';
+import type { SchemaObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 import { parseInput } from '../game-engine/validation';
+import { queuedInputSchema, batchInputSchema } from './queued-interaction';
 import { NarrativeService } from './narrative.service';
 
 @ApiTags('narrative')
 @Controller('campaigns/:campaignId/sessions/:sessionId')
 export class NarrativeController {
   constructor(private readonly service: NarrativeService) {}
+  @Post('messages/queue')
+  @ApiBody({
+    schema: z.toJSONSchema(queuedInputSchema, {
+      target: 'openapi-3.0',
+      io: 'input',
+    }) as SchemaObject,
+  })
+  enqueue(
+    @Param('campaignId', ParseUUIDPipe) c: string,
+    @Param('sessionId', ParseUUIDPipe) s: string,
+    @Body() input: unknown,
+  ) {
+    return this.service.enqueue(c, s, input);
+  }
+  @Post('continue')
+  @ApiBody({
+    schema: z.toJSONSchema(batchInputSchema, {
+      target: 'openapi-3.0',
+      io: 'input',
+    }) as SchemaObject,
+  })
+  @HttpCode(200)
+  continueBatch(
+    @Param('campaignId', ParseUUIDPipe) c: string,
+    @Param('sessionId', ParseUUIDPipe) s: string,
+    @Body() input: unknown,
+  ) {
+    return this.service.continueBatch(c, s, input);
+  }
   @Post('actions')
   @ApiOperation({
     summary:
       'Persist a player message and process an idempotent narrative action',
   })
   @ApiBody({
-    schema: {
-      type: 'object',
-      additionalProperties: false,
-      required: ['actionId', 'interactionMode', 'content'],
-      properties: {
-        actionId: { type: 'string', format: 'uuid' },
-        optionId: {
-          type: 'string',
-          format: 'uuid',
-          description: 'Prepared action explicitly selected by the player',
-        },
-        interactionMode: {
-          type: 'string',
-          enum: ['SPEAK', 'ACT', 'THINK', 'OUT_OF_CHARACTER'],
-        },
-        content: { type: 'string', minLength: 1, maxLength: 10000 },
-      },
-    },
+    schema: z.toJSONSchema(narrativeInputSchema, {
+      target: 'openapi-3.0',
+      io: 'input',
+    }) as SchemaObject,
   })
   create(
     @Param('campaignId', ParseUUIDPipe) c: string,
@@ -101,6 +129,28 @@ export class NarrativeController {
   ) {
     parseInput(z.strictObject({}), input);
     return this.service.cancel(c, s, a);
+  }
+  @Get('mentions')
+  @ApiQuery({ name: 'symbol', enum: ['@', '#'], required: true })
+  @ApiQuery({ name: 'q', type: String, required: false })
+  @ApiOkResponse({
+    schema: z.toJSONSchema(mentionCatalogSchema, {
+      target: 'openapi-3.0',
+    }) as SchemaObject,
+  })
+  mentions(
+    @Param('campaignId', ParseUUIDPipe) c: string,
+    @Param('sessionId', ParseUUIDPipe) s: string,
+    @Query() raw: unknown,
+  ) {
+    const input = parseInput(
+      z.strictObject({
+        symbol: z.enum(['@', '#']),
+        q: z.string().max(200).optional(),
+      }),
+      raw,
+    );
+    return this.service.mentions(c, s, input.symbol, input.q ?? '');
   }
   @Get('narrative-state')
   state(

@@ -13,7 +13,14 @@ export class MessageResponseDto implements SessionMessage {
   @ApiProperty({
     type: String,
     nullable: true,
-    enum: ['SPEAK', 'ACT', 'THINK', 'OUT_OF_CHARACTER'],
+    enum: [
+      'SPEAK',
+      'ACT',
+      'THINK',
+      'OUT_OF_CHARACTER',
+      'REQUEST_CHECK',
+      'ROLL_RESULT',
+    ],
   })
   interactionMode!: SessionMessage['interactionMode'];
   @ApiProperty({ type: String })
@@ -33,7 +40,22 @@ export class MessageResponseDto implements SessionMessage {
       interactionMode: row.interactionMode,
       content: row.content,
       sequenceNumber: row.sequenceNumber,
-      metadata: row.metadata,
+      metadata: row.metadata
+        ? Object.fromEntries(
+            Object.entries(row.metadata).filter(
+              ([key]) =>
+                ![
+                  'queueDigest',
+                  'narrativeBatch',
+                  'objectResolution',
+                  'freeResolution',
+                  'resolvedMechanic',
+                  'resolvedOptionId',
+                  'dialogueProvenance',
+                ].includes(key),
+            ),
+          )
+        : null,
       createdAt: row.createdAt.toISOString(),
     };
   }

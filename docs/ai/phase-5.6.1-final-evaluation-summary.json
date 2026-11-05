@@ -1,0 +1,337 @@
+{
+  "phase": "5.6.1",
+  "status": "BLOCKED_CANONICITY_PUBLIC_RENDERER",
+  "newAuthorization": {
+    "maxAttempts": 5,
+    "actualAttempts": 0,
+    "authorizedCases": [
+      "561-02",
+      "561-05",
+      "561-06",
+      "561-07",
+      "561-08"
+    ],
+    "liveGatePassed": false,
+    "stopReason": "Critical canonicity violation reproduced offline before live evaluation"
+  },
+  "canonicityAudit": {
+    "productionFilesChanged": false,
+    "newTests": 6,
+    "passed": 5,
+    "failed": 1,
+    "failingScenario": "B: failed official check plus ungrounded paraphrase accepted in public history",
+    "auditSHA256": "d4ea753d1e28936136e6aac9d57a8eea741686370eb556dda349641f5b8d4a3c"
+  },
+  "newLiveMetrics": {
+    "attempts": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "totalTokens": 0,
+    "validResponses": 0,
+    "correctSelections": 0,
+    "incorrectSelections": 0,
+    "schemaFailures": 0,
+    "providerFallbacks": 0,
+    "latencyByCase": {
+      "561-02": null,
+      "561-05": null,
+      "561-06": null,
+      "561-07": null,
+      "561-08": null
+    },
+    "latencyMeaning": "Not executed, not a zero-latency request"
+  },
+  "unexecutedCases": [
+    {
+      "case": "561-02",
+      "reason": "CANONICITY_GATE_BLOCKED",
+      "providerResult": null,
+      "pydantic": null,
+      "zod": null,
+      "authorization": null,
+      "publicResult": null
+    },
+    {
+      "case": "561-05",
+      "reason": "CANONICITY_GATE_BLOCKED",
+      "providerResult": null,
+      "pydantic": null,
+      "zod": null,
+      "authorization": null,
+      "publicResult": null
+    },
+    {
+      "case": "561-06",
+      "reason": "CANONICITY_GATE_BLOCKED",
+      "providerResult": null,
+      "pydantic": null,
+      "zod": null,
+      "authorization": null,
+      "publicResult": null
+    },
+    {
+      "case": "561-07",
+      "reason": "CANONICITY_GATE_BLOCKED",
+      "providerResult": null,
+      "pydantic": null,
+      "zod": null,
+      "authorization": null,
+      "publicResult": null
+    },
+    {
+      "case": "561-08",
+      "reason": "CANONICITY_GATE_BLOCKED",
+      "providerResult": null,
+      "pydantic": null,
+      "zod": null,
+      "authorization": null,
+      "publicResult": null
+    }
+  ],
+  "history": [
+    {
+      "receipt": "phase-5.6.1-live-result.json",
+      "case": "561-01",
+      "rawProposal": {
+        "kind": "QUERY",
+        "intent": "QUERY",
+        "description": "Consultar a memória sobre as descobertas anteriores a respeito da porta.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "QUESTION",
+        "evidence": [
+          "info-b8009dbd5409f0d34e434465"
+        ],
+        "tool": {
+          "type": "QUERY",
+          "subject": "MEMORY"
+        }
+      },
+      "contractValid": false,
+      "semanticEvaluator": null,
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2095,
+          "outputTokens": 137,
+          "durationMs": 1672,
+          "inputCharacters": 1246,
+          "totalTokens": 2232,
+          "usageReported": true,
+          "error": "INVALID_RESPONSE"
+        }
+      ],
+      "nestJS": {
+        "schemaValid": false,
+        "authorization": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "receipt": "phase-5.6.1-case561-01-schema-confirmation.json",
+      "case": "561-01",
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "QUERY",
+        "description": "Naelis consulta suas lembranças e investigações anteriores sobre a porta.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": [
+          "info-b8009dbd5409f0d34e434465"
+        ],
+        "tool": {
+          "type": "QUERY",
+          "subject": "MEMORY"
+        }
+      },
+      "contractValid": true,
+      "semanticEvaluator": {
+        "passed": false,
+        "failures": [
+          "EXPRESSION"
+        ]
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2095,
+          "outputTokens": 138,
+          "durationMs": 2040,
+          "inputCharacters": 1246,
+          "totalTokens": 2233,
+          "usageReported": true,
+          "error": null
+        }
+      ],
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "QUERY",
+          "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+          "targetId": "00000000-0000-4000-a000-000000000004",
+          "authorizedTool": "QUERY"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Uma investigação anterior confirmou que a fechadura da Porta está danificada.",
+            "eventIds": []
+          },
+          "reason": null
+        }
+      }
+    },
+    {
+      "receipt": "phase-5.6.1-investigation-contrast-live-result.json",
+      "case": "561-03",
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "INVESTIGATE",
+        "description": "Naelis examina a porta procurando algum mecanismo escondido.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "tool": {
+          "type": "PREPARED_CHECK",
+          "capability": "Examinar a porta"
+        }
+      },
+      "contractValid": true,
+      "semanticEvaluator": {
+        "passed": true,
+        "failures": []
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2066,
+          "outputTokens": 144,
+          "durationMs": 2132,
+          "inputCharacters": 1205,
+          "totalTokens": 2210,
+          "usageReported": true,
+          "error": null
+        }
+      ],
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "MECHANIC",
+          "text": "A tentativa aguarda o teste oficial.",
+          "optionId": "00000000-0000-4000-a000-000000000005"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      }
+    },
+    {
+      "receipt": "phase-5.6.1-investigation-contrast-live-result.json",
+      "case": "561-04",
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "INVESTIGATE",
+        "description": "Naelis examina a porta procurando algum mecanismo escondido.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "tool": {
+          "type": "ADJUDICATE"
+        }
+      },
+      "contractValid": true,
+      "semanticEvaluator": {
+        "passed": true,
+        "failures": []
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2044,
+          "outputTokens": 132,
+          "durationMs": 2036,
+          "inputCharacters": 1118,
+          "totalTokens": 2176,
+          "usageReported": true,
+          "error": null
+        }
+      ],
+      "nestJS": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "ADJUDICATE",
+          "reason": "UNSUPPORTED_CAPABILITY",
+          "text": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+        },
+        "authorization": "LIMITED_OR_REFUSED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      }
+    }
+  ],
+  "historicalMetrics": {
+    "attempts": 4,
+    "uniqueScenarios": 3,
+    "fullyApprovedUniqueScenarios": [
+      "561-03",
+      "561-04"
+    ],
+    "inputTokens": 8300,
+    "outputTokens": 551,
+    "totalTokens": 8851,
+    "durationMs": 7880,
+    "schemaFailures": 1,
+    "unknownUsageRequests": 0
+  },
+  "preservedHistorySHA256": {
+    "phase-5.6.1-live-result.json": "1afbead5f2b009796bf13e7e5e513d7635aa0c9c1c76b7bc65bb30868d84dd00",
+    "phase-5.6.1-case561-01-schema-confirmation.json": "9ba05bae0360dd142cf5a5791335934791e1448d56339d7a510e0453d0398c3a",
+    "phase-5.6.1-investigation-contrast-live-result.json": "520c9c650deb1f139738c88e610614ef6e03cd954e86aaaed2eead4421bf4086"
+  },
+  "originalPlanSHA256": "82f3303faf6c125ad5c59360f0e2e6404e8c7c894efbf2f01000c7f6e6878f0d",
+  "case56101ExpressionStillPending": true,
+  "phase57Started": false,
+  "preservationChecks": {
+    "productionPromptSchemasPolicyAndEnvPreserved": true,
+    "historicalReceiptsPreserved": true,
+    "historical56101ReviewPreserved": true,
+    "originalPlanPreserved": true,
+    "financialConfirmationStillFalse": true,
+    "providerModelFallbackUnchanged": true,
+    "noNewLiveCalls": true,
+    "noCredentialsInNewArtifacts": true
+  },
+  "offlineRegressionEvidence": {
+    "canonicityIntegration": {
+      "passed": 5,
+      "failed": 1,
+      "keptAsActiveFailingRegression": true
+    },
+    "existingNestJsTestsPassed": 158,
+    "existingPythonTestsPassed": 118,
+    "externalModelCalls": 0
+  }
+}

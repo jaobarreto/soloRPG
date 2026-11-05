@@ -1,3 +1,4 @@
+import { legacyCampaign } from '../fixtures/legacy-campaign';
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
 import { resolve } from 'node:path';
@@ -9,8 +10,10 @@ import { AppModule } from '../../src/app.module';
 import { configureApp } from '../../src/configure-app';
 import { DatabaseService } from '../../src/database/database.service';
 import { GameEngineService } from '../../src/game-engine/game-engine.service';
-import { RANDOM_SOURCE } from '../../src/blue-rose/blue-rose.rules';
+import { RANDOM_SOURCE } from '../../src/blue-rose/mechanics/dice/blue-rose-dice';
 import { abilities } from '@solo-rpg/shared-contracts';
+import { and, eq } from 'drizzle-orm';
+import * as g from '../../src/database/game-schema';
 
 describe('verified Blue Rose AGE core mechanics / PostgreSQL', () => {
   let app: INestApplication, engine: GameEngineService;
@@ -48,13 +51,7 @@ describe('verified Blue Rose AGE core mechanics / PostgreSQL', () => {
       sessionId,
       command,
     });
-  const create = async () =>
-    (
-      await http()
-        .post('/api/v1/campaigns')
-        .send({ title: 'Regras Blue Rose', plannedSessions: 2 })
-        .expect(201)
-    ).body;
+  const create = () => legacyCampaign(app, 2, 'Regras Blue Rose');
   const start = async (c: { id: string; sessions: { id: string }[] }) => {
     await http()
       .post(`/api/v1/campaigns/${c.id}/sessions/${c.sessions[0]!.id}/start`)
@@ -83,12 +80,16 @@ describe('verified Blue Rose AGE core mechanics / PostgreSQL', () => {
       },
       sessionId,
     );
-  async function encounter(hidden = false, weapon = 'heavy-blade') {
+  async function encounter(
+    hidden = false,
+    weapon = 'heavy-blade',
+    features?: Parameters<typeof sheet>[2],
+  ) {
     const c = await create();
     const pc = (
       await http()
         .post(`/api/v1/campaigns/${c.id}/characters`)
-        .send(sheet())
+        .send(sheet('Lia', {}, features))
         .expect(201)
     ).body;
     const npc = await admin(c.id, {
@@ -197,6 +198,91 @@ describe('verified Blue Rose AGE core mechanics / PostgreSQL', () => {
   beforeEach(() => random.d6.mockReset().mockReturnValue(4));
   afterAll(async () => {
     if (app) await app.close();
+  });
+  it('uses Cure as a combat major action only within touch range, with fatigue and no duplicate action budget', async () => {
+    const e = await encounter(false, 'heavy-blade', [
+      { ruleId: 'cure' },
+      { ruleId: 'healing-talent', degree: 'NOVICE' },
+    ]);
+    const db = app.get(DatabaseService).db;
+    await db
+      .update(g.characterResources)
+      .set({ current: 1 })
+      .where(
+        and(
+          eq(g.characterResources.characterId, e.npc.id),
+          eq(g.characterResources.name, 'HEALTH'),
+        ),
+      );
+    await db
+      .update(g.combatMembers)
+      .set({ x: 20 })
+      .where(
+        and(
+          eq(g.combatMembers.encounterId, e.battle.id),
+          eq(g.combatMembers.characterId, e.npc.id),
+        ),
+      );
+    const prepared = await admin(
+      e.c.id,
+      {
+        type: 'ARCANA_CURE_PREPARE',
+        characterId: e.pc.id,
+        targetId: e.npc.id,
+        touchConfirmed: true,
+        visibility: 'PUBLIC',
+        reason: 'Curar um companheiro durante o encontro.',
+      },
+      e.sessionId,
+    );
+    const before = random.d6.mock.calls.length;
+    await http()
+      .post(`/api/v1/campaigns/${e.c.id}/blue-rose/arcana/cure`)
+      .send({ commandId: randomUUID(), requestId: prepared.id })
+      .expect(409);
+    expect(random.d6).toHaveBeenCalledTimes(before);
+    await db
+      .update(g.combatMembers)
+      .set({ x: 1 })
+      .where(
+        and(
+          eq(g.combatMembers.encounterId, e.battle.id),
+          eq(g.combatMembers.characterId, e.npc.id),
+        ),
+      );
+    const input = { commandId: randomUUID(), requestId: prepared.id };
+    await http()
+      .post(`/api/v1/campaigns/${e.c.id}/blue-rose/arcana/cure`)
+      .send(input)
+      .expect(201);
+    expect(
+      (await http().get(e.base)).body.members.find(
+        (m: { characterId: string }) => m.characterId === e.pc.id,
+      ).majorUsed,
+    ).toBe(true);
+    expect(
+      (await http().get(`/api/v1/characters/${e.npc.id}`)).body.resources.find(
+        (r: { name: string }) => r.name === 'HEALTH',
+      ).current,
+    ).toBe(8);
+    await action(e, { action: 'ATTACK', targetId: e.npc.id }).expect(409);
+    await http()
+      .post(`/api/v1/campaigns/${e.c.id}/blue-rose/arcana/cure`)
+      .send(input)
+      .expect(201);
+    expect(random.d6).toHaveBeenCalledTimes(before + 6);
+    await expect(
+      admin(
+        e.c.id,
+        {
+          type: 'REST',
+          characterId: e.pc.id,
+          kind: 'BREATHER',
+          reason: 'Não repousar durante um encontro ativo.',
+        },
+        e.sessionId,
+      ),
+    ).rejects.toThrow('narrative time');
   });
   it('executes initiative, attack, immediate Stunts and verified damage transactionally', async () => {
     const e = await encounter();

@@ -1,0 +1,34 @@
+{
+  "case": "ambiguous",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "maxRequests": 1,
+  "campaignWrites": false,
+  "engineOutcome": "SYNTHETIC_FIXTURE",
+  "humanReviewRequired": true,
+  "rubric": [
+    "coherence",
+    "context",
+    "agency",
+    "personality",
+    "literaryQuality",
+    "mechanicalFidelity",
+    "security",
+    "latency"
+  ],
+  "error": "INVALID_RESPONSE",
+  "usage": [
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "inputTokens": 1124,
+      "outputTokens": 95,
+      "durationMs": 3397,
+      "inputCharacters": 753,
+      "totalTokens": 1219,
+      "usageReported": true,
+      "error": "INVALID_RESPONSE"
+    }
+  ],
+  "requests": 1
+}

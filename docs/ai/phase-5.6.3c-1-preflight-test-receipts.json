@@ -1,0 +1,153 @@
+{
+  "phase": "5.6.3C.1",
+  "scope": "EXECUTOR_PREFLIGHT_ONLY",
+  "realProviderRequests": 0,
+  "commands": [
+    {
+      "name": "python-directed-final",
+      "command": [
+        "node",
+        "scripts/uv.mjs",
+        "run",
+        "pytest",
+        "tests/test_literary_executor.py",
+        "tests/test_literary_preparation.py",
+        "tests/test_gemini_schema.py",
+        "tests/test_contextual_dialogue.py",
+        "tests/test_story_dialogue_bridge.py",
+        "tests/test_phase562.py",
+        "-q",
+        "--cov=app.evaluation.literary_executor",
+        "--cov=app.evaluation.literary_capture",
+        "--cov-report=term-missing"
+      ],
+      "exitCode": 0,
+      "log": "khaosC1-python-complete.log",
+      "sourceLogSha256": "acb8f729dca3aff2d7ae9c2eee047d1541e52d47fa394f4303c52e801f647b21",
+      "output": "........................................................................ [ 42%]\n........................................................................ [ 84%]\n...........................                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.16-final-0 _______________\n\nName                                  Stmts   Miss  Cover   Missing\n-------------------------------------------------------------------\napp/evaluation/literary_capture.py       69      1    99%   49\napp/evaluation/literary_executor.py     336     40    88%   50, 57, 61, 69, 72, 87, 94, 104, 120, 129, 214, 217, 355, 357, 371, 424, 554, 574-576, 656-684, 726-768, 772-781, 785\n-------------------------------------------------------------------\nTOTAL                                   405     41    90%\n171 passed in 35.73s\n"
+    },
+    {
+      "name": "nest-directed-final",
+      "command": [
+        "node",
+        "scripts/test-integration.mjs",
+        "--runTestsByPath",
+        "test/literary-evaluation.spec.ts",
+        "test/phase562-publication.spec.ts",
+        "test/dialogue-content.spec.ts",
+        "test/story-card-dialogue.spec.ts",
+        "test/integration/story-card-dialogue.spec.ts",
+        "test/integration/phase561-canonicity.spec.ts"
+      ],
+      "exitCode": 0,
+      "log": "khaosC1-nest-final.log",
+      "sourceLogSha256": "d76d75814e670376860d358ead16d678bab23c14e4b62a9611455ef7bf8085f1",
+      "output": "PostgreSQL isolado pronto; aplicando migrations e executando testes.\n\nTest Suites: 6 passed, 6 total\nTests:       103 passed, 103 total\nSnapshots:   0 total\nTime:        96.191 s\nRan all test suites within paths \"test/literary-evaluation.spec.ts\", \"test/phase562-publication.spec.ts\", \"test/dialogue-content.spec.ts\", \"test/story-card-dialogue.spec.ts\", \"test/integration/story-card-dialogue.spec.ts\", \"test/integration/phase561-canonicity.spec.ts\".\n"
+    },
+    {
+      "name": "shared-build",
+      "command": ["pnpm", "--filter", "@solo-rpg/shared-contracts", "build"],
+      "exitCode": 0,
+      "seconds": 1.093,
+      "log": "khaosC1-shared-build.log",
+      "sourceLogSha256": "2d4977c3e3c00fe908b903b4540061bbfa7db26a12796d2b3c9f01bf65e728b3",
+      "output": "\n> @solo-rpg/shared-contracts@0.1.0 build /home/barreto/Desktop/projetos/soloRPG/packages/shared-contracts\n> tsc -p tsconfig.json\n\n"
+    },
+    {
+      "name": "api-build",
+      "command": ["pnpm", "--filter", "@solo-rpg/api", "build"],
+      "exitCode": 0,
+      "seconds": 4.416,
+      "log": "khaosC1-api-build.log",
+      "sourceLogSha256": "ea96e32112862c566f1048fa99a38782e92f5b5b9bdfe1c4cc19428892c3ea39",
+      "output": "\n> @solo-rpg/api@0.1.0 build /home/barreto/Desktop/projetos/soloRPG/apps/api\n> tsc -p tsconfig.build.json\n\n"
+    },
+    {
+      "name": "ai-build",
+      "command": ["pnpm", "--filter", "@solo-rpg/ai-service", "build"],
+      "exitCode": 0,
+      "seconds": 0.332,
+      "log": "khaosC1-ai-build.log",
+      "sourceLogSha256": "af8bd8dde53d89da1adc16d57004b11cc6aa3306f88c0ee6e8bbc443aca7f1a8",
+      "output": "\n> @solo-rpg/ai-service@0.1.0 build /home/barreto/Desktop/projetos/soloRPG/apps/ai-service\n> node ../../scripts/uv.mjs run python -m compileall -q app\n\n"
+    },
+    {
+      "name": "typecheck",
+      "command": ["pnpm", "typecheck"],
+      "exitCode": 0,
+      "seconds": 7.277,
+      "log": "khaosC1-typecheck.log",
+      "sourceLogSha256": "4e2d35e7d02306dbf41b2f523c3f00e37b74eee03ac27176729375178167a885",
+      "output": "\n> solo-rpg@0.1.0 typecheck /home/barreto/Desktop/projetos/soloRPG\n> pnpm --filter @solo-rpg/shared-contracts build && pnpm -r typecheck\n\n\n> @solo-rpg/shared-contracts@0.1.0 build /home/barreto/Desktop/projetos/soloRPG/packages/shared-contracts\n> tsc -p tsconfig.json\n\nScope: 5 of 6 workspace projects\napps/ai-service typecheck$ node ../../scripts/uv.mjs run mypy app\napps/ai-service typecheck: Success: no issues found in 32 source files\napps/ai-service typecheck: Done\npackages/shared-contracts typecheck$ tsc --noEmit\npackages/shared-contracts typecheck: Done\napps/web typecheck$ next typegen && tsc --noEmit\napps/api typecheck$ tsc --noEmit -p tsconfig.json\napps/web typecheck: Generating route types...\napps/web typecheck: ✓ Types generated successfully\napps/web typecheck: Done\napps/api typecheck: Done\n"
+    },
+    {
+      "name": "lint",
+      "command": ["pnpm", "lint"],
+      "exitCode": 0,
+      "seconds": 4.591,
+      "log": "khaosC1-lint.log",
+      "sourceLogSha256": "a7c354b171b0d4aae63e9d9981b40d41caa8275209cad8b5d85c6ee70e6ad8de",
+      "output": "\n> solo-rpg@0.1.0 lint /home/barreto/Desktop/projetos/soloRPG\n> eslint scripts eslint.config.mjs && pnpm -r lint\n\nScope: 5 of 6 workspace projects\napps/ai-service lint$ node ../../scripts/uv.mjs run ruff check . && node ../../scripts/uv.mjs run ruff format --check .\napps/ai-service lint: All checks passed!\napps/ai-service lint: 53 files already formatted\napps/ai-service lint: Done\npackages/shared-contracts lint$ eslint src\npackages/shared-contracts lint: Done\napps/api lint$ eslint src test drizzle.config.ts\napps/web lint$ eslint src next.config.ts\napps/api lint: Done\napps/web lint: Done\n"
+    },
+    {
+      "name": "contracts",
+      "command": ["pnpm", "--filter", "@solo-rpg/shared-contracts", "test"],
+      "exitCode": 0,
+      "seconds": 0.502,
+      "log": "khaosC1-contracts.log",
+      "sourceLogSha256": "46de3932591e6a989c0433f75a050f12afedcec79deb31e75fd25b75acd791a7",
+      "output": "\n> @solo-rpg/shared-contracts@0.1.0 test /home/barreto/Desktop/projetos/soloRPG/packages/shared-contracts\n> node --test test/*.test.cjs\n\n✔ contextual dialogue keeps legacy transport and rejects free prose/effects (10.40755ms)\n✔ public mechanical requests reject client-authored dice, difficulty and admin fields (6.932994ms)\n✔ manual transcription requires all nine abilities and public output forbids private fields (5.288409ms)\n✔ the public roll contract cannot represent GM-only results or fields outside the validated SP range (5.331039ms)\n✔ accepts health and rejects false positives (2.095624ms)\n✔ TEST-55-017/022 UTF-16 spans preserve accents, spaces and emoji (8.298792ms)\n✔ TEST-55-019 old clients remain accepted and whitespace offsets are stable (0.997252ms)\n✔ FastAPI free intentions have named selectors and no administrative channel (10.966669ms)\n✔ NestJS consumes the serialized FastAPI usage contract including unknown counts (1.553347ms)\n✔ LLM proposals reject arbitrary effects, dice and early narration (0.263468ms)\n✔ mechanical proposals accept choices and reject authored context and results (1.572493ms)\n✔ the post-commit narrator has no command channel (0.540758ms)\n✔ TEST-SEM5611 expression and arcana applicability are documented on the wire (8.679542ms)\n✔ TEST-SEM5611 structural compatibility preserves relevant choices and does not silently discard a forbidden value (9.940426ms)\n✔ TEST-SCARD-001/013/014 strict server-only manifest and unchanged FREE/NARRATE wire (14.513498ms)\nℹ tests 15\nℹ suites 0\nℹ pass 15\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 210.067891\n"
+    },
+    {
+      "name": "format-global",
+      "command": ["pnpm", "format:check"],
+      "exitCode": 1,
+      "log": "khaosC1-format-global.log",
+      "sourceLogSha256": "addff8dc3679e74f79b3111887e3bbdc4567e47f8d63022a4f338bbcd34a3aed",
+      "output": "\n> solo-rpg@0.1.0 format:check /home/barreto/Desktop/projetos/soloRPG\n> prettier --check .\n\nChecking formatting...\n[warn] docs/ai/phase-5.6.1-canonicity-audit.json\n[warn] docs/ai/phase-5.6.1-case561-01-confirmation-preflight.json\n[warn] docs/ai/phase-5.6.1-case561-01-confirmation-review.json\n[warn] docs/ai/phase-5.6.1-case561-01-schema-confirmation.json\n[warn] docs/ai/phase-5.6.1-completion-live-result.json\n[warn] docs/ai/phase-5.6.1-final-evaluation-summary.json\n[warn] docs/ai/phase-5.6.1-investigation-contrast-live-result.json\n[warn] docs/ai/phase-5.6.1-investigation-contrast-preflight.json\n[warn] docs/ai/phase-5.6.1-investigation-contrast-review.json\n[warn] docs/ai/phase-5.6.1-live-result.json\n[warn] docs/ai/phase-5.6.1-offline-result.json\n[warn] docs/ai/phase-5.6.1-plan.json\n[warn] docs/ai/phase-5.6.1.2-authorization.json\n[warn] docs/ai/phase-5.6.1.2-live-result.json\n[warn] docs/ai/phase-5.6.2-validation-summary.json\n[warn] docs/ai/phase-5.6.3a-lab-result.json\n[warn] docs/ai/phase-5.6.3b-comparison.json\n[warn] docs/ai/phase-5.6.3b-lab-result.json\n[warn] packages/shared-contracts/fixtures/phase56-semantic.json\n[warn] Code style issues found in 19 files. Run Prettier with --write to fix.\n ELIFECYCLE  Command failed with exit code 1.\n"
+    },
+    {
+      "name": "format-scope",
+      "command": [
+        "pnpm",
+        "exec",
+        "prettier",
+        "--check",
+        "docs/testing/narrative-tests.md",
+        "scripts/evaluate-literary-case.mjs",
+        "docs/ai/phase-5.6.3c-1-executor-manifest.json",
+        "docs/ai/phase-5.6.3c-1-baseline-sha256.json",
+        "docs/ai/phase-5.6.3c-1-offline-demo.json",
+        "docs/ai/phase-5.6.3c-1-human-review-template.json",
+        "docs/ai/phase-5.6.3c-1-preflight-observation.json",
+        "docs/ai/phase-5.6.3c-1-preflight-test-receipts.json",
+        "docs/ai/phase-5.6.3c-1-preflight-summary.json",
+        "docs/testing/phase-5.6.3c-1-preflight-validation.md"
+      ],
+      "exitCode": 0,
+      "log": "khaosC1-format-scope.log",
+      "sourceLogSha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+      "output": "Checking formatting...\nAll matched files use Prettier code style!\n"
+    },
+    {
+      "name": "diff-check",
+      "command": ["git", "diff", "--check"],
+      "exitCode": 0,
+      "log": "khaosC1-diff-check.log",
+      "sourceLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "output": ""
+    }
+  ],
+  "initialFailedExpectation": {
+    "result": "31 passed / 1 failed",
+    "reason": "SPEAK blocks the injected ARCANA proposal; expectation was corrected to test the real block, with a separate injected risk-signal guard test. Frozen cases and production unchanged.",
+    "sourceLogSha256": "d27d9518c5478883e8ffd0cbdf7da52285705de7a08323a41f7fcff8722b557d",
+    "output": ".........................F......                                         [100%]\n=================================== FAILURES ===================================\n___ test_c1_012_potential_mechanical_effect_interrupts_without_executing_it ____\n\ntmp_path = PosixPath('/tmp/pytest-of-barreto/pytest-0/test_c1_012_potential_mechanic0')\n\n    def test_c1_012_potential_mechanical_effect_interrupts_without_executing_it(tmp_path):\n        def magic(p):\n            p.update(\n                intent=\"ARCANA\",\n                expression=\"DIRECT\",\n                target=None,\n                tool={\"type\": \"ARCANA\", \"arcanum\": \"psychic-shield\", \"raised\": True},\n            )\n            return p\n    \n        script = Script({(\"C1-1\", \"PROPOSE\"): magic})\n        result = execute(tmp_path, script, independent=True)\n>       assert result[\"stopReason\"] == \"RISK_OF_REAL_EFFECTS\"\n               ^^^^^^^^^^^^^^^^^^^^\nE       KeyError: 'stopReason'\n\ntests/test_literary_executor.py:442: KeyError\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.16-final-0 _______________\n\nName                                  Stmts   Miss  Cover   Missing\n-------------------------------------------------------------------\napp/evaluation/literary_capture.py       63      2    97%   49, 114\napp/evaluation/literary_executor.py     319     65    80%   50, 57, 61, 69, 72, 87, 94, 104, 120, 129, 214, 217, 355, 357, 359, 371, 412, 522, 524, 542-544, 583-611, 615-705, 709\n-------------------------------------------------------------------\nTOTAL                                   382     67    82%\n=========================== short test summary info ============================\nFAILED tests/test_literary_executor.py::test_c1_012_potential_mechanical_effect_interrupts_without_executing_it\n1 failed, 31 passed in 26.72s\n"
+  },
+  "evidenceBoundaries": {
+    "executor": "Production graph/router/adapter/SDK with in-memory HTTP and own socket guard; real compiled NestJS policies in a read-only Node child.",
+    "regression": "Real HTTP/FastAPI graph with scripted provider and disposable PostgreSQL.",
+    "literaryQuality": "Human scores null; no model quality inferred.",
+    "financial": "Normal configuration remains disabled; simulated process settings only for dry-run. No key/header/billing-account data captured."
+  }
+}

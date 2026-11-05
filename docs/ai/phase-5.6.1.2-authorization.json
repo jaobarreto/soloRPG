@@ -1,0 +1,31 @@
+{
+  "phase": "5.6.1.2",
+  "date": "2026-11-02",
+  "source": "EXPLICIT_OPERATOR_MESSAGE_IN_CURRENT_CHAT_AFTER_OFFLINE_PREFLIGHT",
+  "authorized": true,
+  "maxRequests": 2,
+  "cases": [
+    "561-01",
+    "561-06"
+  ],
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "maxOutputTokensPerRequest": 700,
+  "stage": "PROPOSE",
+  "narrate": false,
+  "retries": false,
+  "providerFallback": false,
+  "automaticRepairs": false,
+  "realDatabaseWrites": false,
+  "realCampaignWrites": false,
+  "financialConfigurationChanges": false,
+  "extraCallsAuthorized": false,
+  "operatorConfirmedActiveKeyFreeProjectWithoutBilling": true,
+  "independentBillingVerification": false,
+  "activeKeyFileSHA256": "f7e4a08fdcd9ec6667ec5769afc97ba9311909ef3f7235db05406435b5ec7042",
+  "preflightReceipt": "docs/ai/phase-5.6.1.2-preflight.json",
+  "preflightReceiptSHA256": "ba2b5f4819de86839cd0f7b8df3ac7362f2de4cba54b1122173b2a344837a86c",
+  "preflightFilesRechecked": 373,
+  "phase563RemainsBlockedUntilOperatorReview": true,
+  "remainingAttemptsMayBeReusedWithoutNewAuthorization": false
+}

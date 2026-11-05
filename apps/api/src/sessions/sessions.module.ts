@@ -1,3 +1,5 @@
+import { MessagesRepository } from '../messages/messages.repository';
+import { AdventureRegistryModule } from '../adventures/adventure-registry.module';
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
 import { CampaignsModule } from '../campaigns/campaigns.module';
@@ -5,9 +7,9 @@ import { SessionsController } from './sessions.controller';
 import { SessionsRepository } from './sessions.repository';
 import { SessionsService } from './sessions.service';
 @Module({
-  imports: [DatabaseModule, CampaignsModule],
+  imports: [AdventureRegistryModule, DatabaseModule, CampaignsModule],
   controllers: [SessionsController],
-  providers: [SessionsRepository, SessionsService],
+  providers: [SessionsRepository, SessionsService, MessagesRepository],
   exports: [SessionsRepository, SessionsService],
 })
 export class SessionsModule {}

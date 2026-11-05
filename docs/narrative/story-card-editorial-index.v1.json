@@ -1,0 +1,118 @@
+{
+  "editorialRevision": 1,
+  "scope": "EDITORIAL_ONLY",
+  "referenceDefinition": "six-of-swords-gloamhale:v1",
+  "entityNamespace": "gloamhale",
+  "documents": [
+    {
+      "path": "party/aren_valdren_story_card.txt",
+      "sourceVersion": "2.1",
+      "sha256": "9807ca3ecb6dcb7a0b541f90492f0500a541d68d03d33391da2a9529b4216c94",
+      "identity": {
+        "origin": "REGULAR_PARTY_PRESET",
+        "key": "aren",
+        "referenceName": "Aren Valdren"
+      },
+      "review": "AUTHORIAL_IDENTITY_AND_AGE_CHOICES_APPROVED"
+    },
+    {
+      "path": "party/mira_selwyn_story_card.txt",
+      "sourceVersion": "2.1",
+      "sha256": "f9ebe593fc70ffc1fa80c53cde5f7fce2309186aa1e9cca691715d14efb64fcb",
+      "identity": {
+        "origin": "REGULAR_PARTY_PRESET",
+        "key": "mira",
+        "referenceName": "Mira Selwyn"
+      },
+      "review": "AUTHORIAL_IDENTITY_AND_AGE_CHOICES_APPROVED"
+    },
+    {
+      "path": "party/lys_varen_story_card.txt",
+      "sourceVersion": "2.1",
+      "sha256": "0865e8af8ee5713a95b022be62cfdf4158b43e0698fcd5e0d5c366ab37d3d001",
+      "identity": {
+        "origin": "REGULAR_PARTY_PRESET",
+        "key": "lys",
+        "referenceName": "Lys Varen"
+      },
+      "review": "AUTHORIAL_IDENTITY_AND_AGE_CHOICES_APPROVED"
+    },
+    {
+      "path": "npcs/griseld_story_card.txt",
+      "sourceVersion": "1.0",
+      "sha256": "202137fff50860e1fa6283948a4352f3ac8656d827999345d02edbda817242c5",
+      "identity": {
+        "origin": "ADVENTURE_INDIVIDUAL",
+        "key": "griseld",
+        "referenceName": "Griseld"
+      },
+      "review": "EDITORIAL_REVIEW"
+    },
+    {
+      "path": "npcs/chantria_chant_story_card.txt",
+      "sourceVersion": "1.0",
+      "sha256": "c90c2ec1213b2f3debcfa856c326f76f52559d03a4eec16cd2755e16d2fae498",
+      "identity": {
+        "origin": "ADVENTURE_INDIVIDUAL",
+        "key": "chant",
+        "referenceName": "Chantria (Chant)"
+      },
+      "review": "EDITORIAL_REVIEW"
+    },
+    {
+      "path": "npcs/mud_mother_story_card.txt",
+      "sourceVersion": "1.0",
+      "sha256": "358af651ad7817b9bab1cdb1d103d520339efac2ac635d7efc5c46aac151101b",
+      "identity": {
+        "origin": "ADVENTURE_INDIVIDUAL",
+        "key": "mud-mother",
+        "referenceName": "Mud Mother"
+      },
+      "review": "EDITORIAL_REVIEW"
+    },
+    {
+      "path": "npcs/erila_qinrel_story_card.txt",
+      "sourceVersion": "1.0",
+      "sha256": "e664a4a754c823b831cf4c14dadfe2e64446540754aee2708005a90bae275bac",
+      "identity": {
+        "origin": "ADVENTURE_INDIVIDUAL",
+        "key": "erila",
+        "referenceName": "Erila Qinrel"
+      },
+      "review": "CONDITIONAL_DISCLOSURE_REVIEW"
+    },
+    {
+      "path": "npcs/jaymes_gloamhale_story_card.txt",
+      "sourceVersion": "1.0",
+      "sha256": "4919a0f02333c4a1dc81556ecbdd020ee390adacf4e06ff969681ae572d3e9ef",
+      "identity": {
+        "origin": "ADVENTURE_INDIVIDUAL",
+        "key": "jaymes",
+        "referenceName": "Jaymes E. R. Gloamhale"
+      },
+      "review": "CONDITIONAL_DISCLOSURE_REVIEW"
+    },
+    {
+      "path": "npcs/eric_story_card_secundario.txt",
+      "sourceVersion": null,
+      "sha256": "ef781069501a89712d41e689f7a580b07267fd166eb38a93f2cd42e5a31b1ee5",
+      "identity": {
+        "origin": "ADVENTURE_INDIVIDUAL",
+        "key": "eric",
+        "referenceName": "Eric"
+      },
+      "review": "EDITORIAL_REVIEW"
+    },
+    {
+      "path": "npcs/bamala_story_card_secundario.txt",
+      "sourceVersion": "1.1",
+      "sha256": "1e6ba70366bc7d0e9d44d2a3581762cf195a4d0c063837b34436a2664b7d0ca8",
+      "identity": {
+        "origin": "ADVENTURE_INDIVIDUAL",
+        "key": "bamala",
+        "referenceName": "Bamala"
+      },
+      "review": "FEN_UNCONFIRMED_IN_PRIMARY_SOURCE"
+    }
+  ]
+}

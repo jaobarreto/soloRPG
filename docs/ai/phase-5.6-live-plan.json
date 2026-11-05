@@ -1,0 +1,75 @@
+{
+  "phase": "5.6",
+  "liveExecuted": false,
+  "maxRequests": 8,
+  "maxOutputTokensPerRequest": 700,
+  "maxOutputTokensTotal": 5600,
+  "stages": ["PROPOSE"],
+  "campaignWrites": false,
+  "providerConfigurationChanges": false,
+  "cases": [
+    {
+      "id": "56-063",
+      "message": "Examino a porta procurando algo estranho.",
+      "contextState": "prepared",
+      "expectedIntent": "INVESTIGATE",
+      "expectedTool": "PREPARED_CHECK"
+    },
+    {
+      "id": "56-062",
+      "message": "Examino a porta procurando algo estranho.",
+      "contextState": "visible",
+      "expectedIntent": "OBSERVE",
+      "expectedTool": "OBSERVE"
+    },
+    {
+      "id": "56-064",
+      "message": "Examino a porta procurando algo estranho.",
+      "contextState": "known",
+      "expectedIntent": "QUERY",
+      "expectedTool": "QUERY"
+    },
+    {
+      "id": "56-065",
+      "message": "Examino a porta procurando algo estranho.",
+      "contextState": "unprepared",
+      "expectedIntent": "INVESTIGATE",
+      "expectedTool": "ADJUDICATE"
+    },
+    {
+      "id": "56-022",
+      "message": "Eu ergo meu Escudo.",
+      "contextState": null,
+      "expectedIntent": "ARCANA",
+      "expectedTool": "ARCANA"
+    },
+    {
+      "id": "56-024",
+      "message": "Eu uso minha magia nele.",
+      "contextState": null,
+      "expectedIntent": "ARCANA",
+      "expectedTool": "CLARIFY"
+    },
+    {
+      "id": "56-049",
+      "message": "Como funciona o Drama Die?",
+      "contextState": null,
+      "expectedIntent": "QUERY",
+      "expectedTool": "QUERY"
+    },
+    {
+      "id": "56-021",
+      "message": "Como funciona Escudo?",
+      "contextState": null,
+      "expectedIntent": "QUERY",
+      "expectedTool": "QUERY"
+    }
+  ],
+  "stopOn": [
+    "provider error",
+    "invalid contract/fallback",
+    "unexpected mechanical tool"
+  ],
+  "purpose": "Reavaliar investigação, Arcana, ambiguidade e fontes OOC com contrastes de contexto.",
+  "recording": "JSON: casos sintéticos, propostas, tokens, latência, erros, matriz de confusão; autorização NestJS separada."
+}

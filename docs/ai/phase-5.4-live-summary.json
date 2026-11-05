@@ -1,0 +1,244 @@
+{
+  "date": "2026-11-01",
+  "authorizationCeiling": 11,
+  "actualRequests": 10,
+  "unusedRequests": 1,
+  "inputTokensReported": 9237,
+  "outputTokensReported": 1350,
+  "totalTokensReported": 10587,
+  "requestsWithoutReportedUsage": 1,
+  "totalDurationMs": 27261,
+  "campaignWrites": false,
+  "mechanicalOutcomes": "SYNTHETIC_FIXTURE",
+  "review": "AGENT_TECHNICAL_REVIEW; HUMAN_REVIEW_PENDING",
+  "cases": [
+    {
+      "file": "phase-5.4-live-ambiguous-recovery.json",
+      "case": "ambiguous",
+      "requests": 1,
+      "interpretationPassed": false,
+      "interpretationSkipped": false,
+      "error": null,
+      "rendererAccepted": null,
+      "rendererReason": null,
+      "resolution": {
+        "category": "CLARIFY",
+        "text": "Pode esclarecer o que deseja tentar e qual é o alvo?"
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 1185,
+          "outputTokens": 95,
+          "durationMs": 2640,
+          "inputCharacters": 892,
+          "totalTokens": 1280,
+          "usageReported": true,
+          "error": "INVALID_RESPONSE"
+        }
+      ]
+    },
+    {
+      "file": "phase-5.4-live-ambiguous.json",
+      "case": "ambiguous",
+      "requests": 1,
+      "interpretationPassed": null,
+      "interpretationSkipped": false,
+      "error": "INVALID_RESPONSE",
+      "rendererAccepted": null,
+      "rendererReason": null,
+      "resolution": null,
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 1124,
+          "outputTokens": 95,
+          "durationMs": 3397,
+          "inputCharacters": 753,
+          "totalTokens": 1219,
+          "usageReported": true,
+          "error": "INVALID_RESPONSE"
+        }
+      ]
+    },
+    {
+      "file": "phase-5.4-live-continuity.json",
+      "case": "continuity",
+      "requests": 2,
+      "interpretationPassed": true,
+      "interpretationSkipped": false,
+      "error": null,
+      "rendererAccepted": true,
+      "rendererReason": null,
+      "resolution": {
+        "category": "DIALOGUE",
+        "targetId": "8a4d09c1-98ef-4d9c-a22a-e4fa7db6278c",
+        "text": "Mira ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa."
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 1191,
+          "outputTokens": 85,
+          "durationMs": 2467,
+          "inputCharacters": 932,
+          "totalTokens": 1276,
+          "usageReported": true,
+          "error": null
+        },
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 820,
+          "outputTokens": 352,
+          "durationMs": 2064,
+          "inputCharacters": 891,
+          "totalTokens": 1172,
+          "usageReported": true,
+          "error": null
+        }
+      ]
+    },
+    {
+      "file": "phase-5.4-live-dialogue-render.json",
+      "case": "dialogue",
+      "requests": 1,
+      "interpretationPassed": null,
+      "interpretationSkipped": true,
+      "error": null,
+      "rendererAccepted": false,
+      "rendererReason": "BEAT_TEXT",
+      "resolution": null,
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 702,
+          "outputTokens": 303,
+          "durationMs": 3867,
+          "inputCharacters": 720,
+          "totalTokens": 1005,
+          "usageReported": true,
+          "error": null
+        }
+      ]
+    },
+    {
+      "file": "phase-5.4-live-dialogue.json",
+      "case": "dialogue",
+      "requests": 2,
+      "interpretationPassed": true,
+      "interpretationSkipped": false,
+      "error": "CONTEXT_OR_REQUEST",
+      "rendererAccepted": null,
+      "rendererReason": null,
+      "resolution": null,
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 1127,
+          "outputTokens": 82,
+          "durationMs": 1741,
+          "inputCharacters": 771,
+          "totalTokens": 1209,
+          "usageReported": true,
+          "error": null
+        },
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 0,
+          "outputTokens": 0,
+          "durationMs": 3089,
+          "inputCharacters": 720,
+          "totalTokens": null,
+          "usageReported": false,
+          "error": "CONTEXT_OR_REQUEST"
+        }
+      ]
+    },
+    {
+      "file": "phase-5.4-live-investigation.json",
+      "case": "investigation",
+      "requests": 1,
+      "interpretationPassed": false,
+      "interpretationSkipped": false,
+      "error": null,
+      "rendererAccepted": null,
+      "rendererReason": null,
+      "resolution": {
+        "category": "OBSERVE",
+        "targetId": "39c38a61-29d9-44fe-a1a6-b82b7cb5e065",
+        "text": "A observação considera apenas o que está visível nesta cena. Nenhuma descoberta oculta ou consequência mecânica foi confirmada."
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 1189,
+          "outputTokens": 89,
+          "durationMs": 2494,
+          "inputCharacters": 913,
+          "totalTokens": 1278,
+          "usageReported": true,
+          "error": null
+        }
+      ]
+    },
+    {
+      "file": "phase-5.4-live-ooc.json",
+      "case": "ooc",
+      "requests": 1,
+      "interpretationPassed": null,
+      "interpretationSkipped": true,
+      "error": null,
+      "rendererAccepted": true,
+      "rendererReason": null,
+      "resolution": null,
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 712,
+          "outputTokens": 147,
+          "durationMs": 3509,
+          "inputCharacters": 626,
+          "totalTokens": 859,
+          "usageReported": true,
+          "error": null
+        }
+      ]
+    },
+    {
+      "file": "phase-5.4-live-tool.json",
+      "case": "tool",
+      "requests": 1,
+      "interpretationPassed": false,
+      "interpretationSkipped": false,
+      "error": null,
+      "rendererAccepted": null,
+      "rendererReason": null,
+      "resolution": {
+        "category": "CLARIFY",
+        "text": "Pode esclarecer o que deseja tentar e qual é o alvo?"
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 1187,
+          "outputTokens": 102,
+          "durationMs": 1993,
+          "inputCharacters": 889,
+          "totalTokens": 1289,
+          "usageReported": true,
+          "error": "INVALID_RESPONSE"
+        }
+      ]
+    }
+  ]
+}

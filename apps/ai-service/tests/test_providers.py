@@ -14,10 +14,70 @@ class Output(BaseModel):
     answer: str
 
 
+def test_gemini_narration_generation_schema_avoids_large_nested_grammar_bounds(
+    monkeypatch,
+):
+    from types import SimpleNamespace
+
+    from app.narrative.schemas import Narration
+    from app.providers.gemini import GeminiProvider
+
+    async def generate(**kwargs):
+        import json
+
+        schema = kwargs["config"].response_json_schema
+        serialized = json.dumps(schema)
+        # Keep rich types/required/refs; bounds remain enforced locally. The
+        # remote grammar should not expand 8 * 100 UUID slots and long texts.
+        assert '"maxItems"' not in serialized
+        assert '"maxLength"' not in serialized
+        assert '"additionalProperties": false' in serialized
+        assert '"$ref"' in serialized
+        assert '"maxItems"' in json.dumps(Narration.model_json_schema())
+        assert '"maxLength"' in json.dumps(Narration.model_json_schema())
+        return SimpleNamespace(
+            text='{"narrative":"Mira hesita.","eventIds":[]}', usage_metadata=None
+        )
+
+    async def close():
+        pass
+
+    fake = SimpleNamespace(
+        aio=SimpleNamespace(
+            models=SimpleNamespace(generate_content=generate), aclose=close
+        )
+    )
+    monkeypatch.setattr("app.providers.gemini.genai.Client", lambda **kwargs: fake)
+
+    async def run():
+        provider = GeminiProvider("fake", "gemini-3.5-flash-lite", 2)
+        await provider.generate_structured(
+            "synthetic", Narration, max_output_tokens=1200
+        )
+        await provider.close()
+
+    asyncio.run(run())
+
+
+def test_verified_current_free_model_is_configurable_without_changing_defaults(
+    monkeypatch,
+):
+    monkeypatch.setattr("app.providers.router.GeminiProvider", adapter())
+    router = ProviderRouter(settings(gemini_model="gemini-3.5-flash-lite"))
+    assert (
+        asyncio.run(
+            router.generate_structured("data", Output, max_output_tokens=30)
+        ).answer
+        == "confirmado"
+    )
+    assert router.usage[0].model == "gemini-3.5-flash-lite"
+
+
 def settings(**kwargs):
     return Settings(
         _env_file=None,
         ai_free_tier_confirmed=True,
+        groq_free_tier_confirmed=True,
         gemini_api_key="fake-gemini",
         groq_api_key="fake-groq",
         **kwargs,
@@ -130,7 +190,8 @@ def test_groq_wire_contract_and_invalid_response():
     asyncio.run(run())
 
 
-def test_gemini_official_sdk_contract(monkeypatch):
+@pytest.mark.parametrize("measured", [True, False])
+def test_gemini_official_sdk_contract(monkeypatch, measured):
     from types import SimpleNamespace
 
     from app.providers.gemini import GeminiProvider
@@ -142,7 +203,9 @@ def test_gemini_official_sdk_contract(monkeypatch):
         return SimpleNamespace(
             text='{"answer":"sim"}',
             usage_metadata=SimpleNamespace(
-                prompt_token_count=8, candidates_token_count=2
+                prompt_token_count=8 if measured else None,
+                candidates_token_count=2 if measured else None,
+                total_token_count=10 if measured else None,
             ),
         )
 
@@ -161,9 +224,90 @@ def test_gemini_official_sdk_contract(monkeypatch):
         assert (
             await provider.generate_structured("data", Output, max_output_tokens=30)
         ).answer == "sim"
-        assert provider.input_tokens == 8
+        assert provider.input_tokens == (8 if measured else 0)
+        assert provider.usage_reported is measured
         assert recorded["config"].response_mime_type == "application/json"
         assert recorded["config"].max_output_tokens == 30
         await provider.close()
 
     asyncio.run(run())
+
+
+def test_groq_requires_its_own_confirmation_even_with_a_key(monkeypatch):
+    monkeypatch.setattr(
+        "app.providers.router.GeminiProvider", adapter(status_error(429))
+    )
+    monkeypatch.setattr("app.providers.router.GroqProvider", adapter())
+    config = Settings(
+        _env_file=None,
+        ai_free_tier_confirmed=True,
+        gemini_api_key="fake",
+        groq_api_key="fake",
+        enable_provider_fallback=True,
+    )
+    router = ProviderRouter(config)
+    with pytest.raises(ProviderError, match="FREE_TIER_NOT_CONFIRMED"):
+        asyncio.run(router.generate_structured("data", Output, max_output_tokens=30))
+    assert len(router.usage) == 1
+
+
+def test_request_budget_is_checked_before_a_fallback_call(monkeypatch):
+    monkeypatch.setattr(
+        "app.providers.router.GeminiProvider", adapter(status_error(429))
+    )
+    monkeypatch.setattr("app.providers.router.GroqProvider", adapter())
+    router = ProviderRouter(settings(enable_provider_fallback=True), max_requests=1)
+    with pytest.raises(ProviderError, match="REQUEST_BUDGET"):
+        asyncio.run(router.generate_structured("data", Output, max_output_tokens=30))
+    assert len(router.usage) == 1
+
+
+def test_failure_still_records_context_size_without_claiming_measured_tokens(
+    monkeypatch,
+):
+    monkeypatch.setattr("app.providers.router.GeminiProvider", adapter(TimeoutError()))
+    router = ProviderRouter(settings())
+    with pytest.raises(ProviderError, match="TIMEOUT"):
+        asyncio.run(
+            router.generate_structured("ação livre", Output, max_output_tokens=30)
+        )
+    usage = router.usage[0]
+    assert usage.inputCharacters == len("ação livre")
+    assert usage.usageReported is False
+    assert usage.totalTokens is None
+
+
+def test_fallback_shares_a_total_deadline(monkeypatch):
+    waits = []
+    real_wait = asyncio.wait_for
+
+    async def bounded_wait(awaitable, timeout):
+        waits.append(timeout)
+        return await real_wait(awaitable, timeout)
+
+    class SlowPrimary(adapter()):
+        async def generate_structured(self, *args, **kwargs):
+            await asyncio.sleep(0.02)
+            raise status_error(503)
+
+    monkeypatch.setattr("app.providers.router.GeminiProvider", SlowPrimary)
+    monkeypatch.setattr("app.providers.router.GroqProvider", adapter())
+    monkeypatch.setattr("app.providers.router.asyncio.wait_for", bounded_wait)
+    router = ProviderRouter(
+        settings(enable_provider_fallback=True, llm_turn_timeout_seconds=1)
+    )
+    asyncio.run(router.generate_structured("data", Output, max_output_tokens=30))
+    assert 0 < waits[2] < waits[0] <= 1
+    assert len(router.usage) == 2
+
+
+def test_unexpected_sdk_errors_are_redacted_and_do_not_retry(monkeypatch):
+    monkeypatch.setattr(
+        "app.providers.router.GeminiProvider",
+        adapter(RuntimeError("PRIVATE SDK SECRET")),
+    )
+    router = ProviderRouter(settings(enable_provider_fallback=True))
+    with pytest.raises(ProviderError, match="UNAVAILABLE") as error:
+        asyncio.run(router.generate_structured("data", Output, max_output_tokens=30))
+    assert "PRIVATE" not in str(error.value)
+    assert len(router.usage) == 1

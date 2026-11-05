@@ -1,0 +1,141 @@
+{
+  "phase": "5.6.3B.0",
+  "status": "CONSOLIDATED_OFFLINE_VALIDATION_PASSED_AND_ADAPTER_PLAN_PREPARED",
+  "realProviderRequests": 0,
+  "geminiLiteraryQualityCertified": false,
+  "storyCardAdapterImplemented": false,
+  "nextPhaseStarted": false,
+  "validation": {
+    "nestjs": {
+      "completeExecutions": 1,
+      "passed": 485,
+      "failed": 0,
+      "suites": 33,
+      "seconds": 280.211,
+      "exitCode": 0,
+      "coverage": {
+        "statements": 92.55,
+        "branches": 84.55,
+        "functions": 96.63,
+        "lines": 94.0
+      }
+    },
+    "python": {
+      "passed": 359,
+      "failed": 0,
+      "seconds": 10.35,
+      "coverage": 86,
+      "exitCode": 0
+    },
+    "contracts": {
+      "passed": 14,
+      "failed": 0,
+      "seconds": 0.262,
+      "exitCode": 0
+    },
+    "checks": [
+      {
+        "check": "api-build",
+        "command": ["pnpm", "--filter", "@solo-rpg/api", "build"],
+        "exitCode": 0,
+        "seconds": 5.147,
+        "log": "/tmp/khaos563b0-api-build.log"
+      },
+      {
+        "check": "python-build",
+        "command": ["pnpm", "--filter", "@solo-rpg/ai-service", "build"],
+        "exitCode": 0,
+        "seconds": 0.383,
+        "log": "/tmp/khaos563b0-python-build.log"
+      },
+      {
+        "check": "api-typecheck",
+        "command": ["pnpm", "--filter", "@solo-rpg/api", "typecheck"],
+        "exitCode": 0,
+        "seconds": 5.009,
+        "log": "/tmp/khaos563b0-api-typecheck.log"
+      },
+      {
+        "check": "contracts-typecheck",
+        "command": [
+          "pnpm",
+          "--filter",
+          "@solo-rpg/shared-contracts",
+          "typecheck"
+        ],
+        "exitCode": 0,
+        "seconds": 0.944,
+        "log": "/tmp/khaos563b0-contracts-typecheck.log"
+      },
+      {
+        "check": "python-typecheck",
+        "command": ["pnpm", "--filter", "@solo-rpg/ai-service", "typecheck"],
+        "exitCode": 0,
+        "seconds": 0.57,
+        "log": "/tmp/khaos563b0-python-typecheck.log"
+      },
+      {
+        "check": "api-lint",
+        "command": ["pnpm", "--filter", "@solo-rpg/api", "lint"],
+        "exitCode": 0,
+        "seconds": 2.207,
+        "log": "/tmp/khaos563b0-api-lint.log"
+      },
+      {
+        "check": "contracts-lint",
+        "command": ["pnpm", "--filter", "@solo-rpg/shared-contracts", "lint"],
+        "exitCode": 0,
+        "seconds": 0.808,
+        "log": "/tmp/khaos563b0-contracts-lint.log"
+      },
+      {
+        "check": "python-lint",
+        "command": ["pnpm", "--filter", "@solo-rpg/ai-service", "lint"],
+        "exitCode": 0,
+        "seconds": 0.384,
+        "log": "/tmp/khaos563b0-python-lint.log"
+      }
+    ],
+    "fixture": {
+      "result": {
+        "result": "PASS",
+        "definitionSchema": true,
+        "definitionDigest": true,
+        "persistentIds": true,
+        "homonymFixture": true,
+        "registeredOrImported": false,
+        "productionBindingValidated": false
+      },
+      "scope": "Existing AdventureDefinition schema, digest helper and persistent ID derivation only; draft binding and future adapter remain unverified"
+    }
+  },
+  "orderingAudit": {
+    "testId": "TEST-55-017/018/019/020",
+    "finding": "Both reads explicitly orderBy(eventId); full row equality and original security assertions remain",
+    "newChangeThisPhase": false
+  },
+  "futureTests": {
+    "ids": "TEST-SCARD-001–020",
+    "count": 20,
+    "state": "unverified",
+    "notIncludedInCurrentTestCount": true
+  },
+  "preservation": {
+    "preexistingFilesChecked": 415,
+    "byteIdentical": 414,
+    "expectedModifiedFiles": ["docs/testing/narrative-tests.md"],
+    "unexpectedChanges": [],
+    "productionChanges": [],
+    "newMigrationsDependenciesServices": [],
+    "pdfFilesChecked": 4,
+    "envAndFinancialConfigurationChanged": false,
+    "adventureDefinitionsAndHistoricalArtifactsUnchanged": true,
+    "realCampaignDatabaseAccess": false
+  },
+  "artifacts": {
+    "docs/ai/phase-5.6.3b-0-test-receipts.json": "cad344a7475812c19da7b3dbdfffc878c02e42d50cb2b1095013fda8cc67af8c",
+    "apps/api/test/fixtures/story-card-dialogue-plan.json": "1d900927360116e1804d90c55d0bec302da9021b51fd605c35390928ab551de8",
+    "docs/testing/phase-5.6.3b-0-validation.md": "6342acb374f6499c79c818b37aa92405f00981dde7cec0beaf66b4611fe61493",
+    "docs/testing/narrative-tests.md": "52e95eaf2bc6bff92607e4d6ce9615bc87b94e9799258cf523e21aa53b6837ef"
+  }
+}

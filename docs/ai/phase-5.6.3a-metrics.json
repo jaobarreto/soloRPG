@@ -1,0 +1,752 @@
+{
+  "phase": "5.6.3A",
+  "evidenceKind": "OFFLINE_SCRIPTED_TRANSCRIPT_METRICS",
+  "realProviderRequests": 0,
+  "geminiLiteraryQualityCertified": false,
+  "automaticLiteraryScores": null,
+  "runs": [
+    {
+      "scenarioId": "563A-01",
+      "selector": "FIRST",
+      "turns": 5,
+      "identicalAdjacentReplies": 4,
+      "uniqueReplies": 1,
+      "paragraphOccurrences": 15,
+      "repeatedParagraphOccurrences": 12,
+      "repeatedParagraphs": [
+        {
+          "text": "Iria — Quero ouvir você. O que gostaria de me perguntar?",
+          "count": 5
+        },
+        {
+          "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+          "count": 5
+        },
+        {
+          "text": "O que você deseja fazer?",
+          "count": 5
+        }
+      ],
+      "closingQuestions": {
+        "O que você deseja fazer?": 5
+      },
+      "dialogueCatalogSizes": [4, 6, 8, 10, 12],
+      "largestSerializedRequestCharacters": 7572,
+      "publishedFallbacks": 0,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-01-FIRST-t1",
+          "player": "Iria, como você prefere que conversemos sobre o que aconteceu?",
+          "published": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-01-FIRST-t2",
+          "player": "Quero ouvir sua opinião sobre o nosso desacordo.",
+          "published": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-01-FIRST-t3",
+          "player": "O que exatamente você gostaria de esclarecer comigo?",
+          "published": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-01-FIRST-t4",
+          "player": "Não estou encerrando a conversa. Podemos examinar outro ponto?",
+          "published": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-01-FIRST-t5",
+          "player": "Qual parte do que eu disse você compreendeu de outra forma?",
+          "published": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-01",
+      "selector": "VARIED",
+      "turns": 5,
+      "identicalAdjacentReplies": 0,
+      "uniqueReplies": 5,
+      "paragraphOccurrences": 15,
+      "repeatedParagraphOccurrences": 9,
+      "repeatedParagraphs": [
+        {
+          "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+          "count": 5
+        },
+        {
+          "text": "O que você deseja fazer?",
+          "count": 3
+        },
+        {
+          "text": "Iria — Quero ouvir você. O que gostaria de me perguntar?",
+          "count": 2
+        },
+        {
+          "text": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?",
+          "count": 2
+        },
+        {
+          "text": "Como deseja prosseguir?",
+          "count": 2
+        }
+      ],
+      "closingQuestions": {
+        "O que você deseja fazer?": 3,
+        "Como deseja prosseguir?": 2
+      },
+      "dialogueCatalogSizes": [4, 6, 8, 10, 12],
+      "largestSerializedRequestCharacters": 7636,
+      "publishedFallbacks": 0,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-01-VARIED-t1",
+          "player": "Iria, como você prefere que conversemos sobre o que aconteceu?",
+          "published": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-01-VARIED-t2",
+          "player": "Quero ouvir sua opinião sobre o nosso desacordo.",
+          "published": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563A-01-VARIED-t3",
+          "player": "O que exatamente você gostaria de esclarecer comigo?",
+          "published": "Iria — Não tenho uma resposta segura para isso. Pode me contar mais?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-01-VARIED-t4",
+          "player": "Não estou encerrando a conversa. Podemos examinar outro ponto?",
+          "published": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563A-01-VARIED-t5",
+          "player": "Qual parte do que eu disse você compreendeu de outra forma?",
+          "published": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-02",
+      "selector": "FIRST",
+      "turns": 4,
+      "identicalAdjacentReplies": 3,
+      "uniqueReplies": 1,
+      "paragraphOccurrences": 12,
+      "repeatedParagraphOccurrences": 9,
+      "repeatedParagraphs": [
+        {
+          "text": "Iria — Prefiro cautela. O que despertou sua suspeita?",
+          "count": 4
+        },
+        {
+          "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+          "count": 4
+        },
+        {
+          "text": "O que você deseja fazer?",
+          "count": 4
+        }
+      ],
+      "closingQuestions": {
+        "O que você deseja fazer?": 4
+      },
+      "dialogueCatalogSizes": [5, 7, 9, 11],
+      "largestSerializedRequestCharacters": 6855,
+      "publishedFallbacks": 0,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-02-FIRST-t1",
+          "player": "Iria, ainda estou magoada com nossa discussão.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-02-FIRST-t2",
+          "player": "Discordo de você. Não quero que trate isso como um acordo.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-02-FIRST-t3",
+          "player": "O que você lembra do desacordo que tivemos?",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-02-FIRST-t4",
+          "player": "Não disse que perdoei você. Quero continuar falando sobre isso.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-02",
+      "selector": "VARIED",
+      "turns": 4,
+      "identicalAdjacentReplies": 0,
+      "uniqueReplies": 4,
+      "paragraphOccurrences": 16,
+      "repeatedParagraphOccurrences": 6,
+      "repeatedParagraphs": [
+        {
+          "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+          "count": 4
+        },
+        {
+          "text": "Iria — Prefiro cautela. O que despertou sua suspeita?",
+          "count": 2
+        },
+        {
+          "text": "O que você deseja fazer?",
+          "count": 2
+        },
+        {
+          "text": "Como deseja prosseguir?",
+          "count": 2
+        }
+      ],
+      "closingQuestions": {
+        "O que você deseja fazer?": 2,
+        "Como deseja prosseguir?": 2
+      },
+      "dialogueCatalogSizes": [5, 7, 9, 11],
+      "largestSerializedRequestCharacters": 8983,
+      "publishedFallbacks": 0,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-02-VARIED-t1",
+          "player": "Iria, ainda estou magoada com nossa discussão.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Recordo o que presenciei:\n> MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-02-VARIED-t2",
+          "player": "Discordo de você. Não quero que trate isso como um acordo.",
+          "published": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> Iria — Recordo o que presenciei:\n> > MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563A-02-VARIED-t3",
+          "player": "O que você lembra do desacordo que tivemos?",
+          "published": "Iria — Não tenho uma resposta segura para isso. Pode me contar mais?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > Iria — Recordo o que presenciei:\n> > > MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-02-VARIED-t4",
+          "player": "Não disse que perdoei você. Quero continuar falando sobre isso.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Não tenho uma resposta segura para isso. Pode me contar mais?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-03",
+      "selector": "FIRST",
+      "turns": 5,
+      "identicalAdjacentReplies": 1,
+      "uniqueReplies": 3,
+      "paragraphOccurrences": 5,
+      "repeatedParagraphOccurrences": 2,
+      "repeatedParagraphs": [
+        {
+          "text": "Estante: Uma estante de madeira com lombadas gastas.",
+          "count": 2
+        },
+        {
+          "text": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho.",
+          "count": 2
+        }
+      ],
+      "closingQuestions": {},
+      "dialogueCatalogSizes": [],
+      "largestSerializedRequestCharacters": 1690,
+      "publishedFallbacks": 1,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-03-FIRST-t1",
+          "player": "Observo a madeira da estante.",
+          "published": "Estante: Uma estante de madeira com lombadas gastas."
+        },
+        {
+          "turnId": "563A-03-FIRST-t2",
+          "player": "Procuro uma passagem secreta atrás da estante.",
+          "published": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+        },
+        {
+          "turnId": "563A-03-FIRST-t3",
+          "player": "Examino as pedras do chão procurando uma marca oculta.",
+          "published": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+        },
+        {
+          "turnId": "563A-03-FIRST-t4",
+          "player": "Examino a estante com o teste preparado.",
+          "published": "A busca não identificou nenhuma abertura."
+        },
+        {
+          "turnId": "563A-03-FIRST-t5",
+          "player": "Volto a olhar a madeira da estante.",
+          "published": "Estante: Uma estante de madeira com lombadas gastas."
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-03",
+      "selector": "VARIED",
+      "turns": 5,
+      "identicalAdjacentReplies": 1,
+      "uniqueReplies": 3,
+      "paragraphOccurrences": 5,
+      "repeatedParagraphOccurrences": 2,
+      "repeatedParagraphs": [
+        {
+          "text": "Estante: Uma estante de madeira com lombadas gastas.",
+          "count": 2
+        },
+        {
+          "text": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho.",
+          "count": 2
+        }
+      ],
+      "closingQuestions": {},
+      "dialogueCatalogSizes": [],
+      "largestSerializedRequestCharacters": 1690,
+      "publishedFallbacks": 1,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-03-VARIED-t1",
+          "player": "Observo a madeira da estante.",
+          "published": "Estante: Uma estante de madeira com lombadas gastas."
+        },
+        {
+          "turnId": "563A-03-VARIED-t2",
+          "player": "Procuro uma passagem secreta atrás da estante.",
+          "published": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+        },
+        {
+          "turnId": "563A-03-VARIED-t3",
+          "player": "Examino as pedras do chão procurando uma marca oculta.",
+          "published": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+        },
+        {
+          "turnId": "563A-03-VARIED-t4",
+          "player": "Examino a estante com o teste preparado.",
+          "published": "A busca não identificou nenhuma abertura."
+        },
+        {
+          "turnId": "563A-03-VARIED-t5",
+          "player": "Volto a olhar a madeira da estante.",
+          "published": "Estante: Uma estante de madeira com lombadas gastas."
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-04",
+      "selector": "FIRST",
+      "turns": 5,
+      "identicalAdjacentReplies": 0,
+      "uniqueReplies": 3,
+      "paragraphOccurrences": 15,
+      "repeatedParagraphOccurrences": 10,
+      "repeatedParagraphs": [
+        {
+          "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+          "count": 5
+        },
+        {
+          "text": "O que você deseja fazer?",
+          "count": 5
+        },
+        {
+          "text": "Iria — Prefiro cautela. O que despertou sua suspeita?",
+          "count": 3
+        }
+      ],
+      "closingQuestions": {
+        "O que você deseja fazer?": 5
+      },
+      "dialogueCatalogSizes": [4, 6, 9],
+      "largestSerializedRequestCharacters": 5588,
+      "publishedFallbacks": 0,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-04-FIRST-t1",
+          "player": "Iria, vou examinar a estante; continuo decidindo como prosseguir.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-04-FIRST-t2",
+          "player": "Examino a estante procurando um detalhe desconhecido.",
+          "published": "A busca não identificou nenhuma abertura.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-04-FIRST-t3",
+          "player": "O teste falhou. Quero pensar em outro modo de agir.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-04-FIRST-t4",
+          "player": "Examino a estante novamente com a capacidade preparada.",
+          "published": "O selo da lombada foi identificado como azul.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-04-FIRST-t5",
+          "player": "O selo foi identificado. Ainda não decidi o que farei com essa informação.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-04",
+      "selector": "VARIED",
+      "turns": 5,
+      "identicalAdjacentReplies": 0,
+      "uniqueReplies": 5,
+      "paragraphOccurrences": 15,
+      "repeatedParagraphOccurrences": 7,
+      "repeatedParagraphs": [
+        {
+          "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+          "count": 5
+        },
+        {
+          "text": "O que você deseja fazer?",
+          "count": 3
+        },
+        {
+          "text": "Como deseja prosseguir?",
+          "count": 2
+        }
+      ],
+      "closingQuestions": {
+        "O que você deseja fazer?": 3,
+        "Como deseja prosseguir?": 2
+      },
+      "dialogueCatalogSizes": [4, 6, 9],
+      "largestSerializedRequestCharacters": 5618,
+      "publishedFallbacks": 0,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-04-VARIED-t1",
+          "player": "Iria, vou examinar a estante; continuo decidindo como prosseguir.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-04-VARIED-t2",
+          "player": "Examino a estante procurando um detalhe desconhecido.",
+          "published": "A busca não identificou nenhuma abertura.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563A-04-VARIED-t3",
+          "player": "O teste falhou. Quero pensar em outro modo de agir.",
+          "published": "Iria — Não tenho uma resposta segura para isso. Pode me contar mais?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-04-VARIED-t4",
+          "player": "Examino a estante novamente com a capacidade preparada.",
+          "published": "O selo da lombada foi identificado como azul.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563A-04-VARIED-t5",
+          "player": "O selo foi identificado. Ainda não decidi o que farei com essa informação.",
+          "published": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-05",
+      "selector": "FIRST",
+      "turns": 5,
+      "identicalAdjacentReplies": 2,
+      "uniqueReplies": 2,
+      "paragraphOccurrences": 15,
+      "repeatedParagraphOccurrences": 11,
+      "repeatedParagraphs": [
+        {
+          "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+          "count": 5
+        },
+        {
+          "text": "O que você deseja fazer?",
+          "count": 5
+        },
+        {
+          "text": "Iria — Prefiro cautela. O que despertou sua suspeita?",
+          "count": 4
+        }
+      ],
+      "closingQuestions": {
+        "O que você deseja fazer?": 5
+      },
+      "dialogueCatalogSizes": [5, 7, 4, 11, 13],
+      "largestSerializedRequestCharacters": 8057,
+      "publishedFallbacks": 0,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-05-FIRST-t1",
+          "player": "Iria, quero retomar nossa antiga discussão.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-05-FIRST-t2",
+          "player": "Não quero que o assunto seja esquecido quando voltarmos.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-05-FIRST-t3",
+          "player": "Tessa, você presenciou nossa conversa anterior?",
+          "published": "Tessa — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-05-FIRST-t4",
+          "player": "Iria, o que você lembra da nossa discussão anterior?",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-05-FIRST-t5",
+          "player": "Iria, podemos prosseguir sem presumir que tudo foi resolvido?",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-05",
+      "selector": "VARIED",
+      "turns": 5,
+      "identicalAdjacentReplies": 0,
+      "uniqueReplies": 5,
+      "paragraphOccurrences": 19,
+      "repeatedParagraphOccurrences": 9,
+      "repeatedParagraphs": [
+        {
+          "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+          "count": 5
+        },
+        {
+          "text": "O que você deseja fazer?",
+          "count": 3
+        },
+        {
+          "text": "Iria — Prefiro cautela. O que despertou sua suspeita?",
+          "count": 2
+        },
+        {
+          "text": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?",
+          "count": 2
+        },
+        {
+          "text": "Como deseja prosseguir?",
+          "count": 2
+        }
+      ],
+      "closingQuestions": {
+        "O que você deseja fazer?": 3,
+        "Como deseja prosseguir?": 2
+      },
+      "dialogueCatalogSizes": [5, 7, 4, 11, 13],
+      "largestSerializedRequestCharacters": 10185,
+      "publishedFallbacks": 0,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-05-VARIED-t1",
+          "player": "Iria, quero retomar nossa antiga discussão.",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Recordo o que presenciei:\n> MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-05-VARIED-t2",
+          "player": "Não quero que o assunto seja esquecido quando voltarmos.",
+          "published": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> Iria — Recordo o que presenciei:\n> > MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563A-05-VARIED-t3",
+          "player": "Tessa, você presenciou nossa conversa anterior?",
+          "published": "Tessa — Não tenho uma resposta segura para isso. Pode me contar mais?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-05-VARIED-t4",
+          "player": "Iria, o que você lembra da nossa discussão anterior?",
+          "published": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > Iria — Recordo o que presenciei:\n> > > MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+        },
+        {
+          "turnId": "563A-05-VARIED-t5",
+          "player": "Iria, podemos prosseguir sem presumir que tudo foi resolvido?",
+          "published": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-06",
+      "selector": "FIRST",
+      "turns": 5,
+      "identicalAdjacentReplies": 0,
+      "uniqueReplies": 3,
+      "paragraphOccurrences": 11,
+      "repeatedParagraphOccurrences": 6,
+      "repeatedParagraphs": [
+        {
+          "text": "Iria — Quero ouvir você. O que gostaria de me perguntar?",
+          "count": 3
+        },
+        {
+          "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+          "count": 3
+        },
+        {
+          "text": "O que você deseja fazer?",
+          "count": 3
+        }
+      ],
+      "closingQuestions": {
+        "O que você deseja fazer?": 3
+      },
+      "dialogueCatalogSizes": [4, 6, 8],
+      "largestSerializedRequestCharacters": 5115,
+      "publishedFallbacks": 0,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-06-FIRST-t1",
+          "player": "Iria, quero conversar antes de examinar o ambiente.",
+          "published": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-06-FIRST-t2",
+          "player": "Fora do RPG: como funciona um teste básico?",
+          "published": "Blue Rose AGE: o teste básico usa 3d6 + habilidade + foco aplicável contra a dificuldade. O terceiro dado é o Drama Die. Fonte: livro básico, pp.15–17."
+        },
+        {
+          "turnId": "563A-06-FIRST-t3",
+          "player": "De volta à cena, Iria: podemos retomar nossa conversa?",
+          "published": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-06-FIRST-t4",
+          "player": "Olho para a estante antes de escolher uma ação.",
+          "published": "Estante: Uma estante de madeira com lombadas gastas."
+        },
+        {
+          "turnId": "563A-06-FIRST-t5",
+          "player": "Iria, ainda quero ouvir sua opinião, sem decidir por você.",
+          "published": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    },
+    {
+      "scenarioId": "563A-06",
+      "selector": "VARIED",
+      "turns": 5,
+      "identicalAdjacentReplies": 0,
+      "uniqueReplies": 5,
+      "paragraphOccurrences": 11,
+      "repeatedParagraphOccurrences": 4,
+      "repeatedParagraphs": [
+        {
+          "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+          "count": 3
+        },
+        {
+          "text": "O que você deseja fazer?",
+          "count": 3
+        }
+      ],
+      "closingQuestions": {
+        "O que você deseja fazer?": 3
+      },
+      "dialogueCatalogSizes": [4, 6, 8],
+      "largestSerializedRequestCharacters": 5139,
+      "publishedFallbacks": 0,
+      "canonicalGate": {
+        "eligible": true,
+        "violations": [],
+        "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+      },
+      "gateScope": "Assertions/manual findings only; not universal semantic verification",
+      "textualEvidence": [
+        {
+          "turnId": "563A-06-VARIED-t1",
+          "player": "Iria, quero conversar antes de examinar o ambiente.",
+          "published": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-06-VARIED-t2",
+          "player": "Fora do RPG: como funciona um teste básico?",
+          "published": "Blue Rose AGE: o teste básico usa 3d6 + habilidade + foco aplicável contra a dificuldade. O terceiro dado é o Drama Die. Fonte: livro básico, pp.15–17."
+        },
+        {
+          "turnId": "563A-06-VARIED-t3",
+          "player": "De volta à cena, Iria: podemos retomar nossa conversa?",
+          "published": "Iria — Não tenho uma resposta segura para isso. Pode me contar mais?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        },
+        {
+          "turnId": "563A-06-VARIED-t4",
+          "player": "Olho para a estante antes de escolher uma ação.",
+          "published": "Estante: Uma estante de madeira com lombadas gastas."
+        },
+        {
+          "turnId": "563A-06-VARIED-t5",
+          "player": "Iria, ainda quero ouvir sua opinião, sem decidir por você.",
+          "published": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+        }
+      ]
+    }
+  ],
+  "totalTurns": 58
+}

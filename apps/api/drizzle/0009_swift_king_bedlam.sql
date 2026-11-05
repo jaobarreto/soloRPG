@@ -1,0 +1,1 @@
+ALTER TABLE "arcane_contexts" ADD COLUMN "prepared_for" text DEFAULT 'UNSCOPED' NOT NULL;

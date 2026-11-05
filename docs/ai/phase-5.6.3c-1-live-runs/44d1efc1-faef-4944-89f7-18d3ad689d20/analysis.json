@@ -1,0 +1,765 @@
+{
+  "roundId": "44d1efc1-faef-4944-89f7-18d3ad689d20",
+  "origin": "REAL_GEMINI_SDK_RESULTS_WITH_FROZEN_SYNTHETIC_PROJECTIONS",
+  "realRequests": 3,
+  "proposeRequests": 2,
+  "narrateRequests": 1,
+  "roundClosed": true,
+  "unusedSlotsNotReallocated": 9,
+  "configuredOutputCeilingReserved": 2600,
+  "reportedTokens": {
+    "input": 7480,
+    "output": 510,
+    "total": 7990
+  },
+  "sdkLatencyMsSum": 6418,
+  "caseOutcomes": [
+    {
+      "caseId": "C1-1",
+      "status": "MACHINE_SELECTION_MATCHED_HUMAN_REVIEW_PENDING",
+      "narrateAttempted": true,
+      "humanLiteraryApproved": false
+    },
+    {
+      "caseId": "C1-2",
+      "status": "FAILED_OR_INTERRUPTED",
+      "narrateAttempted": false,
+      "humanLiteraryApproved": false
+    },
+    {
+      "caseId": "C1-3",
+      "status": "NOT_ATTEMPTED_AFTER_STOP",
+      "narrateAttempted": false,
+      "humanLiteraryApproved": false
+    },
+    {
+      "caseId": "C1-4",
+      "status": "NOT_ATTEMPTED_AFTER_STOP",
+      "narrateAttempted": false,
+      "humanLiteraryApproved": false
+    },
+    {
+      "caseId": "C1-5",
+      "status": "NOT_ATTEMPTED_AFTER_STOP",
+      "narrateAttempted": false,
+      "humanLiteraryApproved": false
+    },
+    {
+      "caseId": "C1-6",
+      "status": "NOT_ATTEMPTED_AFTER_STOP",
+      "narrateAttempted": false,
+      "humanLiteraryApproved": false
+    }
+  ],
+  "attemptEvidence": [
+    {
+      "caseId": "C1-1",
+      "stage": "PROPOSE",
+      "message": "Você ainda discorda de mim sobre continuarmos a viagem?",
+      "authorizedFrozenRequest": {
+        "actionId": "c4349e69-d816-4a8a-ac6d-71aa233c45ee",
+        "campaignId": "10000000-0000-4000-8000-000000000001",
+        "sessionId": "ae1c3b58-a679-478a-afca-1b04327de478",
+        "interactionMode": "SPEAK",
+        "playerMessage": "Você ainda discorda de mim sobre continuarmos a viagem?",
+        "stage": "PROPOSE",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            }
+          ],
+          "actors": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            },
+            {
+              "id": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "name": "Iria",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [],
+          "options": [],
+          "combat": null,
+          "dialogue": [
+            {
+              "characterId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "name": "Iria",
+              "choices": [
+                {
+                  "topic": "conversation",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DOUBT"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CLARIFY"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CAUTION"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "REFUSE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "UNKNOWN"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "REFUSE"
+                }
+              ]
+            }
+          ],
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bccaa9ace36152d1a18d44b6",
+                "scope": "PUBLIC",
+                "text": "Uma mesa e uma estante com livros usados."
+              },
+              {
+                "key": "info-b7384d5f720ef7e15f5b9702",
+                "scope": "RULES",
+                "text": "Blue Rose AGE: o teste básico usa 3d6 + habilidade + foco aplicável contra a dificuldade. O terceiro dado é o Drama Die. Fonte: livro básico, pp.15–17."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "originalResponseLocation": "result.json#/attempts/0/rawText",
+      "rawTextSha256": "f2416b1647e4808966a17ec50d4046147916b7777aae0f39359b00559e7b28d3",
+      "expectedProposal": {
+        "kind": "FREE",
+        "intent": "TALK",
+        "description": "Conversar com o interlocutor selecionado.",
+        "target": {
+          "type": "CHARACTER",
+          "name": "Iria"
+        },
+        "expression": "QUESTION",
+        "evidence": [],
+        "tool": {
+          "type": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER"
+        }
+      },
+      "originalSelection": {
+        "kind": "FREE",
+        "intent": "TALK",
+        "description": "Pergunto a Iria se ela ainda discorda de mim sobre continuarmos a viagem.",
+        "target": {
+          "type": "CHARACTER",
+          "name": "Iria"
+        },
+        "expression": "QUESTION",
+        "evidence": [],
+        "tool": {
+          "type": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER"
+        }
+      },
+      "modelSelectionOutcome": "MATCHED_FROZEN_SELECTION",
+      "nestValidation": {
+        "zod": {
+          "valid": true,
+          "errors": []
+        },
+        "resolution": {
+          "category": "DIALOGUE",
+          "targetId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+          "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa."
+        },
+        "wouldAuthorizeEffect": false,
+        "backendBlocked": false,
+        "publication": null
+      },
+      "selection": {
+        "categoricalSelectionPassed": true,
+        "differentFields": [],
+        "descriptionSemanticReview": "PENDING_HUMAN_NOT_EXACT_WORDING"
+      }
+    },
+    {
+      "caseId": "C1-1",
+      "stage": "NARRATE",
+      "message": "Você ainda discorda de mim sobre continuarmos a viagem?",
+      "authorizedFrozenRequest": {
+        "actionId": "c4349e69-d816-4a8a-ac6d-71aa233c45ee",
+        "campaignId": "10000000-0000-4000-8000-000000000001",
+        "sessionId": "ae1c3b58-a679-478a-afca-1b04327de478",
+        "interactionMode": "SPEAK",
+        "playerMessage": "Você ainda discorda de mim sobre continuarmos a viagem?",
+        "stage": "NARRATE",
+        "context": {
+          "rendering": {
+            "category": "DIALOGUE",
+            "protagonist": {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista"
+            },
+            "speaker": {
+              "id": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "name": "Iria",
+              "personality": "Cautelosa e reservada",
+              "motivations": "Quer razões antes de reconsiderar a viagem.",
+              "state": "UNRESOLVED",
+              "speech": ""
+            },
+            "scene": "Uma mesa e uma estante com livros usados.",
+            "facts": [
+              {
+                "eventId": "53f31b33-2b66-4478-ace5-f8c3b965fb2b",
+                "description": "Iria e a protagonista discordaram sobre continuar a viagem; o desacordo não foi resolvido.",
+                "source": "WITNESSED"
+              }
+            ],
+            "rules": [],
+            "dialogue": {
+              "version": 1,
+              "selection": {
+                "topic": "disagreement",
+                "act": "ANSWER"
+              },
+              "replies": [
+                {
+                  "id": "disagreement-answer-reserved-1",
+                  "libraryId": "khaos-dialogue",
+                  "contentVersion": 1,
+                  "voiceId": "RESERVED",
+                  "topic": "disagreement",
+                  "act": "ANSWER",
+                  "provenance": {
+                    "authorId": "khaos-reviewed-dialogue",
+                    "source": "content:khaos-dialogue/v1",
+                    "reviewed": true
+                  },
+                  "bindingProvenance": {
+                    "authorId": "synthetic-literary-preparation",
+                    "source": "fixture:phase563c0",
+                    "reviewed": true
+                  },
+                  "sourceReferences": [
+                    {
+                      "kind": "KNOWLEDGE",
+                      "referenceId": "53f31b33-2b66-4478-ace5-f8c3b965fb2b",
+                      "descriptionHash": "34bd08c6894459925871dd02832b737bf9feba346f5f9917283b28dc9bc378a2"
+                    }
+                  ],
+                  "beat": {
+                    "kind": "DIALOGUE",
+                    "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                    "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+                    "factIds": [
+                      "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+                    ]
+                  }
+                },
+                {
+                  "id": "disagreement-answer-reserved-2",
+                  "libraryId": "khaos-dialogue",
+                  "contentVersion": 1,
+                  "voiceId": "RESERVED",
+                  "topic": "disagreement",
+                  "act": "ANSWER",
+                  "provenance": {
+                    "authorId": "khaos-reviewed-dialogue",
+                    "source": "content:khaos-dialogue/v1",
+                    "reviewed": true
+                  },
+                  "bindingProvenance": {
+                    "authorId": "synthetic-literary-preparation",
+                    "source": "fixture:phase563c0",
+                    "reviewed": true
+                  },
+                  "sourceReferences": [
+                    {
+                      "kind": "KNOWLEDGE",
+                      "referenceId": "53f31b33-2b66-4478-ace5-f8c3b965fb2b",
+                      "descriptionHash": "34bd08c6894459925871dd02832b737bf9feba346f5f9917283b28dc9bc378a2"
+                    }
+                  ],
+                  "beat": {
+                    "kind": "DIALOGUE",
+                    "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                    "text": "Iria — Meu ponto é este: a discussão aconteceu, e não vou tratá-la como encerrada apenas porque voltamos a conversar.",
+                    "factIds": [
+                      "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+                    ]
+                  }
+                }
+              ]
+            },
+            "publication": {
+              "version": 1,
+              "choices": [
+                {
+                  "kind": "RESULT",
+                  "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.",
+                  "speakerId": null,
+                  "factIds": []
+                },
+                {
+                  "kind": "ATMOSPHERE",
+                  "text": "Uma mesa e uma estante com livros usados.",
+                  "speakerId": null,
+                  "factIds": []
+                },
+                {
+                  "kind": "DIALOGUE",
+                  "text": "Iria — Prefiro cautela. O que despertou sua suspeita?",
+                  "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                  "factIds": []
+                },
+                {
+                  "kind": "DIALOGUE",
+                  "text": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?",
+                  "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                  "factIds": []
+                },
+                {
+                  "kind": "DIALOGUE",
+                  "text": "Iria — Não tenho uma resposta segura para isso. Pode me contar mais?",
+                  "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                  "factIds": []
+                },
+                {
+                  "kind": "DIALOGUE",
+                  "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                  "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+                  "factIds": [
+                    "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+                  ]
+                },
+                {
+                  "kind": "DIALOGUE",
+                  "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                  "text": "Iria — Meu ponto é este: a discussão aconteceu, e não vou tratá-la como encerrada apenas porque voltamos a conversar.",
+                  "factIds": [
+                    "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+                  ]
+                },
+                {
+                  "kind": "DIALOGUE",
+                  "text": "Iria — Recordo o que presenciei:\n> Iria e a protagonista discordaram sobre continuar a viagem; o desacordo não foi resolvido.",
+                  "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                  "factIds": [
+                    "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+                  ]
+                },
+                {
+                  "kind": "QUESTION",
+                  "text": "O que você deseja fazer?",
+                  "speakerId": null,
+                  "factIds": []
+                },
+                {
+                  "kind": "QUESTION",
+                  "text": "Como deseja prosseguir?",
+                  "speakerId": null,
+                  "factIds": []
+                }
+              ]
+            }
+          }
+        },
+        "confirmed": {
+          "narrative": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.",
+          "eventIds": []
+        }
+      },
+      "originalResponseLocation": "result.json#/attempts/1/rawText",
+      "rawTextSha256": "d4caa7c19c6388d30001dd97ada9a979f9b9d115f9b383965ace6eccfdd7c62f",
+      "expectedProposal": null,
+      "originalSelection": {
+        "narrative": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.\n\nIria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+        "eventIds": [],
+        "beats": [
+          {
+            "kind": "RESULT",
+            "speakerId": null,
+            "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.",
+            "factIds": []
+          },
+          {
+            "kind": "DIALOGUE",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+            "factIds": [
+              "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+            ]
+          }
+        ]
+      },
+      "modelSelectionOutcome": "MATCHED_FROZEN_SELECTION",
+      "nestValidation": {
+        "zod": {
+          "valid": true,
+          "errors": []
+        },
+        "graphZod": {
+          "valid": true
+        },
+        "originalValidation": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.\n\nIria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+            "eventIds": [],
+            "beats": [
+              {
+                "kind": "RESULT",
+                "speakerId": null,
+                "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.",
+                "factIds": []
+              },
+              {
+                "kind": "DIALOGUE",
+                "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+                "factIds": [
+                  "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+                ]
+              }
+            ]
+          },
+          "reason": null
+        },
+        "publication": {
+          "accepted": true,
+          "narration": {
+            "narrative": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.\n\nIria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+            "eventIds": [],
+            "beats": [
+              {
+                "kind": "RESULT",
+                "speakerId": null,
+                "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.",
+                "factIds": []
+              },
+              {
+                "kind": "DIALOGUE",
+                "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+                "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+                "factIds": [
+                  "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+                ]
+              }
+            ]
+          },
+          "reason": null
+        },
+        "graphChangedNarrative": false,
+        "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+        "facts": [
+          {
+            "eventId": "53f31b33-2b66-4478-ace5-f8c3b965fb2b",
+            "description": "Iria e a protagonista discordaram sobre continuar a viagem; o desacordo não foi resolvido.",
+            "source": "WITNESSED"
+          }
+        ],
+        "reconstructedCatalog": [
+          {
+            "kind": "RESULT",
+            "text": "Iria ouviu sua fala e pode responder. Nenhuma confiança, acordo ou informação foi confirmada apenas pela tentativa.",
+            "speakerId": null,
+            "factIds": []
+          },
+          {
+            "kind": "ATMOSPHERE",
+            "text": "Uma mesa e uma estante com livros usados.",
+            "speakerId": null,
+            "factIds": []
+          },
+          {
+            "kind": "DIALOGUE",
+            "text": "Iria — Prefiro cautela. O que despertou sua suspeita?",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "factIds": []
+          },
+          {
+            "kind": "DIALOGUE",
+            "text": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "factIds": []
+          },
+          {
+            "kind": "DIALOGUE",
+            "text": "Iria — Não tenho uma resposta segura para isso. Pode me contar mais?",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "factIds": []
+          },
+          {
+            "kind": "DIALOGUE",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+            "factIds": [
+              "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+            ]
+          },
+          {
+            "kind": "DIALOGUE",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "text": "Iria — Meu ponto é este: a discussão aconteceu, e não vou tratá-la como encerrada apenas porque voltamos a conversar.",
+            "factIds": [
+              "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+            ]
+          },
+          {
+            "kind": "DIALOGUE",
+            "text": "Iria — Recordo o que presenciei:\n> Iria e a protagonista discordaram sobre continuar a viagem; o desacordo não foi resolvido.",
+            "speakerId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+            "factIds": [
+              "53f31b33-2b66-4478-ace5-f8c3b965fb2b"
+            ]
+          },
+          {
+            "kind": "QUESTION",
+            "text": "O que você deseja fazer?",
+            "speakerId": null,
+            "factIds": []
+          },
+          {
+            "kind": "QUESTION",
+            "text": "Como deseja prosseguir?",
+            "speakerId": null,
+            "factIds": []
+          }
+        ],
+        "attributionScope": "FROZEN_SPEAKER_ID_AND_OWN_FACTS_NO_DATABASE_OR_PRIVATE_OWNER_RECONSTRUCTION",
+        "campaignWrites": false
+      },
+      "selection": {
+        "preparedReplyChosen": true,
+        "categoricalSelectionPassed": true,
+        "semanticPertinence": null,
+        "humanReviewRequired": true,
+        "genericDespitePreparedContent": false
+      }
+    },
+    {
+      "caseId": "C1-2",
+      "stage": "PROPOSE",
+      "message": "Pode explicar seu ponto sem presumir um acordo?",
+      "authorizedFrozenRequest": {
+        "actionId": "b7dec2e8-a291-47ab-a3c0-856ad3336b18",
+        "campaignId": "10000000-0000-4000-8000-000000000001",
+        "sessionId": "ae1c3b58-a679-478a-afca-1b04327de478",
+        "interactionMode": "SPEAK",
+        "playerMessage": "Pode explicar seu ponto sem presumir um acordo?",
+        "stage": "PROPOSE",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            }
+          ],
+          "actors": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            },
+            {
+              "id": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "name": "Iria",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [],
+          "options": [],
+          "combat": null,
+          "dialogue": [
+            {
+              "characterId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "name": "Iria",
+              "choices": [
+                {
+                  "topic": "conversation",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DOUBT"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CLARIFY"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CAUTION"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "REFUSE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "UNKNOWN"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "REFUSE"
+                }
+              ]
+            }
+          ],
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bccaa9ace36152d1a18d44b6",
+                "scope": "PUBLIC",
+                "text": "Uma mesa e uma estante com livros usados."
+              },
+              {
+                "key": "info-b7384d5f720ef7e15f5b9702",
+                "scope": "RULES",
+                "text": "Blue Rose AGE: o teste básico usa 3d6 + habilidade + foco aplicável contra a dificuldade. O terceiro dado é o Drama Die. Fonte: livro básico, pp.15–17."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "originalResponseLocation": "result.json#/attempts/2/rawText",
+      "rawTextSha256": "fe96ddeba3d20afcf3caedb019ed2dcb84ddb06c1d1f497687e5644b2256b067",
+      "expectedProposal": {
+        "kind": "FREE",
+        "intent": "TALK",
+        "description": "Conversar com o interlocutor selecionado.",
+        "target": {
+          "type": "CHARACTER",
+          "name": "Iria"
+        },
+        "expression": "QUESTION",
+        "evidence": [],
+        "tool": {
+          "type": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER"
+        }
+      },
+      "originalSelection": {
+        "kind": "FREE",
+        "intent": "TALK",
+        "description": "Pede para Iria explicar seu ponto sem presumir um acordo.",
+        "target": {
+          "type": "CHARACTER",
+          "name": "Iria"
+        },
+        "expression": "DIRECT",
+        "evidence": [],
+        "tool": {
+          "type": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "CLARIFY"
+        }
+      },
+      "modelSelectionOutcome": "FAILED_FROZEN_SELECTION",
+      "nestValidation": {
+        "zod": {
+          "valid": true,
+          "errors": []
+        },
+        "resolution": {
+          "category": "CLARIFY",
+          "text": "Não há uma resposta autorizada para esse assunto e interlocutor. Pode esclarecer o que deseja conversar?",
+          "reason": "UNAUTHORIZED_DIALOGUE_SELECTION"
+        },
+        "wouldAuthorizeEffect": false,
+        "backendBlocked": true,
+        "publication": null
+      },
+      "selection": {
+        "categoricalSelectionPassed": false,
+        "differentFields": [
+          "expression",
+          "tool.act"
+        ],
+        "descriptionSemanticReview": "PENDING_HUMAN_NOT_EXACT_WORDING"
+      }
+    }
+  ],
+  "technicalDecision": "FAILED_FROZEN_SEMANTIC_CRITERION_C1_2",
+  "humanLiteraryScores": "PENDING_UNCHANGED_TEMPLATE",
+  "independentQaPerformed": false,
+  "qualitativeAgentReview": "docs/testing/phase-5.6.3c-1-live-validation.md",
+  "normalFinancialConfirmationAfter": false,
+  "fallbackAfter": false,
+  "postRoundFrozenHashesVerified": true,
+  "campaignWrites": false
+}

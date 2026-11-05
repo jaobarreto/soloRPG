@@ -455,3 +455,92 @@ marcados como entrega integral de todos os critérios da Fase 4.
 - [Memória](docs/architecture/memory-engine.md) e [Director](docs/architecture/campaign-director.md)
 - [Contexto](docs/ai/context-management.md) e [prompts](docs/ai/prompts.md)
 - [Avaliações](docs/ai/evaluations.md) e [testes](docs/testing/narrative-tests.md)
+
+### Fase 5 — Gloamhale, importação e adjudicação local
+
+A adaptação assistida de **The Mistress of Gloamhale Manor** possui seis capítulos propostos, Story Cards, locais e encontros referenciados. Inclui transcrição opcional das fichas fornecidas e revisão autorizada dos povos/aparências dos companheiros. Naelis permanece como fornecida. A mansão e o ritual possuem [comandos locais transacionais](docs/adventures/six-of-swords/gloamhale-rules.md), com relógio narrativo, atributos temporários, gruta, progresso e benefícios persistidos.
+
+**Aventura autônoma por IA ainda não certificada:** encontros especiais e combate exigem operador humano com o livro. A importação não certifica automaticamente criação/progressão, Bonds, Convicção ou todos os arcanos. O início é bloqueado até revisar a equipe e preparar a cena.
+
+[Fontes e seleção](docs/adventures/six-of-swords/source-analysis.md) · [Matriz e comandos locais](docs/adventures/six-of-swords/adaptation-plan.md) · [Equipe revisada](docs/adventures/six-of-swords/party-validation.md) · [Verificação](docs/testing/six-of-swords-validation.md).
+
+```sh
+pnpm db:migrate
+pnpm --filter @solo-rpg/api adventure:command /tmp/adventure-command.json
+```
+
+Fazer backup antes de migrar dados reais. IMPORT usa uma campanha nova ou um rascunho vazio de seis sessões; não sobrescreve personagens, planos ou histórico. Os PDFs privados continuam ignorados pelo Git.
+
+## Fase 5.1 — várias aventuras Blue Rose
+
+O motor continua Blue Rose AGE concreto. Um registro por ID/versão separa a
+infraestrutura de campanhas do conteúdo e das políticas de Gloamhale. A segunda
+aventura é uma fixture original exclusiva dos testes; nenhuma outra aventura do
+livro foi implementada. [Auditoria](docs/architecture/architecture-audit-5.1.md),
+[registro e importação](docs/architecture/adventure-engine.md),
+[fronteiras](docs/architecture/adventure-content-boundaries.md),
+[dependências](docs/architecture/dependency-map.md),
+[validação e limites](docs/testing/phase-5.1-validation.md).
+
+Gloamhale v1 permanece compatível. Novos rascunhos podem selecionar v2, com percurso
+inicial, durações, transições e objetivo comprovado sem operação local durante esse
+percurso. Revisão inicial e cenas especiais continuam assistidas; não há autonomia
+total. Antes de usar a versão nova no banco real, fazer backup verificável e aplicar
+as migrations, inclusive 0007. Esta execução usou apenas PostgreSQL descartável.
+
+## Fase 5.3 — auditoria Gemini e avaliação controlada
+
+Foram reforçados confirmação independente do Groq, prazos/orçamento de chamadas,
+memórias críticas por personagem, origem de rumores e métricas por turno/sessão.
+NARRATE retorna a projeção confirmada sem gastar uma chamada externa para copiá-la.
+A migration 0010 é aditiva para métricas; atualizar NestJS antes do Python novo.
+
+**A fase permanece parcial:** 2.5 retornou HTTP 404; conexão e amostra narrativa
+foram validadas em 3.5, que passou a ser o default. Prosa livre ainda não é publicada e Gloamhale exige operador em capacidades pendentes.
+Os testes determinísticos/simulados não comprovam qualidade literária.
+[Resultados e limites](docs/testing/phase-5.3-validation.md),
+[modelo e condições gratuitas](docs/ai/model-evaluation.md),
+[experimentos reais e orçamento encerrado](docs/ai/live-model-validation.md),
+[consumo](docs/ai/token-usage-report.md).
+
+## Fase 5.4 — intenções livres e diálogo do Mestre
+
+O chat aceita intenções livres sem selecionar uma opção. O Mestre pode interpretar
+uma conversa com Mira, pedir esclarecimentos e solicitar capacidades suportadas;
+o NestJS resolve nomes e continua validando toda consequência. O renderer recebe
+contexto público do interlocutor e pode publicar prosa nova após commit/validação.
+Falas são lembradas como falas atribuídas, sem virar automaticamente fatos do mundo.
+
+A implementação é experimental: 10 chamadas Gemini autorizadas validaram diálogo
+com continuidade, mas também reprovaram seleção de ferramentas e fundamentação.
+Qualidade ampla, casos adversariais reais e autonomia integral de Gloamhale ainda
+não foram certificadas. A confirmação financeira
+normal não foi habilitada; testes externos exigem orçamento próprio. Não há nova
+migration, serviço pago, implantação no banco real ou interface definitiva.
+
+[Arquitetura e fluxo](docs/ai/autonomous-master.md),
+[interpretação](docs/ai/free-action-interpreter.md),
+[renderer](docs/ai/narrative-renderer.md),
+[ferramentas](docs/ai/tool-selection.md),
+[avaliação e orçamento proposto](docs/ai/narrative-evaluation.md),
+[testes e limites](docs/testing/phase-5.4-validation.md).
+
+## Fase 5.5 — unidades narrativas e menções
+
+Novas campanhas usam Gloamhale v3 com três unidades derivadas das partes da aventura. O formulário deixa de escolher quantidade/duração. Pause e continue o mesmo chat; conclua quando o Director autorizar. Tempo ativo é estatística, e relógios ficcionais Blue Rose continuam. Campanhas anteriores mantêm suas versões, sem migração ou reimportação.
+
+O chat oferece @ para personagens conhecidos e # para itens do inventário/objetos autorizados, com teclado, clique e edição. Menção não concede presença ou efeitos. Definições posteriores à vila continuam exigindo adjudicação local dos critérios ainda subjetivos. Não se certifica autonomia completa.
+
+[Director](docs/architecture/campaign-director.md) · [Menções](docs/ai/contextual-mentions.md) · [ADR de sessões](docs/adr/0008-sessoes-narrativas-e-progresso-confirmado.md) · [Validação](docs/testing/phase-5.5-validation.md). Não há migration nova nem chamadas Gemini autorizadas nesta fase. Não altere configurações financeiras para executar os testes.
+
+## KHAOS — Fase 5.6, seleção contextual da Una
+
+Consulta, observação e investigação têm políticas distintas. A Una interpreta
+perguntas, hipóteses, negações e composição; o NestJS autoriza fontes, alvos e
+capacidades existentes. Respostas informativas usam fontes do servidor e não
+recebem acréscimos livres. Mecânicas Blue Rose permanecem no escopo anterior.
+
+[Diagnóstico e implementação](docs/ai/phase-5.6-selection.md) ·
+[Validação e limites](docs/testing/phase-5.6-validation.md) ·
+[Plano Gemini, sem execução automática](docs/ai/phase-5.6-live-plan.json).
+Os testes simulados não comprovam a seleção semântica real do Gemini.

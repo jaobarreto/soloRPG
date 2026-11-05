@@ -1,6 +1,7 @@
 'use client';
 import { BlueRoseMechanics } from './blue-rose-mechanics';
 import Link from 'next/link';
+import { abilityLabels as labels } from '@/lib/blue-rose-labels';
 import { useRef, useState, type FormEvent } from 'react';
 import {
   abilities,
@@ -13,29 +14,14 @@ import {
   type PublicWorldEntity,
 } from '@solo-rpg/shared-contracts';
 import { ErrorNotice, StatusBadge, useApiData } from './campaign-ui';
-import { apiRequest, errorMessage, sessionLabels } from '@/lib/campaign-api';
+import {
+  apiRequest,
+  errorMessage,
+  requestId,
+  sessionLabels,
+} from '@/lib/campaign-api';
 
 type Rule = { id: string; name: string; kind: string; status: string };
-const labels: Record<(typeof abilities)[number], string> = {
-  ACCURACY: 'Precisão',
-  COMMUNICATION: 'Comunicação',
-  CONSTITUTION: 'Constituição',
-  DEXTERITY: 'Destreza',
-  FIGHTING: 'Luta',
-  INTELLIGENCE: 'Inteligência',
-  PERCEPTION: 'Percepção',
-  STRENGTH: 'Força',
-  WILLPOWER: 'Vontade',
-};
-function commandId() {
-  const bytes = crypto.getRandomValues(new Uint8Array(16));
-  bytes[6] = (bytes[6]! & 15) | 64;
-  bytes[8] = (bytes[8]! & 63) | 128;
-  const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join(
-    '',
-  );
-  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
-}
 function Dice({ roll }: { roll: PublicRoll }) {
   return (
     <div
@@ -108,7 +94,7 @@ export function GamePanel({ campaignId }: { campaignId: string }) {
     const signature = JSON.stringify({ path, body, method });
     let key = pending.current.get(signature);
     if (!key) {
-      key = commandId();
+      key = requestId();
       pending.current.set(signature, key);
     }
     setBusy(true);
@@ -541,8 +527,8 @@ export function GamePanel({ campaignId }: { campaignId: string }) {
       <section className="panel mt-6">
         <h2 className="font-serif text-2xl">Relacionamentos</h2>
         <p className="mt-2 text-xs text-stone-500">
-          Indicadores narrativos SoloRPG. Os números não determinam o
-          comportamento dos NPCs.
+          Indicadores narrativos CAOS. Os números não determinam o comportamento
+          dos NPCs.
         </p>
         <ul className="mt-4 space-y-3 text-sm">
           {relationships.data?.map((r) => (

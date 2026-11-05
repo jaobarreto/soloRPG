@@ -28,10 +28,64 @@ def turn(mode="ACT", stage="PROPOSE"):
     )
 
 
-@pytest.mark.parametrize("mode", ["ACT", "SPEAK", "THINK", "OUT_OF_CHARACTER"])
-def test_four_modes_and_typed_graph(mode):
+@pytest.mark.parametrize(
+    "mode", ["ACT", "SPEAK", "THINK", "OUT_OF_CHARACTER", "REQUEST_CHECK", "ROLL_RESULT"]
+)
+def test_six_modes_and_typed_graph(mode):
     result = asyncio.run(run_turn(turn(mode), FakeProvider()))
     assert result.proposal.kind == "OBSERVE"
+
+
+def test_selected_mechanic_is_preserved_even_in_an_exceptional_scene():
+    class ForbiddenProvider:
+        async def generate_structured(self, *args, **kwargs):
+            raise AssertionError("Selected mechanics do not need interpretation")
+
+    request = turn()
+    command = {"type": "CURE", "characterId": str(uuid4()), "targetId": str(uuid4())}
+    request.context = {
+        "selectedMechanic": command,
+        "adventure": {"gm": {"localAdjudicationRequired": True}},
+    }
+    result = asyncio.run(run_turn(request, ForbiddenProvider()))
+    assert result.proposal.kind == "MECHANIC"
+    assert result.proposal.root.command.type == "CURE"
+    request.interactionMode = "THINK"
+    assert (
+        asyncio.run(run_turn(request, ForbiddenProvider())).proposal.kind == "OBSERVE"
+    )
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        {
+            "type": "ARCANA_USE",
+            "input": {
+                "arcanum": "wind-shaping",
+                "characterId": str(uuid4()),
+                "contextId": str(uuid4()),
+                "category": 2,
+                "damage": 99,
+            },
+        },
+        {
+            "type": "ADVENTURE_ACTION",
+            "input": {
+                "action": "RITUAL_ATTEMPT",
+                "characterId": str(uuid4()),
+                "task": "POEM",
+                "benefit": "NONE",
+                "declineStunts": True,
+                "modifier": 10,
+            },
+        },
+        {"type": "ARCANA_CONTEXT_SET", "contextId": str(uuid4())},
+    ],
+)
+def test_mechanical_proposals_cannot_author_facts_or_results(command):
+    with pytest.raises(ValidationError):
+        Proposal.model_validate({"kind": "MECHANIC", "command": command})
 
 
 @pytest.mark.parametrize(
@@ -69,3 +123,17 @@ def test_internal_routes_fail_closed(monkeypatch):
         assert client.post("/internal/turn", json={}).status_code == 401
         assert client.get("/health").status_code == 200
     get_settings.cache_clear()
+
+
+def test_adventure_adjudication_never_delegates_unsupported_rules_to_model():
+    class ForbiddenProvider:
+        async def generate_structured(self, *args, **kwargs):
+            raise AssertionError("Unsupported rules must not reach a model")
+
+    request = turn()
+    request.context = {
+        "adventure": {"gm": {"localAdjudicationRequired": True}},
+        "selectedOptionId": str(uuid4()),
+    }
+    result = asyncio.run(run_turn(request, ForbiddenProvider()))
+    assert result.proposal.kind == "OBSERVE"

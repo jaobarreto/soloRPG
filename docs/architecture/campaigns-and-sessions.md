@@ -1,4 +1,14 @@
-# Campanhas, sessões e chat persistente — Fase 2
+# Campanhas, sessões e chat persistente
+
+## Política atual — Fase 5.5
+
+Novas campanhas derivam suas unidades da aventura versionada, atualmente Gloamhale v3 (três partes). POST /campaigns aceita título/descrição; quantidade e duração não são configurações públicas. O importador transacional compartilhado cria definição/instância/sessões junto da campanha. O binding da protagonista e a revisão inicial da equipe seguem a preparação local já existente.
+
+Uma sessão é uma unidade narrativa, não uma ocasião de jogo. Pausa/retomada preservam o chat e não liberam capítulo. Novas definições só encerram com condição oficial do Director; 100% requer fechamento persistido e o terminal encerra a campanha. Campos de duração e plannedSessions permanecem para compatibilidade de armazenamento/respostas; plannedSessions é derivado da definição, e duração não participa de progresso, ritmo do LLM ou liberação.
+
+A implementação histórica abaixo descreve campanhas antigas sem progression e fases anteriores. Seus dados e semântica são preservados, sem migração automática. [Director atual](campaign-director.md), [ADR](../adr/0008-sessoes-narrativas-e-progresso-confirmado.md), [evidências](../testing/phase-5.5-validation.md).
+
+## Histórico — Fase 2
 
 O [documento-base](../base-projeto.md) continua sendo a visão principal. A
 [ADR 0003](../adr/0003-dominio-de-campanhas-e-sessoes.md) registra o recorte desta fase.

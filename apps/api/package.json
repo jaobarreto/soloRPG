@@ -12,7 +12,8 @@
     "test:coverage": "pnpm --filter @solo-rpg/shared-contracts build && node ../../scripts/test-integration.mjs --coverage",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "engine:command": "pnpm build && node dist/game-engine/admin.js"
+    "engine:command": "pnpm build && node dist/game-engine/admin.js",
+    "adventure:command": "pnpm build && node dist/adventures/admin.js"
   },
   "dependencies": {
     "@nestjs/common": "11.2.8",

@@ -1,0 +1,616 @@
+{
+  "roundId": "9247f347-74c4-40d5-972f-63c5f836fa6a",
+  "limits": {
+    "model": "gemini-3.5-flash-lite",
+    "requests": 4,
+    "stage": "PROPOSE",
+    "outputTokensPerRequest": 700,
+    "configuredOutputCeiling": 2800,
+    "inputCharactersPerRequest": 65000,
+    "retries": 0,
+    "fallback": false,
+    "repairs": 0,
+    "campaignWrites": false,
+    "stopAtFirstFailure": true
+  },
+  "comparedFields": [
+    "kind",
+    "intent",
+    "expression",
+    "target",
+    "tool.type",
+    "tool.topic",
+    "tool.act",
+    "evidence"
+  ],
+  "cases": [
+    {
+      "caseId": "C1-2",
+      "proposeRequest": {
+        "actionId": "b7dec2e8-a291-47ab-a3c0-856ad3336b18",
+        "campaignId": "10000000-0000-4000-8000-000000000001",
+        "sessionId": "ae1c3b58-a679-478a-afca-1b04327de478",
+        "interactionMode": "SPEAK",
+        "playerMessage": "Pode explicar seu ponto sem presumir um acordo?",
+        "stage": "PROPOSE",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            }
+          ],
+          "actors": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            },
+            {
+              "id": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "name": "Iria",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [],
+          "options": [],
+          "combat": null,
+          "dialogue": [
+            {
+              "characterId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "name": "Iria",
+              "choices": [
+                {
+                  "topic": "conversation",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DOUBT"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CLARIFY"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CAUTION"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "REFUSE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "UNKNOWN"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "REFUSE"
+                }
+              ]
+            }
+          ],
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bccaa9ace36152d1a18d44b6",
+                "scope": "PUBLIC",
+                "text": "Uma mesa e uma estante com livros usados."
+              },
+              {
+                "key": "info-b7384d5f720ef7e15f5b9702",
+                "scope": "RULES",
+                "text": "Blue Rose AGE: o teste básico usa 3d6 + habilidade + foco aplicável contra a dificuldade. O terceiro dado é o Drama Die. Fonte: livro básico, pp.15–17."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expectedProposal": {
+        "kind": "FREE",
+        "intent": "TALK",
+        "description": "Conversar com o interlocutor selecionado.",
+        "target": {
+          "type": "CHARACTER",
+          "name": "Iria"
+        },
+        "expression": "QUESTION",
+        "evidence": [],
+        "tool": {
+          "type": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER"
+        }
+      },
+      "expectedResolution": {
+        "category": "DIALOGUE",
+        "targetId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc"
+      },
+      "reviewCriterion": "Preservar o pedido de explicação e a restrição de não presumir acordo; sem novas afirmações ou consequências."
+    },
+    {
+      "caseId": "SP-2",
+      "proposeRequest": {
+        "actionId": "1841ba03-c0ce-5208-ad23-87a84686d320",
+        "campaignId": "10000000-0000-4000-8000-000000000001",
+        "sessionId": "ae1c3b58-a679-478a-afca-1b04327de478",
+        "interactionMode": "SPEAK",
+        "playerMessage": "Iria, gostaria de entender por que você discorda de continuarmos a viagem.",
+        "stage": "PROPOSE",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            }
+          ],
+          "actors": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            },
+            {
+              "id": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "name": "Iria",
+              "kind": "COMPANION",
+              "available": true
+            }
+          ],
+          "world": [],
+          "options": [],
+          "combat": null,
+          "dialogue": [
+            {
+              "characterId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "name": "Iria",
+              "choices": [
+                {
+                  "topic": "conversation",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DOUBT"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CLARIFY"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CAUTION"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "REFUSE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "UNKNOWN"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "REFUSE"
+                }
+              ]
+            }
+          ],
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bccaa9ace36152d1a18d44b6",
+                "scope": "PUBLIC",
+                "text": "Uma mesa e uma estante com livros usados."
+              },
+              {
+                "key": "info-b7384d5f720ef7e15f5b9702",
+                "scope": "RULES",
+                "text": "Blue Rose AGE: o teste básico usa 3d6 + habilidade + foco aplicável contra a dificuldade. O terceiro dado é o Drama Die. Fonte: livro básico, pp.15–17."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expectedProposal": {
+        "kind": "FREE",
+        "intent": "TALK",
+        "description": "Conversar com o interlocutor selecionado.",
+        "target": {
+          "type": "CHARACTER",
+          "name": "Iria"
+        },
+        "expression": "QUESTION",
+        "evidence": [],
+        "tool": {
+          "type": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER"
+        }
+      },
+      "expectedResolution": {
+        "category": "DIALOGUE",
+        "targetId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc"
+      },
+      "reviewCriterion": "Reconhecer a pergunta indireta sobre a posição de Iria no desacordo, sem pressupor que mudou de opinião."
+    },
+    {
+      "caseId": "SP-3",
+      "proposeRequest": {
+        "actionId": "cbe8e081-f86f-5687-be40-fe4e0c5fb312",
+        "campaignId": "10000000-0000-4000-8000-000000000001",
+        "sessionId": "ae1c3b58-a679-478a-afca-1b04327de478",
+        "interactionMode": "SPEAK",
+        "playerMessage": "Pode me explicar o que quis dizer?",
+        "stage": "PROPOSE",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            }
+          ],
+          "actors": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            },
+            {
+              "id": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "name": "Iria",
+              "kind": "COMPANION",
+              "available": true
+            },
+            {
+              "id": "30c7d06e-11c8-41ea-acb5-ba277cad657b",
+              "name": "Lior",
+              "kind": "STORY_NPC",
+              "available": true
+            }
+          ],
+          "world": [],
+          "options": [],
+          "combat": null,
+          "dialogue": [
+            {
+              "characterId": "68feff2c-cfa3-47eb-a425-b99d3dd11dbc",
+              "name": "Iria",
+              "choices": [
+                {
+                  "topic": "conversation",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DOUBT"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CLARIFY"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CAUTION"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "REFUSE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "UNKNOWN"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "disagreement",
+                  "act": "REFUSE"
+                }
+              ]
+            },
+            {
+              "characterId": "30c7d06e-11c8-41ea-acb5-ba277cad657b",
+              "name": "Lior",
+              "choices": [
+                {
+                  "topic": "conversation",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DOUBT"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CLARIFY"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CAUTION"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "REFUSE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "UNKNOWN"
+                },
+                {
+                  "topic": "promise",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "promise",
+                  "act": "RESUME"
+                }
+              ]
+            }
+          ],
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bccaa9ace36152d1a18d44b6",
+                "scope": "PUBLIC",
+                "text": "Uma mesa e uma estante com livros usados."
+              },
+              {
+                "key": "info-b7384d5f720ef7e15f5b9702",
+                "scope": "RULES",
+                "text": "Blue Rose AGE: o teste básico usa 3d6 + habilidade + foco aplicável contra a dificuldade. O terceiro dado é o Drama Die. Fonte: livro básico, pp.15–17."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expectedProposal": {
+        "kind": "FREE",
+        "intent": "OTHER",
+        "description": "Esclarecer uma referência ambígua.",
+        "target": null,
+        "expression": "QUESTION",
+        "evidence": [],
+        "tool": {
+          "type": "CLARIFY",
+          "question": "A quem e a qual fala você se refere?"
+        }
+      },
+      "expectedResolution": {
+        "category": "CLARIFY",
+        "reason": "CLARIFICATION_REQUIRED"
+      },
+      "reviewCriterion": "Pedir à jogadora que identifique o interlocutor ou o ponto em questão, sem adivinhar a referência.",
+      "alsoAcceptIntent": [
+        "TALK"
+      ]
+    },
+    {
+      "caseId": "SP-4",
+      "proposeRequest": {
+        "actionId": "4603c7af-b0b7-574b-9dbb-1a7330ee169e",
+        "campaignId": "10000000-0000-4000-8000-000000000001",
+        "sessionId": "ae1c3b58-a679-478a-afca-1b04327de478",
+        "interactionMode": "SPEAK",
+        "playerMessage": "Lior, pode repetir exatamente o que ouviu sobre a promessa de ajuda?",
+        "stage": "PROPOSE",
+        "context": {
+          "freeActions": true,
+          "characters": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            }
+          ],
+          "actors": [
+            {
+              "id": "b1694f61-f52f-429c-a693-aff6a5670781",
+              "name": "Protagonista",
+              "kind": "PROTAGONIST",
+              "available": true,
+              "knowledge": [],
+              "inventory": []
+            },
+            {
+              "id": "30c7d06e-11c8-41ea-acb5-ba277cad657b",
+              "name": "Lior",
+              "kind": "STORY_NPC",
+              "available": true
+            }
+          ],
+          "world": [],
+          "options": [],
+          "combat": null,
+          "dialogue": [
+            {
+              "characterId": "30c7d06e-11c8-41ea-acb5-ba277cad657b",
+              "name": "Lior",
+              "choices": [
+                {
+                  "topic": "conversation",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DOUBT"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "DISAGREE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CLARIFY"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "CAUTION"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "RESUME"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "REFUSE"
+                },
+                {
+                  "topic": "conversation",
+                  "act": "UNKNOWN"
+                },
+                {
+                  "topic": "promise",
+                  "act": "ANSWER"
+                },
+                {
+                  "topic": "promise",
+                  "act": "RESUME"
+                }
+              ]
+            }
+          ],
+          "selection": {
+            "version": 1,
+            "information": [
+              {
+                "key": "info-bccaa9ace36152d1a18d44b6",
+                "scope": "PUBLIC",
+                "text": "Uma mesa e uma estante com livros usados."
+              },
+              {
+                "key": "info-b7384d5f720ef7e15f5b9702",
+                "scope": "RULES",
+                "text": "Blue Rose AGE: o teste básico usa 3d6 + habilidade + foco aplicável contra a dificuldade. O terceiro dado é o Drama Die. Fonte: livro básico, pp.15–17."
+              }
+            ]
+          }
+        },
+        "confirmed": null
+      },
+      "expectedProposal": {
+        "kind": "FREE",
+        "intent": "TALK",
+        "description": "Conversar com o interlocutor selecionado.",
+        "target": {
+          "type": "CHARACTER",
+          "name": "Lior"
+        },
+        "expression": "QUESTION",
+        "evidence": [],
+        "tool": {
+          "type": "DIALOGUE",
+          "topic": "promise",
+          "act": "RESUME"
+        }
+      },
+      "expectedResolution": {
+        "category": "DIALOGUE",
+        "targetId": "30c7d06e-11c8-41ea-acb5-ba277cad657b",
+        "dialogueOrigin": "STORY_CARD"
+      },
+      "reviewCriterion": "Selecionar a retomada literal da fala da promessa ouvida por Lior, sem inferir cumprimento nem transferir conhecimento."
+    }
+  ]
+}

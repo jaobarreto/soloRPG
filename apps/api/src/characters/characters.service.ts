@@ -14,8 +14,8 @@ import { DatabaseService } from '../database/database.service';
 import { CampaignsRepository } from '../campaigns/campaigns.repository';
 import * as s from '../database/game-schema';
 import { campaignSessions } from '../database/schema';
-import { GameRepository } from '../game-engine/game.repository';
-import { BlueRoseCombatService } from '../blue-rose/combat.service';
+import { GameRepository } from '../database/game.repository';
+import { BlueRoseCombatService } from '../blue-rose/mechanics/combat/combat.service';
 import { parseInput } from '../game-engine/validation';
 
 type PageQuery = ReturnType<typeof gamePageSchema.parse>;

@@ -1,17 +1,24 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
-  IsInt,
   IsString,
+  IsUUID,
   Length,
-  Max,
   MaxLength,
-  Min,
   ValidateIf,
 } from 'class-validator';
 const trim = ({ value }: { value: unknown }) =>
   typeof value === 'string' ? value.trim() : value;
 export class CreateCampaignDto {
+  @ApiPropertyOptional({
+    format: 'uuid',
+    description:
+      'Repeat the same key to recover a previously submitted creation.',
+  })
+  @ValidateIf((_o, value) => value !== undefined)
+  @IsUUID('4')
+  requestId?: string;
+
   @ApiProperty({ maxLength: 200 })
   @Transform(trim)
   @IsString()
@@ -23,18 +30,6 @@ export class CreateCampaignDto {
   @IsString()
   @MaxLength(10000)
   description?: string | null;
-
-  @ApiPropertyOptional({ default: 8, minimum: 1, maximum: 1000 })
-  @IsInt()
-  @Min(1)
-  @Max(1000)
-  plannedSessions: number = 8;
-
-  @ApiPropertyOptional({ default: 120, minimum: 1, maximum: 10080 })
-  @IsInt()
-  @Min(1)
-  @Max(10080)
-  defaultSessionDurationMinutes: number = 120;
 }
 export class UpdateCampaignDto {
   @ApiPropertyOptional({ maxLength: 200 })

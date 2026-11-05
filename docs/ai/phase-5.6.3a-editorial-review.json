@@ -1,0 +1,960 @@
+{
+  "phase": "5.6.3A",
+  "realProviderRequests": 0,
+  "geminiQualityScore": null,
+  "rubric": "phase-5.6.3a-rubric.json",
+  "selectorReviewed": "VARIED, chosen explicitly for inspection; not an optimal selector or real model",
+  "reviews": [
+    {
+      "scenarioId": "563A-01",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual text review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Frases gramaticais, mas a pergunta recebida volta como pergunta genérica.",
+          "turnIds": [
+            "563A-01-VARIED-t1",
+            "563A-01-VARIED-t2",
+            "563A-01-VARIED-t3",
+            "563A-01-VARIED-t4",
+            "563A-01-VARIED-t5"
+          ],
+          "excerpt": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-01-VARIED-t1"
+        },
+        "coerencia_narrativa": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Cena estável; as respostas sobre suspeita não se ligam ao pedido sobre desacordo.",
+          "turnIds": [
+            "563A-01-VARIED-t1",
+            "563A-01-VARIED-t2",
+            "563A-01-VARIED-t3",
+            "563A-01-VARIED-t4",
+            "563A-01-VARIED-t5"
+          ],
+          "excerpt": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-01-VARIED-t1"
+        },
+        "personalidade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Acolhimento aparece só na abertura; as outras duas falas são comuns a todos.",
+          "turnIds": [
+            "563A-01-VARIED-t1",
+            "563A-01-VARIED-t2",
+            "563A-01-VARIED-t3",
+            "563A-01-VARIED-t4",
+            "563A-01-VARIED-t5"
+          ],
+          "excerpt": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-01-VARIED-t1"
+        },
+        "continuidade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "O histórico é persistido, mas o diálogo gira pelas mesmas fórmulas.",
+          "turnIds": [
+            "563A-01-VARIED-t1",
+            "563A-01-VARIED-t2",
+            "563A-01-VARIED-t3",
+            "563A-01-VARIED-t4",
+            "563A-01-VARIED-t5"
+          ],
+          "excerpt": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-01-VARIED-t1"
+        },
+        "prosa": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A atmosfera foi preparada; a repetição integral torna a prosa funcional.",
+          "turnIds": [
+            "563A-01-VARIED-t1",
+            "563A-01-VARIED-t2",
+            "563A-01-VARIED-t3",
+            "563A-01-VARIED-t4",
+            "563A-01-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-01-VARIED-t5"
+        },
+        "variedade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Cinco respostas completas distintas escondem nove ocorrências repetidas de parágrafo.",
+          "turnIds": [
+            "563A-01-VARIED-t1",
+            "563A-01-VARIED-t2",
+            "563A-01-VARIED-t3",
+            "563A-01-VARIED-t4",
+            "563A-01-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-01-VARIED-t5"
+        },
+        "ritmo": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Todo turno acrescenta uma nova pergunta genérica de encerramento.",
+          "turnIds": [
+            "563A-01-VARIED-t1",
+            "563A-01-VARIED-t2",
+            "563A-01-VARIED-t3",
+            "563A-01-VARIED-t4",
+            "563A-01-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-01-VARIED-t5"
+        },
+        "pertinencia": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Não há no catálogo uma opinião específica sobre o desacordo pedido.",
+          "turnIds": [
+            "563A-01-VARIED-t1",
+            "563A-01-VARIED-t2",
+            "563A-01-VARIED-t3",
+            "563A-01-VARIED-t4",
+            "563A-01-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-01-VARIED-t5"
+        },
+        "imersao": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A mesma luz e os convites repetidos evidenciam o mecanismo de montagem.",
+          "turnIds": [
+            "563A-01-VARIED-t1",
+            "563A-01-VARIED-t2",
+            "563A-01-VARIED-t3",
+            "563A-01-VARIED-t4",
+            "563A-01-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-01-VARIED-t5"
+        },
+        "agencia": {
+          "score": 5,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Nenhuma decisão, emoção ou fala nova de Naelis foi atribuída pelo narrador.",
+          "turnIds": [
+            "563A-01-VARIED-t1",
+            "563A-01-VARIED-t2",
+            "563A-01-VARIED-t3",
+            "563A-01-VARIED-t4",
+            "563A-01-VARIED-t5"
+          ],
+          "excerpt": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-01-VARIED-t1"
+        }
+      },
+      "aggregateLiteraryScore": null
+    },
+    {
+      "scenarioId": "563A-02",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual text review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "O diálogo vira um registro de relatos encadeados, não uma resposta emocional.",
+          "turnIds": [
+            "563A-02-VARIED-t1",
+            "563A-02-VARIED-t2",
+            "563A-02-VARIED-t3",
+            "563A-02-VARIED-t4"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Recordo o que presenciei:\n> MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-02-VARIED-t1"
+        },
+        "coerencia_narrativa": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A disputa não é apagada, mas as falas genéricas são pouco conectadas à posição atual.",
+          "turnIds": [
+            "563A-02-VARIED-t1",
+            "563A-02-VARIED-t2",
+            "563A-02-VARIED-t3",
+            "563A-02-VARIED-t4"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Recordo o que presenciei:\n> MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-02-VARIED-t1"
+        },
+        "personalidade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Cautela é reconhecível; não há voz pessoal além desse traço amplo.",
+          "turnIds": [
+            "563A-02-VARIED-t1",
+            "563A-02-VARIED-t2",
+            "563A-02-VARIED-t3",
+            "563A-02-VARIED-t4"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Recordo o que presenciei:\n> MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-02-VARIED-t1"
+        },
+        "continuidade": {
+          "score": 3,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A memória individual persiste e o desacordo permanece não resolvido.",
+          "turnIds": [
+            "563A-02-VARIED-t1",
+            "563A-02-VARIED-t2",
+            "563A-02-VARIED-t3",
+            "563A-02-VARIED-t4"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Recordo o que presenciei:\n> MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-02-VARIED-t1"
+        },
+        "prosa": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Citações de réplicas citando réplicas introduzem texto de auditoria na conversa.",
+          "turnIds": [
+            "563A-02-VARIED-t1",
+            "563A-02-VARIED-t2",
+            "563A-02-VARIED-t3",
+            "563A-02-VARIED-t4"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Não tenho uma resposta segura para isso. Pode me contar mais?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e Naelis ",
+          "excerptTruncated": true,
+          "excerptTurnId": "563A-02-VARIED-t4"
+        },
+        "variedade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A variedade vem de alternar três fórmulas e ampliar a citação, não de novas réplicas.",
+          "turnIds": [
+            "563A-02-VARIED-t1",
+            "563A-02-VARIED-t2",
+            "563A-02-VARIED-t3",
+            "563A-02-VARIED-t4"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Não tenho uma resposta segura para isso. Pode me contar mais?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e Naelis ",
+          "excerptTruncated": true,
+          "excerptTurnId": "563A-02-VARIED-t4"
+        },
+        "ritmo": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A repetição de recapitulações e convites detém o diálogo.",
+          "turnIds": [
+            "563A-02-VARIED-t1",
+            "563A-02-VARIED-t2",
+            "563A-02-VARIED-t3",
+            "563A-02-VARIED-t4"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Não tenho uma resposta segura para isso. Pode me contar mais?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e Naelis ",
+          "excerptTruncated": true,
+          "excerptTurnId": "563A-02-VARIED-t4"
+        },
+        "pertinencia": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Há referência ao conflito, mas não elaboração da pergunta atual.",
+          "turnIds": [
+            "563A-02-VARIED-t1",
+            "563A-02-VARIED-t2",
+            "563A-02-VARIED-t3",
+            "563A-02-VARIED-t4"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Não tenho uma resposta segura para isso. Pode me contar mais?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e Naelis ",
+          "excerptTruncated": true,
+          "excerptTurnId": "563A-02-VARIED-t4"
+        },
+        "imersao": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Expressões como fala atribuída e fato comprovado aparecem no diálogo publicado.",
+          "turnIds": [
+            "563A-02-VARIED-t1",
+            "563A-02-VARIED-t2",
+            "563A-02-VARIED-t3",
+            "563A-02-VARIED-t4"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Não tenho uma resposta segura para isso. Pode me contar mais?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e Naelis ",
+          "excerptTruncated": true,
+          "excerptTurnId": "563A-02-VARIED-t4"
+        },
+        "agencia": {
+          "score": 5,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "O narrador não perdoa, reconcilia ou altera relacionamento por conta própria.",
+          "turnIds": [
+            "563A-02-VARIED-t1",
+            "563A-02-VARIED-t2",
+            "563A-02-VARIED-t3",
+            "563A-02-VARIED-t4"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Recordo o que presenciei:\n> MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-02-VARIED-t1"
+        }
+      },
+      "aggregateLiteraryScore": null
+    },
+    {
+      "scenarioId": "563A-03",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual text review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A observação é clara; adjudicações repetidas têm voz de sistema.",
+          "turnIds": [
+            "563A-03-VARIED-t1",
+            "563A-03-VARIED-t2",
+            "563A-03-VARIED-t3",
+            "563A-03-VARIED-t4",
+            "563A-03-VARIED-t5"
+          ],
+          "excerpt": "Estante: Uma estante de madeira com lombadas gastas.",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-03-VARIED-t1"
+        },
+        "coerencia_narrativa": {
+          "score": 3,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Observação, limite e fracasso mantêm o estado preparado, sem salto narrativo.",
+          "turnIds": [
+            "563A-03-VARIED-t1",
+            "563A-03-VARIED-t2",
+            "563A-03-VARIED-t3",
+            "563A-03-VARIED-t4",
+            "563A-03-VARIED-t5"
+          ],
+          "excerpt": "Estante: Uma estante de madeira com lombadas gastas.",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-03-VARIED-t1"
+        },
+        "personalidade": {
+          "score": null,
+          "status": "NOT_APPLICABLE_NO_NPC",
+          "rationale": "Não aplicável: não há turno de NPC neste cenário de investigação.",
+          "turnIds": [
+            "563A-03-VARIED-t1",
+            "563A-03-VARIED-t2",
+            "563A-03-VARIED-t3",
+            "563A-03-VARIED-t4",
+            "563A-03-VARIED-t5"
+          ],
+          "excerpt": "Estante: Uma estante de madeira com lombadas gastas.",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-03-VARIED-t1"
+        },
+        "continuidade": {
+          "score": 3,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A estante permanece a mesma e a falha não se converte em descoberta.",
+          "turnIds": [
+            "563A-03-VARIED-t1",
+            "563A-03-VARIED-t2",
+            "563A-03-VARIED-t3",
+            "563A-03-VARIED-t4",
+            "563A-03-VARIED-t5"
+          ],
+          "excerpt": "Estante: Uma estante de madeira com lombadas gastas.",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-03-VARIED-t1"
+        },
+        "prosa": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "O fallback adversarial publica somente o resultado, sem composição atmosférica.",
+          "turnIds": [
+            "563A-03-VARIED-t1",
+            "563A-03-VARIED-t2",
+            "563A-03-VARIED-t3",
+            "563A-03-VARIED-t4",
+            "563A-03-VARIED-t5"
+          ],
+          "excerpt": "Estante: Uma estante de madeira com lombadas gastas.",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-03-VARIED-t5"
+        },
+        "variedade": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A mesma observação reaparece e duas intenções distintas recebem a mesma adjudicação.",
+          "turnIds": [
+            "563A-03-VARIED-t1",
+            "563A-03-VARIED-t2",
+            "563A-03-VARIED-t3",
+            "563A-03-VARIED-t4",
+            "563A-03-VARIED-t5"
+          ],
+          "excerpt": "Estante: Uma estante de madeira com lombadas gastas.",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-03-VARIED-t5"
+        },
+        "ritmo": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A exploração para nas capacidades disponíveis, sem resolver a insistência.",
+          "turnIds": [
+            "563A-03-VARIED-t1",
+            "563A-03-VARIED-t2",
+            "563A-03-VARIED-t3",
+            "563A-03-VARIED-t4",
+            "563A-03-VARIED-t5"
+          ],
+          "excerpt": "Estante: Uma estante de madeira com lombadas gastas.",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-03-VARIED-t5"
+        },
+        "pertinencia": {
+          "score": 3,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "As respostas comunicam limites e resultado oficial, embora sem grande elaboração.",
+          "turnIds": [
+            "563A-03-VARIED-t1",
+            "563A-03-VARIED-t2",
+            "563A-03-VARIED-t3",
+            "563A-03-VARIED-t4",
+            "563A-03-VARIED-t5"
+          ],
+          "excerpt": "Estante: Uma estante de madeira com lombadas gastas.",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-03-VARIED-t5"
+        },
+        "imersao": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Nenhum efeito foi aplicado é uma explicação técnica, não uma cena de romance.",
+          "turnIds": [
+            "563A-03-VARIED-t1",
+            "563A-03-VARIED-t2",
+            "563A-03-VARIED-t3",
+            "563A-03-VARIED-t4",
+            "563A-03-VARIED-t5"
+          ],
+          "excerpt": "Estante: Uma estante de madeira com lombadas gastas.",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-03-VARIED-t5"
+        },
+        "agencia": {
+          "score": 5,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A jogadora pode insistir ou escolher outro caminho; nenhum próximo passo é imposto.",
+          "turnIds": [
+            "563A-03-VARIED-t1",
+            "563A-03-VARIED-t2",
+            "563A-03-VARIED-t3",
+            "563A-03-VARIED-t4",
+            "563A-03-VARIED-t5"
+          ],
+          "excerpt": "Estante: Uma estante de madeira com lombadas gastas.",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-03-VARIED-t1"
+        }
+      },
+      "aggregateLiteraryScore": null
+    },
+    {
+      "scenarioId": "563A-04",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual text review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "O texto de resultado é legível; a fala sobre suspeita não responde à identificação do selo.",
+          "turnIds": [
+            "563A-04-VARIED-t1",
+            "563A-04-VARIED-t2",
+            "563A-04-VARIED-t3",
+            "563A-04-VARIED-t4",
+            "563A-04-VARIED-t5"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-04-VARIED-t1"
+        },
+        "coerencia_narrativa": {
+          "score": 3,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Fracasso e sucesso estão em sequência oficial, com decisão seguinte preservada.",
+          "turnIds": [
+            "563A-04-VARIED-t1",
+            "563A-04-VARIED-t2",
+            "563A-04-VARIED-t3",
+            "563A-04-VARIED-t4",
+            "563A-04-VARIED-t5"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-04-VARIED-t1"
+        },
+        "personalidade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A voz cautelosa é constante, mas não responde de modo próprio ao resultado.",
+          "turnIds": [
+            "563A-04-VARIED-t1",
+            "563A-04-VARIED-t2",
+            "563A-04-VARIED-t3",
+            "563A-04-VARIED-t4",
+            "563A-04-VARIED-t5"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-04-VARIED-t1"
+        },
+        "continuidade": {
+          "score": 3,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Os resultados estão disponíveis; não são integrados substantivamente ao diálogo seguinte.",
+          "turnIds": [
+            "563A-04-VARIED-t1",
+            "563A-04-VARIED-t2",
+            "563A-04-VARIED-t3",
+            "563A-04-VARIED-t4",
+            "563A-04-VARIED-t5"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-04-VARIED-t1"
+        },
+        "prosa": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Resultado e atmosfera são corretos, porém separados por blocos repetidos.",
+          "turnIds": [
+            "563A-04-VARIED-t1",
+            "563A-04-VARIED-t2",
+            "563A-04-VARIED-t3",
+            "563A-04-VARIED-t4",
+            "563A-04-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-04-VARIED-t5"
+        },
+        "variedade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A alternância altera fórmulas e pergunta final, enquanto repete a mesma atmosfera.",
+          "turnIds": [
+            "563A-04-VARIED-t1",
+            "563A-04-VARIED-t2",
+            "563A-04-VARIED-t3",
+            "563A-04-VARIED-t4",
+            "563A-04-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-04-VARIED-t5"
+        },
+        "ritmo": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Cada etapa para para a decisão, mas usa o mesmo fecho mesmo em conversa em andamento.",
+          "turnIds": [
+            "563A-04-VARIED-t1",
+            "563A-04-VARIED-t2",
+            "563A-04-VARIED-t3",
+            "563A-04-VARIED-t4",
+            "563A-04-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-04-VARIED-t5"
+        },
+        "pertinencia": {
+          "score": 3,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A ação mecânica é atendida; a integração com a resposta de Iria é parcial.",
+          "turnIds": [
+            "563A-04-VARIED-t1",
+            "563A-04-VARIED-t2",
+            "563A-04-VARIED-t3",
+            "563A-04-VARIED-t4",
+            "563A-04-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-04-VARIED-t5"
+        },
+        "imersao": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "O mundo permanece coerente, mas a costura entre descrição e diálogo é visível.",
+          "turnIds": [
+            "563A-04-VARIED-t1",
+            "563A-04-VARIED-t2",
+            "563A-04-VARIED-t3",
+            "563A-04-VARIED-t4",
+            "563A-04-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-04-VARIED-t5"
+        },
+        "agencia": {
+          "score": 5,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A decisão de usar a informação do selo permanece inteiramente com Naelis.",
+          "turnIds": [
+            "563A-04-VARIED-t1",
+            "563A-04-VARIED-t2",
+            "563A-04-VARIED-t3",
+            "563A-04-VARIED-t4",
+            "563A-04-VARIED-t5"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-04-VARIED-t1"
+        }
+      },
+      "aggregateLiteraryScore": null
+    },
+    {
+      "scenarioId": "563A-05",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual text review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A memória reaparece por citações progressivamente aninhadas.",
+          "turnIds": [
+            "563A-05-VARIED-t1",
+            "563A-05-VARIED-t2",
+            "563A-05-VARIED-t3",
+            "563A-05-VARIED-t4",
+            "563A-05-VARIED-t5"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Recordo o que presenciei:\n> MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-05-VARIED-t1"
+        },
+        "coerencia_narrativa": {
+          "score": 3,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A segunda sessão conserva o conflito e distingue o que Tessa não presenciou.",
+          "turnIds": [
+            "563A-05-VARIED-t1",
+            "563A-05-VARIED-t2",
+            "563A-05-VARIED-t3",
+            "563A-05-VARIED-t4",
+            "563A-05-VARIED-t5"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > Iria — Recordo o que presenciei:\n> > > MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-05-VARIED-t4"
+        },
+        "personalidade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Iria e Tessa compartilham a mesma voz cautelosa genérica.",
+          "turnIds": [
+            "563A-05-VARIED-t1",
+            "563A-05-VARIED-t2",
+            "563A-05-VARIED-t3",
+            "563A-05-VARIED-t4",
+            "563A-05-VARIED-t5"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Recordo o que presenciei:\n> MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-05-VARIED-t1"
+        },
+        "continuidade": {
+          "score": 3,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Recuperação e acesso individuais funcionam; referência ao passado ainda é literal.",
+          "turnIds": [
+            "563A-05-VARIED-t1",
+            "563A-05-VARIED-t2",
+            "563A-05-VARIED-t3",
+            "563A-05-VARIED-t4",
+            "563A-05-VARIED-t5"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > Iria — Recordo o que presenciei:\n> > > MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-05-VARIED-t4"
+        },
+        "prosa": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A origem é preservada, mas a prosa contém marcas de relato e auditoria.",
+          "turnIds": [
+            "563A-05-VARIED-t1",
+            "563A-05-VARIED-t2",
+            "563A-05-VARIED-t3",
+            "563A-05-VARIED-t4",
+            "563A-05-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e",
+          "excerptTruncated": true,
+          "excerptTurnId": "563A-05-VARIED-t5"
+        },
+        "variedade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Textos completos são diferentes, mas frases e estrutura continuam recorrentes.",
+          "turnIds": [
+            "563A-05-VARIED-t1",
+            "563A-05-VARIED-t2",
+            "563A-05-VARIED-t3",
+            "563A-05-VARIED-t4",
+            "563A-05-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e",
+          "excerptTruncated": true,
+          "excerptTurnId": "563A-05-VARIED-t5"
+        },
+        "ritmo": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Retomada é dominada por recapitulação e pergunta final repetida.",
+          "turnIds": [
+            "563A-05-VARIED-t1",
+            "563A-05-VARIED-t2",
+            "563A-05-VARIED-t3",
+            "563A-05-VARIED-t4",
+            "563A-05-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e",
+          "excerptTruncated": true,
+          "excerptTurnId": "563A-05-VARIED-t5"
+        },
+        "pertinencia": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Iria cita o desacordo; falta responder de maneira específica ao pedido de prosseguir.",
+          "turnIds": [
+            "563A-05-VARIED-t1",
+            "563A-05-VARIED-t2",
+            "563A-05-VARIED-t3",
+            "563A-05-VARIED-t4",
+            "563A-05-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e",
+          "excerptTruncated": true,
+          "excerptTurnId": "563A-05-VARIED-t5"
+        },
+        "imersao": {
+          "score": 1,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "O histórico entra como transcrição técnica dentro do diálogo.",
+          "turnIds": [
+            "563A-05-VARIED-t1",
+            "563A-05-VARIED-t2",
+            "563A-05-VARIED-t3",
+            "563A-05-VARIED-t4",
+            "563A-05-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nIria — Ouvi este relato; isso não comprova que seja verdade:\n> Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n> > Iria — Ouvi este relato; isso não comprova que seja verdade:\n> > > Iria respondeu (fala atribuída, não verdade do mundo): Iria — Prefiro cautela. O que despertou sua suspeita?\n> > > Iria — Recordo o que presenciei:\n> > > > MEMORIA_ANTERIOR: Iria e",
+          "excerptTruncated": true,
+          "excerptTurnId": "563A-05-VARIED-t5"
+        },
+        "agencia": {
+          "score": 5,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Não há reconciliação, escolha de caminho ou sentimento imposto a Naelis.",
+          "turnIds": [
+            "563A-05-VARIED-t1",
+            "563A-05-VARIED-t2",
+            "563A-05-VARIED-t3",
+            "563A-05-VARIED-t4",
+            "563A-05-VARIED-t5"
+          ],
+          "excerpt": "Iria — Prefiro cautela. O que despertou sua suspeita?\n\nIria — Recordo o que presenciei:\n> MEMORIA_ANTERIOR: Iria e Naelis discordaram sobre a decisão de continuar a viagem; o desacordo não foi resolvido.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-05-VARIED-t1"
+        }
+      },
+      "aggregateLiteraryScore": null
+    },
+    {
+      "scenarioId": "563A-06",
+      "selector": "VARIED",
+      "reviewer": "CODEX_AGENT_EDITORIAL_REVIEW",
+      "reviewKind": "SUBJECTIVE_REVIEW_OF_SCRIPTED_PUBLISHED_TEXT_NOT_GEMINI_ACCURACY",
+      "canonicalFinding": "No violation observed in asserted invariants and bounded manual text review; not universal certification",
+      "scores": {
+        "naturalidade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A pergunta de regra é clara; o retorno retoma fórmulas em vez da conversa anterior.",
+          "turnIds": [
+            "563A-06-VARIED-t1",
+            "563A-06-VARIED-t2",
+            "563A-06-VARIED-t3",
+            "563A-06-VARIED-t4",
+            "563A-06-VARIED-t5"
+          ],
+          "excerpt": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-06-VARIED-t1"
+        },
+        "coerencia_narrativa": {
+          "score": 3,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "OOC e ficção permanecem separados, sem evento derivado da pergunta técnica.",
+          "turnIds": [
+            "563A-06-VARIED-t1",
+            "563A-06-VARIED-t2",
+            "563A-06-VARIED-t3",
+            "563A-06-VARIED-t4",
+            "563A-06-VARIED-t5"
+          ],
+          "excerpt": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-06-VARIED-t1"
+        },
+        "personalidade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Há acolhimento inicial; a voz restante usa as mesmas fórmulas genéricas.",
+          "turnIds": [
+            "563A-06-VARIED-t1",
+            "563A-06-VARIED-t2",
+            "563A-06-VARIED-t3",
+            "563A-06-VARIED-t4",
+            "563A-06-VARIED-t5"
+          ],
+          "excerpt": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-06-VARIED-t1"
+        },
+        "continuidade": {
+          "score": 3,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "Cena e interlocutora são mantidas, mas a réplica não costura a interrupção.",
+          "turnIds": [
+            "563A-06-VARIED-t1",
+            "563A-06-VARIED-t2",
+            "563A-06-VARIED-t3",
+            "563A-06-VARIED-t4",
+            "563A-06-VARIED-t5"
+          ],
+          "excerpt": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-06-VARIED-t1"
+        },
+        "prosa": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A descrição preparada é legível, porém repete o mesmo parágrafo ao retornar.",
+          "turnIds": [
+            "563A-06-VARIED-t1",
+            "563A-06-VARIED-t2",
+            "563A-06-VARIED-t3",
+            "563A-06-VARIED-t4",
+            "563A-06-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-06-VARIED-t5"
+        },
+        "variedade": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "OOC e observação variam a forma; as falas continuam no repertório pequeno.",
+          "turnIds": [
+            "563A-06-VARIED-t1",
+            "563A-06-VARIED-t2",
+            "563A-06-VARIED-t3",
+            "563A-06-VARIED-t4",
+            "563A-06-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-06-VARIED-t5"
+        },
+        "ritmo": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A pausa OOC é respeitada, mas o diálogo reinicia com pergunta genérica.",
+          "turnIds": [
+            "563A-06-VARIED-t1",
+            "563A-06-VARIED-t2",
+            "563A-06-VARIED-t3",
+            "563A-06-VARIED-t4",
+            "563A-06-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-06-VARIED-t5"
+        },
+        "pertinencia": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A regra é respondida; o pedido de opinião permanece sem resposta específica.",
+          "turnIds": [
+            "563A-06-VARIED-t1",
+            "563A-06-VARIED-t2",
+            "563A-06-VARIED-t3",
+            "563A-06-VARIED-t4",
+            "563A-06-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-06-VARIED-t5"
+        },
+        "imersao": {
+          "score": 2,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "O tom de sistema fica corretamente no OOC, mas o retorno ainda parece montagem.",
+          "turnIds": [
+            "563A-06-VARIED-t1",
+            "563A-06-VARIED-t2",
+            "563A-06-VARIED-t3",
+            "563A-06-VARIED-t4",
+            "563A-06-VARIED-t5"
+          ],
+          "excerpt": "Iria — Ainda preciso de razões para acreditar. O que sustenta essa suspeita?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-06-VARIED-t5"
+        },
+        "agencia": {
+          "score": 5,
+          "status": "REVIEWED_SCRIPTED_TRANSCRIPT",
+          "rationale": "A interrupção e o retorno não controlam Naelis nem produzem decisão automática.",
+          "turnIds": [
+            "563A-06-VARIED-t1",
+            "563A-06-VARIED-t2",
+            "563A-06-VARIED-t3",
+            "563A-06-VARIED-t4",
+            "563A-06-VARIED-t5"
+          ],
+          "excerpt": "Iria — Quero ouvir você. O que gostaria de me perguntar?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?",
+          "excerptTruncated": false,
+          "excerptTurnId": "563A-06-VARIED-t1"
+        }
+      },
+      "aggregateLiteraryScore": null
+    }
+  ],
+  "FIRST": "Measured separately in metrics; not assigned an invented model score"
+}

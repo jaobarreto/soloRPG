@@ -2,8 +2,22 @@
 import { useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Campaign, CampaignDetail } from '@solo-rpg/shared-contracts';
-import { apiRequest, errorMessage } from '@/lib/campaign-api';
+import { apiRequest, errorMessage, requestId } from '@/lib/campaign-api';
 import { ErrorNotice } from './campaign-ui';
+const creationStorageKey = 'solo-rpg:campaign-create';
+
+function creationRequest(details: {
+  title: string;
+  description: string | null;
+}) {
+  const stored = sessionStorage.getItem(creationStorageKey);
+  const fingerprint = JSON.stringify(details);
+  const id =
+    stored?.slice(36) === fingerprint ? stored.slice(0, 36) : requestId();
+  sessionStorage.setItem(creationStorageKey, id + fingerprint);
+  return { ...details, requestId: id };
+}
+
 export function CampaignForm({
   campaign,
   onSaved,
@@ -22,24 +36,25 @@ export function CampaignForm({
     const body = {
       title: String(form.get('title')).trim(),
       description: String(form.get('description')).trim() || null,
-      ...(!campaign
-        ? {
-            plannedSessions: Number(form.get('plannedSessions')),
-            defaultSessionDurationMinutes: Number(form.get('duration')),
-          }
-        : {}),
     };
     try {
       const result = await apiRequest<CampaignDetail>(
         campaign ? `/campaigns/${campaign.id}` : '/campaigns',
-        { method: campaign ? 'PATCH' : 'POST', body: JSON.stringify(body) },
+        {
+          method: campaign ? 'PATCH' : 'POST',
+          body: JSON.stringify(campaign ? body : creationRequest(body)),
+        },
       );
       if (campaign) onSaved?.();
-      else router.push(`/campaigns/${result.id}`);
+      else {
+        sessionStorage.removeItem(creationStorageKey);
+        router.push(`/campaigns/${result.id}`);
+      }
     } catch (error) {
       setError(errorMessage(error));
-    } finally {
       setBusy(false);
+    } finally {
+      if (campaign) setBusy(false);
     }
   }
   return (
@@ -66,35 +81,9 @@ export function CampaignForm({
         />
       </label>
       {!campaign && (
-        <div className="grid gap-5 sm:grid-cols-2">
-          <label className="field-label">
-            Quantidade de sessões
-            <input
-              name="plannedSessions"
-              type="number"
-              min={1}
-              max={1000}
-              required
-              defaultValue={8}
-            />
-          </label>
-          <label className="field-label">
-            Duração estimada por sessão (minutos)
-            <input
-              name="duration"
-              type="number"
-              min={1}
-              max={10080}
-              required
-              defaultValue={120}
-            />
-          </label>
-        </div>
-      )}
-      {!campaign && (
         <p className="text-sm text-stone-500">
-          A duração é uma referência. Você decide quando pausar ou encerrar cada
-          sessão.
+          Aventura padrão: Gloamhale v5. Depois de criar a campanha, confira as
+          fichas fornecidas.
         </p>
       )}
       <button disabled={busy} className="primary-button" type="submit">

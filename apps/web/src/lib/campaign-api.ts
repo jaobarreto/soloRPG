@@ -8,6 +8,8 @@ export async function apiRequest<T>(
     ...options,
     cache: 'no-store',
     headers: { 'Content-Type': 'application/json', ...options.headers },
+  }).catch(() => {
+    throw new Error('A conexão com o CAOS foi interrompida. Tente novamente.');
   });
   const body: unknown = await response.json().catch(() => null);
   if (!response.ok) {
@@ -15,6 +17,10 @@ export async function apiRequest<T>(
       body && typeof body === 'object' && 'message' in body
         ? body.message
         : null;
+    if (message === 'Internal server error')
+      throw new Error(
+        'O CAOS não conseguiu concluir a operação. Tente novamente.',
+      );
     throw new Error(
       Array.isArray(message)
         ? message.join('; ')
@@ -58,8 +64,29 @@ export const campaignLabels = {
   COMPLETED: 'Concluída',
 };
 export const modeLabels = {
-  SPEAK: 'Falar',
-  ACT: 'Fazer',
-  THINK: 'Pensar',
-  OUT_OF_CHARACTER: 'Fora do RPG',
+  OUT_OF_CHARACTER: 'Una',
+  SPEAK: 'Fala',
+  ACT: 'Ação',
+  THINK: 'Pensamento',
+  REQUEST_CHECK: 'Pedir teste',
+  ROLL_RESULT: 'Resultado de rolagem',
 };
+
+export const modePlaceholders = {
+  OUT_OF_CHARACTER: 'Pergunte algo à narradora...',
+  SPEAK: 'O que sua personagem diz?',
+  ACT: 'O que sua personagem tenta fazer?',
+  THINK: 'O que passa pela cabeça da personagem?',
+  REQUEST_CHECK: 'Qual teste você gostaria de solicitar?',
+  ROLL_RESULT: 'Informe os dois dados comuns e depois o Dado de Drama...',
+};
+
+export function requestId() {
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6]! & 15) | 64;
+  bytes[8] = (bytes[8]! & 63) | 128;
+  const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join(
+    '',
+  );
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}

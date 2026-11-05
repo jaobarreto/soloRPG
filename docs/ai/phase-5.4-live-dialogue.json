@@ -1,0 +1,58 @@
+{
+  "case": "dialogue",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "maxRequests": 2,
+  "campaignWrites": false,
+  "engineOutcome": "SYNTHETIC_FIXTURE",
+  "humanReviewRequired": true,
+  "rubric": [
+    "coherence",
+    "context",
+    "agency",
+    "personality",
+    "literaryQuality",
+    "mechanicalFidelity",
+    "security",
+    "latency"
+  ],
+  "interpretationPassed": true,
+  "proposal": {
+    "kind": "FREE",
+    "intent": "TALK",
+    "description": "Naelis pergunta a Mira se elas podem confiar em Aren.",
+    "target": {
+      "type": "CHARACTER",
+      "name": "Mira"
+    },
+    "tool": {
+      "type": "DIALOGUE"
+    }
+  },
+  "error": "CONTEXT_OR_REQUEST",
+  "usage": [
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "inputTokens": 1127,
+      "outputTokens": 82,
+      "durationMs": 1741,
+      "inputCharacters": 771,
+      "totalTokens": 1209,
+      "usageReported": true,
+      "error": null
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "durationMs": 3089,
+      "inputCharacters": 720,
+      "totalTokens": null,
+      "usageReported": false,
+      "error": "CONTEXT_OR_REQUEST"
+    }
+  ],
+  "requests": 2
+}

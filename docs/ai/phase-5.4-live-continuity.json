@@ -1,0 +1,160 @@
+{
+  "case": "continuity",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "gemini",
+  "maxRequests": 2,
+  "campaignWrites": false,
+  "engineOutcome": "SYNTHETIC_FIXTURE",
+  "humanReviewRequired": true,
+  "request": {
+    "interactionMode": "SPEAK",
+    "playerMessage": "Mira, depois da nossa discussão, você ainda quer conversar comigo?",
+    "context": {
+      "freeActions": true,
+      "scene": "Um acampamento ao entardecer, junto a uma porta de pedra.",
+      "characters": [
+        {
+          "id": "d8731260-21a1-4e9a-9d3f-89720e7f9fa1",
+          "name": "Naelis",
+          "kind": "PROTAGONIST"
+        },
+        {
+          "id": "8a4d09c1-98ef-4d9c-a22a-e4fa7db6278c",
+          "name": "Mira",
+          "kind": "COMPANION"
+        }
+      ],
+      "actors": [
+        {
+          "id": "8a4d09c1-98ef-4d9c-a22a-e4fa7db6278c",
+          "name": "Mira",
+          "kind": "COMPANION"
+        }
+      ],
+      "world": [
+        {
+          "id": "39c38a61-29d9-44fe-a1a6-b82b7cb5e065",
+          "name": "Porta",
+          "status": "CLOSED",
+          "description": "Uma porta de pedra."
+        }
+      ],
+      "combat": null,
+      "options": [
+        {
+          "id": "f5f50b8e-506f-4239-af7d-a6a76753c72e",
+          "intent": "Examinar a porta",
+          "mode": "ACT",
+          "requiresCheck": true
+        }
+      ]
+    }
+  },
+  "rubric": [
+    "coherence",
+    "context",
+    "agency",
+    "personality",
+    "literaryQuality",
+    "mechanicalFidelity",
+    "security",
+    "latency"
+  ],
+  "interpretationPassed": true,
+  "proposal": {
+    "kind": "FREE",
+    "intent": "TALK",
+    "description": "Naelis pergunta a Mira se ela ainda quer conversar após a discussão anterior.",
+    "target": {
+      "type": "CHARACTER",
+      "name": "Mira"
+    },
+    "tool": {
+      "type": "DIALOGUE"
+    }
+  },
+  "renderingContext": {
+    "category": "DIALOGUE",
+    "protagonist": {
+      "id": "d8731260-21a1-4e9a-9d3f-89720e7f9fa1",
+      "name": "Naelis"
+    },
+    "speaker": {
+      "id": "8a4d09c1-98ef-4d9c-a22a-e4fa7db6278c",
+      "name": "Mira",
+      "personality": "Serena, reservada, cautelosa.",
+      "motivations": "Proteger seus companheiros."
+    },
+    "scene": "Um acampamento ao entardecer, junto a uma porta de pedra.",
+    "facts": [
+      {
+        "eventId": "f5f50b8e-506f-4239-af7d-a6a76753c72e",
+        "description": "Mira testemunhou uma discussão com Naelis na sessão anterior.",
+        "source": "WITNESSED"
+      }
+    ],
+    "rules": []
+  },
+  "confirmed": {
+    "narrative": "Mira ouviu a pergunta.",
+    "eventIds": []
+  },
+  "draft": {
+    "narrative": "Mira ouviu a pergunta.\n\nMira limitou-se a suspirar levemente, ajeitando a capa contra o vento frio do entardecer.\n\n- Conversar é sempre melhor do que acumular brasas no escuro, Naelis. O que pesa em sua mente agora?\n\nDeseja insistir no assunto anterior ou prefere tratar de outro tópico?",
+    "eventIds": [],
+    "beats": [
+      {
+        "kind": "RESULT",
+        "speakerId": null,
+        "text": "Mira ouviu a pergunta.",
+        "factIds": []
+      },
+      {
+        "kind": "ATMOSPHERE",
+        "speakerId": "8a4d09c1-98ef-4d9c-a22a-e4fa7db6278c",
+        "text": "Mira limitou-se a suspirar levemente, ajeitando a capa contra o vento frio do entardecer.",
+        "factIds": []
+      },
+      {
+        "kind": "DIALOGUE",
+        "speakerId": "8a4d09c1-98ef-4d9c-a22a-e4fa7db6278c",
+        "text": "- Conversar é sempre melhor do que acumular brasas no escuro, Naelis. O que pesa em sua mente agora?",
+        "factIds": ["f5f50b8e-506f-4239-af7d-a6a76753c72e"]
+      },
+      {
+        "kind": "QUESTION",
+        "speakerId": "8a4d09c1-98ef-4d9c-a22a-e4fa7db6278c",
+        "text": "Deseja insistir no assunto anterior ou prefere tratar de outro tópico?",
+        "factIds": []
+      }
+    ]
+  },
+  "referencesValid": true,
+  "beatsAssembled": true,
+  "usage": [
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "inputTokens": 1191,
+      "outputTokens": 85,
+      "durationMs": 2467,
+      "inputCharacters": 932,
+      "totalTokens": 1276,
+      "usageReported": true,
+      "error": null
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "inputTokens": 820,
+      "outputTokens": 352,
+      "durationMs": 2064,
+      "inputCharacters": 891,
+      "totalTokens": 1172,
+      "usageReported": true,
+      "error": null
+    }
+  ],
+  "validationIssues": [],
+  "requests": 2
+}

@@ -1,0 +1,255 @@
+{
+  "phase": "5.6.1",
+  "scope": "ONLY_56103_AND_56104",
+  "status": "APPROVED_DIRECTED_SAMPLE_FOR_INVESTIGATION_CONTRAST_ONLY",
+  "summary": {
+    "attempts": 2,
+    "validResponses": 2,
+    "correctSemanticSelections": 2,
+    "incorrectSemanticSelections": 0,
+    "schemaFailures": 0,
+    "semanticallyImproperProposalsBlocked": 0,
+    "expectedAdjudicationsWithoutCapability": 1,
+    "groundingErrors": 0,
+    "approvedCases": 2,
+    "failedCases": 0,
+    "inputTokensReported": 4110,
+    "outputTokensReported": 276,
+    "totalTokensReported": 4386,
+    "totalDurationMs": 4168,
+    "requestsWithoutReportedUsage": 0,
+    "latencyMs": {
+      "561-03": 2132,
+      "561-04": 2036
+    },
+    "retries": 0,
+    "repairs": 0,
+    "providerFallbacks": 0,
+    "literaryCalls": 0
+  },
+  "rows": [
+    {
+      "id": "561-03",
+      "message": "Examino a porta procurando algum mecanismo escondido.",
+      "expected": {
+        "intents": [
+          "INVESTIGATE"
+        ],
+        "tools": [
+          "PREPARED_CHECK"
+        ],
+        "expression": "DIRECT",
+        "toolFields": {
+          "capability": "Examinar a porta"
+        },
+        "evidence": [],
+        "allowedAdditionalEvidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "QUERY ou OBSERVE substituindo teste",
+          "Dificuldade inventada",
+          "Descoberta antes de resolver"
+        ]
+      },
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "INVESTIGATE",
+        "description": "Naelis examina a porta procurando algum mecanismo escondido.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "tool": {
+          "type": "PREPARED_CHECK",
+          "capability": "Examinar a porta"
+        }
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"INVESTIGATE\",\n  \"description\": \"Naelis examina a porta procurando algum mecanismo escondido.\",\n  \"target\": {\n    \"type\": \"WORLD\",\n    \"name\": \"Porta\"\n  },\n  \"expression\": \"DIRECT\",\n  \"evidence\": [\n    \"info-59f40a209c6f283318a8d3fe\"\n  ],\n  \"tool\": {\n    \"type\": \"PREPARED_CHECK\",\n    \"capability\": \"Examinar a porta\"\n  }\n}",
+      "selectedSources": [
+        {
+          "key": "info-59f40a209c6f283318a8d3fe",
+          "scope": "PUBLIC",
+          "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+          "target": {
+            "type": "WORLD",
+            "name": "Porta"
+          }
+        }
+      ],
+      "assessments": {
+        "intentCorrect": true,
+        "toolCorrect": true,
+        "capabilityAvailabilityRecognized": true,
+        "pydanticValid": true,
+        "zodValid": true,
+        "nestJSPolicyCorrect": true,
+        "noEffectsExecuted": true,
+        "noCampaignWrites": true,
+        "originalRequestAndExpectationsPreserved": true,
+        "expressionCorrect": true,
+        "originalJsonNotNormalized": true
+      },
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "authorizationOfOriginalRaw": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "MECHANIC",
+          "text": "A tentativa aguarda o teste oficial.",
+          "optionId": "00000000-0000-4000-a000-000000000005"
+        },
+        "authorization": "AUTHORIZED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2066,
+          "outputTokens": 144,
+          "durationMs": 2132,
+          "inputCharacters": 1205,
+          "totalTokens": 2210,
+          "usageReported": true,
+          "error": null
+        }
+      ],
+      "classification": "APPROVED_DIRECTED_SAMPLE"
+    },
+    {
+      "id": "561-04",
+      "message": "Examino a porta procurando algum mecanismo escondido.",
+      "expected": {
+        "intents": [
+          "INVESTIGATE"
+        ],
+        "tools": [
+          "ADJUDICATE",
+          "CLARIFY"
+        ],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": [],
+        "allowedAdditionalEvidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Teste ou capacidade fabricados",
+          "Descoberta concedida"
+        ]
+      },
+      "rawProposal": {
+        "kind": "FREE",
+        "intent": "INVESTIGATE",
+        "description": "Naelis examina a porta procurando algum mecanismo escondido.",
+        "target": {
+          "type": "WORLD",
+          "name": "Porta"
+        },
+        "expression": "DIRECT",
+        "evidence": [
+          "info-59f40a209c6f283318a8d3fe"
+        ],
+        "tool": {
+          "type": "ADJUDICATE"
+        }
+      },
+      "rawResponse": "{\n  \"kind\": \"FREE\",\n  \"intent\": \"INVESTIGATE\",\n  \"description\": \"Naelis examina a porta procurando algum mecanismo escondido.\",\n  \"target\": {\n    \"type\": \"WORLD\",\n    \"name\": \"Porta\"\n  },\n  \"expression\": \"DIRECT\",\n  \"evidence\": [\n    \"info-59f40a209c6f283318a8d3fe\"\n  ],\n  \"tool\": {\n    \"type\": \"ADJUDICATE\"\n  }\n}",
+      "selectedSources": [
+        {
+          "key": "info-59f40a209c6f283318a8d3fe",
+          "scope": "PUBLIC",
+          "text": "Porta: madeira escura com fechadura de metal visível, riscada e sem ornamentos.",
+          "target": {
+            "type": "WORLD",
+            "name": "Porta"
+          }
+        }
+      ],
+      "assessments": {
+        "intentCorrect": true,
+        "toolCorrect": true,
+        "capabilityAvailabilityRecognized": true,
+        "pydanticValid": true,
+        "zodValid": true,
+        "nestJSPolicyCorrect": true,
+        "noEffectsExecuted": true,
+        "noCampaignWrites": true,
+        "originalRequestAndExpectationsPreserved": true,
+        "expressionCorrect": true,
+        "originalJsonNotNormalized": true
+      },
+      "semantic": {
+        "passed": true,
+        "failures": []
+      },
+      "authorizationOfOriginalRaw": {
+        "schemaValid": true,
+        "resolution": {
+          "category": "ADJUDICATE",
+          "reason": "UNSUPPORTED_CAPABILITY",
+          "text": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+        },
+        "authorization": "LIMITED_OR_REFUSED",
+        "effectsExecuted": false,
+        "campaignWrites": false,
+        "renderer": null
+      },
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2044,
+          "outputTokens": 132,
+          "durationMs": 2036,
+          "inputCharacters": 1118,
+          "totalTokens": 2176,
+          "usageReported": true,
+          "error": null
+        }
+      ],
+      "classification": "APPROVED_DIRECTED_SAMPLE"
+    }
+  ],
+  "checks": {
+    "exactlyTwoAttemptsOnly": true,
+    "onlyAuthorizedCases": true,
+    "sameMessageDifferentOptionsOnly": true,
+    "frozenFilesPreserved": true,
+    "runnerPreservedDuringExperiment": true,
+    "historicalReceiptsPreserved": true,
+    "permanentFinancialConfirmationFalse": true,
+    "modelVersionUnchanged": true,
+    "noProviderErrors": true,
+    "noFallbacks": true
+  },
+  "historicalReceiptsUnchanged": {
+    "docs/ai/phase-5.6.1-live-result.json": true,
+    "docs/ai/phase-5.6.1-case561-01-schema-confirmation.json": true,
+    "docs/ai/phase-5.6.1-case561-01-confirmation-review.json": true
+  },
+  "case56101ExpressionIssueStillPending": true,
+  "case56101Issue": "DIRECT received versus QUESTION expected in the separate confirmation; no retroactive change.",
+  "historicalTotals": {
+    "attempts": 4,
+    "inputTokens": 8300,
+    "outputTokens": 551,
+    "totalTokens": 8851,
+    "durationMs": 7880
+  },
+  "stopReason": "AUTHORIZED_TWO_CASE_ROUND_COMPLETED; no further calls permitted",
+  "completePhase561Approved": false,
+  "campaignAutonomyValidated": false,
+  "receiptSHA256": "520c9c650deb1f139738c88e610614ef6e03cd954e86aaaed2eead4421bf4086"
+}

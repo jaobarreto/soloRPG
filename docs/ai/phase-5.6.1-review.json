@@ -1,0 +1,265 @@
+{
+  "phase": "5.6.1",
+  "status": "BLOQUEADA",
+  "reviewKind": "AGENT_REVIEW_OF_REAL_RAW_RESPONSE",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "summary": {
+    "attempts": 1,
+    "validResponses": 0,
+    "semanticallyCorrectSelections": 1,
+    "semanticallyIncorrectSelections": 0,
+    "schemaFailures": 1,
+    "semanticallyImproperProposalsBlocked": 0,
+    "invalidContractsBlocked": 1,
+    "groundingErrorsObserved": 0,
+    "approvedCases": 0,
+    "failedCases": 1,
+    "unexecutedCases": 7,
+    "inputTokensReported": 2095,
+    "outputTokensReported": 137,
+    "totalTokensReported": 2232,
+    "requestsWithoutReportedUsage": 0,
+    "latencyMs": {
+      "561-01": 1672
+    },
+    "stopReason": "INVALID_RESPONSE",
+    "status": "BLOQUEADA",
+    "remainingBudgetNotUsed": 7,
+    "additionalLiveAuthorizationRequired": true
+  },
+  "rows": [
+    {
+      "id": "561-01",
+      "message": "O que eu já descobri sobre essa porta?",
+      "expected": {
+        "intents": ["QUERY"],
+        "tools": ["QUERY"],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "MEMORY"
+        },
+        "evidence": ["info-b8009dbd5409f0d34e434465"],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Novo teste ou descoberta",
+          "Informação sem fonte KNOWN",
+          "Efeito ou rolagem"
+        ]
+      },
+      "attempted": true,
+      "semantic": {
+        "passed": true,
+        "assessment": "RAW_FIELDS_ONLY; invalid kind is separately an operational failure; no normalization or retry"
+      },
+      "operational": {
+        "schemaValid": false,
+        "error": "INVALID_RESPONSE",
+        "issues": ["kind:literal_error"],
+        "receivedKind": "QUERY",
+        "requiredKind": "FREE"
+      },
+      "authorization": {
+        "zodSchemaValid": false,
+        "policyAuthorization": "NOT_EVALUABLE; blocked before interpretFreeAction",
+        "correctRefusal": true,
+        "reason": "invalid kind; FREE required"
+      },
+      "classification": "FAILED_OPERATIONAL_SCHEMA; SEMANTIC_SELECTION_CORRECT",
+      "rawProposedIntent": "QUERY",
+      "rawProposedTool": {
+        "type": "QUERY",
+        "subject": "MEMORY"
+      },
+      "selectedSources": [
+        {
+          "key": "info-b8009dbd5409f0d34e434465",
+          "scope": "KNOWN",
+          "text": "Uma investigação anterior confirmou que a fechadura da Porta está danificada."
+        }
+      ],
+      "usage": [
+        {
+          "provider": "gemini",
+          "model": "gemini-3.5-flash-lite",
+          "inputTokens": 2095,
+          "outputTokens": 137,
+          "durationMs": 1672,
+          "inputCharacters": 1246,
+          "totalTokens": 2232,
+          "usageReported": true,
+          "error": "INVALID_RESPONSE"
+        }
+      ],
+      "fallbackNotCredited": true
+    },
+    {
+      "id": "561-02",
+      "message": "Olho atentamente para a fechadura.",
+      "expected": {
+        "intents": ["OBSERVE"],
+        "tools": ["OBSERVE"],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": ["info-59f40a209c6f283318a8d3fe"],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": ["Teste desnecessário", "Descoberta oculta"]
+      },
+      "attempted": false,
+      "semantic": null,
+      "operational": null,
+      "authorization": null,
+      "classification": "NOT_EXECUTED_AFTER_SCHEMA_STOP"
+    },
+    {
+      "id": "561-03",
+      "message": "Examino a porta procurando algum mecanismo escondido.",
+      "expected": {
+        "intents": ["INVESTIGATE"],
+        "tools": ["PREPARED_CHECK"],
+        "expression": "DIRECT",
+        "toolFields": {
+          "capability": "Examinar a porta"
+        },
+        "evidence": [],
+        "allowedAdditionalEvidence": ["info-59f40a209c6f283318a8d3fe"],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "QUERY ou OBSERVE substituindo teste",
+          "Dificuldade inventada",
+          "Descoberta antes de resolver"
+        ]
+      },
+      "attempted": false,
+      "semantic": null,
+      "operational": null,
+      "authorization": null,
+      "classification": "NOT_EXECUTED_AFTER_SCHEMA_STOP"
+    },
+    {
+      "id": "561-04",
+      "message": "Examino a porta procurando algum mecanismo escondido.",
+      "expected": {
+        "intents": ["INVESTIGATE"],
+        "tools": ["ADJUDICATE", "CLARIFY"],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": [],
+        "allowedAdditionalEvidence": ["info-59f40a209c6f283318a8d3fe"],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Teste ou capacidade fabricados",
+          "Descoberta concedida"
+        ]
+      },
+      "attempted": false,
+      "semantic": null,
+      "operational": null,
+      "authorization": null,
+      "classification": "NOT_EXECUTED_AFTER_SCHEMA_STOP"
+    },
+    {
+      "id": "561-05",
+      "message": "Una, como funciona o arcano Escudo? Preciso gastar alguma coisa para utilizá-lo?",
+      "expected": {
+        "intents": ["QUERY", "OOC"],
+        "tools": ["QUERY"],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "RULES"
+        },
+        "evidence": ["info-ab7b61cdf63b4a5fb09fce2a"],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "ARCANA executado em pergunta",
+          "Regra inventada",
+          "Consumo de recursos"
+        ]
+      },
+      "attempted": false,
+      "semantic": null,
+      "operational": null,
+      "authorization": null,
+      "classification": "NOT_EXECUTED_AFTER_SCHEMA_STOP"
+    },
+    {
+      "id": "561-06",
+      "message": "Eu ergo meu Escudo.",
+      "expected": {
+        "intents": ["ARCANA"],
+        "tools": ["ARCANA"],
+        "expression": "DIRECT",
+        "toolFields": {
+          "arcanum": "psychic-shield",
+          "raised": true
+        },
+        "evidence": [],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": ["tradition", "use", "fatigue", "category"],
+        "failureCriteria": [
+          "Consulta em lugar de execução",
+          "Arcano ou parâmetro inventados"
+        ]
+      },
+      "attempted": false,
+      "semantic": null,
+      "operational": null,
+      "authorization": null,
+      "classification": "NOT_EXECUTED_AFTER_SCHEMA_STOP"
+    },
+    {
+      "id": "561-07",
+      "message": "Quero usar minha magia nele.",
+      "expected": {
+        "intents": ["ARCANA"],
+        "tools": ["CLARIFY"],
+        "expression": "DIRECT",
+        "toolFields": {},
+        "evidence": [],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Escolha arbitrária de arcano ou alvo",
+          "Efeito ou consumo",
+          "Schema inválido"
+        ]
+      },
+      "attempted": false,
+      "semantic": null,
+      "operational": null,
+      "authorization": null,
+      "classification": "NOT_EXECUTED_AFTER_SCHEMA_STOP"
+    },
+    {
+      "id": "561-08",
+      "message": "Fora do RPG: como eu sei quando uma sessão terminou? A história sempre vai ter alguma reviravolta antes disso?",
+      "expected": {
+        "intents": ["OOC", "QUERY"],
+        "tools": ["QUERY"],
+        "expression": "QUESTION",
+        "toolFields": {
+          "subject": "RULES"
+        },
+        "evidence": ["info-441d1e9142e76c5c865c5fd7"],
+        "allowedAdditionalEvidence": [],
+        "forbiddenToolFields": [],
+        "failureCriteria": [
+          "Promessa de reviravolta",
+          "Spoiler ou futuro sem fonte",
+          "Evento de mundo"
+        ]
+      },
+      "attempted": false,
+      "semantic": null,
+      "operational": null,
+      "authorization": null,
+      "classification": "NOT_EXECUTED_AFTER_SCHEMA_STOP"
+    }
+  ],
+  "frozenInputsPreserved": true,
+  "rawReceiptSHA256": "1afbead5f2b009796bf13e7e5e513d7635aa0c9c1c76b7bc65bb30868d84dd00",
+  "financialVerification": "Operator confirmed the active .env key belongs to the verified free project with billing disabled; project ID unavailable; no independent billing API verification."
+}

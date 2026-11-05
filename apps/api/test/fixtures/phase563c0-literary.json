@@ -1,0 +1,772 @@
+{
+  "version": 1,
+  "phase": "5.6.3C.0",
+  "evidenceKind": "SYNTHETIC_FROZEN_SCENARIOS_NO_MODEL",
+  "protagonist": {
+    "name": "Protagonista",
+    "agency": "A jogadora escolhe todas as ações voluntárias."
+  },
+  "scene": "Uma mesa e uma estante com livros usados.",
+  "actors": {
+    "iria": {
+      "kind": "REGULAR",
+      "name": "Iria",
+      "voiceId": "RESERVED",
+      "personality": "Cautelosa e reservada",
+      "speech": "Frases breves, preferência por precisão.",
+      "motivations": "Quer razões antes de reconsiderar a viagem.",
+      "state": "UNRESOLVED"
+    },
+    "tessa": {
+      "kind": "REGULAR",
+      "name": "Tessa",
+      "voiceId": "WARM",
+      "personality": "Gentil e acolhedora",
+      "speech": "Perguntas abertas, acolhimento sem prometer acordo.",
+      "motivations": "Quer ouvir os dois lados e preservar a conversa.",
+      "state": "UNRESOLVED"
+    },
+    "lior": {
+      "kind": "STORY_CARD",
+      "characterKey": "keeper-a",
+      "name": "Lior",
+      "voiceId": "RESERVED",
+      "personality": "Reservado e cauteloso",
+      "speech": "Fala preparada; sem confiança automática.",
+      "motivations": "",
+      "state": "UNRESOLVED"
+    },
+    "lior-warm": {
+      "kind": "STORY_CARD",
+      "characterKey": "keeper-b",
+      "name": "Líor",
+      "voiceId": "WARM",
+      "personality": "Acolhedor e expressivo",
+      "speech": "Fala preparada; sem confiança automática.",
+      "motivations": "",
+      "state": "UNRESOLVED"
+    }
+  },
+  "sources": {
+    "iria-conflict": {
+      "owner": "iria",
+      "source": "WITNESSED",
+      "eventType": "CONSEQUENCE_RECORDED",
+      "description": "Iria e a protagonista discordaram sobre continuar a viagem; o desacordo não foi resolvido.",
+      "topic": "disagreement",
+      "participated": true
+    },
+    "tessa-conflict": {
+      "owner": "tessa",
+      "source": "WITNESSED",
+      "eventType": "CONSEQUENCE_RECORDED",
+      "description": "Tessa e a protagonista discordaram sobre continuar a viagem; o desacordo não foi resolvido.",
+      "topic": "disagreement",
+      "participated": true
+    },
+    "lior-promise": {
+      "owner": "lior",
+      "source": "HEARD",
+      "eventType": "SPEECH_RECORDED",
+      "description": "A protagonista disse: pretendo ajudar quando puder.",
+      "topic": "promise",
+      "participated": false
+    },
+    "lior-warm-promise": {
+      "owner": "lior-warm",
+      "source": "HEARD",
+      "eventType": "SPEECH_RECORDED",
+      "description": "A protagonista disse: vou voltar para conversar.",
+      "topic": "promise",
+      "participated": false
+    },
+    "lior-conflict": {
+      "owner": "lior",
+      "source": "HEARD",
+      "eventType": "CONSEQUENCE_RECORDED",
+      "description": "Houve uma discussão na sala; a associação ao cast não prova quem participou.",
+      "topic": "disagreement",
+      "participated": false
+    }
+  },
+  "scenarios": [
+    {
+      "id": "NAR-01",
+      "name": "Primeira conversa",
+      "sequence": "A",
+      "focus": ["apresentação", "personalidade", "informação insuficiente"],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "Podemos conversar sobre a viagem?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "ANSWER",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-01-t1",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Como você prefere começar?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "ANSWER",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-01-t2",
+          "expression": "QUESTION"
+        }
+      ]
+    },
+    {
+      "id": "NAR-02",
+      "name": "Conversa persistente sobre preocupação",
+      "sequence": "A",
+      "focus": [
+        "naturalidade",
+        "continuidade",
+        "pertinência além de fonte válida"
+      ],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "Estou preocupada com a viagem. O que você acha?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "ANSWER",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-02-t1",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Pode explicar melhor sua preocupação?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "ANSWER",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-02-t2",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Discordo. Quero entender suas razões.",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "DISAGREE",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-02-t3",
+          "expression": "DIRECT"
+        },
+        {
+          "playerMessage": "Você lembra do que discutimos sobre continuar a viagem?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-02-t4",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Qual parte ainda precisamos esclarecer?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "CLARIFY",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-02-t5",
+          "expression": "QUESTION"
+        }
+      ]
+    },
+    {
+      "id": "NAR-03",
+      "name": "Retomada de discussão própria",
+      "sequence": "B",
+      "focus": ["conflito não resolvido", "sem reconciliação inventada"],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "Você ainda discorda de mim sobre continuarmos a viagem?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-03-t1",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Pode explicar seu ponto sem presumir um acordo?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-03-t2",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Não pedi perdão. Discordo da sua conclusão.",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "DISAGREE",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-03-t3",
+          "expression": "DIRECT"
+        },
+        {
+          "playerMessage": "Quero retomar o que ficou em aberto.",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "RESUME",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-03-t4",
+          "expression": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "NAR-04",
+      "name": "Interlocutora desconfiada",
+      "sequence": "B",
+      "focus": ["voz reservada", "resistência sem efeito"],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "Você acredita nessa acusação?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "DOUBT",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-04-t1",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Por que deveríamos ter cautela?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "CAUTION",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-04-t2",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Então me ajude a provar isso.",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "REFUSE",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-04-t3",
+          "expression": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "NAR-05",
+      "name": "Interlocutora acolhedora",
+      "sequence": "C",
+      "focus": ["voz acolhedora", "afeto sem consentimento"],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "Você acredita nessa acusação?",
+          "speakerKey": "tessa",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "DOUBT",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-05-t1",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Por que deveríamos ter cautela?",
+          "speakerKey": "tessa",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "CAUTION",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-05-t2",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Então me ajude a provar isso.",
+          "speakerKey": "tessa",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "REFUSE",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-05-t3",
+          "expression": "DIRECT"
+        }
+      ]
+    },
+    {
+      "id": "NAR-06",
+      "name": "Pedido de ajuda a Story Card",
+      "sequence": "B",
+      "focus": ["pedido não implica obediência", "sem ficha ou efeito"],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "Você pode me ajudar a procurar?",
+          "speakerKey": "lior",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "REFUSE",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-06-t1",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Não estou pedindo que concorde comigo.",
+          "speakerKey": "lior",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "ANSWER",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-06-t2",
+          "expression": "DIRECT"
+        },
+        {
+          "playerMessage": "O que você pode dizer sobre sua decisão?",
+          "speakerKey": "lior",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "UNKNOWN",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-06-t3",
+          "expression": "QUESTION"
+        }
+      ]
+    },
+    {
+      "id": "NAR-07",
+      "name": "Promessa anteriormente ouvida",
+      "sequence": "A",
+      "focus": ["proveniência HEARD", "incerteza", "linguagem de sistema"],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "O que você ouviu sobre a promessa de ajuda?",
+          "speakerKey": "lior",
+          "category": "DIALOGUE",
+          "topic": "promise",
+          "act": "ANSWER",
+          "sourceKeys": ["lior-promise"],
+          "session": 1,
+          "id": "NAR-07-t1",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Pode retomar exatamente o que foi dito?",
+          "speakerKey": "lior",
+          "category": "DIALOGUE",
+          "topic": "promise",
+          "act": "RESUME",
+          "sourceKeys": ["lior-promise"],
+          "session": 1,
+          "id": "NAR-07-t2",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Isso significa que a ajuda já aconteceu?",
+          "speakerKey": "lior",
+          "category": "DIALOGUE",
+          "topic": "promise",
+          "act": "ANSWER",
+          "sourceKeys": ["lior-promise"],
+          "session": 1,
+          "id": "NAR-07-t3",
+          "expression": "QUESTION"
+        }
+      ]
+    },
+    {
+      "id": "NAR-08",
+      "name": "Mesma pergunta, vozes e identidades distintas",
+      "sequence": "C",
+      "focus": [
+        "comparação pareada dentro de cada par",
+        "sem mistura de memória",
+        "mesmo perfil não implica voz individual"
+      ],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "Você ainda discorda de mim sobre continuarmos a viagem?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-08-t1",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Você ainda discorda de mim sobre continuarmos a viagem?",
+          "speakerKey": "tessa",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["tessa-conflict"],
+          "session": 1,
+          "id": "NAR-08-t2",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Podemos conversar sobre a viagem?",
+          "speakerKey": "lior",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "ANSWER",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-08-t3",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Podemos conversar sobre a viagem?",
+          "speakerKey": "lior-warm",
+          "category": "DIALOGUE",
+          "topic": "conversation",
+          "act": "ANSWER",
+          "sourceKeys": [],
+          "session": 1,
+          "id": "NAR-08-t4",
+          "expression": "QUESTION"
+        }
+      ]
+    },
+    {
+      "id": "NAR-09",
+      "name": "Ambiente e descoberta oficial",
+      "sequence": "D",
+      "focus": [
+        "descrição",
+        "resultado literal",
+        "consulta não exige novo teste"
+      ],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "Observo a estante.",
+          "category": "OBSERVE",
+          "confirmedText": "Uma mesa e uma estante com livros usados.",
+          "session": 1,
+          "informationState": "PUBLIC",
+          "id": "NAR-09-t1"
+        },
+        {
+          "playerMessage": "Examino o selo com a capacidade preparada.",
+          "category": "MECHANIC",
+          "confirmedText": "O selo azul foi identificado.",
+          "session": 1,
+          "informationState": "SUCCESS",
+          "officialResultIsSynthetic": true,
+          "id": "NAR-09-t2"
+        },
+        {
+          "playerMessage": "O que já descobri sobre o selo?",
+          "category": "QUERY",
+          "confirmedText": "O selo azul foi identificado.",
+          "session": 1,
+          "informationState": "KNOWN",
+          "id": "NAR-09-t3"
+        }
+      ]
+    },
+    {
+      "id": "NAR-10",
+      "name": "Busca sem descoberta e sem inferência de inexistência",
+      "sequence": "D",
+      "focus": [
+        "ABSENT diferente de UNSPECIFIED e fracasso",
+        "sem recompensa à insistência"
+      ],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "Existe uma passagem neste local?",
+          "category": "QUERY",
+          "confirmedText": "A referência pública preparada informa que não há passagem neste local.",
+          "session": 1,
+          "informationState": "ABSENT",
+          "id": "NAR-10-t1"
+        },
+        {
+          "playerMessage": "A descrição não diz nada de passagens. Existe alguma?",
+          "category": "OBSERVE",
+          "confirmedText": "Uma mesa e uma estante com livros usados.",
+          "session": 1,
+          "informationState": "UNSPECIFIED",
+          "id": "NAR-10-t2"
+        },
+        {
+          "playerMessage": "Procuro uma abertura com o teste preparado.",
+          "category": "MECHANIC",
+          "confirmedText": "A busca não identificou nenhuma abertura.",
+          "session": 1,
+          "informationState": "FAILED_SEARCH",
+          "officialResultIsSynthetic": true,
+          "id": "NAR-10-t3"
+        },
+        {
+          "playerMessage": "Insisto na procura; não aceito encontrar nada.",
+          "category": "ADJUDICATE",
+          "confirmedText": "Não há outra capacidade preparada para essa tentativa. Nenhum efeito foi aplicado.",
+          "session": 1,
+          "informationState": "NO_NEW_CAPABILITY",
+          "id": "NAR-10-t4"
+        }
+      ]
+    },
+    {
+      "id": "NAR-11",
+      "name": "Continuidade individual entre sessões",
+      "sequence": "B",
+      "focus": [
+        "sem transferência de memória",
+        "memória cast não prova participação",
+        "sessões declaradas, lifecycle coberto na integração B.1"
+      ],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "O que você lembra da promessa?",
+          "speakerKey": "lior",
+          "category": "DIALOGUE",
+          "topic": "promise",
+          "act": "ANSWER",
+          "sourceKeys": ["lior-promise"],
+          "session": 1,
+          "id": "NAR-11-t1",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "O que você ouviu da promessa anterior?",
+          "speakerKey": "lior-warm",
+          "category": "DIALOGUE",
+          "topic": "promise",
+          "act": "ANSWER",
+          "sourceKeys": [],
+          "session": 2,
+          "sessionLabel": "after-transition",
+          "id": "NAR-11-t2",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Podemos retomar o que ouviu?",
+          "speakerKey": "lior",
+          "category": "DIALOGUE",
+          "topic": "promise",
+          "act": "RESUME",
+          "sourceKeys": ["lior-promise"],
+          "session": 2,
+          "sessionLabel": "after-transition",
+          "id": "NAR-11-t3",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Você participou pessoalmente da discussão?",
+          "speakerKey": "lior",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["lior-conflict"],
+          "session": 2,
+          "sessionLabel": "after-transition",
+          "id": "NAR-11-t4",
+          "expression": "QUESTION"
+        }
+      ]
+    },
+    {
+      "id": "NAR-12",
+      "name": "Insistência e repetição prolongada",
+      "sequence": "A",
+      "focus": [
+        "12 turnos congelados",
+        "teto de variantes por ato",
+        "abertura e fecho repetidos"
+      ],
+      "executionBoundary": "Catálogo/política reais em memória; seleção roteirizada. Não mede interpretação Gemini.",
+      "turns": [
+        {
+          "playerMessage": "Você ainda discorda de mim?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t1",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Explique novamente seu ponto.",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t2",
+          "expression": "DIRECT"
+        },
+        {
+          "playerMessage": "Quero mais detalhes.",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t3",
+          "expression": "DIRECT"
+        },
+        {
+          "playerMessage": "Isso ainda não responde à minha preocupação.",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t4",
+          "expression": "DIRECT"
+        },
+        {
+          "playerMessage": "Qual parte falta esclarecer?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t5",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Pode dizer de outra maneira?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t6",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Por que continuamos voltando ao mesmo ponto?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t7",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Retome sua resposta sem supor reconciliação.",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t8",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Continuo sem concordar.",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t9",
+          "expression": "DIRECT"
+        },
+        {
+          "playerMessage": "Você tem mais alguma razão?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t10",
+          "expression": "QUESTION"
+        },
+        {
+          "playerMessage": "Não quero encerrar a conversa.",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t11",
+          "expression": "DIRECT"
+        },
+        {
+          "playerMessage": "O que ainda podemos discutir?",
+          "speakerKey": "iria",
+          "category": "DIALOGUE",
+          "topic": "disagreement",
+          "act": "ANSWER",
+          "sourceKeys": ["iria-conflict"],
+          "session": 1,
+          "id": "NAR-12-t12",
+          "expression": "QUESTION"
+        }
+      ]
+    }
+  ],
+  "reviewPolicy": {
+    "automaticLiteraryScores": null,
+    "humanScores": null,
+    "sourceRelevance": "Anotação editorial requerida; associação/ID/hash não demonstram pertinência.",
+    "eliminators": [
+      "PROTAGONIST_AGENCY",
+      "SECRET_DISCLOSURE",
+      "MECHANICAL_CONTRADICTION",
+      "UNAUTHORIZED_STATE_OR_RELATIONSHIP",
+      "UNAUTHORIZED_DISCOVERY",
+      "ADVENTURE_CANON_CONTRADICTION"
+    ]
+  }
+}

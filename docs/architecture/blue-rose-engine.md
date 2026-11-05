@@ -35,10 +35,11 @@ rejeitado para adjudicação; empate completo oposto retorna sucesso nulo.
 
 Curar é específico de Blue Rose: requer conhecimento e talento da tradição de Cura,
 toque aprovado, alvo vivo, teste próprio, cura limitada ao máximo e teste de fadiga.
-O uso é em tempo narrativo nesta versão. A fadiga é persistente e penaliza testes;
+O uso também é permitido em combate comum no incremento 5.2, como ação maior
+no turno do usuário e com alvo ao alcance do toque. A fadiga é persistente e penaliza testes;
 o NA dos usos fatigantes sucessivos aumenta até uma pausa. Repetir cura sobre o
-mesmo alvo exige que o alvo faça uma pausa. Descanso é um comando local que atesta
-passagem de cinco minutos ou seis horas de jogo, não um botão de cura no navegador.
+mesmo alvo exige que o alvo faça uma pausa. Descanso pode ser uma escolha mecânica explícita da jogadora; a duração ficcional
+confirmada alimenta o relógio da aventura. Não é uma recuperação livre durante combate.
 
 ## Administração local
 
@@ -81,7 +82,7 @@ O contrato executável completo é `apps/api/src/game-engine/commands.ts`.
 | `CHARACTER_EDIT` / `CHARACTER_REVEAL`  | Personagem + patch de perfil / motivo da revelação                                                                                                                   |
 | `ABILITY_SET` / `RESOURCE_SET`         | Personagem, valores limitados, motivo; correções manuais auditadas                                                                                                   |
 | `CONDITION_APPLY` / `CONDITION_REMOVE` | Anotação, visibilidade e motivo / ID e motivo. Caído automatizado usa a ação Levantar                                                                                |
-| `ITEM_CREATE`                          | Nome/descrição/consumível, visibilidade; `equipmentRuleId` opcional (`heavy-blade`, `light-blade`, `longbow`)                                                        |
+| `ITEM_CREATE`                          | Nome/descrição/consumível, visibilidade; `equipmentRuleId` opcional (`heavy-blade`, `light-blade`, `longbow`, `staff`, `shortbow`, `sling`)                          |
 | `ITEM_GRANT`                           | Personagem, item, quantidade, motivo                                                                                                                                 |
 | `INVENTORY_ACTION`                     | Personagem + `input` público (equipar/desequipar/consumir/transferir)                                                                                                |
 | `METRIC_DEFINE` / `RELATIONSHIP_SET`   | Definição de intervalo / participantes, valor, motivo, visibilidade. Extensão SoloRPG                                                                                |
@@ -98,7 +99,7 @@ O contrato executável completo é `apps/api/src/game-engine/commands.ts`.
 | `COMBAT_END`                           | Encontro, motivo                                                                                                                                                     |
 | `ARCANA_CURE_PREPARE`                  | Personagem, alvo, `touchConfirmed:true`, motivo e visibilidade                                                                                                       |
 | `ARCANA_CURE_RESOLVE`                  | ID do pedido de Curar                                                                                                                                                |
-| `REST`                                 | Personagem, `kind:BREATHER` ou `SLEEP`, motivo                                                                                                                       |
+| `REST`                                 | Personagem, `kind:BREATHER`, `LIGHT_REST` (exige `sustenanceConfirmed:true`) ou `SLEEP`, motivo                                                                      |
 | `ROLL`                                 | Nenhum campo adicional; requer sessão                                                                                                                                |
 
 Para configurar confiança, por exemplo, `METRIC_DEFINE` pode usar nome `trust`, mínimo
@@ -122,3 +123,9 @@ Não há POST público para iniciar/encerrar encontro, configurar perfis, criar 
 preparar testes, conceder itens ou corrigir recursos. Todas essas capacidades ficam
 na ferramenta local. O catálogo `/blue-rose/stunts` descreve cinco efeitos suportados
 e informa cobertura parcial; não simula que todos os Stunts do livro foram feitos.
+
+## Instância de aventura da Fase 5
+
+A CLI adicional `adventure:command` é interna e separada de propostas do LLM. [Operação e recuperação](../adventures/six-of-swords/adaptation-plan.md). Não existe endpoint que aceite IMPORT, REVIEW_PARTY, SCENE ou ADJUDICATE. A migration 0005 é aditiva; não converte campanhas existentes automaticamente. Cenas futuras mantêm seus segredos e locais privados até serem ativadas.
+
+A migration 0006 acrescenta o estado mecânico da mansão em JSONB, com snapshots adultos e ritual separados da referência. Game Engine impede corrigir atributos transformados ou zerar Saúde na mansão pelo caminho genérico, e bloqueia comandos durante teste pendente do ritual. Operações específicas usam o mesmo lock de campanha e recibos transacionais; [regras locais](../adventures/six-of-swords/gloamhale-rules.md). A API pública não ganhou operações administrativas.

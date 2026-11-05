@@ -1,0 +1,1066 @@
+{
+  "phase": "5.6.3B",
+  "evidenceKind": "OFFLINE_SCRIPTED_PUBLISHED_CORPUS_COMPARISON",
+  "realProviderRequests": 0,
+  "geminiLiteraryQualityCertified": false,
+  "automaticLiteraryScores": null,
+  "historicalPublishedTurnsReproduced": 58,
+  "comparisonLimit": "Same player sequence; B adds explicit reviewed bindings/current state and a scripted selector for prepared replies. Not a causal model eval.",
+  "runs": [
+    {
+      "scenarioId": "563A-01",
+      "selector": "FIRST",
+      "before": {
+        "turns": 5,
+        "identicalAdjacentReplies": 4,
+        "uniqueReplies": 1,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 12,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 7572
+      },
+      "after": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 4,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 9,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 8633
+      }
+    },
+    {
+      "scenarioId": "563A-01",
+      "selector": "VARIED",
+      "before": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 9,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 7636
+      },
+      "after": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 4,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 8,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 8633
+      }
+    },
+    {
+      "scenarioId": "563A-02",
+      "selector": "FIRST",
+      "before": {
+        "turns": 4,
+        "identicalAdjacentReplies": 3,
+        "uniqueReplies": 1,
+        "paragraphOccurrences": 12,
+        "repeatedParagraphOccurrences": 9,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 6855
+      },
+      "after": {
+        "turns": 4,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 4,
+        "paragraphOccurrences": 12,
+        "repeatedParagraphOccurrences": 6,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 8343
+      }
+    },
+    {
+      "scenarioId": "563A-02",
+      "selector": "VARIED",
+      "before": {
+        "turns": 4,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 4,
+        "paragraphOccurrences": 16,
+        "repeatedParagraphOccurrences": 6,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 8983
+      },
+      "after": {
+        "turns": 4,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 4,
+        "paragraphOccurrences": 12,
+        "repeatedParagraphOccurrences": 5,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 8343
+      }
+    },
+    {
+      "scenarioId": "563A-03",
+      "selector": "FIRST",
+      "before": {
+        "turns": 5,
+        "identicalAdjacentReplies": 1,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 5,
+        "repeatedParagraphOccurrences": 2,
+        "publishedFallbacks": 1,
+        "largestSerializedRequestCharacters": 1690
+      },
+      "after": {
+        "turns": 5,
+        "identicalAdjacentReplies": 1,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 5,
+        "repeatedParagraphOccurrences": 2,
+        "publishedFallbacks": 1,
+        "largestSerializedRequestCharacters": 1690
+      }
+    },
+    {
+      "scenarioId": "563A-03",
+      "selector": "VARIED",
+      "before": {
+        "turns": 5,
+        "identicalAdjacentReplies": 1,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 5,
+        "repeatedParagraphOccurrences": 2,
+        "publishedFallbacks": 1,
+        "largestSerializedRequestCharacters": 1690
+      },
+      "after": {
+        "turns": 5,
+        "identicalAdjacentReplies": 1,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 5,
+        "repeatedParagraphOccurrences": 2,
+        "publishedFallbacks": 1,
+        "largestSerializedRequestCharacters": 1690
+      }
+    },
+    {
+      "scenarioId": "563A-04",
+      "selector": "FIRST",
+      "before": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 10,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 5588
+      },
+      "after": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 8,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 7369
+      }
+    },
+    {
+      "scenarioId": "563A-04",
+      "selector": "VARIED",
+      "before": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 7,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 5618
+      },
+      "after": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 7,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 7369
+      }
+    },
+    {
+      "scenarioId": "563A-05",
+      "selector": "FIRST",
+      "before": {
+        "turns": 5,
+        "identicalAdjacentReplies": 2,
+        "uniqueReplies": 2,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 11,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 8057
+      },
+      "after": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 10,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 9673
+      }
+    },
+    {
+      "scenarioId": "563A-05",
+      "selector": "VARIED",
+      "before": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 19,
+        "repeatedParagraphOccurrences": 9,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 10185
+      },
+      "after": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 9,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 9657
+      }
+    },
+    {
+      "scenarioId": "563A-06",
+      "selector": "FIRST",
+      "before": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 11,
+        "repeatedParagraphOccurrences": 6,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 5115
+      },
+      "after": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 11,
+        "repeatedParagraphOccurrences": 4,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 6888
+      }
+    },
+    {
+      "scenarioId": "563A-06",
+      "selector": "VARIED",
+      "before": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 11,
+        "repeatedParagraphOccurrences": 4,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 5139
+      },
+      "after": {
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 11,
+        "repeatedParagraphOccurrences": 4,
+        "publishedFallbacks": 0,
+        "largestSerializedRequestCharacters": 6888
+      }
+    }
+  ],
+  "metrics": {
+    "phase": "5.6.3B",
+    "evidenceKind": "OFFLINE_SCRIPTED_TRANSCRIPT_METRICS",
+    "realProviderRequests": 0,
+    "geminiLiteraryQualityCertified": false,
+    "automaticLiteraryScores": null,
+    "runs": [
+      {
+        "scenarioId": "563A-01",
+        "selector": "FIRST",
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 4,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 9,
+        "repeatedParagraphs": [
+          {
+            "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+            "count": 5
+          },
+          {
+            "text": "O que você deseja fazer?",
+            "count": 5
+          },
+          {
+            "text": "Iria — Diga qual parte quer esclarecer, e podemos nos concentrar nela.",
+            "count": 2
+          }
+        ],
+        "closingQuestions": {
+          "O que você deseja fazer?": 5
+        },
+        "dialogueCatalogSizes": [
+          6,
+          7,
+          9,
+          11,
+          13
+        ],
+        "largestSerializedRequestCharacters": 8633,
+        "publishedFallbacks": 0,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-01-FIRST-t1",
+            "player": "Iria, como você prefere que conversemos sobre o que aconteceu?",
+            "published": "Iria — Podemos conversar com clareza, sem exigir que você concorde comigo. Qual ponto você quer que eu explique?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-01-FIRST-t2",
+            "player": "Quero ouvir sua opinião sobre o nosso desacordo.",
+            "published": "Iria — Não tenho uma resposta segura para isso. Prefiro pedir que esclareça a inventar uma explicação.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-01-FIRST-t3",
+            "player": "O que exatamente você gostaria de esclarecer comigo?",
+            "published": "Iria — Diga qual parte quer esclarecer, e podemos nos concentrar nela.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-01-FIRST-t4",
+            "player": "Não estou encerrando a conversa. Podemos examinar outro ponto?",
+            "published": "Iria — Podemos retomar a conversa. Qual ponto você quer trazer de volta?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-01-FIRST-t5",
+            "player": "Qual parte do que eu disse você compreendeu de outra forma?",
+            "published": "Iria — Diga qual parte quer esclarecer, e podemos nos concentrar nela.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          }
+        ]
+      },
+      {
+        "scenarioId": "563A-01",
+        "selector": "VARIED",
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 4,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 8,
+        "repeatedParagraphs": [
+          {
+            "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+            "count": 5
+          },
+          {
+            "text": "O que você deseja fazer?",
+            "count": 3
+          },
+          {
+            "text": "Como deseja prosseguir?",
+            "count": 2
+          },
+          {
+            "text": "Iria — Diga qual parte quer esclarecer, e podemos nos concentrar nela.",
+            "count": 2
+          }
+        ],
+        "closingQuestions": {
+          "O que você deseja fazer?": 3,
+          "Como deseja prosseguir?": 2
+        },
+        "dialogueCatalogSizes": [
+          6,
+          7,
+          9,
+          11,
+          13
+        ],
+        "largestSerializedRequestCharacters": 8633,
+        "publishedFallbacks": 0,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-01-VARIED-t1",
+            "player": "Iria, como você prefere que conversemos sobre o que aconteceu?",
+            "published": "Iria — Podemos conversar com clareza, sem exigir que você concorde comigo. Qual ponto você quer que eu explique?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-01-VARIED-t2",
+            "player": "Quero ouvir sua opinião sobre o nosso desacordo.",
+            "published": "Iria — Não tenho uma resposta segura para isso. Prefiro pedir que esclareça a inventar uma explicação.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+          },
+          {
+            "turnId": "563B-01-VARIED-t3",
+            "player": "O que exatamente você gostaria de esclarecer comigo?",
+            "published": "Iria — Diga qual parte quer esclarecer, e podemos nos concentrar nela.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-01-VARIED-t4",
+            "player": "Não estou encerrando a conversa. Podemos examinar outro ponto?",
+            "published": "Iria — Podemos retomar a conversa. Qual ponto você quer trazer de volta?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+          },
+          {
+            "turnId": "563B-01-VARIED-t5",
+            "player": "Qual parte do que eu disse você compreendeu de outra forma?",
+            "published": "Iria — Diga qual parte quer esclarecer, e podemos nos concentrar nela.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          }
+        ]
+      },
+      {
+        "scenarioId": "563A-02",
+        "selector": "FIRST",
+        "turns": 4,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 4,
+        "paragraphOccurrences": 12,
+        "repeatedParagraphOccurrences": 6,
+        "repeatedParagraphs": [
+          {
+            "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+            "count": 4
+          },
+          {
+            "text": "O que você deseja fazer?",
+            "count": 4
+          }
+        ],
+        "closingQuestions": {
+          "O que você deseja fazer?": 4
+        },
+        "dialogueCatalogSizes": [
+          6,
+          8,
+          11,
+          12
+        ],
+        "largestSerializedRequestCharacters": 8343,
+        "publishedFallbacks": 0,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-02-FIRST-t1",
+            "player": "Iria, ainda estou magoada com nossa discussão.",
+            "published": "Iria — Retomo aquele desacordo sem presumir que tenha sido resolvido. Posso explicar meu ponto sem pedir que você o aceite.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-02-FIRST-t2",
+            "player": "Discordo de você. Não quero que trate isso como um acordo.",
+            "published": "Iria — Não concordo em chamar essa retomada de reconciliação. O desacordo continua em aberto.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-02-FIRST-t3",
+            "player": "O que você lembra do desacordo que tivemos?",
+            "published": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-02-FIRST-t4",
+            "player": "Não disse que perdoei você. Quero continuar falando sobre isso.",
+            "published": "Iria — Não confirmo uma reconciliação apenas por um pedido de perdão. Prefiro manter claro o que ainda está em aberto.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          }
+        ]
+      },
+      {
+        "scenarioId": "563A-02",
+        "selector": "VARIED",
+        "turns": 4,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 4,
+        "paragraphOccurrences": 12,
+        "repeatedParagraphOccurrences": 5,
+        "repeatedParagraphs": [
+          {
+            "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+            "count": 4
+          },
+          {
+            "text": "O que você deseja fazer?",
+            "count": 2
+          },
+          {
+            "text": "Como deseja prosseguir?",
+            "count": 2
+          }
+        ],
+        "closingQuestions": {
+          "O que você deseja fazer?": 2,
+          "Como deseja prosseguir?": 2
+        },
+        "dialogueCatalogSizes": [
+          6,
+          8,
+          11,
+          12
+        ],
+        "largestSerializedRequestCharacters": 8343,
+        "publishedFallbacks": 0,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-02-VARIED-t1",
+            "player": "Iria, ainda estou magoada com nossa discussão.",
+            "published": "Iria — Retomo aquele desacordo sem presumir que tenha sido resolvido. Posso explicar meu ponto sem pedir que você o aceite.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-02-VARIED-t2",
+            "player": "Discordo de você. Não quero que trate isso como um acordo.",
+            "published": "Iria — Não concordo em chamar essa retomada de reconciliação. O desacordo continua em aberto.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+          },
+          {
+            "turnId": "563B-02-VARIED-t3",
+            "player": "O que você lembra do desacordo que tivemos?",
+            "published": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-02-VARIED-t4",
+            "player": "Não disse que perdoei você. Quero continuar falando sobre isso.",
+            "published": "Iria — Não confirmo uma reconciliação apenas por um pedido de perdão. Prefiro manter claro o que ainda está em aberto.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+          }
+        ]
+      },
+      {
+        "scenarioId": "563A-03",
+        "selector": "FIRST",
+        "turns": 5,
+        "identicalAdjacentReplies": 1,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 5,
+        "repeatedParagraphOccurrences": 2,
+        "repeatedParagraphs": [
+          {
+            "text": "Estante: Uma estante de madeira com lombadas gastas.",
+            "count": 2
+          },
+          {
+            "text": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho.",
+            "count": 2
+          }
+        ],
+        "closingQuestions": {},
+        "dialogueCatalogSizes": [],
+        "largestSerializedRequestCharacters": 1690,
+        "publishedFallbacks": 1,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-03-FIRST-t1",
+            "player": "Observo a madeira da estante.",
+            "published": "Estante: Uma estante de madeira com lombadas gastas."
+          },
+          {
+            "turnId": "563B-03-FIRST-t2",
+            "player": "Procuro uma passagem secreta atrás da estante.",
+            "published": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+          },
+          {
+            "turnId": "563B-03-FIRST-t3",
+            "player": "Examino as pedras do chão procurando uma marca oculta.",
+            "published": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+          },
+          {
+            "turnId": "563B-03-FIRST-t4",
+            "player": "Examino a estante com o teste preparado.",
+            "published": "A busca não identificou nenhuma abertura."
+          },
+          {
+            "turnId": "563B-03-FIRST-t5",
+            "player": "Volto a olhar a madeira da estante.",
+            "published": "Estante: Uma estante de madeira com lombadas gastas."
+          }
+        ]
+      },
+      {
+        "scenarioId": "563A-03",
+        "selector": "VARIED",
+        "turns": 5,
+        "identicalAdjacentReplies": 1,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 5,
+        "repeatedParagraphOccurrences": 2,
+        "repeatedParagraphs": [
+          {
+            "text": "Estante: Uma estante de madeira com lombadas gastas.",
+            "count": 2
+          },
+          {
+            "text": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho.",
+            "count": 2
+          }
+        ],
+        "closingQuestions": {},
+        "dialogueCatalogSizes": [],
+        "largestSerializedRequestCharacters": 1690,
+        "publishedFallbacks": 1,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-03-VARIED-t1",
+            "player": "Observo a madeira da estante.",
+            "published": "Estante: Uma estante de madeira com lombadas gastas."
+          },
+          {
+            "turnId": "563B-03-VARIED-t2",
+            "player": "Procuro uma passagem secreta atrás da estante.",
+            "published": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+          },
+          {
+            "turnId": "563B-03-VARIED-t3",
+            "player": "Examino as pedras do chão procurando uma marca oculta.",
+            "published": "Essa tentativa depende de uma regra ou de condições que ainda não estão autorizadas nesta cena. Nenhum efeito foi aplicado. Podemos esclarecer a intenção ou tentar outro caminho."
+          },
+          {
+            "turnId": "563B-03-VARIED-t4",
+            "player": "Examino a estante com o teste preparado.",
+            "published": "A busca não identificou nenhuma abertura."
+          },
+          {
+            "turnId": "563B-03-VARIED-t5",
+            "player": "Volto a olhar a madeira da estante.",
+            "published": "Estante: Uma estante de madeira com lombadas gastas."
+          }
+        ]
+      },
+      {
+        "scenarioId": "563A-04",
+        "selector": "FIRST",
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 8,
+        "repeatedParagraphs": [
+          {
+            "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+            "count": 5
+          },
+          {
+            "text": "O que você deseja fazer?",
+            "count": 5
+          }
+        ],
+        "closingQuestions": {
+          "O que você deseja fazer?": 5
+        },
+        "dialogueCatalogSizes": [
+          5,
+          7,
+          11
+        ],
+        "largestSerializedRequestCharacters": 7369,
+        "publishedFallbacks": 0,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-04-FIRST-t1",
+            "player": "Iria, vou examinar a estante; continuo decidindo como prosseguir.",
+            "published": "Iria — Prefiro pesar o que sabemos antes de ir além. Ouvir você não é confirmar uma conclusão.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-04-FIRST-t2",
+            "player": "Examino a estante procurando um detalhe desconhecido.",
+            "published": "A busca não identificou nenhuma abertura.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-04-FIRST-t3",
+            "player": "O teste falhou. Quero pensar em outro modo de agir.",
+            "published": "Iria — Ainda não tenho elementos para tratar uma suspeita como certeza.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-04-FIRST-t4",
+            "player": "Examino a estante novamente com a capacidade preparada.",
+            "published": "O selo da lombada foi identificado como azul.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-04-FIRST-t5",
+            "player": "O selo foi identificado. Ainda não decidi o que farei com essa informação.",
+            "published": "Iria — Prefiro esclarecer um ponto de cada vez. Podemos começar pelo que ficou menos claro.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          }
+        ]
+      },
+      {
+        "scenarioId": "563A-04",
+        "selector": "VARIED",
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 7,
+        "repeatedParagraphs": [
+          {
+            "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+            "count": 5
+          },
+          {
+            "text": "O que você deseja fazer?",
+            "count": 3
+          },
+          {
+            "text": "Como deseja prosseguir?",
+            "count": 2
+          }
+        ],
+        "closingQuestions": {
+          "O que você deseja fazer?": 3,
+          "Como deseja prosseguir?": 2
+        },
+        "dialogueCatalogSizes": [
+          5,
+          7,
+          11
+        ],
+        "largestSerializedRequestCharacters": 7369,
+        "publishedFallbacks": 0,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-04-VARIED-t1",
+            "player": "Iria, vou examinar a estante; continuo decidindo como prosseguir.",
+            "published": "Iria — Prefiro pesar o que sabemos antes de ir além. Ouvir você não é confirmar uma conclusão.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-04-VARIED-t2",
+            "player": "Examino a estante procurando um detalhe desconhecido.",
+            "published": "A busca não identificou nenhuma abertura.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+          },
+          {
+            "turnId": "563B-04-VARIED-t3",
+            "player": "O teste falhou. Quero pensar em outro modo de agir.",
+            "published": "Iria — Ainda não tenho elementos para tratar uma suspeita como certeza.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-04-VARIED-t4",
+            "player": "Examino a estante novamente com a capacidade preparada.",
+            "published": "O selo da lombada foi identificado como azul.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+          },
+          {
+            "turnId": "563B-04-VARIED-t5",
+            "player": "O selo foi identificado. Ainda não decidi o que farei com essa informação.",
+            "published": "Iria — Prefiro esclarecer um ponto de cada vez. Podemos começar pelo que ficou menos claro.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          }
+        ]
+      },
+      {
+        "scenarioId": "563A-05",
+        "selector": "FIRST",
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 10,
+        "repeatedParagraphs": [
+          {
+            "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+            "count": 5
+          },
+          {
+            "text": "O que você deseja fazer?",
+            "count": 5
+          },
+          {
+            "text": "Iria — Retomo aquele desacordo sem presumir que tenha sido resolvido. Posso explicar meu ponto sem pedir que você o aceite.",
+            "count": 2
+          },
+          {
+            "text": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.",
+            "count": 2
+          }
+        ],
+        "closingQuestions": {
+          "O que você deseja fazer?": 5
+        },
+        "dialogueCatalogSizes": [
+          6,
+          9,
+          5,
+          13,
+          14
+        ],
+        "largestSerializedRequestCharacters": 9673,
+        "publishedFallbacks": 0,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-05-FIRST-t1",
+            "player": "Iria, quero retomar nossa antiga discussão.",
+            "published": "Iria — Retomo aquele desacordo sem presumir que tenha sido resolvido. Posso explicar meu ponto sem pedir que você o aceite.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-05-FIRST-t2",
+            "player": "Não quero que o assunto seja esquecido quando voltarmos.",
+            "published": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-05-FIRST-t3",
+            "player": "Tessa, você presenciou nossa conversa anterior?",
+            "published": "Tessa — Não tenho elementos para afirmar isso. Pode esclarecer o que você quer saber?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-05-FIRST-t4",
+            "player": "Iria, o que você lembra da nossa discussão anterior?",
+            "published": "Iria — Não considero aquele desacordo resolvido. Prefiro esclarecer o que ficou entre nós antes de chamar isso de acordo.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-05-FIRST-t5",
+            "player": "Iria, podemos prosseguir sem presumir que tudo foi resolvido?",
+            "published": "Iria — Retomo aquele desacordo sem presumir que tenha sido resolvido. Posso explicar meu ponto sem pedir que você o aceite.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          }
+        ]
+      },
+      {
+        "scenarioId": "563A-05",
+        "selector": "VARIED",
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 3,
+        "paragraphOccurrences": 15,
+        "repeatedParagraphOccurrences": 9,
+        "repeatedParagraphs": [
+          {
+            "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+            "count": 5
+          },
+          {
+            "text": "O que você deseja fazer?",
+            "count": 3
+          },
+          {
+            "text": "Iria — Retomo aquele desacordo sem presumir que tenha sido resolvido. Posso explicar meu ponto sem pedir que você o aceite.",
+            "count": 2
+          },
+          {
+            "text": "Iria — Meu ponto é este: a discussão aconteceu, e não vou tratá-la como encerrada apenas porque voltamos a conversar.",
+            "count": 2
+          },
+          {
+            "text": "Como deseja prosseguir?",
+            "count": 2
+          }
+        ],
+        "closingQuestions": {
+          "O que você deseja fazer?": 3,
+          "Como deseja prosseguir?": 2
+        },
+        "dialogueCatalogSizes": [
+          6,
+          9,
+          5,
+          13,
+          14
+        ],
+        "largestSerializedRequestCharacters": 9657,
+        "publishedFallbacks": 0,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-05-VARIED-t1",
+            "player": "Iria, quero retomar nossa antiga discussão.",
+            "published": "Iria — Retomo aquele desacordo sem presumir que tenha sido resolvido. Posso explicar meu ponto sem pedir que você o aceite.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-05-VARIED-t2",
+            "player": "Não quero que o assunto seja esquecido quando voltarmos.",
+            "published": "Iria — Meu ponto é este: a discussão aconteceu, e não vou tratá-la como encerrada apenas porque voltamos a conversar.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+          },
+          {
+            "turnId": "563B-05-VARIED-t3",
+            "player": "Tessa, você presenciou nossa conversa anterior?",
+            "published": "Tessa — Não tenho elementos para afirmar isso. Pode esclarecer o que você quer saber?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-05-VARIED-t4",
+            "player": "Iria, o que você lembra da nossa discussão anterior?",
+            "published": "Iria — Meu ponto é este: a discussão aconteceu, e não vou tratá-la como encerrada apenas porque voltamos a conversar.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nComo deseja prosseguir?"
+          },
+          {
+            "turnId": "563B-05-VARIED-t5",
+            "player": "Iria, podemos prosseguir sem presumir que tudo foi resolvido?",
+            "published": "Iria — Retomo aquele desacordo sem presumir que tenha sido resolvido. Posso explicar meu ponto sem pedir que você o aceite.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          }
+        ]
+      },
+      {
+        "scenarioId": "563A-06",
+        "selector": "FIRST",
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 11,
+        "repeatedParagraphOccurrences": 4,
+        "repeatedParagraphs": [
+          {
+            "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+            "count": 3
+          },
+          {
+            "text": "O que você deseja fazer?",
+            "count": 3
+          }
+        ],
+        "closingQuestions": {
+          "O que você deseja fazer?": 3
+        },
+        "dialogueCatalogSizes": [
+          5,
+          7,
+          10
+        ],
+        "largestSerializedRequestCharacters": 6888,
+        "publishedFallbacks": 0,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-06-FIRST-t1",
+            "player": "Iria, quero conversar antes de examinar o ambiente.",
+            "published": "Iria — Quero conversar sem adiantar uma conclusão. Podemos separar o que sabemos do que ainda falta entender.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-06-FIRST-t2",
+            "player": "Fora do RPG: como funciona um teste básico?",
+            "published": "Blue Rose AGE: o teste básico usa 3d6 + habilidade + foco aplicável contra a dificuldade. O terceiro dado é o Drama Die. Fonte: livro básico, pp.15–17."
+          },
+          {
+            "turnId": "563B-06-FIRST-t3",
+            "player": "De volta à cena, Iria: podemos retomar nossa conversa?",
+            "published": "Iria — Podemos retomar a conversa. Qual ponto você quer trazer de volta?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-06-FIRST-t4",
+            "player": "Olho para a estante antes de escolher uma ação.",
+            "published": "Estante: Uma estante de madeira com lombadas gastas."
+          },
+          {
+            "turnId": "563B-06-FIRST-t5",
+            "player": "Iria, ainda quero ouvir sua opinião, sem decidir por você.",
+            "published": "Iria — Podemos conversar com clareza, sem exigir que você concorde comigo. Qual ponto você quer que eu explique?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          }
+        ]
+      },
+      {
+        "scenarioId": "563A-06",
+        "selector": "VARIED",
+        "turns": 5,
+        "identicalAdjacentReplies": 0,
+        "uniqueReplies": 5,
+        "paragraphOccurrences": 11,
+        "repeatedParagraphOccurrences": 4,
+        "repeatedParagraphs": [
+          {
+            "text": "A luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.",
+            "count": 3
+          },
+          {
+            "text": "O que você deseja fazer?",
+            "count": 3
+          }
+        ],
+        "closingQuestions": {
+          "O que você deseja fazer?": 3
+        },
+        "dialogueCatalogSizes": [
+          5,
+          7,
+          10
+        ],
+        "largestSerializedRequestCharacters": 6888,
+        "publishedFallbacks": 0,
+        "canonicalGate": {
+          "eligible": true,
+          "violations": [],
+          "rule": "ANY_CANONICAL_VIOLATION_FAILS_REGARDLESS_OF_LITERARY_SCORES"
+        },
+        "gateScope": "Assertions/manual findings only; not universal semantic verification",
+        "textualEvidence": [
+          {
+            "turnId": "563B-06-VARIED-t1",
+            "player": "Iria, quero conversar antes de examinar o ambiente.",
+            "published": "Iria — Quero conversar sem adiantar uma conclusão. Podemos separar o que sabemos do que ainda falta entender.\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-06-VARIED-t2",
+            "player": "Fora do RPG: como funciona um teste básico?",
+            "published": "Blue Rose AGE: o teste básico usa 3d6 + habilidade + foco aplicável contra a dificuldade. O terceiro dado é o Drama Die. Fonte: livro básico, pp.15–17."
+          },
+          {
+            "turnId": "563B-06-VARIED-t3",
+            "player": "De volta à cena, Iria: podemos retomar nossa conversa?",
+            "published": "Iria — Podemos retomar a conversa. Qual ponto você quer trazer de volta?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          },
+          {
+            "turnId": "563B-06-VARIED-t4",
+            "player": "Olho para a estante antes de escolher uma ação.",
+            "published": "Estante: Uma estante de madeira com lombadas gastas."
+          },
+          {
+            "turnId": "563B-06-VARIED-t5",
+            "player": "Iria, ainda quero ouvir sua opinião, sem decidir por você.",
+            "published": "Iria — Podemos conversar com clareza, sem exigir que você concorde comigo. Qual ponto você quer que eu explique?\n\nA luz dourada repousa nas lombadas gastas; a madeira conserva o brilho do verniz.\n\nO que você deseja fazer?"
+          }
+        ]
+      }
+    ],
+    "totalTurns": 58
+  },
+  "inputDigests": {
+    "before": "9eab527ef9aa2590e0bff9ff86d706091741e97eb72b5a78ca42cb20f884e1ef",
+    "replay": "276762a878dd4c96c30185f985c126bba77218fc2e9ca9699c0bd751bf8efb5b",
+    "after": "d9be1dc8815a3c721f1f319e8b69aa6fdb6d686109298f393db2692e4743178b"
+  }
+}

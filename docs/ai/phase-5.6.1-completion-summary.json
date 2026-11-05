@@ -1,0 +1,169 @@
+{
+  "phase": "5.6.1",
+  "date": "2026-11-01",
+  "status": "PARCIALMENTE APROVADA",
+  "reviewKind": "DIRECT_RAW_REVALIDATION_NO_PROVIDER_CALLS",
+  "newMetrics": {
+    "uniqueScenarios": 5,
+    "attempts": 5,
+    "fullyApprovedAttempts": 4,
+    "semanticallyCorrectRawSelections": 4,
+    "semanticallyIncorrectRawSelections": 1,
+    "semanticRawCountingNote": "Counts raw intent/tool/expression/parameters/evidence independently of envelope validity; initial 561-01 is not an approved response.",
+    "schemaFailures": 0,
+    "expressionFailures": 0,
+    "toolFailures": 0,
+    "intentFailures": 0,
+    "parameterFailures": 1,
+    "groundingFailures": 0,
+    "correctLocalAuthorizationDecisions": 5,
+    "authorizedLocalProposals": 4,
+    "expectedLimitedDecisions": 1,
+    "blockedInvalidContracts": 0,
+    "semanticallyIncorrectProposalsBlocked": 0,
+    "inputTokens": 10568,
+    "outputTokens": 599,
+    "totalTokens": 11167,
+    "durationMs": 10325,
+    "usageUnknown": 0,
+    "latencyPerAttempt": [
+      {
+        "id": "561-02",
+        "attempt": 1,
+        "durationMs": 2569
+      },
+      {
+        "id": "561-05",
+        "attempt": 1,
+        "durationMs": 2723
+      },
+      {
+        "id": "561-06",
+        "attempt": 1,
+        "durationMs": 1533
+      },
+      {
+        "id": "561-07",
+        "attempt": 1,
+        "durationMs": 1656
+      },
+      {
+        "id": "561-08",
+        "attempt": 1,
+        "durationMs": 1844
+      }
+    ],
+    "providerErrors": 0
+  },
+  "consolidatedMetrics": {
+    "uniqueScenarios": 8,
+    "attempts": 9,
+    "fullyApprovedAttempts": 6,
+    "semanticallyCorrectRawSelections": 7,
+    "semanticallyIncorrectRawSelections": 2,
+    "semanticRawCountingNote": "Counts raw intent/tool/expression/parameters/evidence independently of envelope validity; initial 561-01 is not an approved response.",
+    "schemaFailures": 1,
+    "expressionFailures": 1,
+    "toolFailures": 0,
+    "intentFailures": 0,
+    "parameterFailures": 1,
+    "groundingFailures": 0,
+    "correctLocalAuthorizationDecisions": 8,
+    "authorizedLocalProposals": 6,
+    "expectedLimitedDecisions": 2,
+    "blockedInvalidContracts": 1,
+    "semanticallyIncorrectProposalsBlocked": 0,
+    "inputTokens": 18868,
+    "outputTokens": 1150,
+    "totalTokens": 20018,
+    "durationMs": 18205,
+    "usageUnknown": 0,
+    "latencyPerAttempt": [
+      {
+        "id": "561-01",
+        "attempt": 1,
+        "durationMs": 1672
+      },
+      {
+        "id": "561-01",
+        "attempt": 2,
+        "durationMs": 2040
+      },
+      {
+        "id": "561-02",
+        "attempt": 1,
+        "durationMs": 2569
+      },
+      {
+        "id": "561-03",
+        "attempt": 1,
+        "durationMs": 2132
+      },
+      {
+        "id": "561-04",
+        "attempt": 1,
+        "durationMs": 2036
+      },
+      {
+        "id": "561-05",
+        "attempt": 1,
+        "durationMs": 2723
+      },
+      {
+        "id": "561-06",
+        "attempt": 1,
+        "durationMs": 1533
+      },
+      {
+        "id": "561-07",
+        "attempt": 1,
+        "durationMs": 1656
+      },
+      {
+        "id": "561-08",
+        "attempt": 1,
+        "durationMs": 1844
+      }
+    ],
+    "providerErrors": 0
+  },
+  "publicationBoundary": "PRESERVED_AND_OFFLINE_REGRESSIONS_PASSED",
+  "literaryCalls": 0,
+  "productionCodeChanged": false,
+  "realDatabaseWrites": false,
+  "schemaNormalizationForGrading": false,
+  "phase563Started": false,
+  "phase57Started": false,
+  "phase563ConditionalGatePassed": false,
+  "remainingIssues": [
+    "561-01: DIRECT instead of QUESTION (historical)",
+    "561-06: unrequested tradition=PSYCHIC; raw schema accepted; field not forwarded in psychic-shield command"
+  ],
+  "rawReceiptSHA256": {
+    "phase-5.6.1-live-result.json": "1afbead5f2b009796bf13e7e5e513d7635aa0c9c1c76b7bc65bb30868d84dd00",
+    "phase-5.6.1-case561-01-schema-confirmation.json": "9ba05bae0360dd142cf5a5791335934791e1448d56339d7a510e0453d0398c3a",
+    "phase-5.6.1-investigation-contrast-live-result.json": "520c9c650deb1f139738c88e610614ef6e03cd954e86aaaed2eead4421bf4086",
+    "phase-5.6.1-completion-live-result.json": "e8069435006ff4663710e3cefb3cee2b0c0161eec6afd44efb3514975a85a9c2"
+  },
+  "preservation": {
+    "allExistingFilesUnchanged": true,
+    "count": 360,
+    "permanentFinancialConfirmation": false,
+    "historyPreserved": true,
+    "originalPlanPreserved": true
+  },
+  "fullyApprovedUniqueScenarios": [
+    "561-02",
+    "561-03",
+    "561-04",
+    "561-05",
+    "561-07",
+    "561-08"
+  ],
+  "pendingUniqueScenarios": ["561-01", "561-06"],
+  "offlineTestsPassed": {
+    "python": 247,
+    "nestUnit": 173,
+    "nestIntegration": 57
+  }
+}

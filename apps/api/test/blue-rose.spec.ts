@@ -1,7 +1,5 @@
-import {
-  BlueRoseDice,
-  resolveBasicCheck,
-} from '../src/blue-rose/blue-rose.rules';
+import { BlueRoseDice } from '../src/blue-rose/mechanics/dice/blue-rose-dice';
+import { resolveBasicCheck } from '../src/blue-rose/mechanics/tests/basic-check.rules';
 
 describe('Blue Rose AGE deterministic checks', () => {
   const dice = (...values: number[]) =>
